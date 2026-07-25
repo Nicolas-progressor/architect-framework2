@@ -44,3 +44,7 @@ composer.lock
 test-*.php
 test_*.php
 test-*.php
+
+# CI/CD
+.php-cs-fixer.cache
+.phpstan.cache

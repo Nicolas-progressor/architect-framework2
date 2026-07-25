@@ -1,0 +1,13 @@
+parameters:
+    paths:
+        - src
+        - architect
+        - app
+    level: 5
+    excludePaths:
+        - vendor
+        - cache
+        - storage
+        - tests
+        - app/logs
+    treatPhpDocTypesAsCertain: false
