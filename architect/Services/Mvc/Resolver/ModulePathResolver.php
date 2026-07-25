@@ -9,11 +9,11 @@ use Architect\Services\Mvc\Contracts\ModuleResolverInterface;
 
 /**
  * Module path resolver.
- * 
+ *
  * Centralizes all module path resolution logic for controllers,
  * models, views, and bootstrap files. Supports both application
  * modules and global modules.
- * 
+ *
  * @package Architect\Services\Mvc\Resolver
  */
 class ModulePathResolver implements ModuleResolverInterface
@@ -29,7 +29,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Create resolver instance.
-     * 
+     *
      * @param ContainerInterface $container Dependency container
      * @param ClassNameResolver|null $classNameResolver Class name resolver
      */
@@ -89,7 +89,7 @@ class ModulePathResolver implements ModuleResolverInterface
         }
 
         // Try single controller file
-        $singleController = $this->resolvePath($module, '', $isGlobal) . "controller.php";
+        $singleController = $this->resolvePath($module, '', $isGlobal) . 'controller.php';
         if (file_exists($singleController)) {
             return $singleController;
         }
@@ -118,7 +118,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Get module base path (without type).
-     * 
+     *
      * @param string $module Module name
      * @param bool $isGlobal Whether to get global module path
      * @return string
@@ -131,7 +131,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Get module bootstrap path.
-     * 
+     *
      * @param string $module Module name
      * @param bool $isGlobal Whether to check global modules
      * @return string|null Bootstrap path or null if not found
@@ -146,7 +146,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Build controller class name.
-     * 
+     *
      * @param string $module Module name
      * @param string $controller Controller name
      * @param bool $isGlobal Whether module is global
@@ -173,7 +173,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Build model class name.
-     * 
+     *
      * @param string $module Module name
      * @param string $model Model name
      * @param bool $isGlobal Whether module is global
@@ -194,7 +194,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Build bootstrap class name.
-     * 
+     *
      * @param string $module Module name
      * @param bool $isGlobal Whether module is global
      * @return string|null Class name or null if not found
@@ -213,7 +213,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Build cache key for component.
-     * 
+     *
      * @param string $module Module name
      * @param string|null $component Component name
      * @param bool $isGlobal Whether module is global
@@ -226,7 +226,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Get base path for modules.
-     * 
+     *
      * @param bool $isGlobal Whether to get global modules path
      * @return string
      */
@@ -241,7 +241,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Get current application directory.
-     * 
+     *
      * @return string
      */
     private function getAppDir(): string
@@ -256,7 +256,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Get current application name.
-     * 
+     *
      * @return string
      */
     private function getCurrentAppName(): string
@@ -267,7 +267,7 @@ class ModulePathResolver implements ModuleResolverInterface
 
     /**
      * Reset cached application directory.
-     * 
+     *
      * Call this when switching applications.
      */
     public function resetCache(): void

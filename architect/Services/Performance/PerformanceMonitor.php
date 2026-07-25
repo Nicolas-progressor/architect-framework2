@@ -6,8 +6,8 @@ namespace Architect\Services\Performance;
 
 use Architect\Core\Container;
 use Architect\Services\Performance\Contracts\PerformanceMonitorInterface;
-use Architect\Services\Performance\Metrics\MetricCollector;
 use Architect\Services\Performance\Metrics\MetricAggregator;
+use Architect\Services\Performance\Metrics\MetricCollector;
 use Architect\Services\Performance\Storage\MetricStorageInterface;
 
 class PerformanceMonitor implements PerformanceMonitorInterface
@@ -21,7 +21,7 @@ class PerformanceMonitor implements PerformanceMonitorInterface
     private float $startTime;
     private array $metrics = [];
     private array $thresholds = [];
-    
+
     public function __construct(Container $container, array $config = [])
     {
         $this->container = $container;
@@ -30,19 +30,19 @@ class PerformanceMonitor implements PerformanceMonitorInterface
         $this->aggregator = new MetricAggregator();
         $this->thresholds = $config['thresholds'] ?? [];
         $this->enabled = $config['enabled'] ?? true;
-        
+
         $this->initializeStorage();
     }
-    
+
     public function start(): void
     {
         if (!$this->enabled) {
             return;
         }
-        
+
         $this->startTime = microtime(true);
         $this->collector->start();
-        
+
         // Начать сбор метрик
         $this->startResponseTimeMeasurement();
         $this->startMemoryMeasurement();
@@ -51,13 +51,13 @@ class PerformanceMonitor implements PerformanceMonitorInterface
         $this->startTemplateMonitoring();
         $this->startServiceMonitoring();
     }
-    
+
     public function collectMetrics(): array
     {
         if (!$this->enabled) {
             return [];
         }
-        
+
         $metrics = [
             'collection_start' => $this->startTime,
             'collection_end' => microtime(true),
@@ -69,39 +69,39 @@ class PerformanceMonitor implements PerformanceMonitorInterface
             'service_loading' => $this->collectServiceMetrics(),
             'system_metrics' => $this->collectSystemMetrics(),
         ];
-        
+
         // Анализ метрик
         $metrics['analysis'] = $this->analyzeMetrics($metrics);
         $metrics['recommendations'] = $this->generateRecommendations($metrics);
-        
+
         // Сохранение метрик
         if ($this->storage !== null) {
             $this->storage->store($metrics);
         }
-        
+
         return $metrics;
     }
-    
+
     public function getCollector(): MetricCollector
     {
         return $this->collector;
     }
-    
+
     public function getAggregator(): MetricAggregator
     {
         return $this->aggregator;
     }
-    
+
     public function getStorage(): ?MetricStorageInterface
     {
         return $this->storage;
     }
-    
+
     private function collectResponseTimeMetrics(): array
     {
         $totalTime = microtime(true) - $this->startTime;
         $stages = $this->collector->getStageTimings();
-        
+
         return [
             'current' => round($totalTime * 1000, 1), // ms
             'average' => $this->calculateAverageResponseTime(),
@@ -111,13 +111,13 @@ class PerformanceMonitor implements PerformanceMonitorInterface
             'threshold_exceeded' => ($totalTime * 1000) > ($this->thresholds['response_time_ms'] ?? 500),
         ];
     }
-    
+
     private function collectMemoryMetrics(): array
     {
         $current = memory_get_usage();
         $peak = memory_get_peak_usage();
         $limit = $this->parseMemoryLimit(ini_get('memory_limit'));
-        
+
         return [
             'current_bytes' => $current,
             'current_mb' => round($current / 1024 / 1024, 2),
@@ -129,14 +129,14 @@ class PerformanceMonitor implements PerformanceMonitorInterface
             'threshold_exceeded' => ($peak / 1024 / 1024) > ($this->thresholds['memory_mb'] ?? 128),
         ];
     }
-    
+
     private function collectDatabaseMetrics(): array
     {
         $queries = $this->collector->getDatabaseQueries();
         $slowThreshold = $this->thresholds['slow_query_ms'] ?? 100;
-        
+
         $slowQueries = array_filter($queries, fn($q) => ($q['duration'] ?? 0) > $slowThreshold);
-        
+
         return [
             'count' => count($queries),
             'slow_count' => count($slowQueries),
@@ -146,14 +146,14 @@ class PerformanceMonitor implements PerformanceMonitorInterface
             'threshold_exceeded' => count($queries) > ($this->thresholds['database_queries'] ?? 50),
         ];
     }
-    
+
     private function collectCacheMetrics(): array
     {
         $stats = $this->collector->getCacheStats();
         $hits = $stats['hits'] ?? 0;
         $misses = $stats['misses'] ?? 0;
         $total = $hits + $misses;
-        
+
         return [
             'hits' => $hits,
             'misses' => $misses,
@@ -163,11 +163,11 @@ class PerformanceMonitor implements PerformanceMonitorInterface
             'efficiency' => $this->calculateCacheEfficiency($stats),
         ];
     }
-    
+
     private function collectTemplateMetrics(): array
     {
         $blueprintData = $this->collector->getBlueprintData();
-        
+
         return [
             'count' => count($blueprintData['templates'] ?? []),
             'compiled' => count($blueprintData['compilations'] ?? []),
@@ -177,11 +177,11 @@ class PerformanceMonitor implements PerformanceMonitorInterface
             'cache_efficiency' => $this->calculateTemplateCacheEfficiency($blueprintData),
         ];
     }
-    
+
     private function collectServiceMetrics(): array
     {
         $services = $this->collector->getServiceMetrics();
-        
+
         return [
             'count' => count($services),
             'loaded' => array_filter($services, fn($s) => $s['loaded']),
@@ -190,7 +190,7 @@ class PerformanceMonitor implements PerformanceMonitorInterface
             'dependencies' => $this->analyzeServiceDependencies($services),
         ];
     }
-    
+
     private function collectSystemMetrics(): array
     {
         return [
@@ -209,7 +209,7 @@ class PerformanceMonitor implements PerformanceMonitorInterface
             'request_method' => $_SERVER['REQUEST_METHOD'] ?? 'Unknown',
         ];
     }
-    
+
     private function analyzeMetrics(array $metrics): array
     {
         $analysis = [
@@ -218,39 +218,39 @@ class PerformanceMonitor implements PerformanceMonitorInterface
             'performance_score' => 0,
             'health_status' => 'healthy',
         ];
-        
+
         // Анализ времени ответа
         if ($metrics['response_time']['threshold_exceeded']) {
             $analysis['bottlenecks'][] = 'response_time';
             $analysis['health_status'] = 'warning';
         }
-        
+
         // Анализ использования памяти
         if ($metrics['memory_usage']['threshold_exceeded']) {
             $analysis['bottlenecks'][] = 'memory_usage';
             $analysis['health_status'] = 'critical';
         }
-        
+
         // Анализ запросов к БД
         if ($metrics['database_queries']['threshold_exceeded']) {
             $analysis['optimization_opportunities'][] = 'database_optimization';
         }
-        
+
         // Анализ кэширования
         if ($metrics['cache_efficiency']['hit_ratio'] < 80) {
             $analysis['optimization_opportunities'][] = 'cache_optimization';
         }
-        
+
         // Расчет performance score (0-100)
         $analysis['performance_score'] = $this->calculatePerformanceScore($metrics);
-        
+
         return $analysis;
     }
-    
+
     private function generateRecommendations(array $metrics): array
     {
         $recommendations = [];
-        
+
         // Рекомендации по времени ответа
         if ($metrics['response_time']['threshold_exceeded']) {
             $slowestStage = $metrics['response_time']['slowest_stage'] ?? null;
@@ -264,7 +264,7 @@ class PerformanceMonitor implements PerformanceMonitorInterface
                 ];
             }
         }
-        
+
         // Рекомендации по памяти
         if ($metrics['memory_usage']['threshold_exceeded']) {
             $recommendations[] = [
@@ -275,7 +275,7 @@ class PerformanceMonitor implements PerformanceMonitorInterface
                 'solution' => 'Implement memory profiling, use unset() for large variables, consider pagination for large datasets',
             ];
         }
-        
+
         // Рекомендации по БД
         if ($metrics['database_queries']['threshold_exceeded']) {
             $recommendations[] = [
@@ -286,7 +286,7 @@ class PerformanceMonitor implements PerformanceMonitorInterface
                 'solution' => 'Implement query caching, use eager loading for relationships, review N+1 query problems',
             ];
         }
-        
+
         // Рекомендации по кэшированию
         if ($metrics['cache_efficiency']['hit_ratio'] < 80) {
             $recommendations[] = [
@@ -297,120 +297,120 @@ class PerformanceMonitor implements PerformanceMonitorInterface
                 'solution' => 'Review cache keys, increase TTL for frequently accessed data, implement cache warming',
             ];
         }
-        
+
         return $recommendations;
     }
-    
+
     private function calculatePerformanceScore(array $metrics): int
     {
         $score = 100;
-        
+
         // Вычет за превышение времени ответа
         if ($metrics['response_time']['threshold_exceeded']) {
             $excess = ($metrics['response_time']['current'] - ($this->thresholds['response_time_ms'] ?? 500)) / 100;
             $score -= min(30, $excess * 5);
         }
-        
+
         // Вычет за использование памяти
         if ($metrics['memory_usage']['threshold_exceeded']) {
             $excess = ($metrics['memory_usage']['peak_mb'] - ($this->thresholds['memory_mb'] ?? 128)) / 10;
             $score -= min(40, $excess * 3);
         }
-        
+
         // Вычет за количество запросов к БД
         if ($metrics['database_queries']['threshold_exceeded']) {
             $excess = ($metrics['database_queries']['count'] - ($this->thresholds['database_queries'] ?? 50)) / 10;
             $score -= min(20, $excess * 2);
         }
-        
+
         // Бонус за эффективность кэширования
         if ($metrics['cache_efficiency']['hit_ratio'] > 90) {
             $score += 5;
         }
-        
+
         return max(0, min(100, round($score)));
     }
-    
+
     private function calculateAverageResponseTime(): float
     {
         // В реальной реализации здесь будет логика расчета среднего времени
         return 0;
     }
-    
+
     private function getPeakResponseTime(): float
     {
         // В реальной реализации здесь будет логика получения пикового времени
         return 0;
     }
-    
+
     private function identifySlowestStage(array $stages): ?array
     {
         if (empty($stages)) {
             return null;
         }
-        
+
         $slowest = null;
         $maxDuration = 0;
         $totalTime = array_sum(array_column($stages, 'duration'));
-        
+
         foreach ($stages as $stage) {
             if ($stage['duration'] > $maxDuration) {
                 $maxDuration = $stage['duration'];
                 $slowest = $stage;
             }
         }
-        
+
         if ($slowest) {
             $slowest['percent'] = $totalTime > 0 ? round(($slowest['duration'] / $totalTime) * 100, 1) : 0;
         }
-        
+
         return $slowest;
     }
-    
+
     private function calculateCacheEfficiency(array $stats): float
     {
         $hits = $stats['hits'] ?? 0;
         $misses = $stats['misses'] ?? 0;
         $total = $hits + $misses;
-        
+
         return $total > 0 ? round(($hits / $total) * 100, 1) : 0;
     }
-    
+
     private function calculateAverageTemplateTime(array $blueprintData): float
     {
         $compilations = $blueprintData['compilations'] ?? [];
         if (empty($compilations)) {
             return 0;
         }
-        
+
         $totalTime = array_sum(array_column($compilations, 'duration'));
         return round($totalTime / count($compilations), 2);
     }
-    
+
     private function calculateTemplateCacheEfficiency(array $blueprintData): float
     {
         $compiled = count($blueprintData['compilations'] ?? []);
         $cached = count($blueprintData['cache'] ?? []);
         $total = $compiled + $cached;
-        
+
         return $total > 0 ? round(($cached / $total) * 100, 1) : 0;
     }
-    
+
     private function analyzeServiceDependencies(array $services): array
     {
         // В реальной реализации здесь будет логика анализа зависимостей сервисов
         return [];
     }
-    
+
     private function parseMemoryLimit(string $limit): int
     {
         if ($limit === '-1') {
             return PHP_INT_MAX;
         }
-        
+
         $value = (int) $limit;
         $unit = strtolower(substr($limit, -1));
-        
+
         return match ($unit) {
             'g' => $value * 1024 * 1024 * 1024,
             'm' => $value * 1024 * 1024,
@@ -418,37 +418,37 @@ class PerformanceMonitor implements PerformanceMonitorInterface
             default => $value,
         };
     }
-    
+
     private function initializeStorage(): void
     {
         // В реальной реализации здесь будет инициализация хранилища
     }
-    
+
     private function startResponseTimeMeasurement(): void
     {
         // В реальной реализации здесь будет логика измерения времени ответа
     }
-    
+
     private function startMemoryMeasurement(): void
     {
         // В реальной реализации здесь будет логика измерения памяти
     }
-    
+
     private function startDatabaseMonitoring(): void
     {
         // В реальной реализации здесь будет логика мониторинга БД
     }
-    
+
     private function startCacheMonitoring(): void
     {
         // В реальной реализации здесь будет логика мониторинга кэша
     }
-    
+
     private function startTemplateMonitoring(): void
     {
         // В реальной реализации здесь будет логика мониторинга шаблонов
     }
-    
+
     private function startServiceMonitoring(): void
     {
         // В реальной реализации здесь будет логика мониторинга сервисов

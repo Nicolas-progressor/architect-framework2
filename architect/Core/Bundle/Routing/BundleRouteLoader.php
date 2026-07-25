@@ -46,7 +46,7 @@ class BundleRouteLoader
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleDir = dirname($reflection->getFileName());
-        
+
         $routes = [];
 
         // Try Resources/config/routes.json
@@ -101,7 +101,7 @@ class BundleRouteLoader
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleDir = dirname($reflection->getFileName());
-        
+
         $routes = [];
 
         // Scan for controllers
@@ -132,7 +132,7 @@ class BundleRouteLoader
     private function scanControllersForRoutes(string $controllerDir, BundleInterface $bundle): array
     {
         $routes = [];
-        
+
         $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($controllerDir, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST
@@ -164,13 +164,13 @@ class BundleRouteLoader
 
         $routes = [];
         $className = $this->getClassNameFromFile($filePath);
-        
+
         if (!$className || !class_exists($className)) {
             return [];
         }
 
         $reflection = new \ReflectionClass($className);
-        
+
         // Get class-level route annotation
         $classDoc = $reflection->getDocComment();
         if ($classDoc) {
@@ -286,12 +286,12 @@ class BundleRouteLoader
     {
         $parts = explode('\\', $className);
         $shortName = end($parts);
-        
+
         // Remove "Controller" suffix if present
         if (str_ends_with($shortName, 'Controller')) {
             $shortName = substr($shortName, 0, -10);
         }
-        
+
         return strtolower($shortName);
     }
 
@@ -328,7 +328,7 @@ class BundleRouteLoader
                 if (isset($route['name']) && !str_contains($route['name'], '.')) {
                     $route['name'] = $bundleName . '.' . $route['name'];
                 }
-                
+
                 $appRoutes[] = $route;
             }
         }

@@ -65,7 +65,7 @@ final class MvcElementRenderer
             if ($appName && $appDir) {
                 // Normalize app name (remove dashes for namespace)
                 $appNameNormalized = str_replace('-', '', $appName);
-                
+
                 // Try widget file
                 $widgetFile = $appDir . "modules/{$module}/widget/{$controller}.php";
                 if (file_exists($widgetFile)) {
@@ -86,7 +86,7 @@ final class MvcElementRenderer
                 }
             }
         }
-                
+
         // Try global module widget
         $globalWidgetFile = APP_DIR . "modules/{$module}/widget/{$controller}.php";
         if (file_exists($globalWidgetFile)) {
@@ -151,8 +151,7 @@ final class MvcElementRenderer
         if ($this->config->isDebug()) {
             return '<div class="error">Element error: ' . htmlspecialchars($e->getMessage()) . '</div>';
         }
-        
+
         return '';
     }
 }
-

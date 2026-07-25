@@ -62,7 +62,7 @@ class MakeAppCommand extends BaseCommand implements CommandInterface
 
         foreach ($dirs as $dir) {
             $path = "{$appDir}/{$dir}";
-            if (!mkdir($path, 0755, true)) {
+            if (!mkdir($path, 0o755, true)) {
                 $this->error("Failed to create directory: {$path}");
                 return 1;
             }
@@ -75,9 +75,9 @@ class MakeAppCommand extends BaseCommand implements CommandInterface
 
         // Create default module
         $moduleDir = "{$appDir}/modules/{$appName}";
-        mkdir("{$moduleDir}/controller", 0755, true);
-        mkdir("{$moduleDir}/model", 0755, true);
-        mkdir("{$moduleDir}/view", 0755, true);
+        mkdir("{$moduleDir}/controller", 0o755, true);
+        mkdir("{$moduleDir}/model", 0o755, true);
+        mkdir("{$moduleDir}/view", 0o755, true);
 
         // Create default controller
         $controllerName = ucfirst($appName) . 'Controller';
@@ -113,23 +113,23 @@ class MakeAppCommand extends BaseCommand implements CommandInterface
         $className = ucfirst($name) . 'Bootstrap';
 
         return <<<PHP
-<?php
+            <?php
 
-declare(strict_types=1);
+            declare(strict_types=1);
 
-namespace app\{$name};
+            namespace app\{$name};
 
-class {$className}
-{
-    /**
-     * Bootstrap the application
-     */
-    public function bootstrap(): void
-    {
-        // Register routes, middleware, services, etc.
-    }
-}
-PHP;
+            class {$className}
+            {
+                /**
+                 * Bootstrap the application
+                 */
+                public function bootstrap(): void
+                {
+                    // Register routes, middleware, services, etc.
+                }
+            }
+            PHP;
     }
 
     /**
@@ -138,22 +138,22 @@ PHP;
     protected function generateController(string $name): string
     {
         return <<<PHP
-<?php
+            <?php
 
-declare(strict_types=1);
+            declare(strict_types=1);
 
-namespace app\home\modules\home\controller;
+            namespace app\home\modules\home\controller;
 
-use pattern\controller;
+            use pattern\controller;
 
-class {$name} extends controller
-{
-    public function index_app_output(): void
-    {
-        \$this->render('index');
-    }
-}
-PHP;
+            class {$name} extends controller
+            {
+                public function index_app_output(): void
+                {
+                    \$this->render('index');
+                }
+            }
+            PHP;
     }
 
     /**
@@ -164,11 +164,11 @@ PHP;
         $title = ucwords(str_replace('_', ' ', $name));
 
         return <<<HTML
-<div class="container">
-    <h1>{$title}</h1>
-    <p>Welcome to your new application!</p>
-</div>
-HTML;
+            <div class="container">
+                <h1>{$title}</h1>
+                <p>Welcome to your new application!</p>
+            </div>
+            HTML;
     }
 
     /**

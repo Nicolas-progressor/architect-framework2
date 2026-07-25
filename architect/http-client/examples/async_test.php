@@ -14,7 +14,7 @@ $driverFactory = new DriverFactory();
 
 try {
     $driver = $driverFactory->create('curl_multi');
-    echo "Driver created: " . get_class($driver) . "\n";
+    echo 'Driver created: ' . get_class($driver) . "\n";
 
     $client = new HttpClient($driver);
 
@@ -47,7 +47,7 @@ try {
 
     $end = microtime(true);
     $total = $end - $start;
-    echo "Total time: " . round($total, 2) . " seconds\n";
+    echo 'Total time: ' . round($total, 2) . " seconds\n";
 
     // If async works, total time should be less than sum of delays (1+2+1 = 4 seconds)
     // Because requests are made in parallel, expected ~2 seconds.
@@ -58,7 +58,7 @@ try {
     }
 
 } catch (\Throwable $e) {
-    echo "ERROR: " . $e->getMessage() . "\n";
+    echo 'ERROR: ' . $e->getMessage() . "\n";
     echo $e->getTraceAsString() . "\n";
     exit(1);
 }

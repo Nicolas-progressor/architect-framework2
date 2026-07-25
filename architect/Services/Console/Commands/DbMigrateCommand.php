@@ -7,9 +7,9 @@ namespace Architect\Console\Commands;
 use Architect\Console\BaseCommand;
 use Architect\Console\CommandInterface;
 use Architect\Core\EnvironmentManager;
+use Axiom\Migration\MigrationManager;
 use Axiom\Orm\Connection\ConnectionManager;
 use Axiom\Orm\Integrations\Architect\AxiomBootstrap;
-use Axiom\Migration\MigrationManager;
 
 /**
  * Run database migrations using Axiom ORM
@@ -58,10 +58,10 @@ class DbMigrateCommand extends BaseCommand implements CommandInterface
         try {
             // Create migration manager
             $manager = new MigrationManager($migrationsDir);
-            
+
             // Check pending migrations
             $pending = $manager->getPendingMigrations();
-            
+
             if (empty($pending)) {
                 $this->info('Nothing to migrate.');
                 return 0;
@@ -78,7 +78,7 @@ class DbMigrateCommand extends BaseCommand implements CommandInterface
 
             // Limit step if specified
             if (isset($options['step'])) {
-                $step = (int)$options['step'];
+                $step = (int) $options['step'];
                 $pending = array_slice($pending, 0, $step);
             }
 
@@ -89,7 +89,7 @@ class DbMigrateCommand extends BaseCommand implements CommandInterface
             $ran = $manager->migrate();
 
             $this->line();
-            
+
             if (empty($ran)) {
                 $this->info('Nothing to migrate.');
             } else {
@@ -123,7 +123,7 @@ class DbMigrateCommand extends BaseCommand implements CommandInterface
             return true;
         } catch (\Throwable $e) {
             $errorMsg = $e->getMessage();
-            
+
             // Check for connection errors
             if (str_contains($errorMsg, 'Failed to connect') ||
                 str_contains($errorMsg, 'could not find driver')) {
@@ -136,7 +136,7 @@ class DbMigrateCommand extends BaseCommand implements CommandInterface
             } else {
                 $this->error('Axiom ORM error: ' . $errorMsg);
             }
-            
+
             return false;
         }
     }

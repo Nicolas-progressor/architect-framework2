@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Architect\Console;
 
-use Exception;
-
 /**
  * Represents a scheduled task for the scheduler
  */
@@ -148,7 +146,7 @@ class ScheduledTask
      */
     public function days(array|int $days): self
     {
-        $daysStr = is_array($days) ? implode(',', $days) : (string)$days;
+        $daysStr = is_array($days) ? implode(',', $days) : (string) $days;
 
         // Modify cron expression to add days
         if ($this->expression) {
@@ -245,11 +243,11 @@ class ScheduledTask
 
         [$minute, $hour, $day, $month, $weekday] = $parts;
 
-        $currentMinute = (int)$now->format('i');
-        $currentHour = (int)$now->format('H');
-        $currentDay = (int)$now->format('d');
-        $currentMonth = (int)$now->format('m');
-        $currentWeekday = (int)$now->format('w');
+        $currentMinute = (int) $now->format('i');
+        $currentHour = (int) $now->format('H');
+        $currentDay = (int) $now->format('d');
+        $currentMonth = (int) $now->format('m');
+        $currentWeekday = (int) $now->format('w');
 
         return $this->matchCronPart($minute, $currentMinute)
             && $this->matchCronPart($hour, $currentHour)
@@ -270,7 +268,7 @@ class ScheduledTask
 
         // Step (*/5)
         if (str_starts_with($pattern, '*/')) {
-            $step = (int)substr($pattern, 2);
+            $step = (int) substr($pattern, 2);
 
             return $value % $step === 0;
         }
@@ -279,7 +277,7 @@ class ScheduledTask
         if (str_contains($pattern, '-')) {
             [$start, $end] = explode('-', $pattern);
 
-            return $value >= (int)$start && $value <= (int)$end;
+            return $value >= (int) $start && $value <= (int) $end;
         }
 
         // List (1,2,3)
@@ -290,7 +288,7 @@ class ScheduledTask
         }
 
         // Exact match
-        return (int)$pattern === $value;
+        return (int) $pattern === $value;
     }
 
     /**

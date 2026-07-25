@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Architect\AuthSystem\Services;
 
 use Architect\AuthSystem\Contracts\AuthenticationInterface;
-use Architect\AuthSystem\Contracts\UserProviderInterface;
 use Architect\AuthSystem\Contracts\TokenStorageInterface;
+use Architect\AuthSystem\Contracts\UserProviderInterface;
 use Architect\AuthSystem\Events\EventDispatcherInterface;
+use Architect\AuthSystem\Events\FailedAuthenticationEvent;
 use Architect\AuthSystem\Events\LoginEvent;
 use Architect\AuthSystem\Events\LogoutEvent;
-use Architect\AuthSystem\Events\FailedAuthenticationEvent;
 use Architect\AuthSystem\Events\RegisterEvent;
 use Architect\AuthSystem\Models\User;
 use Architect\Core\Container;

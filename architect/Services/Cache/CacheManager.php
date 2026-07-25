@@ -9,8 +9,8 @@ use Architect\Services\Cache\Contracts\CacheInterface;
 use Architect\Services\Cache\Drivers\ArrayCacheDriver;
 use Architect\Services\Cache\Drivers\FileCacheDriver;
 use Architect\Services\Cache\Drivers\RedisCacheDriver;
-use InvalidArgumentException;
 use Closure;
+use InvalidArgumentException;
 
 /**
  * Cache manager responsible for creating and managing cache stores.
@@ -53,7 +53,7 @@ class CacheManager
      */
     public function store(?string $name = null): CacheInterface
     {
-        $name = $name ?? $this->config->getDefaultStore();
+        $name ??= $this->config->getDefaultStore();
 
         if (isset($this->stores[$name])) {
             return $this->stores[$name];
@@ -133,8 +133,8 @@ class CacheManager
             ? STORAGE_PATH . 'cache'
             : dirname(__DIR__, 4) . '/storage/cache');
 
-        $directoryPermissions = $config['directory_permissions'] ?? 0755;
-        $filePermissions = $config['file_permissions'] ?? 0644;
+        $directoryPermissions = $config['directory_permissions'] ?? 0o755;
+        $filePermissions = $config['file_permissions'] ?? 0o644;
 
         $driver = new FileCacheDriver($path, $directoryPermissions, $filePermissions);
         $driver->setPrefix($this->config->getPrefix());

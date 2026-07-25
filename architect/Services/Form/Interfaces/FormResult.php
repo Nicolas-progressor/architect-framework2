@@ -6,7 +6,7 @@ namespace Architect\Services\Form\Interfaces;
 
 /**
  * Class FormResult
- * 
+ *
  * Объект результата обработки формы.
  * Заменяет bool|array для более чистого API.
  */
@@ -51,7 +51,7 @@ class FormResult
 
     /**
      * Успешный результат
-     * 
+     *
      * @param array $data Данные формы
      * @param mixed $callbackResult Результат callback
      * @return static
@@ -63,7 +63,7 @@ class FormResult
 
     /**
      * Ошибка валидации
-     * 
+     *
      * @param array $errors Ошибки
      * @param array $data Данные формы
      * @return static
@@ -75,7 +75,7 @@ class FormResult
 
     /**
      * Ошибка CSRF
-     * 
+     *
      * @param string $message Сообщение об ошибке
      * @param array $data Данные формы
      * @return static
@@ -89,7 +89,7 @@ class FormResult
 
     /**
      * Проверка успешности
-     * 
+     *
      * @return bool
      */
     public function isSuccess(): bool
@@ -99,7 +99,7 @@ class FormResult
 
     /**
      * Проверка наличия ошибок
-     * 
+     *
      * @return bool
      */
     public function hasErrors(): bool
@@ -109,7 +109,7 @@ class FormResult
 
     /**
      * Получить ошибки
-     * 
+     *
      * @return array
      */
     public function getErrors(): array
@@ -119,7 +119,7 @@ class FormResult
 
     /**
      * Получить данные
-     * 
+     *
      * @return array
      */
     public function getData(): array
@@ -129,7 +129,7 @@ class FormResult
 
     /**
      * Получить конкретное значение из данных
-     * 
+     *
      * @param string $key Ключ
      * @param mixed $default Значение по умолчанию
      * @return mixed
@@ -141,7 +141,7 @@ class FormResult
 
     /**
      * Получить результат callback
-     * 
+     *
      * @return mixed
      */
     public function getCallbackResult(): mixed
@@ -151,7 +151,7 @@ class FormResult
 
     /**
      * Получить ошибку CSRF
-     * 
+     *
      * @return string|null
      */
     public function getCSRFError(): ?string
@@ -161,7 +161,7 @@ class FormResult
 
     /**
      * Проверить, есть ли ошибка CSRF
-     * 
+     *
      * @return bool
      */
     public function hasCSRFError(): bool
@@ -171,7 +171,7 @@ class FormResult
 
     /**
      * Получить ошибку для конкретного поля
-     * 
+     *
      * @param string $field Имя поля
      * @return string|null
      */
@@ -182,7 +182,7 @@ class FormResult
 
     /**
      * Проверить, есть ли ошибка у поля
-     * 
+     *
      * @param string $field Имя поля
      * @return bool
      */
@@ -193,7 +193,7 @@ class FormResult
 
     /**
      * Получить первую ошибку
-     * 
+     *
      * @return string|null
      */
     public function getFirstError(): ?string
@@ -208,7 +208,7 @@ class FormResult
 
     /**
      * Конвертировать в массив (для обратной совместимости)
-     * 
+     *
      * @return bool|array
      */
     public function toLegacy(): bool|array

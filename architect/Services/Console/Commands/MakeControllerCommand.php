@@ -57,7 +57,7 @@ class MakeControllerCommand extends BaseCommand implements CommandInterface
 
         // Create directory if not exists
         if (!is_dir($targetDir)) {
-            if (!mkdir($targetDir, 0755, true)) {
+            if (!mkdir($targetDir, 0o755, true)) {
                 $this->error("Failed to create directory: {$targetDir}");
                 return 1;
             }
@@ -134,11 +134,11 @@ class MakeControllerCommand extends BaseCommand implements CommandInterface
     protected function generateDefaultMethods(): string
     {
         return <<<'PHP'
-    public function index_app_output(): void
-    {
-        $this->render('index');
-    }
-PHP;
+                public function index_app_output(): void
+                {
+                    $this->render('index');
+                }
+            PHP;
     }
 
     /**
@@ -147,52 +147,52 @@ PHP;
     protected function generateResourceMethods(): string
     {
         return <<<'PHP'
-    public function index_app_output(): void
-    {
-        // List all resources
-        $this->render('index');
-    }
+                public function index_app_output(): void
+                {
+                    // List all resources
+                    $this->render('index');
+                }
 
-    public function view_app_output(): void
-    {
-        $id = $this->param('id');
-        // View single resource
-        $this->render('view');
-    }
+                public function view_app_output(): void
+                {
+                    $id = $this->param('id');
+                    // View single resource
+                    $this->render('view');
+                }
 
-    public function create_app_output(): void
-    {
-        // Show create form
-        $this->render('create');
-    }
+                public function create_app_output(): void
+                {
+                    // Show create form
+                    $this->render('create');
+                }
 
-    public function store_app_output(): void
-    {
-        // Store new resource
-        $this->redirect('/resource');
-    }
+                public function store_app_output(): void
+                {
+                    // Store new resource
+                    $this->redirect('/resource');
+                }
 
-    public function edit_app_output(): void
-    {
-        $id = $this->param('id');
-        // Show edit form
-        $this->render('edit');
-    }
+                public function edit_app_output(): void
+                {
+                    $id = $this->param('id');
+                    // Show edit form
+                    $this->render('edit');
+                }
 
-    public function update_app_output(): void
-    {
-        $id = $this->param('id');
-        // Update resource
-        $this->redirect('/resource/' . $id);
-    }
+                public function update_app_output(): void
+                {
+                    $id = $this->param('id');
+                    // Update resource
+                    $this->redirect('/resource/' . $id);
+                }
 
-    public function destroy_app_output(): void
-    {
-        $id = $this->param('id');
-        // Delete resource
-        $this->redirect('/resource');
-    }
-PHP;
+                public function destroy_app_output(): void
+                {
+                    $id = $this->param('id');
+                    // Delete resource
+                    $this->redirect('/resource');
+                }
+            PHP;
     }
 
     /**
@@ -201,35 +201,35 @@ PHP;
     protected function generateApiMethods(): string
     {
         return <<<'PHP'
-    public function index_app_output(): void
-    {
-        // Return JSON response
-        header('Content-Type: application/json');
-        echo json_encode(['data' => []]);
-    }
+                public function index_app_output(): void
+                {
+                    // Return JSON response
+                    header('Content-Type: application/json');
+                    echo json_encode(['data' => []]);
+                }
 
-    public function store_app_output(): void
-    {
-        // Create resource and return JSON
-        header('Content-Type: application/json');
-        echo json_encode(['success' => true, 'data' => []]);
-    }
+                public function store_app_output(): void
+                {
+                    // Create resource and return JSON
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => true, 'data' => []]);
+                }
 
-    public function update_app_output(): void
-    {
-        $id = $this->param('id');
-        // Update and return JSON
-        header('Content-Type: application/json');
-        echo json_encode(['success' => true]);
-    }
+                public function update_app_output(): void
+                {
+                    $id = $this->param('id');
+                    // Update and return JSON
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => true]);
+                }
 
-    public function destroy_app_output(): void
-    {
-        $id = $this->param('id');
-        // Delete and return JSON
-        header('Content-Type: application/json');
-        echo json_encode(['success' => true]);
-    }
-PHP;
+                public function destroy_app_output(): void
+                {
+                    $id = $this->param('id');
+                    // Delete and return JSON
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => true]);
+                }
+            PHP;
     }
 }

@@ -17,10 +17,10 @@ final class ElementConfigLoader
         if (!file_exists($path)) {
             return [];
         }
-        
+
         $content = file_get_contents($path);
         $data = json_decode($content, true);
-        
+
         return $data ?? [];
     }
 
@@ -32,7 +32,7 @@ final class ElementConfigLoader
         if (!$templateName) {
             return [];
         }
-        
+
         $path = $appDir . 'template/' . $templateName . '/elements.json';
         return $this->load($path);
     }
@@ -47,29 +47,28 @@ final class ElementConfigLoader
         if (!$templateName) {
             return [];
         }
-        
+
         $elementsDir = $appDir . 'template/' . $templateName . '/elements/';
-        
+
         if (!is_dir($elementsDir)) {
             return [];
         }
-        
+
         $result = [];
         $files = glob($elementsDir . '*.json');
-        
+
         foreach ($files as $file) {
             $content = file_get_contents($file);
             $data = json_decode($content, true);
-            
+
             if (!is_array($data)) {
                 continue;
             }
-            
+
             // Merge all route-based configurations
             $result = array_merge_recursive($result, $data);
         }
-        
+
         return $result;
     }
 }
-

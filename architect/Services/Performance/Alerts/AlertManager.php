@@ -10,14 +10,14 @@ class AlertManager implements AlertManagerInterface
 {
     private array $thresholds = [];
     private array $alerts = [];
-    
+
     public function __construct(
         private PerformanceMonitorInterface $monitor,
         private MetricStorageInterface $storage
     ) {
         $this->loadDefaultThresholds();
     }
-    
+
     /**
      * Load default threshold values for common metrics
      */
@@ -30,7 +30,7 @@ class AlertManager implements AlertManagerInterface
             'cache_hit_ratio' => 0.8, // 80%
         ];
     }
-    
+
     /**
      * Set custom threshold for a metric
      */
@@ -38,7 +38,7 @@ class AlertManager implements AlertManagerInterface
     {
         $this->thresholds[$metric] = $value;
     }
-    
+
     /**
      * Check current metrics against thresholds and generate alerts
      */
@@ -46,11 +46,11 @@ class AlertManager implements AlertManagerInterface
     {
         $metrics = $this->monitor->collectMetrics();
         $this->alerts = [];
-        
+
         foreach ($metrics as $name => $value) {
             if (isset($this->thresholds[$name])) {
                 $threshold = $this->thresholds[$name];
-                
+
                 if ($this->isExceedingThreshold($value, $threshold)) {
                     $this->alerts[] = [
                         'metric' => $name,
@@ -62,10 +62,10 @@ class AlertManager implements AlertManagerInterface
                 }
             }
         }
-        
+
         return $this->alerts;
     }
-    
+
     /**
      * Determine if a metric value exceeds its threshold
      */
@@ -74,29 +74,29 @@ class AlertManager implements AlertManagerInterface
         if (is_numeric($value)) {
             return $value > $threshold;
         }
-        
+
         if (is_array($value) && isset($value['duration'])) {
             return $value['duration'] > $threshold;
         }
-        
+
         if (is_array($value) && isset($value['memory'])) {
             return $value['memory'] > $threshold;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Calculate alert severity based on how much threshold is exceeded
      */
     private function calculateSeverity(mixed $value, float|int $threshold): string
     {
-        $numericValue = is_array($value) && isset($value['duration']) ? $value['duration'] : 
-                       (is_array($value) && isset($value['memory']) ? $value['memory'] : 
+        $numericValue = is_array($value) && isset($value['duration']) ? $value['duration'] :
+                       (is_array($value) && isset($value['memory']) ? $value['memory'] :
                        (is_numeric($value) ? $value : 0));
-        
+
         $ratio = $numericValue / $threshold;
-        
+
         if ($ratio >= 2) {
             return 'critical';
         } elseif ($ratio >= 1.5) {
@@ -105,7 +105,7 @@ class AlertManager implements AlertManagerInterface
             return 'info';
         }
     }
-    
+
     /**
      * Get current alerts
      */
@@ -113,7 +113,7 @@ class AlertManager implements AlertManagerInterface
     {
         return $this->alerts;
     }
-    
+
     /**
      * Clear alerts
      */
@@ -121,7 +121,7 @@ class AlertManager implements AlertManagerInterface
     {
         $this->alerts = [];
     }
-    
+
     /**
      * Register alert callback for notification
      */

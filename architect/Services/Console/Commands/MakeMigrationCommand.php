@@ -56,7 +56,7 @@ class MakeMigrationCommand extends BaseCommand implements CommandInterface
 
         // Create migrations directory if not exists
         if (!is_dir($migrationsDir)) {
-            mkdir($migrationsDir, 0755, true);
+            mkdir($migrationsDir, 0o755, true);
             $this->info('Created migrations directory: ' . $migrationsDir);
         }
 
@@ -82,7 +82,7 @@ class MakeMigrationCommand extends BaseCommand implements CommandInterface
             return 1;
         }
 
-        $this->success("Migration created successfully!");
+        $this->success('Migration created successfully!');
         $this->line("  File: {$fileName}");
         $this->line("  Table: {$table}");
 
@@ -117,33 +117,33 @@ class MakeMigrationCommand extends BaseCommand implements CommandInterface
         }
 
         $template = <<<PHP
-<?php
+            <?php
 
-declare(strict_types=1);
+            declare(strict_types=1);
 
-use Axiom\Migration\Migration;
-use Axiom\Migration\Blueprint;
+            use Axiom\Migration\Migration;
+            use Axiom\Migration\Blueprint;
 
-class {$className} extends Migration
-{
-    /**
-     * Run the migration
-     */
-    public function up(): void
-    {
-{$up}
-    }
+            class {$className} extends Migration
+            {
+                /**
+                 * Run the migration
+                 */
+                public function up(): void
+                {
+            {$up}
+                }
 
-    /**
-     * Reverse the migration
-     */
-    public function down(): void
-    {
-{$this->generateDown($table, $isCreate, $isModify)}
-    }
-}
+                /**
+                 * Reverse the migration
+                 */
+                public function down(): void
+                {
+            {$this->generateDown($table, $isCreate, $isModify)}
+                }
+            }
 
-PHP;
+            PHP;
 
         return $template;
     }
@@ -154,15 +154,15 @@ PHP;
     protected function generateCreateUp(string $table): string
     {
         return <<<PHP
-        \$this->create('{$table}', function (Blueprint \$table) {
-            \$table->id();
-            \$table->string('name');
-            \$table->string('email')->unique();
-            \$table->string('password');
-            \$table->enum('status', ['active', 'inactive'])->default('active');
-            \$table->timestamps();
-        });
-PHP;
+                    \$this->create('{$table}', function (Blueprint \$table) {
+                        \$table->id();
+                        \$table->string('name');
+                        \$table->string('email')->unique();
+                        \$table->string('password');
+                        \$table->enum('status', ['active', 'inactive'])->default('active');
+                        \$table->timestamps();
+                    });
+            PHP;
     }
 
     /**
@@ -171,14 +171,14 @@ PHP;
     protected function generateModifyUp(string $table): string
     {
         return <<<PHP
-        \$this->table('{$table}', function (Blueprint \$table) {
-            // Add column: \$table->string('column_name');
-            // Drop column: \$table->dropColumn('column_name');
-            // Rename column: \$table->renameColumn('old_name', 'new_name');
-            // Add index: \$table->index('column_name');
-            // Add unique: \$table->unique(['column1', 'column2']);
-        });
-PHP;
+                    \$this->table('{$table}', function (Blueprint \$table) {
+                        // Add column: \$table->string('column_name');
+                        // Drop column: \$table->dropColumn('column_name');
+                        // Rename column: \$table->renameColumn('old_name', 'new_name');
+                        // Add index: \$table->index('column_name');
+                        // Add unique: \$table->unique(['column1', 'column2']);
+                    });
+            PHP;
     }
 
     /**
@@ -187,16 +187,16 @@ PHP;
     protected function generateEmptyUp(string $table): string
     {
         return <<<PHP
-        // \$this->create('{$table}', function (Blueprint \$table) {
-        //     \$table->id();
-        //     // Add your columns here
-        // });
+                    // \$this->create('{$table}', function (Blueprint \$table) {
+                    //     \$table->id();
+                    //     // Add your columns here
+                    // });
 
-        // Or modify existing table:
-        // \$this->table('{$table}', function (Blueprint \$table) {
-        //     \$table->string('new_column');
-        // });
-PHP;
+                    // Or modify existing table:
+                    // \$this->table('{$table}', function (Blueprint \$table) {
+                    //     \$table->string('new_column');
+                    // });
+            PHP;
     }
 
     /**
@@ -207,8 +207,8 @@ PHP;
         if ($isCreate) {
             return "        \$this->drop('{$table}');";
         }
-        
-        return "        // Add rollback logic here";
+
+        return '        // Add rollback logic here';
     }
 
     /**

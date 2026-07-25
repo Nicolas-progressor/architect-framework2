@@ -6,6 +6,4 @@ namespace pattern;
 
 use Architect\Services\Mvc\Controller as BaseController;
 
-class controller extends BaseController
-{
-}
+class controller extends BaseController {}

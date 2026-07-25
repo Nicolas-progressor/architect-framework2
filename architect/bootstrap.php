@@ -3,24 +3,23 @@
 declare(strict_types=1);
 
 use Architect\Core\Container;
+use Architect\Core\EnvironmentManager;
 use Architect\Core\Framework;
 use Architect\Core\Statement;
-use Architect\Core\EnvironmentManager;
+use Architect\Helpers\Core\HelpersServiceProvider;
+use Architect\Services\Blueprint\BlueprintServiceProvider;
+use Architect\Services\I18n\LanguageServiceProvider;
+use Architect\Services\Template\TemplateServiceProvider;
 use Architect\Support\ServiceProviders\AggregateServiceProvider;
+use Architect\Support\ServiceProviders\AppsServiceProvider;
+use Architect\Support\ServiceProviders\CacheServiceProvider;
 use Architect\Support\ServiceProviders\CoreServiceProvider;
-use Architect\Support\ServiceProviders\RoutingServiceProvider;
-use Architect\Support\ServiceProviders\MvcServiceProvider;
+use Architect\Support\ServiceProviders\ErrorServiceProvider;
 use Architect\Support\ServiceProviders\HttpServiceProvider;
 use Architect\Support\ServiceProviders\LoggingServiceProvider;
-use Architect\Support\ServiceProviders\ErrorServiceProvider;
-use Architect\Support\ServiceProviders\AppsServiceProvider;
-use Architect\Services\Template\TemplateServiceProvider;
-use Architect\Services\I18n\LanguageServiceProvider;
-use Architect\Services\Blueprint\BlueprintServiceProvider;
-use Architect\Helpers\Core\HelpersServiceProvider;
-use Architect\Support\ServiceProviders\CacheServiceProvider;
+use Architect\Support\ServiceProviders\MvcServiceProvider;
 use Architect\Support\ServiceProviders\ProviderDiscovery;
-use Architect\Console\ConsoleServiceProvider;
+use Architect\Support\ServiceProviders\RoutingServiceProvider;
 
 // Load Composer autoloader
 if (!file_exists(ROOT_DIR . 'vendor/autoload.php')) {

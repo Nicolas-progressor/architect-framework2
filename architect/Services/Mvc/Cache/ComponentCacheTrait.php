@@ -6,9 +6,9 @@ namespace Architect\Services\Mvc\Cache;
 
 /**
  * Component cache trait.
- * 
+ *
  * Provides caching functionality for MVC component loaders.
- * 
+ *
  * @package Architect\Services\Mvc\Cache
  */
 trait ComponentCacheTrait
@@ -18,7 +18,7 @@ trait ComponentCacheTrait
 
     /**
      * Get cached instance.
-     * 
+     *
      * @param string $key Cache key
      * @return object|null Cached instance or null
      */
@@ -29,7 +29,7 @@ trait ComponentCacheTrait
 
     /**
      * Set cached instance.
-     * 
+     *
      * @param string $key Cache key
      * @param object $instance Instance to cache
      */
@@ -40,7 +40,7 @@ trait ComponentCacheTrait
 
     /**
      * Check if key exists in cache.
-     * 
+     *
      * @param string $key Cache key
      * @return bool
      */
@@ -51,7 +51,7 @@ trait ComponentCacheTrait
 
     /**
      * Remove cached instance.
-     * 
+     *
      * @param string $key Cache key
      */
     protected function removeCached(string $key): void
@@ -69,7 +69,7 @@ trait ComponentCacheTrait
 
     /**
      * Get all cached keys.
-     * 
+     *
      * @return array<string>
      */
     public function getCachedKeys(): array
@@ -79,7 +79,7 @@ trait ComponentCacheTrait
 
     /**
      * Get cache count.
-     * 
+     *
      * @return int
      */
     public function getCacheCount(): int

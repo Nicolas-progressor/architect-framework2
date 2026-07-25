@@ -67,7 +67,7 @@ class MakeModuleCommand extends BaseCommand implements CommandInterface
 
         foreach ($dirs as $dir) {
             $path = "{$moduleDir}/{$dir}";
-            if (!mkdir($path, 0755, true)) {
+            if (!mkdir($path, 0o755, true)) {
                 $this->error("Failed to create directory: {$path}");
                 return 1;
             }
@@ -116,20 +116,20 @@ class MakeModuleCommand extends BaseCommand implements CommandInterface
             : $this->generateDefaultMethods($isApi);
 
         $template = <<<PHP
-<?php
+            <?php
 
-declare(strict_types=1);
+            declare(strict_types=1);
 
-namespace app\home\modules\{$module}\controller;
+            namespace app\home\modules\{$module}\controller;
 
-use pattern\controller;
+            use pattern\controller;
 
-class {$name} extends controller
-{
-{$methods}
-}
+            class {$name} extends controller
+            {
+            {$methods}
+            }
 
-PHP;
+            PHP;
 
         return $template;
     }
@@ -141,20 +141,20 @@ PHP;
     {
         if ($isApi) {
             return <<<'PHP'
-    public function index_app_output(): void
-    {
-        header('Content-Type: application/json');
-        echo json_encode(['data' => []]);
-    }
-PHP;
+                    public function index_app_output(): void
+                    {
+                        header('Content-Type: application/json');
+                        echo json_encode(['data' => []]);
+                    }
+                PHP;
         }
 
         return <<<'PHP'
-    public function index_app_output(): void
-    {
-        $this->render('index');
-    }
-PHP;
+                public function index_app_output(): void
+                {
+                    $this->render('index');
+                }
+            PHP;
     }
 
     /**
@@ -163,45 +163,45 @@ PHP;
     protected function generateResourceMethods(): string
     {
         return <<<'PHP'
-    public function index_app_output(): void
-    {
-        $this->render('index');
-    }
+                public function index_app_output(): void
+                {
+                    $this->render('index');
+                }
 
-    public function view_app_output(): void
-    {
-        $id = $this->param('id');
-        $this->render('view');
-    }
+                public function view_app_output(): void
+                {
+                    $id = $this->param('id');
+                    $this->render('view');
+                }
 
-    public function create_app_output(): void
-    {
-        $this->render('create');
-    }
+                public function create_app_output(): void
+                {
+                    $this->render('create');
+                }
 
-    public function store_app_output(): void
-    {
-        $this->redirect('/' . $this->segment(1));
-    }
+                public function store_app_output(): void
+                {
+                    $this->redirect('/' . $this->segment(1));
+                }
 
-    public function edit_app_output(): void
-    {
-        $id = $this->param('id');
-        $this->render('edit');
-    }
+                public function edit_app_output(): void
+                {
+                    $id = $this->param('id');
+                    $this->render('edit');
+                }
 
-    public function update_app_output(): void
-    {
-        $id = $this->param('id');
-        $this->redirect('/' . $this->segment(1) . '/' . $id);
-    }
+                public function update_app_output(): void
+                {
+                    $id = $this->param('id');
+                    $this->redirect('/' . $this->segment(1) . '/' . $id);
+                }
 
-    public function destroy_app_output(): void
-    {
-        $id = $this->param('id');
-        $this->redirect('/' . $this->segment(1));
-    }
-PHP;
+                public function destroy_app_output(): void
+                {
+                    $id = $this->param('id');
+                    $this->redirect('/' . $this->segment(1));
+                }
+            PHP;
     }
 
     /**
@@ -210,31 +210,31 @@ PHP;
     protected function generateModel(string $name, string $table): string
     {
         $template = <<<PHP
-<?php
+            <?php
 
-declare(strict_types=1);
+            declare(strict_types=1);
 
-namespace app\home\modules\{$name}\model;
+            namespace app\home\modules\{$name}\model;
 
-use Architect\Services\Mvc\ModelBase;
+            use Architect\Services\Mvc\ModelBase;
 
-class {$name} extends ModelBase
-{
-    protected string \$table = '{$table}';
-    protected string \$primaryKey = 'id';
-    protected bool \$timestamps = true;
+            class {$name} extends ModelBase
+            {
+                protected string \$table = '{$table}';
+                protected string \$primaryKey = 'id';
+                protected bool \$timestamps = true;
 
-    /** @var array<int, string> */
-    protected array \$fillable = [];
+                /** @var array<int, string> */
+                protected array \$fillable = [];
 
-    /** @var array<int, string> */
-    protected array \$hidden = [];
+                /** @var array<int, string> */
+                protected array \$hidden = [];
 
-    /** @var array<string, string> */
-    protected array \$casts = [];
-}
+                /** @var array<string, string> */
+                protected array \$casts = [];
+            }
 
-PHP;
+            PHP;
 
         return $template;
     }
@@ -247,12 +247,12 @@ PHP;
         $title = ucwords(str_replace('_', ' ', $module));
 
         $template = <<<HTML
-<div class="container">
-    <h1>{$title}</h1>
+            <div class="container">
+                <h1>{$title}</h1>
 
-    <p>Module content goes here.</p>
-</div>
-HTML;
+                <p>Module content goes here.</p>
+            </div>
+            HTML;
 
         return $template;
     }

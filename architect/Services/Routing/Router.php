@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Architect\Services\Routing;
 
-use Architect\Support\AbstractService;
-use Architect\Services\Routing\Contracts\RouterInterface;
-use Architect\Services\Routing\Contracts\RequestInterface;
-use Architect\Services\Routing\Contracts\RouteLoaderInterface;
-use Architect\Services\Routing\Contracts\FileSystemInterface;
 use Architect\Services\App\Contracts\AppsServiceInterface;
 use Architect\Services\Config\Contracts\ConfigInterface;
+use Architect\Services\Routing\Contracts\FileSystemInterface;
+use Architect\Services\Routing\Contracts\RequestInterface;
+use Architect\Services\Routing\Contracts\RouteLoaderInterface;
+use Architect\Services\Routing\Contracts\RouterInterface;
 use Architect\Services\Routing\Filesystem\NativeFileSystem;
+use Architect\Support\AbstractService;
 
 /**
  * Router service for URL routing and resolution.

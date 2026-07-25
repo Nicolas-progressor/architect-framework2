@@ -8,7 +8,7 @@ use Psr\Container\ContainerInterface as PsrContainerInterface;
 
 /**
  * Container interface for dependency injection.
- * 
+ *
  * Extends PSR-11 ContainerInterface for compatibility.
  */
 interface ContainerInterface extends PsrContainerInterface

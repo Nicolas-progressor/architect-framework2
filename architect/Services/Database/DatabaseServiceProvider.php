@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Architect\Services\Database;
 
-use Architect\Contracts\ServiceProviderInterface;
 use Architect\Core\Contracts\ContainerInterface;
 use Architect\Support\AbstractServiceProvider;
 
@@ -79,12 +78,14 @@ class DatabaseServiceProvider extends AbstractServiceProvider
         if (method_exists($database, 'setQueryLogger')) {
             // Create an adapter that implements QueryLoggerInterface
             // Note: Don't check isEnabled() here - Debug::query() already checks internally
-            $logger = new class($debug) implements \Architect\Services\Database\Contracts\QueryLoggerInterface {
+            $logger = new class ($debug) implements \Architect\Services\Database\Contracts\QueryLoggerInterface {
                 private $debug;
-                public function __construct($debug) {
+                public function __construct($debug)
+                {
                     $this->debug = $debug;
                 }
-                public function logQuery(string $sql, float $duration, array $bindings = []): void {
+                public function logQuery(string $sql, float $duration, array $bindings = []): void
+                {
                     $this->debug->query($sql, $duration, $bindings, 'database');
                 }
             };

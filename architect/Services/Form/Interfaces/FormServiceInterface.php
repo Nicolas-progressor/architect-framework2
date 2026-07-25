@@ -6,14 +6,14 @@ namespace Architect\Services\Form\Interfaces;
 
 /**
  * Interface FormServiceInterface
- * 
+ *
  * Основной интерфейс сервиса форм.
  */
 interface FormServiceInterface
 {
     /**
      * Обработать форму
-     * 
+     *
      * @param string $formName Имя формы
      * @param array $validationRules Правила валидации
      * @param callable|null $callback Функция при успешной валидации
@@ -23,7 +23,7 @@ interface FormServiceInterface
 
     /**
      * Проверить данные без обработки формы
-     * 
+     *
      * @param array $data Данные для валидации
      * @param array $rules Правила валидации
      * @return FormResult Результат валидации
@@ -32,7 +32,7 @@ interface FormServiceInterface
 
     /**
      * Сгенерировать CSRF токен
-     * 
+     *
      * @param string $formName Имя формы
      * @return string
      */
@@ -40,7 +40,7 @@ interface FormServiceInterface
 
     /**
      * Получить скрытое поле с CSRF токеном
-     * 
+     *
      * @param string $formName Имя формы
      * @return string
      */
@@ -48,7 +48,7 @@ interface FormServiceInterface
 
     /**
      * Проверить CSRF токен
-     * 
+     *
      * @param string $formName Имя формы
      * @param string $token Токен
      * @return bool
@@ -57,7 +57,7 @@ interface FormServiceInterface
 
     /**
      * Открыть форму
-     * 
+     *
      * @param string $action URL
      * @param string $method Метод
      * @param array $attributes Атрибуты
@@ -67,14 +67,14 @@ interface FormServiceInterface
 
     /**
      * Закрыть форму
-     * 
+     *
      * @return string
      */
     public function close(): string;
 
     /**
      * Текстовое поле
-     * 
+     *
      * @param string $name Имя
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -84,7 +84,7 @@ interface FormServiceInterface
 
     /**
      * Email поле
-     * 
+     *
      * @param string $name Имя
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -94,7 +94,7 @@ interface FormServiceInterface
 
     /**
      * Пароль
-     * 
+     *
      * @param string $name Имя
      * @param array $attributes Атрибуты
      * @return string
@@ -103,7 +103,7 @@ interface FormServiceInterface
 
     /**
      * Текстовая область
-     * 
+     *
      * @param string $name Имя
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -113,7 +113,7 @@ interface FormServiceInterface
 
     /**
      * Select
-     * 
+     *
      * @param string $name Имя
      * @param array $options Варианты
      * @param mixed $selected Выбранное
@@ -124,7 +124,7 @@ interface FormServiceInterface
 
     /**
      * Чекбокс
-     * 
+     *
      * @param string $name Имя
      * @param mixed $value Значение
      * @param bool $checked Отмечен
@@ -136,7 +136,7 @@ interface FormServiceInterface
 
     /**
      * Радиокнопка
-     * 
+     *
      * @param string $name Имя
      * @param mixed $value Значение
      * @param bool $checked Отмечена
@@ -148,7 +148,7 @@ interface FormServiceInterface
 
     /**
      * Кнопка отправки
-     * 
+     *
      * @param string $label Текст
      * @param array $attributes Атрибуты
      * @return string
@@ -157,7 +157,7 @@ interface FormServiceInterface
 
     /**
      * Файл
-     * 
+     *
      * @param string $name Имя
      * @param array $attributes Атрибуты
      * @return string
@@ -166,7 +166,7 @@ interface FormServiceInterface
 
     /**
      * Установить данные для формы
-     * 
+     *
      * @param array $data Данные
      * @return static
      */
@@ -174,7 +174,7 @@ interface FormServiceInterface
 
     /**
      * Установить ошибки
-     * 
+     *
      * @param array $errors Ошибки
      * @return static
      */
@@ -182,7 +182,7 @@ interface FormServiceInterface
 
     /**
      * Получить ошибку для поля
-     * 
+     *
      * @param string $field Поле
      * @return string
      */
@@ -190,7 +190,7 @@ interface FormServiceInterface
 
     /**
      * Проверить, есть ли ошибка у поля
-     * 
+     *
      * @param string $field Поле
      * @return bool
      */

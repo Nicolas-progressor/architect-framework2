@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Architect\Services\Debug\Contracts;
 
-use Architect\Services\Debug\Contracts\DebugCollectorInterface;
-
 /**
  * Main debug service interface.
  */

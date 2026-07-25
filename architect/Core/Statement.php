@@ -6,13 +6,12 @@ namespace Architect\Core;
 
 use Architect\Core\Contracts\ContainerInterface;
 use Architect\Core\Contracts\StatementInterface;
-use Architect\Core\Http\RequestDetector;
 use Architect\Core\Debug\DebugPanelRenderer;
-use Architect\Core\Exception\HttpNotFoundException;
+use Architect\Core\Http\RequestDetector;
 
 /**
  * Statement manager for lifecycle hooks.
- * 
+ *
  * Manages application lifecycle stages and allows registering
  * callbacks to be executed at specific points.
  */
@@ -20,16 +19,16 @@ class Statement implements StatementInterface
 {
     /** @var array<string, array> Registered hooks by statement */
     private array $hooks = [
-        'core_preinit'   => [], 
-        'core_init'      => [], 
-        'core_load'      => [], 
-        'core_post_load' => [], 
-        'app_load'       => [], 
-        'app_data'       => [], 
-        'app_output'     => [], 
+        'core_preinit'   => [],
+        'core_init'      => [],
+        'core_load'      => [],
+        'core_post_load' => [],
+        'app_load'       => [],
+        'app_data'       => [],
+        'app_output'     => [],
         'render'         => [],
     ];
-    
+
     /** @var array<string, bool> Executed statements */
     private array $executed = [];
 
@@ -53,7 +52,7 @@ class Statement implements StatementInterface
         if (!isset($this->hooks[$statement])) {
             $this->hooks[$statement] = [];
         }
-        
+
         $this->hooks[$statement][] = [
             'callback' => $callback,
             'priority' => $priority,

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Architect\Validation;
 
 use Architect\Core\Contracts\ContainerInterface;
-use Architect\Validation\Rules\ValidationRuleInterface;
 use Architect\Validation\Exceptions\ValidationException;
+use Architect\Validation\Rules\ValidationRuleInterface;
 
 class Validator
 {

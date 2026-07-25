@@ -8,7 +8,7 @@ declare(strict_types=1);
  */
 
 $timeMs = round($data['total_time'] * 1000, 1);
-$totalLogs = count($data['logs']) + (isset($data['collector']['total_messages']) ? $data['collector']['total_messages'] : 0) + count($data['system_logs'] ?? []);
+$totalLogs = count($data['logs']) + ($data['collector']['total_messages'] ?? 0) + count($data['system_logs'] ?? []);
 $logIssues = $totalLogs;
 $collector = $data['collector'] ?? null;
 $hasCustomData = $data['has_custom_data'] ?? false;
@@ -60,21 +60,21 @@ if ($hasCustomData && $collector) {
     <!-- Session -->
     <?php
     $sessionMeta = $data['session_meta'] ?? [];
-    $sessionStatus = $sessionMeta['status'] ?? 'unknown';
-    $sessionId = $sessionMeta['id'] ?? '';
-    $sessionCount = $data['session_count'];
-    $sessionColor = match ($sessionStatus) {
-        'active' => 'green',
-        'none' => 'gray',
-        'disabled' => 'orange',
-        default => 'blue',
-    };
-    $sessionTitle = 'Сессия: статус ' . $sessionStatus;
-    if ($sessionId) {
-        $sessionTitle .= ', ID: ' . substr($sessionId, 0, 8) . '...';
-    }
-    $sessionTitle .= ', данных: ' . $sessionCount;
-    ?>
+$sessionStatus = $sessionMeta['status'] ?? 'unknown';
+$sessionId = $sessionMeta['id'] ?? '';
+$sessionCount = $data['session_count'];
+$sessionColor = match ($sessionStatus) {
+    'active' => 'green',
+    'none' => 'gray',
+    'disabled' => 'orange',
+    default => 'blue',
+};
+$sessionTitle = 'Сессия: статус ' . $sessionStatus;
+if ($sessionId) {
+    $sessionTitle .= ', ID: ' . substr($sessionId, 0, 8) . '...';
+}
+$sessionTitle .= ', данных: ' . $sessionCount;
+?>
     <div class="debug-col" data-module="session" data-color="<?= $sessionColor ?>" title="<?= htmlspecialchars($sessionTitle) ?>">
         <span class="icon">🖐️</span>
         <span class="value"><?= $sessionCount ?></span>
@@ -101,7 +101,7 @@ if ($hasCustomData && $collector) {
         $bpErrors = count($bp['errors'] ?? []);
         $bpTemplates = count($bp['templates'] ?? []);
         $bpColor = $bpErrors > 0 ? 'red' : 'blue';
-    ?>
+        ?>
     <div class="debug-col" data-module="blueprint" data-color="<?= $bpColor ?>" title="Blueprint шаблонизатор">
         <span class="icon">📝</span>
         <span class="value"><?= $bpTemplates ?> tmpl<?= $bpErrors > 0 ? ', ' . $bpErrors . ' err' : '' ?></span>
@@ -121,7 +121,7 @@ if ($hasCustomData && $collector) {
         if ($alertCount > 0) {
             $title .= ", алертов $alertCount";
         }
-    ?>
+        ?>
     <div class="debug-col" data-module="performance" data-color="<?= $perfColor ?>" title="<?= htmlspecialchars($title) ?>">
         <span class="icon">🚀</span>
         <span class="value"><?= $alertCount > 0 ? '⚠️' : '✓' ?> perf</span>

@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Architect\Services\Mvc;
 
-use Architect\Support\AbstractService;
-use Architect\Services\Mvc\Contracts\PatternInterface;
 use Architect\Services\Mvc\Context\MvcContext;
 use Architect\Services\Mvc\Contracts\ControllerInterface;
+use Architect\Services\Mvc\Contracts\PatternInterface;
+use Architect\Services\Mvc\Handler\ErrorHandler404;
 use Architect\Services\Mvc\Loader\ControllerLoader;
 use Architect\Services\Mvc\Loader\ModuleBootstrapLoader;
-use Architect\Services\Mvc\Handler\ErrorHandler404;
 use Architect\Services\Mvc\Resolver\ModulePathResolver;
+use Architect\Support\AbstractService;
 
 /**
  * Pattern service for MVC request handling.
- * 
+ *
  * Coordinates the MVC lifecycle including controller loading,
  * module bootstrap initialization, and stage execution.
  * Acts as a facade for the MVC components.
- * 
+ *
  * @package Architect\Services\Mvc
  */
 class Pattern extends AbstractService implements PatternInterface
@@ -44,7 +44,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Create Pattern service.
-     * 
+     *
      * @param \Architect\Core\Contracts\ContainerInterface $container Dependency container
      * @param MvcContext|null $context MVC context
      * @param ModulePathResolver|null $pathResolver Module path resolver
@@ -73,7 +73,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Get MVC context.
-     * 
+     *
      * @return MvcContext
      */
     public function getContext(): MvcContext
@@ -83,7 +83,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Get controller loader.
-     * 
+     *
      * @return ControllerLoader
      */
     public function getControllerLoader(): ControllerLoader
@@ -93,17 +93,17 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Get bootstrap loader.
-     * 
+     *
      * @return ModuleBootstrapLoader
      */
     public function getBootstrapLoader(): ModuleBootstrapLoader
     {
         return $this->bootstrapLoader;
     }
-    
+
     /**
      * Get error handler.
-     * 
+     *
      * @return ErrorHandler404
      */
     public function getErrorHandler(): ErrorHandler404
@@ -113,7 +113,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Boot the service.
-     * 
+     *
      * Registers statement hooks for MVC lifecycle.
      */
     public function boot(): void
@@ -137,7 +137,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Handle incoming request.
-     * 
+     *
      * Initializes context, determines module type, loads controller
      * and module bootstrap.
      */
@@ -165,7 +165,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Handle 404 route.
-     * 
+     *
      * Attempts to use app-level 404 controller first, then global.
      */
     private function handle404Route(): void
@@ -188,7 +188,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Determine module type (app or global).
-     * 
+     *
      * Checks if module exists in app modules, then in global modules.
      */
     private function determineModuleType(): void
@@ -205,7 +205,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Load controller.
-     * 
+     *
      * Uses ControllerLoader to load and instantiate the controller.
      */
     private function loadController(): void
@@ -223,7 +223,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Load module bootstrap.
-     * 
+     *
      * Uses ModuleBootstrapLoader to load and register bootstrap.
      */
     private function loadModuleBootstrap(): void
@@ -241,7 +241,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Execute stage method on controller.
-     * 
+     *
      * @param string $stage Stage name (load, data, output)
      */
     private function executeStage(string $stage): void
@@ -256,7 +256,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Get current module name.
-     * 
+     *
      * @return string|null
      */
     public function getModule(): ?string
@@ -266,7 +266,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Get current controller name.
-     * 
+     *
      * @return string|null
      */
     public function getController(): ?string
@@ -276,7 +276,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Get current action name.
-     * 
+     *
      * @return string
      */
     public function getAction(): string
@@ -286,7 +286,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Get current controller instance.
-     * 
+     *
      * @return ControllerInterface|null
      */
     public function getControllerInstance(): ?ControllerInterface
@@ -296,7 +296,7 @@ class Pattern extends AbstractService implements PatternInterface
 
     /**
      * Render output.
-     * 
+     *
      * Renders controller view if extArray method exists.
      */
     public function renderOutput(): void

@@ -23,15 +23,15 @@ class AssetPublisher
     {
         $bundleName = $bundle->getName();
         $sourceDir = $this->getBundleAssetsPath($bundle);
-        
+
         if (!$sourceDir || !is_dir($sourceDir)) {
             return [];
         }
 
         $targetBundleDir = $targetDir . '/' . strtolower($bundleName);
-        
+
         // Create target directory if it doesn't exist
-        if (!is_dir($targetBundleDir) && !mkdir($targetBundleDir, 0755, true)) {
+        if (!is_dir($targetBundleDir) && !mkdir($targetBundleDir, 0o755, true)) {
             throw new RuntimeException("Unable to create directory: {$targetBundleDir}");
         }
 
@@ -51,7 +51,7 @@ class AssetPublisher
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleDir = dirname($reflection->getFileName());
-        
+
         // Try Resources/public
         $assetsPath = $bundleDir . '/Resources/public';
         if (is_dir($assetsPath)) {
@@ -82,7 +82,7 @@ class AssetPublisher
      */
     private function copyDirectory(string $source, string $target, array &$published): void
     {
-        if (!is_dir($target) && !mkdir($target, 0755, true)) {
+        if (!is_dir($target) && !mkdir($target, 0o755, true)) {
             throw new RuntimeException("Unable to create directory: {$target}");
         }
 
@@ -141,7 +141,7 @@ class AssetPublisher
     {
         $bundleName = $bundle->getName();
         $targetBundleDir = $targetDir . '/' . strtolower($bundleName);
-        
+
         if (!is_dir($targetBundleDir)) {
             return true;
         }

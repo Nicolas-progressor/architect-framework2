@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Architect\Support\ServiceProviders;
 
-use Architect\Contracts\ServiceProviderInterface;
 use Architect\Core\Contracts\ContainerInterface;
-use Architect\Support\AbstractServiceProvider;
+use Architect\Core\Contracts\StatementInterface;
+use Architect\Services\App\AppBootstrapLoader;
+use Architect\Services\App\AppConfigLoader;
 use Architect\Services\App\Apps;
 use Architect\Services\App\Contracts\AppsServiceInterface;
-use Architect\Services\App\AppConfigLoader;
-use Architect\Services\App\AppBootstrapLoader;
 use Architect\Services\Config\Contracts\ConfigLoaderInterface;
-use Architect\Core\Contracts\StatementInterface;
+use Architect\Support\AbstractServiceProvider;
 use Psr\Log\LoggerInterface;
 
 /**

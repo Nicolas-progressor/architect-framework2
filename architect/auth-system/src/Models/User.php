@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Architect\AuthSystem\Models;
 
 use Architect\Services\Mvc\ModelBase;
-use Architect\AuthSystem\Models\Role;
 
 /**
  * User Model
- * 
+ *
  * Модель пользователя для системы авторизации.
- * 
+ *
  * @package Architect\AuthSystem\Models
  */
 class User extends ModelBase
@@ -73,13 +72,13 @@ class User extends ModelBase
 
     /**
      * Конструктор
-     * 
+     *
      * @param int|null $id
      */
     public function __construct(?int $id = null)
     {
         parent::__construct();
-        
+
         if ($id !== null) {
             $this->load($id);
         }
@@ -87,7 +86,7 @@ class User extends ModelBase
 
     /**
      * Получить ID
-     * 
+     *
      * @return int
      */
     public function getId(): int
@@ -97,7 +96,7 @@ class User extends ModelBase
 
     /**
      * Получить имя пользователя
-     * 
+     *
      * @return string
      */
     public function getUsername(): string
@@ -107,7 +106,7 @@ class User extends ModelBase
 
     /**
      * Установить имя пользователя
-     * 
+     *
      * @param string $username
      * @return self
      */
@@ -119,7 +118,7 @@ class User extends ModelBase
 
     /**
      * Получить email
-     * 
+     *
      * @return string
      */
     public function getEmail(): string
@@ -129,7 +128,7 @@ class User extends ModelBase
 
     /**
      * Установить email
-     * 
+     *
      * @param string $email
      * @return self
      */
@@ -141,7 +140,7 @@ class User extends ModelBase
 
     /**
      * Получить пароль
-     * 
+     *
      * @return string
      */
     public function getPassword(): string
@@ -151,7 +150,7 @@ class User extends ModelBase
 
     /**
      * Установить пароль (хэширует)
-     * 
+     *
      * @param string $password
      * @return self
      */
@@ -163,7 +162,7 @@ class User extends ModelBase
 
     /**
      * Проверить пароль
-     * 
+     *
      * @param string $password
      * @return bool
      */
@@ -174,7 +173,7 @@ class User extends ModelBase
 
     /**
      * Получить роль
-     * 
+     *
      * @return Role|null
      */
     public function getRole(): ?Role
@@ -192,7 +191,7 @@ class User extends ModelBase
         // Пробуем найти по имени роли из конфига
         $config = $this->getAuthConfig();
         $defaultRole = $config['default_role'] ?? 'guest';
-        
+
         $this->role = Role::findByName($defaultRole);
 
         return $this->role;
@@ -200,7 +199,7 @@ class User extends ModelBase
 
     /**
      * Установить роль
-     * 
+     *
      * @param Role|string $role
      * @return self
      */
@@ -220,14 +219,14 @@ class User extends ModelBase
 
     /**
      * Проверить, имеет ли пользователь роль
-     * 
+     *
      * @param string $roleName
      * @return bool
      */
     public function hasRole(string $roleName): bool
     {
         $role = $this->getRole();
-        
+
         if (!$role) {
             return false;
         }
@@ -237,14 +236,14 @@ class User extends ModelBase
 
     /**
      * Проверить, имеет ли пользователь разрешение
-     * 
+     *
      * @param string $permission
      * @return bool
      */
     public function hasPermission(string $permission): bool
     {
         $role = $this->getRole();
-        
+
         if (!$role) {
             return false;
         }
@@ -254,7 +253,7 @@ class User extends ModelBase
 
     /**
      * Проверить, является ли админом
-     * 
+     *
      * @return bool
      */
     public function isAdmin(): bool
@@ -264,14 +263,14 @@ class User extends ModelBase
 
     /**
      * Найти по username
-     * 
+     *
      * @param string $username
      * @return static|null
      */
     public static function findByUsername(string $username): ?static
     {
         $instance = new static();
-        
+
         try {
             return $instance->where('username', '=', $username)->first();
         } catch (\Exception $e) {
@@ -281,14 +280,14 @@ class User extends ModelBase
 
     /**
      * Найти по email
-     * 
+     *
      * @param string $email
      * @return static|null
      */
     public static function findByEmail(string $email): ?static
     {
         $instance = new static();
-        
+
         try {
             return $instance->where('email', '=', $email)->first();
         } catch (\Exception $e) {
@@ -298,7 +297,7 @@ class User extends ModelBase
 
     /**
      * Найти по OAuth ID
-     * 
+     *
      * @param string $provider
      * @param string $oauthId
      * @return static|null
@@ -312,7 +311,7 @@ class User extends ModelBase
 
     /**
      * Добавить OAuth ID для пользователя
-     * 
+     *
      * @param string $provider
      * @param string $oauthId
      * @return bool
@@ -325,7 +324,7 @@ class User extends ModelBase
 
     /**
      * Найти по ID
-     * 
+     *
      * @param int $id
      * @return static|null
      */
@@ -337,26 +336,26 @@ class User extends ModelBase
 
     /**
      * Создать пользователя
-     * 
+     *
      * @param array $data
      * @return static|null
      */
     public static function create(array $data): ?static
     {
         $user = new static();
-        
+
         if (isset($data['username'])) {
             $user->setUsername($data['username']);
         }
-        
+
         if (isset($data['email'])) {
             $user->setEmail($data['email']);
         }
-        
+
         if (isset($data['password'])) {
             $user->setPassword($data['password']);
         }
-        
+
         if (isset($data['role'])) {
             $user->setRole($data['role']);
         }
@@ -370,7 +369,7 @@ class User extends ModelBase
 
     /**
      * Получить конфигурацию auth
-     * 
+     *
      * @return array
      */
     protected function getAuthConfig(): array
@@ -390,7 +389,7 @@ class User extends ModelBase
 
     /**
      * Сохранить пользователя
-     * 
+     *
      * @return bool
      */
     public function save(): bool
@@ -406,12 +405,12 @@ class User extends ModelBase
             return $this->update($data);
         }
 
-        return (bool)$this->insert($data);
+        return (bool) $this->insert($data);
     }
 
     /**
      * Преобразование в массив
-     * 
+     *
      * @return array
      */
     public function toArray(): array
@@ -428,7 +427,7 @@ class User extends ModelBase
 
     /**
      * JSON сериализация
-     * 
+     *
      * @return array
      */
     public function jsonSerialize(): array

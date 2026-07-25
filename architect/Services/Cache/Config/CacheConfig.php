@@ -41,7 +41,7 @@ class CacheConfig
      */
     public function getStoreConfig(?string $store = null): array
     {
-        $store = $store ?? $this->getDefaultStore();
+        $store ??= $this->getDefaultStore();
         $stores = $this->config->get('stores', []);
 
         if (!isset($stores[$store])) {

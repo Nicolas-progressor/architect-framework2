@@ -6,17 +6,17 @@ namespace Architect\Services\Mvc\Resolver;
 
 /**
  * Class name resolver for MVC components.
- * 
+ *
  * Centralizes class name resolution logic to avoid duplication
  * across loaders and resolvers.
- * 
+ *
  * @package Architect\Services\Mvc\Resolver
  */
 class ClassNameResolver
 {
     /**
      * Build controller class name variants.
-     * 
+     *
      * @param string $module Module name
      * @param string $controller Controller name
      * @param string $appName Application name (normalized)
@@ -57,7 +57,7 @@ class ClassNameResolver
 
     /**
      * Build model class name variants.
-     * 
+     *
      * @param string $module Module name
      * @param string $model Model name
      * @param string $appName Application name (normalized)
@@ -87,7 +87,7 @@ class ClassNameResolver
 
     /**
      * Build bootstrap class name variants.
-     * 
+     *
      * @param string $module Module name
      * @param string $appName Application name (normalized)
      * @param bool $isGlobal Whether module is global
@@ -113,7 +113,7 @@ class ClassNameResolver
 
     /**
      * Resolve class name from variants.
-     * 
+     *
      * @param array<string> $variants Class name variants
      * @return string|null First existing class or null
      */
@@ -130,7 +130,7 @@ class ClassNameResolver
 
     /**
      * Build cache key for component.
-     * 
+     *
      * @param string $module Module name
      * @param string|null $component Component name (controller/model)
      * @param bool $isGlobal Whether module is global
@@ -139,7 +139,7 @@ class ClassNameResolver
     public function buildCacheKey(string $module, ?string $component, bool $isGlobal): string
     {
         $prefix = $isGlobal ? 'global:' : '';
-        
+
         if ($component === null) {
             return "{$prefix}{$module}";
         }

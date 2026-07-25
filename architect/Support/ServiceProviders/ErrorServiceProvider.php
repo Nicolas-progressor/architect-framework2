@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Architect\Support\ServiceProviders;
 
-use Architect\Contracts\ServiceProviderInterface;
 use Architect\Core\Contracts\ContainerInterface;
 use Architect\Support\AbstractServiceProvider;
 
@@ -30,7 +29,7 @@ class ErrorServiceProvider extends AbstractServiceProvider
         $this->registerAlias($container, 'error.handler', 'errors');
 
         // Form service — внедрение зависимостей через интерфейсы
-        $this->registerFactory($container, 'form', function($c) {
+        $this->registerFactory($container, 'form', function ($c) {
             return new \Architect\Services\Form\Form(
                 new \Architect\Services\Form\CSRFTokenManager(),
                 new \Architect\Services\Form\FormBuilder(),
@@ -46,10 +45,10 @@ class ErrorServiceProvider extends AbstractServiceProvider
     {
         // Initialize error handlers
         $errors = $container->get('errors');
-        
+
         // Pass container for accessing services (router, debug, etc.)
         $errors->setContainer($container);
-        
+
         $errors->init();
     }
 }

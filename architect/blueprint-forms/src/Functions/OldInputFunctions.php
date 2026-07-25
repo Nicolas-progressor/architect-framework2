@@ -2,9 +2,9 @@
 
 /**
  * Old Input Functions
- * 
+ *
  * Provides old input retrieval functions for Blueprint templates.
- * 
+ *
  * @package     Architect\BlueprintForms\Functions
  * @author      Architect Team <team@architect.dev>
  * @license     MIT
@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Architect\BlueprintForms\Functions;
 
-use Blueprint\Engine\Blueprint;
 use Architect\BlueprintForms\Contracts\FormFunctionProviderInterface;
+use Blueprint\Engine\Blueprint;
 
 /**
  * Old input functions for preserving form values.

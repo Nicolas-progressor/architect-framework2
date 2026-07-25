@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Architect\Auth\Services;
 
+use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use Firebase\JWT\ExpiredException;
 use Firebase\JWT\SignatureInvalidException;
 use InvalidArgumentException;
 

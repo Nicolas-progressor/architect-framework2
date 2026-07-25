@@ -8,9 +8,9 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * Response Emitter.
- * 
+ *
  * Sends HTTP response to the client.
- * 
+ *
  * @package Architect\Services\Mvc\Http
  */
 class ResponseEmitter
@@ -23,7 +23,7 @@ class ResponseEmitter
 
     /**
      * Emit response to the client.
-     * 
+     *
      * @param ResponseInterface $response Response to emit
      */
     public function emit(ResponseInterface $response): void
@@ -35,7 +35,7 @@ class ResponseEmitter
 
     /**
      * Emit only headers.
-     * 
+     *
      * @param ResponseInterface $response Response
      */
     public function emitHeaders(ResponseInterface $response): void
@@ -63,7 +63,7 @@ class ResponseEmitter
 
     /**
      * Emit status line.
-     * 
+     *
      * @param ResponseInterface $response Response
      */
     public function emitStatusLine(ResponseInterface $response): void
@@ -77,7 +77,7 @@ class ResponseEmitter
 
     /**
      * Emit response body.
-     * 
+     *
      * @param ResponseInterface $response Response
      */
     public function emitBody(ResponseInterface $response): void
@@ -102,7 +102,7 @@ class ResponseEmitter
 
     /**
      * Emit body with chunked encoding.
-     * 
+     *
      * @param \Psr\Http\Message\StreamInterface $body Body stream
      */
     private function emitChunkedBody($body): void
@@ -120,7 +120,7 @@ class ResponseEmitter
 
     /**
      * Emit body as stream.
-     * 
+     *
      * @param \Psr\Http\Message\StreamInterface $body Body stream
      */
     private function emitStreamedBody($body): void
@@ -132,7 +132,7 @@ class ResponseEmitter
 
     /**
      * Emit a single header.
-     * 
+     *
      * @param string $name Header name
      * @param array<string> $values Header values
      */
@@ -152,7 +152,7 @@ class ResponseEmitter
 
     /**
      * Set whether to use chunked encoding.
-     * 
+     *
      * @param bool $useChunked Use chunked encoding
      * @return self
      */
@@ -166,7 +166,7 @@ class ResponseEmitter
 
     /**
      * Set buffer size for streaming.
-     * 
+     *
      * @param int $bufferSize Buffer size in bytes
      * @return self
      */
@@ -180,7 +180,7 @@ class ResponseEmitter
 
     /**
      * Create emitter with default settings.
-     * 
+     *
      * @return self
      */
     public static function create(): self

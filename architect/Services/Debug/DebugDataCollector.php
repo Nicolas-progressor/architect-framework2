@@ -31,7 +31,7 @@ class DebugDataCollector implements DebugCollectorInterface
         if (count($this->messages) >= self::MAX_MESSAGES) {
             return;
         }
-        
+
         $this->messages[] = [
             'time' => microtime(true),
             'category' => $category,
@@ -39,7 +39,7 @@ class DebugDataCollector implements DebugCollectorInterface
             'level' => $level,
             'context' => $this->sanitizeData($this->truncateData($context)),
         ];
-        
+
         $this->hasData = true;
         $this->newDataSinceRender = true;
     }
@@ -52,7 +52,7 @@ class DebugDataCollector implements DebugCollectorInterface
             'end' => null,
             'duration' => null,
         ];
-        
+
         $this->hasData = true;
     }
 
@@ -61,14 +61,14 @@ class DebugDataCollector implements DebugCollectorInterface
         if (!isset($this->timers[$name])) {
             return null;
         }
-        
+
         $end = microtime(true);
         $this->timers[$name]['end'] = $end;
         $this->timers[$name]['duration'] = $end - $this->timers[$name]['start'];
-        
+
         $this->hasData = true;
         $this->newDataSinceRender = true;
-        
+
         return $this->timers[$name]['duration'];
     }
 
@@ -79,17 +79,17 @@ class DebugDataCollector implements DebugCollectorInterface
         if (strlen($serialized) > self::MAX_DATA_SIZE) {
             $data = ['_truncated' => true, 'size' => strlen($serialized)];
         }
-        
+
         if (!isset($this->data[$category])) {
             $this->data[$category] = [];
         }
-        
+
         $this->data[$category][] = [
             'time' => microtime(true),
             'description' => $description,
             'data' => $this->sanitizeData($this->flattenData($data)),
         ];
-        
+
         $this->hasData = true;
         $this->newDataSinceRender = true;
     }
@@ -97,7 +97,7 @@ class DebugDataCollector implements DebugCollectorInterface
     public function incrementCounter(string $category, string $counterName, int $value = 1): void
     {
         $key = "{$category}:{$counterName}";
-        
+
         if (!isset($this->counters[$key])) {
             $this->counters[$key] = [
                 'category' => $category,
@@ -106,13 +106,13 @@ class DebugDataCollector implements DebugCollectorInterface
                 'history' => [],
             ];
         }
-        
+
         $this->counters[$key]['value'] += $value;
         $this->counters[$key]['history'][] = [
             'time' => microtime(true),
             'delta' => $value,
         ];
-        
+
         $this->hasData = true;
     }
 
@@ -123,7 +123,7 @@ class DebugDataCollector implements DebugCollectorInterface
             'name' => $eventName,
             'metadata' => $this->sanitizeData($metadata),
         ];
-        
+
         $this->hasData = true;
         $this->newDataSinceRender = true;
     }
@@ -157,7 +157,7 @@ class DebugDataCollector implements DebugCollectorInterface
             }
             return $timer;
         }, $this->timers);
-        
+
         $messagesByCategory = [];
         foreach ($this->messages as $msg) {
             $cat = $msg['category'];
@@ -166,7 +166,7 @@ class DebugDataCollector implements DebugCollectorInterface
             }
             $messagesByCategory[$cat][] = $msg;
         }
-        
+
         $levelStats = [
             'debug' => 0,
             'info' => 0,
@@ -179,15 +179,15 @@ class DebugDataCollector implements DebugCollectorInterface
                 $levelStats[$level]++;
             }
         }
-        
+
         $sortedTimers = $timers;
         usort($sortedTimers, fn($a, $b) => ($b['duration'] ?? 0) - ($a['duration'] ?? 0));
         $topTimers = array_slice($sortedTimers, 0, 5);
-        
+
         $sortedCounters = array_values($this->counters);
         usort($sortedCounters, fn($a, $b) => $b['value'] - $a['value']);
         $topCounters = array_slice($sortedCounters, 0, 5);
-        
+
         return [
             'has_data' => $this->hasData,
             'new_data' => $this->newDataSinceRender,
@@ -205,7 +205,7 @@ class DebugDataCollector implements DebugCollectorInterface
             'total_messages' => count($this->messages),
         ];
     }
-    
+
     public function resetNewDataFlag(): void
     {
         $this->newDataSinceRender = false;
@@ -217,7 +217,7 @@ class DebugDataCollector implements DebugCollectorInterface
         $categories += count($this->data);
         return $categories;
     }
-    
+
     public function getTotalMessages(): int
     {
         return count($this->messages);

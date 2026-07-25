@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Architect\Core;
 
-use Architect\Core\Contracts\EnvironmentInterface;
-use Architect\Core\Environment\EnvDetectorInterface;
-use Architect\Core\Environment\DotEnvLoader;
 use Architect\Core\Config\ConfigInterface;
+use Architect\Core\Contracts\EnvironmentInterface;
+use Architect\Core\Environment\DotEnvLoader;
+use Architect\Core\Environment\EnvDetectorInterface;
 
 /**
  * Environment manager for application environment detection and configuration.
- * 
+ *
  * Uses separate components for detection, .env loading, and configuration.
  */
 class EnvironmentManager implements EnvironmentInterface

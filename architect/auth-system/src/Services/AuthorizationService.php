@@ -7,9 +7,8 @@ namespace Architect\AuthSystem\Services;
 use Architect\AuthSystem\Contracts\AuthorizationInterface;
 use Architect\AuthSystem\Events\EventDispatcherInterface;
 use Architect\AuthSystem\Events\PermissionDeniedEvent;
-use Architect\AuthSystem\Models\User;
 use Architect\AuthSystem\Models\Role;
-use Architect\AuthSystem\Models\Permission;
+use Architect\AuthSystem\Models\User;
 use Architect\Core\Container;
 
 class AuthorizationService implements AuthorizationInterface

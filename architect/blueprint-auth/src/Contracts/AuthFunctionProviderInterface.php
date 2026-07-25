@@ -2,9 +2,9 @@
 
 /**
  * Auth Function Provider Interface
- * 
+ *
  * Defines contract for auth function registration.
- * 
+ *
  * @package     Architect\BlueprintAuth\Contracts
  * @author      Architect Team <team@architect.dev>
  * @license     MIT

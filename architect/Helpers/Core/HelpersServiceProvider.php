@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Helpers\Core;
 
-use Architect\Support\AbstractServiceProvider;
 use Architect\Core\Contracts\ContainerInterface;
+use Architect\Support\AbstractServiceProvider;
 
 /**
  * Service provider for Helpers system.
@@ -78,7 +78,7 @@ class HelpersServiceProvider extends AbstractServiceProvider
             'Helper_Arr' => 'Architect\Helpers\ArrayHelper\Facades\Helper_Arr',
             'Helper_Number' => 'Architect\Helpers\NumberHelper\Facades\Helper_Number',
         ];
-        
+
         foreach ($defaultFacades as $alias => $facadeClass) {
             if (class_exists($facadeClass) && !class_exists($alias, false)) {
                 class_alias($facadeClass, $alias);

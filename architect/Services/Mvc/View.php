@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Architect\Services\Mvc;
 
-use Blueprint\Engine\Blueprint;
 use Architect\Services\Blueprint\BlueprintService;
 use Architect\Services\Mvc\Contracts\ViewInterface;
 use Architect\Services\Mvc\Exceptions\ViewNotFoundException;
 use Architect\Support\AbstractService;
+use Blueprint\Engine\Blueprint;
 
 /**
  * View service for rendering templates.
- * 
+ *
  * Supports both PHP templates and Blueprint templates (.blu files).
  * Handles template discovery, rendering, and data management.
  */
@@ -32,10 +32,10 @@ class View extends AbstractService implements ViewInterface
 
     /** @var string Module path for Blueprint context */
     private string $modulePath = '';
-    
+
     /**
      * Set template directory.
-     * 
+     *
      * @param string $dir Directory path
      */
     public function setTemplateDir(string $dir): void
@@ -49,7 +49,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Get template directory.
-     * 
+     *
      * @return string
      */
     public function getTemplateDir(): string
@@ -59,7 +59,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Set module path for Blueprint context.
-     * 
+     *
      * @param string $path Module path
      */
     public function setModulePath(string $path): void
@@ -69,7 +69,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Set Blueprint service.
-     * 
+     *
      * @param BlueprintService|Blueprint $blueprint Blueprint instance or service
      */
     public function setBlueprint(BlueprintService|Blueprint $blueprint): void
@@ -88,7 +88,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Check if Blueprint is available.
-     * 
+     *
      * @return bool
      */
     public function hasBlueprint(): bool
@@ -98,7 +98,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Set view data.
-     * 
+     *
      * @param array $data Data to merge with existing data
      */
     public function setData(array $data): void
@@ -108,7 +108,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Render view template.
-     * 
+     *
      * @param string $template Template name or path
      * @param array $data Template data
      * @param bool $setContent Whether to set content in template service
@@ -141,7 +141,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Display view template (output directly).
-     * 
+     *
      * @param string $template Template name or path
      * @param array $data Template data
      * @throws ViewNotFoundException If template not found
@@ -174,7 +174,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Resolve template file path.
-     * 
+     *
      * @param string $template Template name or path
      * @return string Resolved file path
      */
@@ -199,7 +199,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Render PHP template file.
-     * 
+     *
      * @param string $templateFile Absolute template path
      * @return string Rendered content
      */
@@ -214,7 +214,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Check if template is a Blueprint template.
-     * 
+     *
      * @param string $template Template name
      * @return bool
      */
@@ -234,7 +234,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Check if path is absolute.
-     * 
+     *
      * @param string $template Path to check
      * @return bool
      */
@@ -248,7 +248,7 @@ class View extends AbstractService implements ViewInterface
 
     /**
      * Render Blueprint template.
-     * 
+     *
      * @param string $template Template name
      * @param array $data Template data
      * @param bool $setContent Whether to set content in template service

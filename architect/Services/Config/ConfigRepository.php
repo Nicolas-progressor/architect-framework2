@@ -9,14 +9,14 @@ use Architect\Services\Config\Contracts\MutableConfigInterface;
 
 /**
  * Configuration repository with dot notation support.
- * 
+ *
  * Immutable by default, implements MutableConfigInterface for runtime modifications.
  */
 final class ConfigRepository implements MutableConfigInterface
 {
     /**
      * Create configuration repository.
-     * 
+     *
      * @param array $data Configuration data
      */
     public function __construct(
@@ -118,7 +118,7 @@ final class ConfigRepository implements MutableConfigInterface
 
     /**
      * Create a new immutable copy with merged data.
-     * 
+     *
      * @param array $data Data to merge
      * @return self
      */
@@ -129,7 +129,7 @@ final class ConfigRepository implements MutableConfigInterface
 
     /**
      * Create an immutable copy (removes mutation methods).
-     * 
+     *
      * @return ConfigInterface
      */
     public function toImmutable(): ConfigInterface

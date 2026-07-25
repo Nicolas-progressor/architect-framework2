@@ -2,9 +2,9 @@
 
 /**
  * Form Function Provider Interface
- * 
+ *
  * Defines contract for form function registration.
- * 
+ *
  * @package     Architect\BlueprintForms\Contracts
  * @author      Architect Team <team@architect.dev>
  * @license     MIT

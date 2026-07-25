@@ -83,28 +83,28 @@ final class ContextManager implements ContextManagerInterface
     private function updatePaths(): void
     {
         $this->paths = [];
-        
+
         // Template-specific paths (highest priority)
         if ($this->currentTemplate && $this->currentAppDir) {
             $this->addTemplatePaths($this->currentAppDir, $this->currentTemplate);
         }
-        
+
         // App template paths
         if ($this->currentAppDir) {
             $this->addAppPaths($this->currentAppDir);
         }
-        
+
         // Global template paths
         $this->addGlobalPaths();
     }
-        
+
     /**
      * Add template-specific paths
      */
     private function addTemplatePaths(string $appDir, string $template): void
     {
         $basePath = $appDir . 'template/' . $template . '/';
-        
+
         $this->addPathIfExists($basePath);
         $this->addPathIfExists($basePath . 'layouts/');
         $this->addPathIfExists($basePath . 'elements/');
@@ -126,7 +126,7 @@ final class ContextManager implements ContextManagerInterface
     private function addGlobalPaths(): void
     {
         $globalBase = $this->rootDir . '/app/template/';
-        
+
         $this->addPathIfExists($globalBase);
         $this->addPathIfExists($globalBase . 'layouts/');
         $this->addPathIfExists($globalBase . 'elements/');
@@ -138,7 +138,7 @@ final class ContextManager implements ContextManagerInterface
     private function addPathIfExists(string $path): void
     {
         $normalizedPath = rtrim($path, '/') . '/';
-        
+
         if (is_dir($normalizedPath) && !in_array($normalizedPath, $this->paths, true)) {
             $this->paths[] = $normalizedPath;
         }
@@ -152,7 +152,7 @@ final class ContextManager implements ContextManagerInterface
         if (defined('ROOT_DIR')) {
             return ROOT_DIR;
         }
-        
+
         return dirname(__DIR__, 4);
     }
 }

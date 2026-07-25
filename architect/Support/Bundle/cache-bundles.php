@@ -17,6 +17,6 @@ try {
     BundleDiscovery::cache();
     fwrite(STDERR, "Cached bundles successfully.\n");
 } catch (Throwable $e) {
-    fwrite(STDERR, "Failed to cache bundles: " . $e->getMessage() . "\n");
+    fwrite(STDERR, 'Failed to cache bundles: ' . $e->getMessage() . "\n");
     exit(1);
 }

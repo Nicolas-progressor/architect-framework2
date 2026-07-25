@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Architect\Services\Logger;
 
-use Architect\Support\AbstractService;
 use Architect\Services\Logger\Contracts\LoggerInterface;
-use Psr\Log\LogLevel;
+use Architect\Support\AbstractService;
 use Psr\Log\InvalidArgumentException;
+use Psr\Log\LogLevel;
 
 /**
  * PSR-3 compliant Logger service.
- * 
+ *
  * Features:
  * - Full PSR-3 compatibility
  * - Channel-based logging
@@ -62,7 +62,7 @@ class Logger extends AbstractService implements LoggerInterface
         ?LogWriterInterface $writer = null
     ) {
         parent::__construct($container);
-        
+
         $this->config = $config ?? LoggerConfig::default();
         $this->writer = $writer ?? new FileLogWriter($this->config);
     }
@@ -78,7 +78,7 @@ class Logger extends AbstractService implements LoggerInterface
 
     /**
      * Set debug callback for integration with Debug service.
-     * 
+     *
      * This avoids circular dependency by using a callback.
      * Call this from Debug service boot.
      */
@@ -98,7 +98,7 @@ class Logger extends AbstractService implements LoggerInterface
     {
         $level = (string) $level;
         $this->validateLevel($level);
-        
+
         $this->writeLog(
             $level,
             $this->formatMessage($message, $context),
@@ -111,13 +111,13 @@ class Logger extends AbstractService implements LoggerInterface
      * Log with specific channel.
      */
     public function logWithChannel(
-        string $level, 
-        $message, 
-        array $context = [], 
+        string $level,
+        $message,
+        array $context = [],
         string $channel = 'app'
     ): void {
         $this->validateLevel($level);
-        
+
         $this->writeLog(
             $level,
             $this->formatMessage($message, $context),

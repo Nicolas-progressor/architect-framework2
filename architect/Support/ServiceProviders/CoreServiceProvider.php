@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Architect\Support\ServiceProviders;
 
-use Architect\Contracts\ServiceProviderInterface;
 use Architect\Core\Contracts\ContainerInterface;
-use Architect\Support\AbstractServiceProvider;
 use Architect\Services\Config\ConfigLoader;
 use Architect\Services\Config\ConfigPathResolver;
 use Architect\Services\Config\Contracts\ConfigLoaderInterface;
+use Architect\Services\Routing\Contracts\FileSystemInterface;
+use Architect\Services\Routing\Contracts\RouteLoaderInterface;
+use Architect\Services\Routing\Filesystem\NativeFileSystem;
 use Architect\Services\Routing\HttpRequest;
 use Architect\Services\Routing\Loaders\JsonRouteLoader;
-use Architect\Services\Routing\Contracts\RouteLoaderInterface;
-use Architect\Services\Routing\Contracts\FileSystemInterface;
-use Architect\Services\Routing\Filesystem\NativeFileSystem;
+use Architect\Support\AbstractServiceProvider;
 
 /**
  * Core service provider: filesystem, request, configuration.
@@ -42,7 +41,7 @@ class CoreServiceProvider extends AbstractServiceProvider
         $this->registerFactory($container, 'config.path_resolver', function ($c) {
             $appDir = defined('APP_DIR') ? APP_DIR : dirname(__DIR__, 2) . '/app/';
             $rootDir = defined('ROOT_DIR') ? ROOT_DIR : dirname(__DIR__, 2) . '/';
-            
+
             return new ConfigPathResolver(
                 $c->get('fs'),
                 $appDir,

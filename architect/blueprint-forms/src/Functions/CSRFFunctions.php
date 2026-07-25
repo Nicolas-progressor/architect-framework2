@@ -2,9 +2,9 @@
 
 /**
  * CSRF Functions
- * 
+ *
  * Provides CSRF token functions for Blueprint templates.
- * 
+ *
  * @package     Architect\BlueprintForms\Functions
  * @author      Architect Team <team@architect.dev>
  * @license     MIT
@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Architect\BlueprintForms\Functions;
 
+use Architect\BlueprintForms\Contracts\FormFunctionProviderInterface;
 use Architect\Services\Form\CSRFTokenManager;
 use Blueprint\Engine\Blueprint;
-use Architect\BlueprintForms\Contracts\FormFunctionProviderInterface;
 
 /**
  * CSRF token functions for templates.

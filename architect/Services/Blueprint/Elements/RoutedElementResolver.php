@@ -37,7 +37,7 @@ final class RoutedElementResolver
         }
 
         $route = $this->getCurrentRoute();
-        
+
         return $this->findElement($name, $route);
     }
 
@@ -51,7 +51,7 @@ final class RoutedElementResolver
         }
 
         $router = $this->container->get('router');
-        
+
         return [
             'module' => method_exists($router, 'getModule') ? $router->getModule() : '',
             'controller' => method_exists($router, 'getController') ? $router->getController() : '',
@@ -70,26 +70,26 @@ final class RoutedElementResolver
         $module = $route['module'];
         $controller = $route['controller'];
         $action = $route['action'];
-        
+
         // 1. Full path: module -> controller -> action -> element
         if ($module && isset($this->routedElements[$module])) {
             $moduleData = $this->routedElements[$module];
-            
+
             if ($controller && isset($moduleData[$controller])) {
                 $controllerData = $moduleData[$controller];
-                
+
                 // Exact action match
                 if ($action && isset($controllerData[$action]) && is_array($controllerData[$action])) {
                     return $controllerData[$action][$name] ?? null;
                 }
-                
+
                 // Controller level (all actions) - check if controllerData has element directly
                 if (isset($controllerData[$name]) && is_array($controllerData)) {
                     return $controllerData[$name];
                 }
             }
         }
-        
+
         // 2. Backward compatibility: action -> element
         if ($action && isset($this->routedElements[$action])) {
             $actionData = $this->routedElements[$action];
@@ -97,7 +97,7 @@ final class RoutedElementResolver
                 return $actionData[$name];
             }
         }
-        
+
         return null;
     }
 }

@@ -62,8 +62,8 @@ class JsonConfigLoader implements ConfigInterface
     {
         foreach ($override as $key => $value) {
             if (
-                isset($base[$key]) 
-                && is_array($base[$key]) 
+                isset($base[$key])
+                && is_array($base[$key])
                 && is_array($value)
             ) {
                 $base[$key] = $this->mergeConfig($base[$key], $value);
@@ -71,7 +71,7 @@ class JsonConfigLoader implements ConfigInterface
                 $base[$key] = $value;
             }
         }
-        
+
         return $base;
     }
 
@@ -80,23 +80,23 @@ class JsonConfigLoader implements ConfigInterface
         if (!$this->loaded) {
             $this->load();
         }
-        
+
         // Simple key without dot
         if (strpos($key, '.') === false) {
             return $this->config[$key] ?? $default;
         }
-        
+
         // Nested key with dot notation
         $keys = explode('.', $key);
         $value = $this->config;
-        
+
         foreach ($keys as $k) {
             if (!is_array($value) || !array_key_exists($k, $value)) {
                 return $default;
             }
             $value = $value[$k];
         }
-        
+
         return $value;
     }
 
@@ -105,7 +105,7 @@ class JsonConfigLoader implements ConfigInterface
         if (!$this->loaded) {
             $this->load();
         }
-        
+
         return $this->config;
     }
 

@@ -18,7 +18,7 @@ interface ValidationRuleInterface
      * @return bool
      */
     public function passes(string $attribute, $value, array $parameters, Validator $validator): bool;
-    
+
     /**
      * Получает сообщение об ошибке
      *

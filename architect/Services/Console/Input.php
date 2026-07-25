@@ -158,7 +158,7 @@ class Input
             return in_array(strtolower($value), ['true', '1', 'yes', 'on'], true);
         }
 
-        return (bool)$value;
+        return (bool) $value;
     }
 
     /**

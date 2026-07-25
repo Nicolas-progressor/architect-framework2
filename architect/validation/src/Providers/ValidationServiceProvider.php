@@ -6,25 +6,25 @@ namespace Architect\Validation\Providers;
 
 use Architect\Contracts\ServiceProviderInterface;
 use Architect\Core\Contracts\ContainerInterface;
-use Architect\Validation\Validator;
-use Architect\Validation\Rules\Rule;
-use Architect\Validation\Rules\RequiredRule;
-use Architect\Validation\Rules\EmailRule;
-use Architect\Validation\Rules\NumericRule;
-use Architect\Validation\Rules\IntegerRule;
-use Architect\Validation\Rules\StringRule;
-use Architect\Validation\Rules\ArrayRule;
-use Architect\Validation\Rules\MinRule;
-use Architect\Validation\Rules\MaxRule;
-use Architect\Validation\Rules\SizeRule;
-use Architect\Validation\Rules\InRule;
-use Architect\Validation\Rules\NotInRule;
-use Architect\Validation\Rules\UniqueRule;
-use Architect\Validation\Rules\ExistsRule;
-use Architect\Validation\Rules\RegexRule;
-use Architect\Validation\Rules\DateRule;
-use Architect\Validation\Rules\BeforeRule;
 use Architect\Validation\Rules\AfterRule;
+use Architect\Validation\Rules\ArrayRule;
+use Architect\Validation\Rules\BeforeRule;
+use Architect\Validation\Rules\DateRule;
+use Architect\Validation\Rules\EmailRule;
+use Architect\Validation\Rules\ExistsRule;
+use Architect\Validation\Rules\InRule;
+use Architect\Validation\Rules\IntegerRule;
+use Architect\Validation\Rules\MaxRule;
+use Architect\Validation\Rules\MinRule;
+use Architect\Validation\Rules\NotInRule;
+use Architect\Validation\Rules\NumericRule;
+use Architect\Validation\Rules\RegexRule;
+use Architect\Validation\Rules\RequiredRule;
+use Architect\Validation\Rules\Rule;
+use Architect\Validation\Rules\SizeRule;
+use Architect\Validation\Rules\StringRule;
+use Architect\Validation\Rules\UniqueRule;
+use Architect\Validation\Validator;
 
 class ValidationServiceProvider implements ServiceProviderInterface
 {
@@ -37,20 +37,20 @@ class ValidationServiceProvider implements ServiceProviderInterface
     public function register(ContainerInterface $container): void
     {
         $this->log('[ValidationServiceProvider] register called', $container);
-        
+
         // Регистрируем валидатор как синглтон
         $container->singleton('validator', function ($container) {
             $validator = new Validator($container);
             $this->registerDefaultRules($validator);
             return $validator;
         });
-        
+
         // Регистрируем фасад валидатора
         $container->alias(Validator::class, 'validator');
-        
+
         $this->log('[ValidationServiceProvider] validator registered', $container);
     }
-    
+
     /**
      * Загружает сервисы валидации после регистрации
      *
@@ -60,11 +60,11 @@ class ValidationServiceProvider implements ServiceProviderInterface
     public function boot(ContainerInterface $container): void
     {
         $this->log('[ValidationServiceProvider] boot called', $container);
-        
+
         // Регистрируем кастомные правила, если они есть в конфигурации
         $this->registerCustomRules($container);
     }
-    
+
     /**
      * Регистрирует стандартные правила валидации
      *
@@ -92,7 +92,7 @@ class ValidationServiceProvider implements ServiceProviderInterface
             'before' => BeforeRule::class,
             'after' => AfterRule::class,
         ];
-        
+
         foreach ($rules as $name => $class) {
             $validator->extend($name, function ($attribute, $value, $parameters, $validator) use ($class) {
                 /** @var Rule $rule */
@@ -102,7 +102,7 @@ class ValidationServiceProvider implements ServiceProviderInterface
             });
         }
     }
-    
+
     /**
      * Регистрирует кастомные правила из конфигурации
      *
@@ -114,16 +114,16 @@ class ValidationServiceProvider implements ServiceProviderInterface
         if (!$container->has('config')) {
             return;
         }
-        
+
         $config = $container->get('config');
         $customRules = $config->get('validation.custom_rules', []);
-        
+
         if (empty($customRules)) {
             return;
         }
-        
+
         $validator = $container->get('validator');
-        
+
         foreach ($customRules as $name => $ruleClass) {
             if (class_exists($ruleClass) && is_subclass_of($ruleClass, Rule::class)) {
                 $validator->extend($name, function ($attribute, $value, $parameters, $validator) use ($ruleClass) {
@@ -132,12 +132,12 @@ class ValidationServiceProvider implements ServiceProviderInterface
                     $rule->setParameters($parameters);
                     return $rule->passes($attribute, $value, $parameters, $validator);
                 });
-                
+
                 $this->log("[ValidationServiceProvider] registered custom rule: {$name}", $container);
             }
         }
     }
-    
+
     /**
      * Логирование сообщения
      *

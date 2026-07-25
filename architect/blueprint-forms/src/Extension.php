@@ -2,10 +2,10 @@
 
 /**
  * Blueprint Forms Extension
- * 
+ *
  * Integrates Form system with Blueprint templates.
  * Provides form building and validation functions.
- * 
+ *
  * @package     Architect\BlueprintForms
  * @author      Architect Team <team@architect.dev>
  * @license     MIT
@@ -15,18 +15,18 @@ declare(strict_types=1);
 
 namespace Architect\BlueprintForms;
 
-use Blueprint\Engine\Blueprint;
-use Blueprint\Engine\BlueprintExtension;
-use Architect\Services\Form\FormBuilder;
-use Architect\Services\Form\CSRFTokenManager;
 use Architect\BlueprintForms\Contracts\FormFunctionProviderInterface;
 use Architect\BlueprintForms\Functions\CSRFFunctions;
 use Architect\BlueprintForms\Functions\FormFieldFunctions;
 use Architect\BlueprintForms\Functions\OldInputFunctions;
+use Architect\Services\Form\CSRFTokenManager;
+use Architect\Services\Form\FormBuilder;
+use Blueprint\Engine\Blueprint;
+use Blueprint\Engine\BlueprintExtension;
 
 /**
  * Blueprint extension for form integration.
- * 
+ *
  * Usage in templates:
  *   {{ form_open('/submit') }}
  *   {{ text('username', old('username')) }}
@@ -51,7 +51,7 @@ final class Extension implements BlueprintExtension
 
     /**
      * Get function providers.
-     * 
+     *
      * @return array<FormFunctionProviderInterface>
      */
     private function getFunctionProviders(): array
@@ -72,7 +72,7 @@ final class Extension implements BlueprintExtension
             $this->builder = new FormBuilder($this->getCSRF());
             $this->applyFlashData($this->builder);
         }
-        
+
         return $this->builder;
     }
 
@@ -96,7 +96,7 @@ final class Extension implements BlueprintExtension
         if (session_status() === PHP_SESSION_NONE) {
             return;
         }
-        
+
         if (isset($_SESSION['_old_input'])) {
             $builder->setData($_SESSION['_old_input']);
             unset($_SESSION['_old_input']);
@@ -108,4 +108,3 @@ final class Extension implements BlueprintExtension
         }
     }
 }
-

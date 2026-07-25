@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Architect\AuthSystem\Repositories;
 
 use Architect\AuthSystem\Contracts\UserProviderInterface;
-use Architect\AuthSystem\Models\User;
 use Architect\AuthSystem\Models\Role;
+use Architect\AuthSystem\Models\User;
 
 class UserRepository implements UserProviderInterface
 {

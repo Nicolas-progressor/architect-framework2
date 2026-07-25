@@ -9,9 +9,9 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Middleware Resolver.
- * 
+ *
  * Resolves middleware from class names, instances, or callables.
- * 
+ *
  * @package Architect\Services\Mvc\Middleware
  */
 class MiddlewareResolver
@@ -24,7 +24,7 @@ class MiddlewareResolver
 
     /**
      * Create resolver instance.
-     * 
+     *
      * @param ContainerInterface $container Container instance
      */
     public function __construct(ContainerInterface $container)
@@ -34,7 +34,7 @@ class MiddlewareResolver
 
     /**
      * Resolve middleware from mixed value.
-     * 
+     *
      * @param mixed $middleware Middleware class name, instance, or callable
      * @return MiddlewareInterface
      * @throws \InvalidArgumentException If middleware cannot be resolved
@@ -69,7 +69,7 @@ class MiddlewareResolver
 
     /**
      * Resolve middleware from class name.
-     * 
+     *
      * @param class-string<MiddlewareInterface> $className Class name
      * @return MiddlewareInterface
      */
@@ -97,13 +97,13 @@ class MiddlewareResolver
 
     /**
      * Resolve middleware from callable.
-     * 
+     *
      * @param callable $callable Callable middleware
      * @return MiddlewareInterface
      */
     protected function resolveFromCallable(callable $callable): MiddlewareInterface
     {
-        return new class($callable) implements MiddlewareInterface {
+        return new class ($callable) implements MiddlewareInterface {
             private $callable;
 
             public function __construct(callable $callable)
@@ -120,7 +120,7 @@ class MiddlewareResolver
 
     /**
      * Register middleware alias.
-     * 
+     *
      * @param string $alias Alias name
      * @param class-string<MiddlewareInterface> $className Class name
      * @return self
@@ -133,7 +133,7 @@ class MiddlewareResolver
 
     /**
      * Register multiple aliases.
-     * 
+     *
      * @param array<string, class-string<MiddlewareInterface>> $aliases Aliases
      * @return self
      */
@@ -147,7 +147,7 @@ class MiddlewareResolver
 
     /**
      * Check if alias exists.
-     * 
+     *
      * @param string $alias Alias name
      * @return bool
      */
@@ -158,7 +158,7 @@ class MiddlewareResolver
 
     /**
      * Get class name for alias.
-     * 
+     *
      * @param string $alias Alias name
      * @return string|null
      */

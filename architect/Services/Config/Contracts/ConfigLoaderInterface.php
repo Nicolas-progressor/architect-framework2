@@ -11,7 +11,7 @@ interface ConfigLoaderInterface
 {
     /**
      * Load configuration by name.
-     * 
+     *
      * @param string $name Configuration name (e.g., 'apps', 'template')
      * @param string|null $appPath Optional application path for lookup
      * @return ConfigInterface

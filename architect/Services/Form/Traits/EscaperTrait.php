@@ -6,14 +6,14 @@ namespace Architect\Services\Form\Traits;
 
 /**
  * Trait EscaperTrait
- * 
+ *
  * Предоставляет метод для экранирования HTML-сущностей.
  */
 trait EscaperTrait
 {
     /**
      * Экранировать строку для безопасного вывода в HTML.
-     * 
+     *
      * @param string $value
      * @return string
      */

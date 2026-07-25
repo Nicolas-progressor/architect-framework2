@@ -12,18 +12,18 @@ class ConfigCache implements ConfigCacheInterface
 {
     private const CACHE_DIR = 'bootstrap/cache/config';
     private const CACHE_FILE = 'config.php';
-    
+
     private bool $enabled = true;
     private array $cache = [];
     private bool $loaded = false;
-    
+
     public function __construct(
         private readonly FileSystemInterface $fs,
         private readonly string $cachePath
     ) {
         $this->ensureCacheDirectory();
     }
-    
+
     /**
      * Check if configuration is cached.
      */
@@ -32,13 +32,13 @@ class ConfigCache implements ConfigCacheInterface
         if (!$this->enabled) {
             return false;
         }
-        
+
         $this->loadCache();
         $key = $this->getCacheKey($name, $appPath);
-        
+
         return isset($this->cache[$key]);
     }
-    
+
     /**
      * Get cached configuration.
      */
@@ -47,17 +47,17 @@ class ConfigCache implements ConfigCacheInterface
         if (!$this->enabled) {
             return null;
         }
-        
+
         $this->loadCache();
         $key = $this->getCacheKey($name, $appPath);
-        
+
         if (!isset($this->cache[$key])) {
             return null;
         }
-        
+
         return new ConfigRepository($this->cache[$key]);
     }
-    
+
     /**
      * Store configuration in cache.
      */
@@ -66,14 +66,14 @@ class ConfigCache implements ConfigCacheInterface
         if (!$this->enabled) {
             return;
         }
-        
+
         $this->loadCache();
         $key = $this->getCacheKey($name, $appPath);
-        
+
         $this->cache[$key] = $config->all();
         $this->saveCache();
     }
-    
+
     /**
      * Clear configuration cache.
      */
@@ -81,12 +81,12 @@ class ConfigCache implements ConfigCacheInterface
     {
         $this->cache = [];
         $this->loaded = false;
-        
+
         if ($this->fs->exists($this->getCacheFilePath())) {
             $this->fs->unlink($this->getCacheFilePath());
         }
     }
-    
+
     /**
      * Clear cache for specific configuration.
      */
@@ -94,27 +94,27 @@ class ConfigCache implements ConfigCacheInterface
     {
         $this->loadCache();
         $key = $this->getCacheKey($name, $appPath);
-        
+
         if (isset($this->cache[$key])) {
             unset($this->cache[$key]);
             $this->saveCache();
         }
     }
-    
+
     /**
      * Get cache key for configuration.
      */
     public function getCacheKey(string $name, ?string $appPath = null): string
     {
         $parts = [$name];
-        
+
         if ($appPath !== null) {
             $parts[] = $appPath;
         }
-        
+
         return md5(implode(':', $parts));
     }
-    
+
     /**
      * Check if cache is enabled.
      */
@@ -122,7 +122,7 @@ class ConfigCache implements ConfigCacheInterface
     {
         return $this->enabled;
     }
-    
+
     /**
      * Enable or disable cache.
      */
@@ -130,7 +130,7 @@ class ConfigCache implements ConfigCacheInterface
     {
         $this->enabled = $enabled;
     }
-    
+
     /**
      * Load cache from file.
      */
@@ -139,20 +139,20 @@ class ConfigCache implements ConfigCacheInterface
         if ($this->loaded || !$this->enabled) {
             return;
         }
-        
+
         $cacheFile = $this->getCacheFilePath();
-        
+
         if ($this->fs->exists($cacheFile)) {
             $data = include $cacheFile;
-            
+
             if (is_array($data)) {
                 $this->cache = $data;
             }
         }
-        
+
         $this->loaded = true;
     }
-    
+
     /**
      * Save cache to file.
      */
@@ -161,13 +161,13 @@ class ConfigCache implements ConfigCacheInterface
         if (!$this->enabled) {
             return;
         }
-        
+
         $cacheFile = $this->getCacheFilePath();
         $content = '<?php' . PHP_EOL . 'return ' . var_export($this->cache, true) . ';' . PHP_EOL;
-        
+
         $this->fs->put($cacheFile, $content);
     }
-    
+
     /**
      * Get full path to cache file.
      */
@@ -175,16 +175,16 @@ class ConfigCache implements ConfigCacheInterface
     {
         return $this->cachePath . '/' . self::CACHE_DIR . '/' . self::CACHE_FILE;
     }
-    
+
     /**
      * Ensure cache directory exists.
      */
     private function ensureCacheDirectory(): void
     {
         $cacheDir = $this->cachePath . '/' . self::CACHE_DIR;
-        
+
         if (!$this->fs->exists($cacheDir)) {
-            $this->fs->mkdir($cacheDir, 0755, true);
+            $this->fs->mkdir($cacheDir, 0o755, true);
         }
     }
 }

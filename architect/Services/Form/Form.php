@@ -12,15 +12,15 @@ use Architect\Services\Form\Interfaces\FormValidatorInterface;
 
 /**
  * Class Form
- * 
+ *
  * Сервис для работы с формами в Architect Framework.
  * Реализует интерфейс FormServiceInterface.
  * Обеспечивает унифицированную работу с формами, валидацию и CSRF-защиту.
- * 
+ *
  * Использование:
- * 
+ *
  * $form = $container->get('form');
- * 
+ *
  * // В контроллере
  * $result = $form->handle('register', [
  *     'username' => 'required|min_length:3|max_length:20',
@@ -30,12 +30,12 @@ use Architect\Services\Form\Interfaces\FormValidatorInterface;
  *     User::create($data);
  *     return redirect('/success');
  * });
- * 
+ *
  * if ($result->hasErrors()) {
  *     // Ошибки валидации
  *     return view('register', ['errors' => $result->getErrors()]);
  * }
- * 
+ *
  * @package Architect\Services\Form
  */
 class Form implements FormServiceInterface
@@ -62,7 +62,7 @@ class Form implements FormServiceInterface
 
     /**
      * Конструктор — внедрение зависимостей через интерфейсы
-     * 
+     *
      * @param CSRFTokenManagerInterface $csrf
      * @param FormBuilderInterface $builder
      * @param FormValidatorInterface $validator
@@ -79,7 +79,7 @@ class Form implements FormServiceInterface
 
     /**
      * Обработать форму
-     * 
+     *
      * @param string $formName Имя формы
      * @param array $validationRules Правила валидации
      * @param callable|null $callback Функция при успешной валидации
@@ -93,7 +93,7 @@ class Form implements FormServiceInterface
 
     /**
      * Проверить данные без обработки формы
-     * 
+     *
      * @param array $data Данные для валидации
      * @param array $rules Правила валидации
      * @return FormResult Результат валидации
@@ -105,7 +105,7 @@ class Form implements FormServiceInterface
 
     /**
      * Сгенерировать CSRF токен
-     * 
+     *
      * @param string $formName Имя формы
      * @return string
      */
@@ -116,7 +116,7 @@ class Form implements FormServiceInterface
 
     /**
      * Получить скрытое поле с CSRF токеном
-     * 
+     *
      * @param string $formName Имя формы
      * @return string
      */
@@ -127,7 +127,7 @@ class Form implements FormServiceInterface
 
     /**
      * Проверить CSRF токен
-     * 
+     *
      * @param string $formName Имя формы
      * @param string $token Токен
      * @return bool
@@ -139,7 +139,7 @@ class Form implements FormServiceInterface
 
     /**
      * Открыть форму
-     * 
+     *
      * @param string $action URL
      * @param string $method Метод
      * @param array $attributes Атрибуты
@@ -152,7 +152,7 @@ class Form implements FormServiceInterface
 
     /**
      * Закрыть форму
-     * 
+     *
      * @return string
      */
     public function close(): string
@@ -162,7 +162,7 @@ class Form implements FormServiceInterface
 
     /**
      * Текстовое поле
-     * 
+     *
      * @param string $name Имя
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -175,7 +175,7 @@ class Form implements FormServiceInterface
 
     /**
      * Email поле
-     * 
+     *
      * @param string $name Имя
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -188,7 +188,7 @@ class Form implements FormServiceInterface
 
     /**
      * Пароль
-     * 
+     *
      * @param string $name Имя
      * @param array $attributes Атрибуты
      * @return string
@@ -200,7 +200,7 @@ class Form implements FormServiceInterface
 
     /**
      * Текстовая область
-     * 
+     *
      * @param string $name Имя
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -213,7 +213,7 @@ class Form implements FormServiceInterface
 
     /**
      * Select
-     * 
+     *
      * @param string $name Имя
      * @param array $options Варианты
      * @param mixed $selected Выбранное
@@ -227,7 +227,7 @@ class Form implements FormServiceInterface
 
     /**
      * Чекбокс
-     * 
+     *
      * @param string $name Имя
      * @param mixed $value Значение
      * @param bool $checked Отмечен
@@ -242,7 +242,7 @@ class Form implements FormServiceInterface
 
     /**
      * Радиокнопка
-     * 
+     *
      * @param string $name Имя
      * @param mixed $value Значение
      * @param bool $checked Отмечена
@@ -257,7 +257,7 @@ class Form implements FormServiceInterface
 
     /**
      * Кнопка отправки
-     * 
+     *
      * @param string $label Текст
      * @param array $attributes Атрибуты
      * @return string
@@ -269,7 +269,7 @@ class Form implements FormServiceInterface
 
     /**
      * Файл
-     * 
+     *
      * @param string $name Имя
      * @param array $attributes Атрибуты
      * @return string
@@ -281,7 +281,7 @@ class Form implements FormServiceInterface
 
     /**
      * Установить данные для формы
-     * 
+     *
      * @param array $data Данные
      * @return static
      */
@@ -293,7 +293,7 @@ class Form implements FormServiceInterface
 
     /**
      * Установить ошибки
-     * 
+     *
      * @param array $errors Ошибки
      * @return static
      */
@@ -305,7 +305,7 @@ class Form implements FormServiceInterface
 
     /**
      * Получить ошибку для поля
-     * 
+     *
      * @param string $field Поле
      * @return string
      */
@@ -316,7 +316,7 @@ class Form implements FormServiceInterface
 
     /**
      * Проверить, есть ли ошибка у поля
-     * 
+     *
      * @param string $field Поле
      * @return bool
      */
@@ -329,7 +329,7 @@ class Form implements FormServiceInterface
 
     /**
      * Получить builder для расширенного использования
-     * 
+     *
      * @return FormBuilderInterface
      */
     public function getBuilder(): FormBuilderInterface
@@ -339,7 +339,7 @@ class Form implements FormServiceInterface
 
     /**
      * Получить CSRF менеджер
-     * 
+     *
      * @return CSRFTokenManagerInterface
      */
     public function getCSRF(): CSRFTokenManagerInterface
@@ -349,7 +349,7 @@ class Form implements FormServiceInterface
 
     /**
      * Получить валидатор
-     * 
+     *
      * @return FormValidatorInterface
      */
     public function getValidator(): FormValidatorInterface
@@ -359,7 +359,7 @@ class Form implements FormServiceInterface
 
     /**
      * Получить handler (после handle())
-     * 
+     *
      * @return FormHandler|null
      */
     public function getHandler(): ?FormHandler

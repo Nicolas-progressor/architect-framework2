@@ -9,9 +9,9 @@ use RuntimeException;
 
 /**
  * PSR-7 Stream implementation.
- * 
+ *
  * Provides a stream wrapper for string content.
- * 
+ *
  * @package Architect\Services\Mvc\Http
  */
 class Stream implements StreamInterface
@@ -24,13 +24,13 @@ class Stream implements StreamInterface
 
     /**
      * Create stream from string content.
-     * 
+     *
      * @param string $content Stream content
      */
     public function __construct(string $content = '')
     {
         $resource = fopen('php://temp', 'r+');
-        
+
         if ($resource === false) {
             throw new RuntimeException('Failed to create stream');
         }
@@ -42,7 +42,7 @@ class Stream implements StreamInterface
 
     /**
      * Create stream from file.
-     * 
+     *
      * @param string $filename File path
      * @param string $mode Open mode
      * @return self
@@ -204,9 +204,9 @@ class Stream implements StreamInterface
         $metadata = stream_get_meta_data($this->resource);
         $mode = $metadata['mode'];
 
-        return str_contains($mode, 'w') 
-            || str_contains($mode, 'r+') 
-            || str_contains($mode, 'x') 
+        return str_contains($mode, 'w')
+            || str_contains($mode, 'r+')
+            || str_contains($mode, 'x')
             || str_contains($mode, 'a');
     }
 

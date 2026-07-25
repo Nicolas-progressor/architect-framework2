@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Architect\Services\Cache\Drivers;
 
+use InvalidArgumentException;
 use Redis;
 use RedisException;
-use InvalidArgumentException;
-use Psr\SimpleCache\InvalidArgumentException as PsrInvalidArgumentException;
 
 /**
  * Redis cache driver.

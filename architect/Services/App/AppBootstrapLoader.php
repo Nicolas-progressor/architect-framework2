@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Loader for application bootstrap classes.
- * 
+ *
  * Handles loading bootstrap files and registering statement handlers.
  */
 class AppBootstrapLoader
@@ -69,7 +69,7 @@ class AppBootstrapLoader
         }
 
         $this->registerStatements($instance);
-        
+
         return $instance;
     }
 
@@ -82,7 +82,7 @@ class AppBootstrapLoader
 
         foreach (self::STATEMENTS as $statementName) {
             $method = 'method_' . $statementName;
-            
+
             if (in_array($method, $methods, true)) {
                 $this->statement->on(
                     $statementName,
@@ -95,7 +95,7 @@ class AppBootstrapLoader
 
     /**
      * Get supported statement names.
-     * 
+     *
      * @return array<string>
      */
     public function getSupportedStatements(): array

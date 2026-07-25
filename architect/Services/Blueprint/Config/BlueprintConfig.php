@@ -26,7 +26,7 @@ final class BlueprintConfig implements BlueprintConfigInterface
     public static function fromPaths(array $paths, string $rootDir): self
     {
         $config = [];
-        
+
         foreach ($paths as $path) {
             if (file_exists($path)) {
                 $content = file_get_contents($path);
@@ -34,7 +34,7 @@ final class BlueprintConfig implements BlueprintConfigInterface
                 $config = array_merge($config, $decoded);
             }
         }
-        
+
         return new self($config, $rootDir);
     }
 
@@ -61,11 +61,11 @@ final class BlueprintConfig implements BlueprintConfigInterface
     public function getCachePath(): ?string
     {
         $path = $this->config['cache'] ?? null;
-        
+
         if ($path && !$this->isAbsolutePath($path)) {
             $path = $this->rootDir . '/' . ltrim($path, '/');
         }
-        
+
         return $path;
     }
 
@@ -87,7 +87,7 @@ final class BlueprintConfig implements BlueprintConfigInterface
     public function getElementsDirs(): array
     {
         $dirs = $this->config['elements_dirs'] ?? [];
-        
+
         return array_map(function (string $path): string {
             if (!$this->isAbsolutePath($path)) {
                 return $this->rootDir . '/' . ltrim($path, '/');
@@ -126,7 +126,7 @@ final class BlueprintConfig implements BlueprintConfigInterface
             'strict_variables' => false,
             'show_errors' => true,
         ];
-        
+
         return array_merge($defaults, $config);
     }
 
@@ -138,7 +138,7 @@ final class BlueprintConfig implements BlueprintConfigInterface
         if (defined('ROOT_DIR')) {
             return ROOT_DIR;
         }
-        
+
         return dirname(__DIR__, 4);
     }
 

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Architect\Support\ServiceProviders;
 
-use Architect\Contracts\ServiceProviderInterface;
 use Architect\Core\Contracts\ContainerInterface;
-use Architect\Support\AbstractServiceProvider;
 use Architect\Services\Debug\Debug;
+use Architect\Support\AbstractServiceProvider;
 
 /**
  * Logging service provider: logger, debug, integration.
@@ -23,14 +22,14 @@ class LoggingServiceProvider extends AbstractServiceProvider
         $this->registerFactory($container, 'logger', function ($c) {
             $configService = $c->get('config.logger');
             $configArray = $configService->all();
-            
+
             // If log_dir is null, use default
             if (!isset($configArray['log_dir']) || $configArray['log_dir'] === null) {
-                $configArray['log_dir'] = defined('APP_DIR') 
-                    ? APP_DIR . 'logs/' 
+                $configArray['log_dir'] = defined('APP_DIR')
+                    ? APP_DIR . 'logs/'
                     : dirname(__DIR__, 2) . '/app/logs/';
             }
-            
+
             $config = \Architect\Services\Logger\LoggerConfig::fromArray($configArray);
             return new \Architect\Services\Logger\Logger($c, $config);
         });
@@ -39,7 +38,7 @@ class LoggingServiceProvider extends AbstractServiceProvider
         $this->registerFactory($container, 'debug', fn($c) => new Debug($c));
 
         // Debug collector
-        $this->registerFactory($container, 'debug.collector', function($c) {
+        $this->registerFactory($container, 'debug.collector', function ($c) {
             $debug = $c->get('debug');
             return $debug->getCollector();
         });

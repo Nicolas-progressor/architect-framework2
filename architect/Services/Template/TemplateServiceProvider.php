@@ -31,19 +31,19 @@ final class TemplateServiceProvider implements ServiceProviderInterface
     public function register(ContainerInterface $container): void
     {
         // PathResolver
-        $container->factory(PathResolverInterface::class, function() use ($container) {
+        $container->factory(PathResolverInterface::class, function () use ($container) {
             return new TemplatePathResolver(
                 $container->get('apps')
             );
         });
 
         // ElementLoader
-        $container->factory(ElementLoaderInterface::class, function() {
+        $container->factory(ElementLoaderInterface::class, function () {
             return new ElementLoader();
         });
 
         // WidgetRenderer
-        $container->factory(WidgetRendererInterface::class, function() use ($container) {
+        $container->factory(WidgetRendererInterface::class, function () use ($container) {
             return new WidgetRenderer(
                 $container,
                 $container->get('apps')
@@ -51,14 +51,14 @@ final class TemplateServiceProvider implements ServiceProviderInterface
         });
 
         // TemplateConfigLoader
-        $container->factory(TemplateConfigLoaderInterface::class, function() {
+        $container->factory(TemplateConfigLoaderInterface::class, function () {
             return new TemplateConfigLoader();
         });
 
         // BlueprintAdapter - inject existing Blueprint if available
-        $container->factory(BlueprintAdapterInterface::class, function() use ($container) {
+        $container->factory(BlueprintAdapterInterface::class, function () use ($container) {
             $blueprintInstance = null;
-            
+
             // Try to get existing Blueprint from container
             if ($container->has('blueprint')) {
                 try {
@@ -71,15 +71,15 @@ final class TemplateServiceProvider implements ServiceProviderInterface
                     // Ignore - will create new instance
                 }
             }
-            
+
             return new BlueprintAdapter($blueprintInstance);
         });
 
         // RendererChain
-        $container->factory(RendererChain::class, function() use ($container) {
+        $container->factory(RendererChain::class, function () use ($container) {
             $phpRenderer = new PhpRenderer();
             $phpRenderer->setContainer($container);
-            
+
             $chain = new RendererChain();
             $chain->add(new BlueprintRenderer(
                 $container->get(BlueprintAdapterInterface::class)
@@ -89,7 +89,7 @@ final class TemplateServiceProvider implements ServiceProviderInterface
         });
 
         // Template
-        $container->factory(Template::class, function() use ($container) {
+        $container->factory(Template::class, function () use ($container) {
             return new Template(
                 $container->get('router'),
                 $container->get(PathResolverInterface::class),
@@ -101,7 +101,7 @@ final class TemplateServiceProvider implements ServiceProviderInterface
         });
 
         // Alias for backward compatibility
-        $container->factory('template', function() use ($container) {
+        $container->factory('template', function () use ($container) {
             return $container->get(Template::class);
         });
     }

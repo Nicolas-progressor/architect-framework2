@@ -15,7 +15,7 @@ try {
     // 1. Test driver factory
     $driverFactory = new DriverFactory();
     $driver = $driverFactory->create('curl');
-    echo "[OK] Driver created: " . get_class($driver) . "\n";
+    echo '[OK] Driver created: ' . get_class($driver) . "\n";
 
     // 2. Create client with middleware
     $client = new HttpClient($driver);
@@ -29,11 +29,11 @@ try {
     $request = new Request('GET', 'https://httpbin.org/get');
     echo "[INFO] Sending GET request to https://httpbin.org/get ...\n";
     $response = $client->sendRequest($request);
-    echo "[OK] Response status: " . $response->getStatusCode() . " " . $response->getReasonPhrase() . "\n";
+    echo '[OK] Response status: ' . $response->getStatusCode() . ' ' . $response->getReasonPhrase() . "\n";
     $body = (string) $response->getBody();
     $data = json_decode($body, true);
     if (isset($data['url'])) {
-        echo "[OK] Response URL matches: " . $data['url'] . "\n";
+        echo '[OK] Response URL matches: ' . $data['url'] . "\n";
     }
 
     // 4. Send POST request with JSON body
@@ -45,7 +45,7 @@ try {
     );
     echo "[INFO] Sending POST request to https://httpbin.org/post ...\n";
     $postResponse = $client->sendRequest($postRequest);
-    echo "[OK] POST response status: " . $postResponse->getStatusCode() . "\n";
+    echo '[OK] POST response status: ' . $postResponse->getStatusCode() . "\n";
     $postBody = (string) $postResponse->getBody();
     $postData = json_decode($postBody, true);
     if (isset($postData['json']['test']) && $postData['json']['test'] === 'value') {
@@ -54,20 +54,20 @@ try {
 
     // 5. Test stream driver
     $streamDriver = $driverFactory->create('stream');
-    echo "[OK] Stream driver created: " . get_class($streamDriver) . "\n";
+    echo '[OK] Stream driver created: ' . get_class($streamDriver) . "\n";
     $streamClient = new HttpClient($streamDriver);
     $streamRequest = new Request('GET', 'https://httpbin.org/headers');
     echo "[INFO] Sending GET request with stream driver...\n";
     $streamResponse = $streamClient->sendRequest($streamRequest);
-    echo "[OK] Stream driver response status: " . $streamResponse->getStatusCode() . "\n";
+    echo '[OK] Stream driver response status: ' . $streamResponse->getStatusCode() . "\n";
 
     // 6. Test async promise (simulated)
     echo "[INFO] Testing async promise (simulated)...\n";
     $promise = $client->sendAsync($request);
-    echo "[OK] Promise created: " . get_class($promise) . "\n";
+    echo '[OK] Promise created: ' . get_class($promise) . "\n";
     // Wait for promise (since it's simulated, it's already resolved)
     $asyncResponse = $promise->wait();
-    echo "[OK] Async response status: " . $asyncResponse->getStatusCode() . "\n";
+    echo '[OK] Async response status: ' . $asyncResponse->getStatusCode() . "\n";
 
     // 7. Test driver factory default
     $default = DriverFactory::getDefaultDriver();
@@ -75,11 +75,11 @@ try {
 
     // 8. Test middleware stack
     $middlewareStack = $client->getMiddlewareStack();
-    echo "[OK] Middleware stack count: " . count($middlewareStack->all()) . "\n";
+    echo '[OK] Middleware stack count: ' . count($middlewareStack->all()) . "\n";
 
     echo "\n=== All integration tests passed successfully! ===\n";
 } catch (\Throwable $e) {
-    echo "[FAIL] " . $e->getMessage() . "\n";
+    echo '[FAIL] ' . $e->getMessage() . "\n";
     echo $e->getTraceAsString() . "\n";
     exit(1);
 }

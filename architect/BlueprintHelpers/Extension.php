@@ -2,10 +2,10 @@
 
 /**
  * Blueprint Helpers Extension
- * 
+ *
  * Integrates Helpers system with Blueprint templates.
  * Provides dynamic access to Helpers via helpers() function and shorthand aliases.
- * 
+ *
  * @package     Architect\BlueprintHelpers
  * @author      Architect Team <team@architect.dev>
  * @license     MIT
@@ -15,15 +15,15 @@ declare(strict_types=1);
 
 namespace Architect\BlueprintHelpers;
 
-use Blueprint\Engine\Blueprint;
-use Blueprint\Engine\BlueprintExtension;
+use Architect\Helpers\Core\Contracts\HelperInterface;
 use Architect\Helpers\Core\Facade;
 use Architect\Helpers\Core\HelperDiscovery;
-use Architect\Helpers\Core\Contracts\HelperInterface;
+use Blueprint\Engine\Blueprint;
+use Blueprint\Engine\BlueprintExtension;
 
 /**
  * Blueprint extension for Helpers integration.
- * 
+ *
  * Usage in templates:
  *   {{ helpers('Html').icon('house') }}
  *   {{ html().icon('house') }}
@@ -89,11 +89,11 @@ final class Extension implements BlueprintExtension
     private function discoverHelpers(): array
     {
         $helpers = $this->discoverViaFacades();
-        
+
         if (empty($helpers)) {
             $helpers = $this->discoverViaAutoload();
         }
-        
+
         return array_unique($helpers);
     }
 
@@ -109,7 +109,7 @@ final class Extension implements BlueprintExtension
         // Use HelperDiscovery to find all helpers implementing HelperInterface
         $discovery = new HelperDiscovery();
         $classes = $discovery->getDiscoveredClasses();
-        
+
         foreach ($classes as $className) {
             if (!is_subclass_of($className, HelperInterface::class)) {
                 continue;
@@ -143,7 +143,7 @@ final class Extension implements BlueprintExtension
                 $shortName = str_replace('Helper_', '', $helperName);
                 $facadeClass = "Architect\\Helpers\\{$shortName}\\Facades\\{$helperName}";
             }
-            
+
             if (class_exists($facadeClass) && is_subclass_of($facadeClass, Facade::class)) {
                 $shortName = str_replace('Helper_', '', $helperName);
                 if (!in_array($shortName, $helpers, true)) {
@@ -172,7 +172,7 @@ final class Extension implements BlueprintExtension
                 $shortName = str_replace('Helper_', '', $helperName);
                 $facadeClass = "Architect\\Helpers\\{$shortName}\\Facades\\{$helperName}";
             }
-            
+
             if (class_exists($facadeClass)) {
                 $shortName = str_replace('Helper_', '', $helperName);
                 $helpers[] = $shortName;

@@ -6,14 +6,14 @@ namespace Architect\Services\Form\Interfaces;
 
 /**
  * Interface FormBuilderInterface
- * 
+ *
  * Интерфейс билдера HTML-элементов форм.
  */
 interface FormBuilderInterface
 {
     /**
      * Открыть форму
-     * 
+     *
      * @param string $action URL действия
      * @param string $method Метод HTTP
      * @param array $attributes Дополнительные атрибуты
@@ -23,14 +23,14 @@ interface FormBuilderInterface
 
     /**
      * Закрыть форму
-     * 
+     *
      * @return string
      */
     public function close(): string;
 
     /**
      * Текстовое поле
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -40,7 +40,7 @@ interface FormBuilderInterface
 
     /**
      * Поле email
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -50,7 +50,7 @@ interface FormBuilderInterface
 
     /**
      * Поле пароля
-     * 
+     *
      * @param string $name Имя поля
      * @param array $attributes Атрибуты
      * @return string
@@ -59,7 +59,7 @@ interface FormBuilderInterface
 
     /**
      * Скрытое поле
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @return string
@@ -68,7 +68,7 @@ interface FormBuilderInterface
 
     /**
      * Числовое поле
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -78,7 +78,7 @@ interface FormBuilderInterface
 
     /**
      * Поле поиска
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -88,7 +88,7 @@ interface FormBuilderInterface
 
     /**
      * Телефонное поле
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -98,7 +98,7 @@ interface FormBuilderInterface
 
     /**
      * URL поле
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -108,7 +108,7 @@ interface FormBuilderInterface
 
     /**
      * Текстовая область
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -118,7 +118,7 @@ interface FormBuilderInterface
 
     /**
      * Выпадающий список
-     * 
+     *
      * @param string $name Имя поля
      * @param array $options Варианты
      * @param mixed $selected Выбранное значение
@@ -129,7 +129,7 @@ interface FormBuilderInterface
 
     /**
      * Чекбокс
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение чекбокса
      * @param bool $checked Отмечен ли
@@ -141,7 +141,7 @@ interface FormBuilderInterface
 
     /**
      * Радиокнопка
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение радио
      * @param bool $checked Отмечена ли
@@ -153,7 +153,7 @@ interface FormBuilderInterface
 
     /**
      * Кнопка отправки
-     * 
+     *
      * @param string $label Текст кнопки
      * @param array $attributes Атрибуты
      * @return string
@@ -162,7 +162,7 @@ interface FormBuilderInterface
 
     /**
      * Кнопка сброса
-     * 
+     *
      * @param string $label Текст кнопки
      * @param array $attributes Атрибуты
      * @return string
@@ -171,7 +171,7 @@ interface FormBuilderInterface
 
     /**
      * Кнопка-ссылка
-     * 
+     *
      * @param string $label Текст
      * @param string $url URL
      * @param array $attributes Атрибуты
@@ -181,7 +181,7 @@ interface FormBuilderInterface
 
     /**
      * Файл
-     * 
+     *
      * @param string $name Имя поля
      * @param array $attributes Атрибуты
      * @return string
@@ -190,7 +190,7 @@ interface FormBuilderInterface
 
     /**
      * Дата
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -200,7 +200,7 @@ interface FormBuilderInterface
 
     /**
      * Время
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -210,7 +210,7 @@ interface FormBuilderInterface
 
     /**
      * Дата и время
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -220,7 +220,7 @@ interface FormBuilderInterface
 
     /**
      * Цвет
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -230,7 +230,7 @@ interface FormBuilderInterface
 
     /**
      * Диапазон
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -240,7 +240,7 @@ interface FormBuilderInterface
 
     /**
      * Установить данные формы
-     * 
+     *
      * @param array $data Данные
      * @return static
      */
@@ -248,7 +248,7 @@ interface FormBuilderInterface
 
     /**
      * Установить ошибки валидации
-     * 
+     *
      * @param array $errors Ошибки
      * @return static
      */
@@ -256,7 +256,7 @@ interface FormBuilderInterface
 
     /**
      * Отрендерить ошибку для поля
-     * 
+     *
      * @param string $name Имя поля
      * @return string
      */
@@ -264,7 +264,7 @@ interface FormBuilderInterface
 
     /**
      * Отрендерить все ошибки
-     * 
+     *
      * @param string $class CSS класс для контейнера
      * @return string
      */
@@ -272,7 +272,7 @@ interface FormBuilderInterface
 
     /**
      * Проверить, есть ли ошибка для поля
-     * 
+     *
      * @param string $field Имя поля
      * @return bool
      */

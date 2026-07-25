@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Architect\Helpers\Core;
 
 use Architect\Helpers\Core\Contracts\HelperInterface;
-use RuntimeException;
 
 /**
  * Discovers helper classes implementing HelperInterface.
@@ -119,7 +118,7 @@ class HelperDiscovery
         $cacheFile = $this->getCachePath();
         $cacheDir = dirname($cacheFile);
         if (!is_dir($cacheDir)) {
-            mkdir($cacheDir, 0755, true);
+            mkdir($cacheDir, 0o755, true);
         }
         $content = '<?php' . PHP_EOL . PHP_EOL . 'return ' . var_export($this->discoveredHelpers, true) . ';';
         return file_put_contents($cacheFile, $content) !== false;

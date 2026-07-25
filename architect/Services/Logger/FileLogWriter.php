@@ -6,7 +6,7 @@ namespace Architect\Services\Logger;
 
 /**
  * File-based log writer.
- * 
+ *
  * Writes log entries to files, organized by channel and date.
  */
 final class FileLogWriter implements LogWriterInterface
@@ -65,15 +65,15 @@ final class FileLogWriter implements LogWriterInterface
         $lines = $this->formatEntries($entries);
 
         $result = file_put_contents(
-            $filename, 
-            implode(PHP_EOL, $lines) . PHP_EOL, 
+            $filename,
+            implode(PHP_EOL, $lines) . PHP_EOL,
             FILE_APPEND | LOCK_EX
         );
 
         if ($result === false) {
             // Log to error_log as fallback (avoid infinite loop with Logger)
             error_log(sprintf(
-                'Logger: Failed to write to %s', 
+                'Logger: Failed to write to %s',
                 $filename
             ));
         }
@@ -120,7 +120,7 @@ final class FileLogWriter implements LogWriterInterface
 
         try {
             $encoded = json_encode(
-                $context, 
+                $context,
                 JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
             );
             return $encoded !== false ? '[' . $encoded . ']' : '';

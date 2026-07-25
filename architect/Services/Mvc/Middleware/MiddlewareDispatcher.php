@@ -13,9 +13,9 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Middleware Dispatcher.
- * 
+ *
  * Dispatches middleware for controller actions.
- * 
+ *
  * @package Architect\Services\Mvc\Middleware
  */
 class MiddlewareDispatcher
@@ -34,7 +34,7 @@ class MiddlewareDispatcher
 
     /**
      * Create dispatcher instance.
-     * 
+     *
      * @param ContainerInterface $container Container instance
      * @param ResponseFactoryInterface|null $responseFactory Response factory
      */
@@ -49,7 +49,7 @@ class MiddlewareDispatcher
 
     /**
      * Register controller middleware.
-     * 
+     *
      * @param string $controllerClass Controller class name
      * @param array $middleware Middleware configuration
      * @return self
@@ -62,7 +62,7 @@ class MiddlewareDispatcher
 
     /**
      * Dispatch middleware for action.
-     * 
+     *
      * @param string $controllerClass Controller class name
      * @param string $action Action name
      * @param ServerRequestInterface $request Request instance
@@ -87,7 +87,7 @@ class MiddlewareDispatcher
 
     /**
      * Get middleware for action.
-     * 
+     *
      * @param string $controllerClass Controller class name
      * @param string $action Action name
      * @return array<MiddlewareInterface>
@@ -110,7 +110,7 @@ class MiddlewareDispatcher
 
     /**
      * Resolve middleware item.
-     * 
+     *
      * @param mixed $item Middleware item
      * @param string $action Action name
      * @return MiddlewareInterface|null
@@ -153,7 +153,7 @@ class MiddlewareDispatcher
 
     /**
      * Create middleware stack.
-     * 
+     *
      * @param array<MiddlewareInterface> $middleware Middleware instances
      * @param callable $next Next handler
      * @return MiddlewareStack
@@ -163,10 +163,10 @@ class MiddlewareDispatcher
         $stack = new MiddlewareStack();
 
         // Set fallback handler
-        $handler = new class($next, $this->responseFactory) implements RequestHandlerInterface {
+        $handler = new class ($next, $this->responseFactory) implements RequestHandlerInterface {
             /** @var callable */
             private $next;
-            
+
             /** @var ResponseFactoryInterface */
             private ResponseFactoryInterface $factory;
 
@@ -203,7 +203,7 @@ class MiddlewareDispatcher
 
     /**
      * Get resolver.
-     * 
+     *
      * @return MiddlewareResolver
      */
     public function getResolver(): MiddlewareResolver
@@ -213,7 +213,7 @@ class MiddlewareDispatcher
 
     /**
      * Set resolver.
-     * 
+     *
      * @param MiddlewareResolver $resolver Resolver instance
      * @return self
      */

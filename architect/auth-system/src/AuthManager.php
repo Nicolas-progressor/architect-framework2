@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Architect\Auth;
 
-use Architect\Auth\Models\User;
 use Architect\Auth\Models\Role;
+use Architect\Auth\Models\User;
 
 /**
  * Auth Manager
- * 
+ *
  * Основной класс для управления аутентификацией и авторизацией.
- * 
+ *
  * @package Architect\Auth
  */
 class AuthManager
@@ -88,7 +88,7 @@ class AuthManager
 
         // Мержим: дефолтная -> базовая -> приложения
         $this->config = array_replace_recursive($defaultConfig, $this->config);
-        
+
         // Загружаем конфигурацию авторизации для конкретного приложения
         $this->loadAppAuthConfig();
     }
@@ -101,7 +101,7 @@ class AuthManager
     {
         try {
             $container = \Architect\Core\Container::getInstance();
-            
+
             // Получаем текущее приложение
             if (!$container->has('apps')) {
                 return;
@@ -109,17 +109,17 @@ class AuthManager
 
             $apps = $container->get('apps');
             $appDir = $apps->appdir ?? '';
-            
+
             if (empty($appDir)) {
                 return;
             }
 
             // Проверяем наличие config/auth.json в папке приложения
             $appAuthConfigFile = $appDir . 'config/auth.json';
-            
+
             if (file_exists($appAuthConfigFile)) {
                 $appAuthConfig = json_decode(file_get_contents($appAuthConfigFile), true);
-                
+
                 if (is_array($appAuthConfig)) {
                     // Мержим конфиг приложения с основным
                     // array_replace_recursive работает для вложенных массивов
@@ -133,7 +133,7 @@ class AuthManager
 
     /**
      * Получить настройки ролей для приложения
-     * 
+     *
      * @return array
      */
     public function getRoles(): array
@@ -143,7 +143,7 @@ class AuthManager
 
     /**
      * Получить настройки разрешений для приложения
-     * 
+     *
      * @return array
      */
     public function getPermissions(): array
@@ -153,7 +153,7 @@ class AuthManager
 
     /**
      * Получить драйвер авторизации
-     * 
+     *
      * @return string
      */
     public function getDriver(): string
@@ -163,7 +163,7 @@ class AuthManager
 
     /**
      * Получить время жизни сессии
-     * 
+     *
      * @return int
      */
     public function getSessionLifetime(): int
@@ -173,7 +173,7 @@ class AuthManager
 
     /**
      * Получить роль по умолчанию
-     * 
+     *
      * @return string
      */
     public function getDefaultRole(): string
@@ -183,7 +183,7 @@ class AuthManager
 
     /**
      * Включена ли JWT авторизация
-     * 
+     *
      * @return bool
      */
     public function isJwtEnabled(): bool
@@ -193,7 +193,7 @@ class AuthManager
 
     /**
      * Получить имя текущего приложения
-     * 
+     *
      * @return string
      */
     public function getCurrentApp(): string
@@ -207,13 +207,13 @@ class AuthManager
         } catch (\Exception $e) {
             // Ignore
         }
-        
+
         return '';
     }
 
     /**
      * Получить директорию текущего приложения
-     * 
+     *
      * @return string
      */
     public function getCurrentAppDir(): string
@@ -227,7 +227,7 @@ class AuthManager
         } catch (\Exception $e) {
             // Ignore
         }
-        
+
         return '';
     }
 
@@ -243,7 +243,7 @@ class AuthManager
 
     /**
      * Аутентифицировать пользователя
-     * 
+     *
      * @param string $username Имя пользователя или email
      * @param string $password Пароль
      * @return bool True при успехе
@@ -252,7 +252,7 @@ class AuthManager
     {
         // Ищем пользователя
         $user = User::findByUsername($username);
-        
+
         if (!$user) {
             $user = User::findByEmail($username);
         }
@@ -270,13 +270,13 @@ class AuthManager
 
         // Успешная аутентификация
         $this->loginUser($user);
-        
+
         return true;
     }
 
     /**
      * Войти как пользователь (без пароля)
-     * 
+     *
      * @param User $user
      * @return void
      */
@@ -284,7 +284,7 @@ class AuthManager
     {
         $this->user = $user;
         $_SESSION[self::SESSION_KEY] = $user->getId();
-        
+
         // Генерируем JWT если настроен
         if (!empty($this->config['jwt_secret'])) {
             $jwt = $this->generateJWT($user);
@@ -296,7 +296,7 @@ class AuthManager
 
     /**
      * Выйти из системы
-     * 
+     *
      * @return void
      */
     public function logout(): void
@@ -312,7 +312,7 @@ class AuthManager
 
     /**
      * Проверить, авторизован ли пользователь
-     * 
+     *
      * @return bool
      */
     public function isLoggedIn(): bool
@@ -320,7 +320,7 @@ class AuthManager
         if ($this->user !== null) {
             return true;
         }
-        
+
         if (!isset($_SESSION[self::SESSION_KEY])) {
             return false;
         }
@@ -334,7 +334,7 @@ class AuthManager
 
     /**
      * Получить текущего пользователя
-     * 
+     *
      * @return User|null
      */
     public function getUser(): ?User
@@ -348,7 +348,7 @@ class AuthManager
 
     /**
      * Получить ID текущего пользователя
-     * 
+     *
      * @return int|null
      */
     public function getUserId(): ?int
@@ -358,14 +358,14 @@ class AuthManager
 
     /**
      * Проверить, имеет ли пользователь разрешение
-     * 
+     *
      * @param string $permission
      * @return bool
      */
     public function hasPermission(string $permission): bool
     {
         $user = $this->getUser();
-        
+
         if (!$user) {
             return false;
         }
@@ -375,14 +375,14 @@ class AuthManager
 
     /**
      * Проверить, имеет ли пользователь роль
-     * 
+     *
      * @param string $roleName
      * @return bool
      */
     public function hasRole(string $roleName): bool
     {
         $user = $this->getUser();
-        
+
         if (!$user) {
             return false;
         }
@@ -392,7 +392,7 @@ class AuthManager
 
     /**
      * Проверить, является ли админом
-     * 
+     *
      * @return bool
      */
     public function isAdmin(): bool
@@ -402,7 +402,7 @@ class AuthManager
 
     /**
      * Назначить роль пользователю
-     * 
+     *
      * @param User $user
      * @param string $roleName
      * @return bool
@@ -410,19 +410,19 @@ class AuthManager
     public function assignRole(User $user, string $roleName): bool
     {
         $role = Role::findByName($roleName);
-        
+
         if (!$role) {
             return false;
         }
 
         $user->setRole($role);
-        
+
         return $user->save();
     }
 
     /**
      * Отозвать роль у пользователя
-     * 
+     *
      * @param User $user
      * @param string $roleName
      * @return bool
@@ -441,7 +441,7 @@ class AuthManager
 
     /**
      * Зарегистрировать нового пользователя
-     * 
+     *
      * @param string $username
      * @param string $email
      * @param string $password
@@ -460,7 +460,7 @@ class AuthManager
             return null;
         }
 
-        $role = $role ?? $this->config['default_role'] ?? 'guest';
+        $role ??= $this->config['default_role'] ?? 'guest';
 
         $user = User::create([
             'username' => $username,
@@ -478,7 +478,7 @@ class AuthManager
 
     /**
      * Получить JWT токен
-     * 
+     *
      * @return string|null
      */
     public function getJWT(): ?string
@@ -488,7 +488,7 @@ class AuthManager
 
     /**
      * Сгенерировать JWT токен
-     * 
+     *
      * @param User $user
      * @return string
      */
@@ -503,7 +503,7 @@ class AuthManager
         ];
 
         $secret = $this->config['jwt_secret'] ?? 'secret';
-        
+
         $header = base64_encode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
         $payloadEncoded = base64_encode(json_encode($payload));
         $signature = base64_encode(hash_hmac('sha256', "{$header}.{$payloadEncoded}", $secret, true));
@@ -513,14 +513,14 @@ class AuthManager
 
     /**
      * Проверить JWT токен
-     * 
+     *
      * @param string $token
      * @return array|false
      */
     public function verifyJWT(string $token): array|false
     {
         $parts = explode('.', $token);
-        
+
         if (count($parts) !== 3) {
             return false;
         }
@@ -548,7 +548,7 @@ class AuthManager
 
     /**
      * Записать событие в лог
-     * 
+     *
      * @param string $event
      * @param array $context
      * @return void
@@ -568,7 +568,7 @@ class AuthManager
 
     /**
      * Записать неудачную попытку входа
-     * 
+     *
      * @param string $username
      * @param string $reason
      * @return void
@@ -584,7 +584,7 @@ class AuthManager
 
     /**
      * Получить конфигурацию
-     * 
+     *
      * @return array
      */
     public function getConfig(): array
@@ -594,7 +594,7 @@ class AuthManager
 
     /**
      * Получить URL для входа
-     * 
+     *
      * @return string
      */
     public function getLoginUrl(): string
@@ -604,7 +604,7 @@ class AuthManager
 
     /**
      * Получить URL для выхода
-     * 
+     *
      * @return string
      */
     public function getLogoutUrl(): string
@@ -614,7 +614,7 @@ class AuthManager
 
     /**
      * Получить URL для регистрации
-     * 
+     *
      * @return string
      */
     public function getRegisterUrl(): string
@@ -624,7 +624,7 @@ class AuthManager
 
     /**
      * Получить URL для редиректа после входа
-     * 
+     *
      * @return string
      */
     public function getRedirectAfterLogin(): string
@@ -634,7 +634,7 @@ class AuthManager
 
     /**
      * Получить URL для редиректа после выхода
-     * 
+     *
      * @return string
      */
     public function getRedirectAfterLogout(): string
@@ -644,7 +644,7 @@ class AuthManager
 
     /**
      * Получить URL для редиректа после регистрации
-     * 
+     *
      * @return string
      */
     public function getRedirectAfterRegister(): string
@@ -654,7 +654,7 @@ class AuthManager
 
     /**
      * Получить URL для сброса пароля
-     * 
+     *
      * @return string
      */
     public function getPasswordResetUrl(): string
@@ -664,7 +664,7 @@ class AuthManager
 
     /**
      * Получить URL для подтверждения email
-     * 
+     *
      * @return string
      */
     public function getEmailVerificationUrl(): string
@@ -674,7 +674,7 @@ class AuthManager
 
     /**
      * Получить URL для редиректа с текущим URL
-     * 
+     *
      * @param string $defaultUrl URL по умолчанию
      * @return string
      */
@@ -687,7 +687,7 @@ class AuthManager
 
     /**
      * Установить URL для редиректа
-     * 
+     *
      * @param string $url
      * @return void
      */
@@ -698,37 +698,37 @@ class AuthManager
 
     /**
      * Сгенерировать URL входа с редиректом
-     * 
+     *
      * @param string|null $redirect URL для редиректа после входа
      * @return string
      */
     public function loginUrl(?string $redirect = null): string
     {
         $url = $this->getLoginUrl();
-        
+
         if ($redirect) {
             $url .= '?redirect=' . urlencode($redirect);
         } elseif ($currentUrl = $_SERVER['REQUEST_URI'] ?? null) {
             $url .= '?redirect=' . urlencode($currentUrl);
         }
-        
+
         return $url;
     }
 
     /**
      * Сгенерировать URL выхода с редиректом
-     * 
+     *
      * @param string|null $redirect URL для редиректа после выхода
      * @return string
      */
     public function logoutUrl(?string $redirect = null): string
     {
         $url = $this->getLogoutUrl();
-        
+
         if ($redirect) {
             $url .= '?redirect=' . urlencode($redirect);
         }
-        
+
         return $url;
     }
 }

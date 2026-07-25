@@ -11,9 +11,9 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Middleware Stack.
- * 
+ *
  * Manages a stack of middleware and processes requests through them.
- * 
+ *
  * @package Architect\Services\Mvc\Middleware
  */
 class MiddlewareStack implements RequestHandlerInterface
@@ -29,7 +29,7 @@ class MiddlewareStack implements RequestHandlerInterface
 
     /**
      * Add middleware to the stack.
-     * 
+     *
      * @param MiddlewareInterface $middleware Middleware instance
      * @return self
      */
@@ -41,7 +41,7 @@ class MiddlewareStack implements RequestHandlerInterface
 
     /**
      * Add multiple middleware to the stack.
-     * 
+     *
      * @param array<MiddlewareInterface> $middleware Middleware instances
      * @return self
      */
@@ -55,7 +55,7 @@ class MiddlewareStack implements RequestHandlerInterface
 
     /**
      * Set fallback handler.
-     * 
+     *
      * @param RequestHandlerInterface $handler Handler instance
      * @return self
      */
@@ -86,7 +86,7 @@ class MiddlewareStack implements RequestHandlerInterface
 
     /**
      * Process request through the stack.
-     * 
+     *
      * @param ServerRequestInterface $request Request instance
      * @return ResponseInterface
      */
@@ -98,7 +98,7 @@ class MiddlewareStack implements RequestHandlerInterface
 
     /**
      * Check if stack has middleware.
-     * 
+     *
      * @return bool
      */
     public function hasMiddleware(): bool
@@ -108,7 +108,7 @@ class MiddlewareStack implements RequestHandlerInterface
 
     /**
      * Get middleware count.
-     * 
+     *
      * @return int
      */
     public function count(): int
@@ -118,7 +118,7 @@ class MiddlewareStack implements RequestHandlerInterface
 
     /**
      * Reset the stack.
-     * 
+     *
      * @return self
      */
     public function reset(): self
@@ -131,7 +131,7 @@ class MiddlewareStack implements RequestHandlerInterface
 
     /**
      * Create stack from array of middleware.
-     * 
+     *
      * @param array<MiddlewareInterface> $middleware Middleware instances
      * @return self
      */

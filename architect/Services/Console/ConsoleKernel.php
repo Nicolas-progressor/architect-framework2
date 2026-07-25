@@ -142,7 +142,7 @@ class ConsoleKernel
      */
     public function runCommand(CommandInterface $command, ?Input $input = null): int
     {
-        $input = $input ?? $this->input;
+        $input ??= $this->input;
 
         // Check for help on specific command
         if ($input->isHelp()) {
@@ -202,7 +202,7 @@ class ConsoleKernel
             foreach ($groupCommands as $name => $command) {
                 $rows[] = [
                     '  ' . $name,
-                    $command->getDescription()
+                    $command->getDescription(),
                 ];
             }
 

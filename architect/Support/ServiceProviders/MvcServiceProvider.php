@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace Architect\Support\ServiceProviders;
 
-use Architect\Contracts\ServiceProviderInterface;
 use Architect\Core\Contracts\ContainerInterface;
-use Architect\Support\AbstractServiceProvider;
-use Architect\Services\Mvc\View;
-use Architect\Services\Mvc\Model;
-use Architect\Services\Mvc\Pattern;
+use Architect\Services\I18n\LanguageServiceProvider;
 use Architect\Services\Mvc\Context\MvcContext;
-use Architect\Services\Mvc\Resolver\ModulePathResolver;
+use Architect\Services\Mvc\Handler\ErrorHandler404;
 use Architect\Services\Mvc\Loader\ControllerLoader;
 use Architect\Services\Mvc\Loader\ModuleBootstrapLoader;
-use Architect\Services\Mvc\Handler\ErrorHandler404;
+use Architect\Services\Mvc\Model;
+use Architect\Services\Mvc\Pattern;
 use Architect\Services\Mvc\Renderer;
+use Architect\Services\Mvc\Resolver\ModulePathResolver;
+use Architect\Services\Mvc\View;
 use Architect\Services\Template\TemplateServiceProvider;
-use Architect\Services\I18n\LanguageServiceProvider;
+use Architect\Support\AbstractServiceProvider;
 
 /**
  * MVC service provider: view, model, pattern, MVC components.

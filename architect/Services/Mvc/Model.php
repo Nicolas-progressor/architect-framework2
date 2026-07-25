@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Architect\Services\Mvc;
 
-use Architect\Support\AbstractService;
+use Architect\Core\Contracts\ContainerInterface;
 use Architect\Services\Mvc\Contracts\ModelInterface;
 use Architect\Services\Mvc\Exceptions\ModelNotFoundException;
 use Architect\Services\Mvc\Resolver\ModulePathResolver;
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Support\AbstractService;
 
 /**
  * Model service for loading model instances.
- * 
+ *
  * Handles model discovery, loading, and caching across
  * both application and global modules.
  */
@@ -29,7 +29,7 @@ class Model extends AbstractService implements ModelInterface
 
     /**
      * Create Model service.
-     * 
+     *
      * @param ContainerInterface $container Dependency container
      * @param string $module Default module name
      */
@@ -41,7 +41,7 @@ class Model extends AbstractService implements ModelInterface
 
     /**
      * Set path resolver.
-     * 
+     *
      * @param ModulePathResolver $resolver Path resolver instance
      */
     public function setPathResolver(ModulePathResolver $resolver): void
@@ -51,7 +51,7 @@ class Model extends AbstractService implements ModelInterface
 
     /**
      * Get path resolver instance.
-     * 
+     *
      * @return ModulePathResolver
      */
     private function getPathResolver(): ModulePathResolver
@@ -134,7 +134,7 @@ class Model extends AbstractService implements ModelInterface
 
     /**
      * Check if model is loaded.
-     * 
+     *
      * @param string $name Model name
      * @param string|null $module Module name or null for current module
      * @param bool $isGlobal Whether to check in global modules

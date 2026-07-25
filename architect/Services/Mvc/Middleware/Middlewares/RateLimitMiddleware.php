@@ -11,9 +11,9 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Rate Limit Middleware.
- * 
+ *
  * Limits the number of requests per time period.
- * 
+ *
  * @package Architect\Services\Mvc\Middleware\Middlewares
  */
 class RateLimitMiddleware extends BaseMiddleware
@@ -51,7 +51,7 @@ class RateLimitMiddleware extends BaseMiddleware
 
     /**
      * Generate rate limit key.
-     * 
+     *
      * @param ServerRequestInterface $request Request instance
      * @return string
      */
@@ -68,7 +68,7 @@ class RateLimitMiddleware extends BaseMiddleware
 
     /**
      * Check rate limit.
-     * 
+     *
      * @param string $key Rate limit key
      * @return array{allowed: bool, remaining: int, reset_at: int, retry_after: int}
      */
@@ -101,7 +101,7 @@ class RateLimitMiddleware extends BaseMiddleware
 
     /**
      * Handle too many requests.
-     * 
+     *
      * @param array $result Rate limit result
      * @return ResponseInterface
      */
@@ -116,7 +116,7 @@ class RateLimitMiddleware extends BaseMiddleware
 
     /**
      * Add rate limit headers to response.
-     * 
+     *
      * @param ResponseInterface $response Response instance
      * @param array $result Rate limit result
      * @return ResponseInterface
@@ -137,7 +137,7 @@ class RateLimitMiddleware extends BaseMiddleware
 
     /**
      * Set maximum requests per window.
-     * 
+     *
      * @param int $max Maximum requests
      * @return self
      */
@@ -149,7 +149,7 @@ class RateLimitMiddleware extends BaseMiddleware
 
     /**
      * Set time window in seconds.
-     * 
+     *
      * @param int $seconds Window duration
      * @return self
      */
@@ -161,7 +161,7 @@ class RateLimitMiddleware extends BaseMiddleware
 
     /**
      * Set key prefix.
-     * 
+     *
      * @param string $prefix Key prefix
      * @return self
      */
@@ -173,7 +173,7 @@ class RateLimitMiddleware extends BaseMiddleware
 
     /**
      * Set custom key generator.
-     * 
+     *
      * @param callable $generator Key generator function
      * @return self
      */
@@ -185,7 +185,7 @@ class RateLimitMiddleware extends BaseMiddleware
 
     /**
      * Clear storage (useful for testing).
-     * 
+     *
      * @return void
      */
     public static function clearStorage(): void

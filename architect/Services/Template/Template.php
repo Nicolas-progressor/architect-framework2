@@ -81,7 +81,7 @@ final class Template implements TemplateInterface
         if ($this->isLocked()) {
             return;
         }
-        
+
         $this->applyTemplate($path, basename($path));
     }
 
@@ -153,7 +153,7 @@ final class Template implements TemplateInterface
 
     private function createElementCallback(): callable
     {
-        return function(string $name): string {
+        return function (string $name): string {
             return $this->element($name);
         };
     }
@@ -273,4 +273,3 @@ final class Template implements TemplateInterface
         return $this->templateName;
     }
 }
-

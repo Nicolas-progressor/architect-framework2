@@ -17,6 +17,6 @@ try {
     ProviderDiscovery::cache();
     fwrite(STDERR, "Cached service providers successfully.\n");
 } catch (Throwable $e) {
-    fwrite(STDERR, "Failed to cache service providers: " . $e->getMessage() . "\n");
+    fwrite(STDERR, 'Failed to cache service providers: ' . $e->getMessage() . "\n");
     exit(1);
 }

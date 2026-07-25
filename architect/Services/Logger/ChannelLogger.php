@@ -9,9 +9,9 @@ use Psr\Log\LoggerTrait;
 
 /**
  * Channel-specific logger proxy.
- * 
+ *
  * Allows logging to a specific channel without specifying it each time.
- * 
+ *
  * @example
  *   $logger->channel('api')->info('Request received');
  */

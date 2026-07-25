@@ -27,7 +27,7 @@ final class DefaultFilters implements FilterRegistryInterface
 
     /**
      * Russian pluralization
-     * 
+     *
      * @param int $count Count
      * @param string $forms Forms separated by | (e.g., "товар|товара|товаров")
      */
@@ -40,11 +40,11 @@ final class DefaultFilters implements FilterRegistryInterface
         if ($n > 10 && $n < 20) {
             return $count . ' ' . ($parts[2] ?? $parts[0]);
         }
-        
+
         if ($n1 > 1 && $n1 < 5) {
             return $count . ' ' . ($parts[1] ?? $parts[0]);
         }
-        
+
         if ($n1 === 1) {
             return $count . ' ' . $parts[0];
         }

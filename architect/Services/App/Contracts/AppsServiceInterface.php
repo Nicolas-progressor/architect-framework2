@@ -31,7 +31,7 @@ interface AppsServiceInterface
 
     /**
      * Get all registered applications.
-     * 
+     *
      * @return array<string, AppDescriptor>
      */
     public function getApps(): array;
@@ -53,7 +53,7 @@ interface AppsServiceInterface
 
     /**
      * Get current application configuration.
-     * 
+     *
      * @return array<string, mixed>
      */
     public function getAppConfig(): array;
@@ -65,7 +65,7 @@ interface AppsServiceInterface
 
     /**
      * Get default route for current application.
-     * 
+     *
      * @return array{module: string, controller: string, action: string}
      */
     public function getDefaultRoute(): array;

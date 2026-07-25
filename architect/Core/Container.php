@@ -11,7 +11,7 @@ use ReflectionClass;
 
 /**
  * Dependency Injection Container.
- * 
+ *
  * Provides service registration, resolution, and lifecycle management.
  * Created once in bootstrap and passed through DI.
  */
@@ -226,11 +226,11 @@ class Container implements ContainerInterface
     {
         $reflection = new ReflectionClass($className);
         $constructor = $reflection->getConstructor();
-        
+
         if ($constructor === null) {
             return new $className();
         }
-        
+
         $parameters = $constructor->getParameters();
         $args = [];
         foreach ($parameters as $param) {
@@ -245,7 +245,7 @@ class Container implements ContainerInterface
                 );
             }
         }
-        
+
         return $reflection->newInstanceArgs($args);
     }
 
@@ -255,7 +255,7 @@ class Container implements ContainerInterface
     public function reset(): void
     {
         $this->instances = [];
-        
+
         // Reset all lazy wrappers
         foreach ($this->lazyWrappers as $wrapper) {
             $wrapper->reset();

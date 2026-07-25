@@ -38,7 +38,7 @@ final class TemplatePathResolver implements PathResolverInterface
     public function resolveTemplatePathFromApp(string $appName, string $templateName): ?string
     {
         $path = ROOT_DIR . 'app/apps/' . $appName . '/' . self::TEMPLATE_DIR . $templateName . '/';
-        
+
         return $this->pathExists($path) ? $path : null;
     }
 

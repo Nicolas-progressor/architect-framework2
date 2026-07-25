@@ -8,9 +8,9 @@ use Architect\Services\Mvc\ModelBase;
 
 /**
  * Permission Model
- * 
+ *
  * Модель разрешения для системы RBAC.
- * 
+ *
  * @package Architect\Auth\Models
  */
 class Permission extends ModelBase
@@ -37,13 +37,13 @@ class Permission extends ModelBase
 
     /**
      * Конструктор
-     * 
+     *
      * @param int|null $id
      */
     public function __construct(?int $id = null)
     {
         parent::__construct();
-        
+
         if ($id !== null) {
             $this->load($id);
         }
@@ -51,7 +51,7 @@ class Permission extends ModelBase
 
     /**
      * Получить имя
-     * 
+     *
      * @return string
      */
     public function getName(): string
@@ -61,7 +61,7 @@ class Permission extends ModelBase
 
     /**
      * Установить имя
-     * 
+     *
      * @param string $name
      * @return self
      */
@@ -73,7 +73,7 @@ class Permission extends ModelBase
 
     /**
      * Получить описание
-     * 
+     *
      * @return string|null
      */
     public function getDescription(): ?string
@@ -83,7 +83,7 @@ class Permission extends ModelBase
 
     /**
      * Установить описание
-     * 
+     *
      * @param string|null $description
      * @return self
      */
@@ -95,14 +95,14 @@ class Permission extends ModelBase
 
     /**
      * Найти по имени
-     * 
+     *
      * @param string $name
      * @return static|null
      */
     public static function findByName(string $name): ?static
     {
         $instance = new static();
-        
+
         try {
             return $instance->where('name', '=', $name)->first();
         } catch (\Exception $e) {
@@ -120,16 +120,16 @@ class Permission extends ModelBase
 
     /**
      * Получить все доступные разрешения из конфига
-     * 
+     *
      * @return array
      */
     public static function allFromConfig(): array
     {
         $instance = new static();
         $config = $instance->getAuthConfig();
-        
+
         $permissions = [];
-        
+
         if (isset($config['permissions'])) {
             foreach ($config['permissions'] as $name => $description) {
                 $perm = new static();
@@ -144,7 +144,7 @@ class Permission extends ModelBase
 
     /**
      * Получить конфигурацию auth
-     * 
+     *
      * @return array
      */
     protected function getAuthConfig(): array
@@ -164,7 +164,7 @@ class Permission extends ModelBase
 
     /**
      * Сохранить разрешение
-     * 
+     *
      * @return bool
      */
     public function save(): bool
@@ -178,6 +178,6 @@ class Permission extends ModelBase
             return $this->update($data);
         }
 
-        return (bool)$this->insert($data);
+        return (bool) $this->insert($data);
     }
 }

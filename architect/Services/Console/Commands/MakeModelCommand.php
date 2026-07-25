@@ -57,7 +57,7 @@ class MakeModelCommand extends BaseCommand implements CommandInterface
 
         // Create directory if not exists
         if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0755, true);
+            mkdir($targetDir, 0o755, true);
         }
 
         $filePath = "{$targetDir}/{$modelName}.php";
@@ -99,59 +99,59 @@ class MakeModelCommand extends BaseCommand implements CommandInterface
         $baseClassName = basename(str_replace('\\', '/', $baseClass));
 
         $template = <<<PHP
-<?php
+            <?php
 
-declare(strict_types=1);
+            declare(strict_types=1);
 
-namespace app\home\modules\home\model;
+            namespace app\home\modules\home\model;
 
-use {$baseClass};
+            use {$baseClass};
 
-class {$className} extends {$baseClassName}
-{
-    protected string \$table = '{$table}';
-    protected string \$primaryKey = 'id';
-    protected bool \$timestamps = true;
+            class {$className} extends {$baseClassName}
+            {
+                protected string \$table = '{$table}';
+                protected string \$primaryKey = 'id';
+                protected bool \$timestamps = true;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected array \$fillable = [
-        // 'name',
-        // 'email',
-    ];
+                /**
+                 * The attributes that are mass assignable.
+                 *
+                 * @var array<int, string>
+                 */
+                protected array \$fillable = [
+                    // 'name',
+                    // 'email',
+                ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array<int, string>
-     */
-    protected array \$hidden = [
-        // 'password',
-        // 'remember_token',
-    ];
+                /**
+                 * The attributes that should be hidden for arrays.
+                 *
+                 * @var array<int, string>
+                 */
+                protected array \$hidden = [
+                    // 'password',
+                    // 'remember_token',
+                ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array<string, string>
-     */
-    protected array \$casts = [
-        // 'email_verified_at' => 'datetime',
-        // 'created_at' => 'datetime',
-        // 'updated_at' => 'datetime',
-    ];
+                /**
+                 * The attributes that should be cast to native types.
+                 *
+                 * @var array<string, string>
+                 */
+                protected array \$casts = [
+                    // 'email_verified_at' => 'datetime',
+                    // 'created_at' => 'datetime',
+                    // 'updated_at' => 'datetime',
+                ];
 
-    // Define relationships here
-    // public function user(): HasOne
-    // {
-    //     return \$this->hasOne(User::class);
-    // }
-}
+                // Define relationships here
+                // public function user(): HasOne
+                // {
+                //     return \$this->hasOne(User::class);
+                // }
+            }
 
-PHP;
+            PHP;
 
         return $template;
     }

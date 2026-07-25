@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Architect\Helpers\Db;
 
 use Architect\Core\Contracts\ContainerInterface;
+use Architect\Helpers\Core\AbstractHelper;
 use PDO;
 use PDOStatement;
-use Architect\Helpers\Core\AbstractHelper;
 
 /**
  * Database static helper.

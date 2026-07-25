@@ -35,19 +35,19 @@ final class ConfigLoader
     private function getConfigPaths(): array
     {
         $paths = [];
-        
+
         // Global config
         $globalPath = $this->getGlobalConfigPath();
         if ($globalPath) {
             $paths[] = $globalPath;
         }
-        
+
         // App-specific config
         $appPath = $this->getAppConfigPath();
         if ($appPath) {
             $paths[] = $appPath;
         }
-        
+
         return $paths;
     }
 
@@ -59,7 +59,7 @@ final class ConfigLoader
         $path = defined('APP_DIR')
             ? APP_DIR . 'config/blueprint.json'
             : $this->rootDir . '/app/config/blueprint.json';
-        
+
         return file_exists($path) ? $path : null;
     }
 
@@ -71,16 +71,16 @@ final class ConfigLoader
         if (!$this->container->has('apps')) {
             return null;
         }
-        
+
         $apps = $this->container->get('apps');
         $appDir = $apps->appdir ?? null;
-        
+
         if (!$appDir) {
             return null;
         }
-        
+
         $path = $appDir . 'config/blueprint.json';
-        
+
         return file_exists($path) ? $path : null;
     }
 
@@ -92,7 +92,7 @@ final class ConfigLoader
         if (defined('ROOT_DIR')) {
             return ROOT_DIR;
         }
-        
+
         return dirname(__DIR__, 4);
     }
 }

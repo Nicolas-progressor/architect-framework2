@@ -24,7 +24,7 @@ class TitleHelper extends AbstractHelper
     {
         $this->loadConfig($container);
     }
-    
+
     /**
      * Load configuration from container.
      */
@@ -44,7 +44,7 @@ class TitleHelper extends AbstractHelper
             // Use defaults
         }
     }
-    
+
     /**
      * Set page title.
      */
@@ -53,7 +53,7 @@ class TitleHelper extends AbstractHelper
         $this->title = $title;
         return $this;
     }
-    
+
     /**
      * Append to title.
      */
@@ -62,7 +62,7 @@ class TitleHelper extends AbstractHelper
         $this->title .= $title;
         return $this;
     }
-    
+
     /**
      * Prepend to title.
      */
@@ -71,27 +71,27 @@ class TitleHelper extends AbstractHelper
         $this->title = $title . $this->title;
         return $this;
     }
-    
+
     /**
      * Render full title with prefix/suffix.
      */
     public function render(): string
     {
         $parts = [];
-        
+
         if ($this->prefix) {
             $parts[] = $this->prefix;
         }
-        
+
         $parts[] = $this->title;
-        
+
         if ($this->suffix) {
             $parts[] = $this->suffix;
         }
-        
+
         return implode($this->separator, $parts);
     }
-    
+
     /**
      * Get base title.
      */

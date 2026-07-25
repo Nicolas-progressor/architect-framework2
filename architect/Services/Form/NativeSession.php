@@ -8,7 +8,7 @@ use Architect\Services\Form\Interfaces\SessionInterface;
 
 /**
  * Class NativeSession
- * 
+ *
  * Реализация SessionInterface для работы с PHP-сессией.
  */
 class NativeSession implements SessionInterface
@@ -23,7 +23,7 @@ class NativeSession implements SessionInterface
 
     /**
      * Запустить сессию если нужно
-     * 
+     *
      * @return void
      */
     private function startIfNeeded(): void
@@ -35,7 +35,7 @@ class NativeSession implements SessionInterface
 
     /**
      * Получить значение из сессии
-     * 
+     *
      * @param string $key Ключ
      * @param mixed $default Значение по умолчанию
      * @return mixed
@@ -47,7 +47,7 @@ class NativeSession implements SessionInterface
 
     /**
      * Установить значение в сессию
-     * 
+     *
      * @param string $key Ключ
      * @param mixed $value Значение
      * @return void
@@ -59,7 +59,7 @@ class NativeSession implements SessionInterface
 
     /**
      * Удалить значение из сессии
-     * 
+     *
      * @param string $key Ключ
      * @return void
      */
@@ -70,7 +70,7 @@ class NativeSession implements SessionInterface
 
     /**
      * Проверить наличие ключа
-     * 
+     *
      * @param string $key Ключ
      * @return bool
      */

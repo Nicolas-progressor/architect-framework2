@@ -258,10 +258,10 @@ class OutputFormatter
         if ($total === 0) {
             $percent = 100;
         } else {
-            $percent = (int)(($current / $total) * 100);
+            $percent = (int) (($current / $total) * 100);
         }
 
-        $filled = (int)(($current / $total) * $width);
+        $filled = (int) (($current / $total) * $width);
         $empty = $width - $filled;
 
         $bar = str_repeat('=', $filled) . str_repeat('-', $empty);

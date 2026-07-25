@@ -8,14 +8,14 @@ use Architect\Services\Routing\Contracts\FileSystemInterface;
 
 /**
  * Resolves configuration file paths.
- * 
+ *
  * Searches for configuration files in multiple locations with priority.
  */
 final class ConfigPathResolver
 {
     /**
      * Create path resolver.
-     * 
+     *
      * @param FileSystemInterface $fs File system abstraction
      * @param string $appDir Application directory path
      * @param string $rootDir Root directory path
@@ -28,12 +28,12 @@ final class ConfigPathResolver
 
     /**
      * Resolve configuration file path.
-     * 
+     *
      * Search priority:
      * 1. App-specific path (if provided)
      * 2. App config directory
      * 3. Root config directory
-     * 
+     *
      * @param string $name Configuration name (without .json extension)
      * @param string|null $appPath Optional application-specific path
      * @return string|null Full path to config file or null if not found
@@ -53,7 +53,7 @@ final class ConfigPathResolver
 
     /**
      * Get all possible configuration paths for a name.
-     * 
+     *
      * @param string $name Configuration name
      * @param string|null $appPath Optional application-specific path
      * @return array<string> List of possible paths in priority order
@@ -78,7 +78,7 @@ final class ConfigPathResolver
 
     /**
      * Get the application directory.
-     * 
+     *
      * @return string
      */
     public function getAppDir(): string
@@ -88,7 +88,7 @@ final class ConfigPathResolver
 
     /**
      * Get the root directory.
-     * 
+     *
      * @return string
      */
     public function getRootDir(): string

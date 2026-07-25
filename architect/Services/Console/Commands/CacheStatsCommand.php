@@ -8,9 +8,9 @@ use Architect\Console\BaseCommand;
 use Architect\Console\CommandInterface;
 use Architect\Services\Cache\CacheManager;
 use Architect\Services\Cache\Config\CacheConfig;
-use Architect\Services\Config\ConfigRepository;
 use Architect\Services\Cache\Drivers\ArrayCacheDriver;
 use Architect\Services\Cache\Drivers\FileCacheDriver;
+use Architect\Services\Config\ConfigRepository;
 
 /**
  * Show cache statistics.
@@ -104,7 +104,7 @@ class CacheStatsCommand extends BaseCommand implements CommandInterface
 
             // Driver-specific stats
             if ($storeInstance instanceof ArrayCacheDriver) {
-                $this->line("Items in memory: <info>" . $storeInstance->count() . "</info>");
+                $this->line('Items in memory: <info>' . $storeInstance->count() . '</info>');
             } elseif ($storeInstance instanceof FileCacheDriver) {
                 $dir = $storeInstance->getDirectory();
                 $fileCount = count(glob($dir . '/*/*.cache')) + count(glob($dir . '/*.cache'));
@@ -112,7 +112,7 @@ class CacheStatsCommand extends BaseCommand implements CommandInterface
                 $this->line("Cache files: <info>{$fileCount}</info>");
             }
 
-            $this->line("");
+            $this->line('');
             return 0;
         } catch (\InvalidArgumentException $e) {
             $this->error("Store '{$store}' does not exist.");
@@ -159,13 +159,13 @@ class CacheStatsCommand extends BaseCommand implements CommandInterface
             return 0;
         }
 
-        $this->line("<comment>Cache Stores:</comment>");
+        $this->line('<comment>Cache Stores:</comment>');
         foreach ($stores as $store) {
             $driver = $config->getDriver($store);
             $this->line("  - <info>{$store}</info> (<comment>{$driver}</comment>)");
         }
 
-        $this->line("");
+        $this->line('');
         $this->line("<comment>Default store:</comment> <info>{$config->getDefaultStore()}</info>");
         $this->line("<comment>Global prefix:</comment> <info>{$config->getPrefix()}</info>");
         $this->line("<comment>Default TTL:</comment> <info>{$config->getDefaultTtl()} seconds</info>");

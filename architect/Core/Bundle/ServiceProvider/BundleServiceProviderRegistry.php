@@ -22,13 +22,13 @@ class BundleServiceProviderRegistry
     public function register(BundleInterface $bundle, ContainerInterface $container): void
     {
         $serviceProviders = $this->discoverServiceProviders($bundle);
-        
+
         foreach ($serviceProviders as $providerClass) {
             if (class_exists($providerClass)) {
                 $provider = new $providerClass();
                 if ($provider instanceof ServiceProviderInterface) {
                     $provider->register($container);
-                    
+
                     // Store provider for later booting
                     $this->storeProvider($bundle, $provider, $container);
                 }
@@ -46,7 +46,7 @@ class BundleServiceProviderRegistry
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleDir = dirname($reflection->getFileName());
-        
+
         $providers = [];
 
         // Check for ServiceProvider directory
@@ -91,7 +91,7 @@ class BundleServiceProviderRegistry
     private function scanDirectoryForProviders(string $directory): array
     {
         $providers = [];
-        
+
         $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($directory, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST
@@ -182,7 +182,7 @@ class BundleServiceProviderRegistry
         }
 
         $reflection = new \ReflectionClass($className);
-        
+
         // Check if class implements ServiceProviderInterface
         if ($reflection->implementsInterface('Architect\Contracts\ServiceProviderInterface')) {
             return true;
@@ -212,12 +212,12 @@ class BundleServiceProviderRegistry
     {
         $bundleName = $bundle->getName();
         $providerKey = 'bundle.' . $bundleName . '.providers';
-        
+
         $providers = [];
         if ($container->has($providerKey)) {
             $providers = $container->get($providerKey);
         }
-        
+
         $providers[] = $provider;
         $container->set($providerKey, $providers);
     }
@@ -232,11 +232,11 @@ class BundleServiceProviderRegistry
     {
         $bundleName = $bundle->getName();
         $providerKey = 'bundle.' . $bundleName . '.providers';
-        
+
         if (!$container->has($providerKey)) {
             return;
         }
-        
+
         $providers = $container->get($providerKey);
         foreach ($providers as $provider) {
             if ($provider instanceof ServiceProviderInterface) {
@@ -282,11 +282,11 @@ class BundleServiceProviderRegistry
     {
         $bundleName = $bundle->getName();
         $providerKey = 'bundle.' . $bundleName . '.providers';
-        
+
         if (!$container->has($providerKey)) {
             return [];
         }
-        
+
         return $container->get($providerKey);
     }
 }

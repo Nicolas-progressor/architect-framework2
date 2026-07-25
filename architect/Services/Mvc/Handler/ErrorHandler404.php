@@ -10,10 +10,10 @@ use Architect\Services\Mvc\Resolver\ModulePathResolver;
 
 /**
  * 404 error handler implementation.
- * 
+ *
  * Handles 404 errors with view rendering and fatal error handling.
  * Supports both application and global 404 views.
- * 
+ *
  * @package Architect\Services\Mvc\Handler
  */
 class ErrorHandler404 implements ErrorHandler404Interface
@@ -29,7 +29,7 @@ class ErrorHandler404 implements ErrorHandler404Interface
 
     /**
      * Create error handler instance.
-     * 
+     *
      * @param ContainerInterface $container Dependency container
      * @param ModulePathResolver $pathResolver Module path resolver
      */
@@ -91,9 +91,9 @@ class ErrorHandler404 implements ErrorHandler404Interface
 
     /**
      * Render 404 view.
-     * 
+     *
      * Tries app view, then global view, then default view.
-     * 
+     *
      * @param string $message Error message
      * @param mixed $view View service
      * @return string Rendered content
@@ -118,7 +118,7 @@ class ErrorHandler404 implements ErrorHandler404Interface
 
     /**
      * Create 404 response data.
-     * 
+     *
      * @param string $message Error message
      * @return array Response data
      */

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Services\Routing\Loaders;
 
-use Architect\Services\Routing\Contracts\RouteLoaderInterface;
 use Architect\Services\Routing\Contracts\FileSystemInterface;
+use Architect\Services\Routing\Contracts\RouteLoaderInterface;
 use Architect\Services\Routing\Filesystem\NativeFileSystem;
 
 /**

@@ -12,9 +12,9 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * PSR-15 Adapter for Architect Auth System.
- * 
+ *
  * Wraps existing AuthManager into PSR-15 middleware.
- * 
+ *
  * @package Architect\Services\Mvc\Middleware\Adapters
  */
 class AuthAdapter extends BaseMiddleware
@@ -57,7 +57,7 @@ class AuthAdapter extends BaseMiddleware
 
     /**
      * Get AuthManager instance.
-     * 
+     *
      * @return AuthManager
      */
     protected function getAuthManager(): AuthManager
@@ -73,7 +73,7 @@ class AuthAdapter extends BaseMiddleware
 
     /**
      * Handle unauthenticated request.
-     * 
+     *
      * @param ServerRequestInterface $request
      * @return ResponseInterface
      */
@@ -85,7 +85,7 @@ class AuthAdapter extends BaseMiddleware
 
     /**
      * Handle forbidden access.
-     * 
+     *
      * @param string $message
      * @return ResponseInterface
      */
@@ -99,7 +99,7 @@ class AuthAdapter extends BaseMiddleware
 
     /**
      * Set login URL.
-     * 
+     *
      * @param string $url Login URL
      * @return self
      */
@@ -111,7 +111,7 @@ class AuthAdapter extends BaseMiddleware
 
     /**
      * Set required permission.
-     * 
+     *
      * @param string $permission Permission name
      * @return self
      */
@@ -123,7 +123,7 @@ class AuthAdapter extends BaseMiddleware
 
     /**
      * Set required role.
-     * 
+     *
      * @param string $role Role name
      * @return self
      */
@@ -135,7 +135,7 @@ class AuthAdapter extends BaseMiddleware
 
     /**
      * Set AuthManager instance.
-     * 
+     *
      * @param AuthManager $authManager
      * @return self
      */

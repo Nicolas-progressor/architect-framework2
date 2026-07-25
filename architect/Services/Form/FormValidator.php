@@ -8,10 +8,10 @@ use Architect\Services\Form\Interfaces\FormValidatorInterface;
 
 /**
  * Class FormValidator
- * 
+ *
  * Валидация данных формы по заданным правилам.
  * Реализует интерфейс FormValidatorInterface.
- * 
+ *
  * Поддерживаемые правила:
  * - required - обязательное поле
  * - email - проверка формата email
@@ -25,7 +25,7 @@ use Architect\Services\Form\Interfaces\FormValidatorInterface;
  * - alpha - только буквы
  * - alpha_num - буквы и цифры
  * - date - валидная дата
- * 
+ *
  * @package Architect\Services\Form
  */
 class FormValidator implements FormValidatorInterface
@@ -58,7 +58,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Валидировать данные
-     * 
+     *
      * @param array $data Данные для валидации
      * @param array $rules Правила валидации
      * @return bool True если валидация прошла успешно
@@ -77,7 +77,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Валидировать конкретное поле
-     * 
+     *
      * @param string $field Имя поля
      * @param string $rulesString Строка правил (разделённых |)
      * @return void
@@ -108,7 +108,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Применить правило валидации
-     * 
+     *
      * @param string $field Имя поля
      * @param string $ruleName Имя правила
      * @param string|null $ruleParam Параметр правила
@@ -136,7 +136,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Получить значение поля
-     * 
+     *
      * @param string $field Имя поля
      * @return mixed
      */
@@ -147,7 +147,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Проверить, пусто ли значение
-     * 
+     *
      * @param mixed $value
      * @return bool
      */
@@ -158,7 +158,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Добавить ошибку
-     * 
+     *
      * @param string $field Имя поля
      * @param string $ruleName Имя правила
      * @param string|null $ruleParam Параметр правила
@@ -167,11 +167,11 @@ class FormValidator implements FormValidatorInterface
     protected function addError(string $field, string $ruleName, ?string $ruleParam): void
     {
         $message = $this->getErrorMessage($field, $ruleName, $ruleParam);
-        
+
         if (!isset($this->errors[$field])) {
             $this->errors[$field] = [];
         }
-        
+
         if (!in_array($message, $this->errors[$field], true)) {
             $this->errors[$field][] = $message;
         }
@@ -179,7 +179,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Получить текст сообщения об ошибке
-     * 
+     *
      * @param string $field Имя поля
      * @param string $ruleName Имя правила
      * @param string|null $ruleParam Параметр правила
@@ -210,7 +210,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Получить метки полей (для сообщений об ошибках)
-     * 
+     *
      * @return array<string, string>
      */
     protected function getFieldLabels(): array
@@ -220,7 +220,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Установить метки полей для сообщений об ошибках
-     * 
+     *
      * @param array $labels Метки полей [field => label]
      * @return static
      */
@@ -256,7 +256,7 @@ class FormValidator implements FormValidatorInterface
         if (!is_string($value) || $param === null) {
             return false;
         }
-        return mb_strlen($value) >= (int)$param;
+        return mb_strlen($value) >= (int) $param;
     }
 
     /**
@@ -267,7 +267,7 @@ class FormValidator implements FormValidatorInterface
         if (!is_string($value) || $param === null) {
             return false;
         }
-        return mb_strlen($value) <= (int)$param;
+        return mb_strlen($value) <= (int) $param;
     }
 
     /**
@@ -286,7 +286,7 @@ class FormValidator implements FormValidatorInterface
         if (!is_numeric($value) || $param === null) {
             return false;
         }
-        return (float)$value >= (float)$param;
+        return (float) $value >= (float) $param;
     }
 
     /**
@@ -297,7 +297,7 @@ class FormValidator implements FormValidatorInterface
         if (!is_numeric($value) || $param === null) {
             return false;
         }
-        return (float)$value <= (float)$param;
+        return (float) $value <= (float) $param;
     }
 
     /**
@@ -364,7 +364,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Получить все ошибки
-     * 
+     *
      * @return array<string, array<int, string>>
      */
     public function getErrors(): array
@@ -374,7 +374,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Получить ошибки для конкретного поля
-     * 
+     *
      * @param string $field Имя поля
      * @return array<int, string>
      */
@@ -385,7 +385,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Получить первую ошибку для поля
-     * 
+     *
      * @param string $field Имя поля
      * @return string|null
      */
@@ -396,7 +396,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Проверить, есть ли ошибки
-     * 
+     *
      * @return bool
      */
     public function hasErrors(): bool
@@ -406,7 +406,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Проверить, есть ли ошибки для конкретного поля
-     * 
+     *
      * @param string $field Имя поля
      * @return bool
      */
@@ -417,7 +417,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Получить первую ошибку
-     * 
+     *
      * @return string|null
      */
     public function getFirstErrorMessage(): ?string
@@ -434,7 +434,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Зарегистрировать кастомное правило валидации (для экземпляра)
-     * 
+     *
      * @param string $name Имя правила
      * @param callable $callback Функция валидации (value, param, data) => bool
      * @return static
@@ -447,7 +447,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Удалить кастомное правило (из экземпляра)
-     * 
+     *
      * @param string $name Имя правила
      * @return static
      */
@@ -462,7 +462,7 @@ class FormValidator implements FormValidatorInterface
 
     /**
      * Быстрая валидация (статический метод)
-     * 
+     *
      * @param array $data Данные
      * @param array $rules Правила
      * @return bool|array Errors array on failure, true on success
@@ -470,11 +470,11 @@ class FormValidator implements FormValidatorInterface
     public static function check(array $data, array $rules): bool|array
     {
         $validator = new self();
-        
+
         if ($validator->validate($data, $rules)) {
             return true;
         }
-        
+
         return $validator->getErrors();
     }
 }

@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Architect\Support\ServiceProviders;
 
-use Architect\Contracts\ServiceProviderInterface;
 use Architect\Core\Contracts\ContainerInterface;
-use Architect\Support\AbstractServiceProvider;
 use Architect\Services\App\Apps;
 use Architect\Services\Routing\ModuleResolver;
 use Architect\Services\Routing\Router;
+use Architect\Support\AbstractServiceProvider;
 
 /**
  * Routing service provider: apps, module resolver, router.
@@ -29,10 +28,10 @@ class RoutingServiceProvider extends AbstractServiceProvider
                 $c->get('config.loader'),
                 $c->get('logger')
             );
-            
+
             // Set lazy router resolver to avoid circular dependency
             $apps->setRouterResolver(fn() => $c->get('router'));
-            
+
             return $apps;
         });
 

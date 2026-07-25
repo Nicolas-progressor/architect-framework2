@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Architect\Services\Debug;
 
 use Architect\Core\Container;
-use Architect\Support\AbstractService;
 use Architect\Services\Debug\Contracts\DebugCollectorInterface;
 use Architect\Services\Debug\Contracts\DebugInterface;
 use Architect\Services\Debug\Traits\DebugFormatterTrait;
+use Architect\Support\AbstractService;
 
 /**
  * Debug service providing interactive debug panel at the bottom of the screen.
@@ -45,11 +45,11 @@ class Debug extends AbstractService implements DebugInterface
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        
+
         $this->startTime = microtime(true);
         $this->startMemory = memory_get_usage();
     }
-        
+
     public function boot(): void
     {
         // Load debug configuration with application-specific override
@@ -61,22 +61,22 @@ class Debug extends AbstractService implements DebugInterface
         }
         $configService = $loader->loadWithAppOverride('debug', $appPath);
         $this->config = $configService->all();
-        
+
         $env = $this->container->get('environment');
         $this->enabled = ($this->config['enabled'] ?? false) && !$env->isProduction();
-        
+
         if ($this->enabled && ($this->config['ip_whitelist'] ?? [])) {
             $this->enabled = $this->checkIpWhitelist();
         }
-        
+
         if ($this->enabled && ($this->config['collect_custom_data'] ?? true)) {
             $this->collector = new DebugDataCollector();
         }
-        
+
         if ($this->enabled && ($this->config['show_session'] ?? true)) {
             $this->collectSessionData();
         }
-        
+
         $this->startStage('initialization');
     }
 
@@ -102,7 +102,7 @@ class Debug extends AbstractService implements DebugInterface
             'peak' => 0,
         ];
     }
-    
+
     public function endStage(): void
     {
         if (!$this->enabled || !$this->currentStage) {
@@ -428,20 +428,20 @@ class Debug extends AbstractService implements DebugInterface
     {
         $status = session_status();
         $sessionActive = $status === PHP_SESSION_ACTIVE;
-        
+
         $cookieParams = $sessionActive ? session_get_cookie_params() : [];
         $lifetime = $cookieParams['lifetime'] ?? 0;
         $expires = $lifetime > 0 ? time() + $lifetime : null;
-        
+
         $sessionSize = 0;
         $sessionKeys = [];
         $sensitiveKeys = [];
-        
+
         if ($sessionActive && !empty($_SESSION)) {
             $this->sessionData = $_SESSION;
             $sessionSize = strlen(serialize($_SESSION));
             $sessionKeys = array_keys($_SESSION);
-            
+
             // Detect sensitive keys
             $sensitivePatterns = ['/password/i', '/token/i', '/secret/i', '/key/i', '/auth/i', '/credential/i'];
             foreach ($sessionKeys as $key) {
@@ -455,7 +455,7 @@ class Debug extends AbstractService implements DebugInterface
         } else {
             $this->sessionData = [];
         }
-        
+
         $this->sessionMeta = [
             'status' => match ($status) {
                 PHP_SESSION_ACTIVE => 'active',
@@ -553,7 +553,7 @@ class Debug extends AbstractService implements DebugInterface
 
             // Try to get routes from router first
             $routes = $router->routes ?? [];
-            
+
             // If routes are empty, load them manually
             if (empty($routes)) {
                 $routes = $this->loadAllRoutes();
@@ -571,7 +571,7 @@ class Debug extends AbstractService implements DebugInterface
                         'name' => basename($file),
                         'content' => $data,
                     ];
-                    
+
                     // Also add routes from this file
                     if (isset($data['routes'])) {
                         $routes = array_merge($routes, $data['routes']);
@@ -593,7 +593,7 @@ class Debug extends AbstractService implements DebugInterface
                         'name' => basename($file),
                         'content' => $data,
                     ];
-                    
+
                     if (isset($data['routes'])) {
                         $routes = array_merge($routes, $data['routes']);
                     }
@@ -611,7 +611,7 @@ class Debug extends AbstractService implements DebugInterface
                     'name' => 'routes.json',
                     'content' => $data,
                 ];
-                
+
                 if (isset($data['routes'])) {
                     $routes = array_merge($routes, $data['routes']);
                 }
@@ -638,7 +638,7 @@ class Debug extends AbstractService implements DebugInterface
     private function loadAllRoutes(): array
     {
         $routes = [];
-        
+
         // Global routes
         $globalRoutesDir = APP_DIR . 'routes/';
         if (is_dir($globalRoutesDir)) {
@@ -655,7 +655,7 @@ class Debug extends AbstractService implements DebugInterface
         try {
             $apps = $this->container->get('apps');
             $appDir = $apps->getAppDir();
-            
+
             // App routes directory
             $appRoutesDir = $appDir . 'routes/';
             if (is_dir($appRoutesDir)) {
@@ -667,7 +667,7 @@ class Debug extends AbstractService implements DebugInterface
                     }
                 }
             }
-            
+
             // Config routes
             $configRoutesFile = $appDir . 'config/routes.json';
             if (file_exists($configRoutesFile)) {
@@ -692,13 +692,13 @@ class Debug extends AbstractService implements DebugInterface
         if (!$this->enabled) {
             return [];
         }
-        
+
         $logs = [];
         $logDir = defined('APP_DIR') ? APP_DIR . 'logs/' : dirname(__DIR__, 3) . '/app/logs/';
         if (!is_dir($logDir)) {
             return [];
         }
-        
+
         // Read today's system log file
         $today = date('Y-m-d');
         $systemFile = $logDir . 'system_' . $today . '.log';
@@ -710,12 +710,12 @@ class Debug extends AbstractService implements DebugInterface
             }
             $systemFile = end($files);
         }
-        
+
         $lines = file($systemFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if ($lines === false) {
             return [];
         }
-        
+
         // Take last 20 lines
         $recentLines = array_slice($lines, -20);
         foreach ($recentLines as $line) {
@@ -732,7 +732,7 @@ class Debug extends AbstractService implements DebugInterface
                 $level = 'info';
                 $message = $line;
             }
-            
+
             $logs[] = [
                 'time' => $time,
                 'channel' => $channel,
@@ -741,7 +741,7 @@ class Debug extends AbstractService implements DebugInterface
                 'source' => 'system',
             ];
         }
-        
+
         return $logs;
     }
 }

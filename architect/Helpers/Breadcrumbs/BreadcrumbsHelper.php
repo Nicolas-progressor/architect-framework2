@@ -35,7 +35,7 @@ class BreadcrumbsHelper extends AbstractHelper
         ];
         return $this;
     }
-    
+
     /**
      * Get all breadcrumbs.
      */
@@ -63,7 +63,7 @@ class BreadcrumbsHelper extends AbstractHelper
         }
 
         $html = '<nav aria-label="breadcrumb"><ol class="breadcrumb">';
-        
+
         foreach ($this->crumbs as $crumb) {
             if ($crumb['active']) {
                 $html .= '<li class="breadcrumb-item active" aria-current="page">';
@@ -79,9 +79,9 @@ class BreadcrumbsHelper extends AbstractHelper
                 $html .= '</li>';
             }
         }
-        
+
         $html .= '</ol></nav>';
-        
+
         return $html;
     }
 }

@@ -4,8 +4,8 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Architect\Core\Container;
-use Architect\Queue\Providers\QueueServiceProvider;
 use Architect\Queue\Jobs\Job;
+use Architect\Queue\Providers\QueueServiceProvider;
 
 // Создаём контейнер
 $container = new Container();

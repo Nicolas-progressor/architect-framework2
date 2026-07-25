@@ -6,10 +6,10 @@ namespace Architect\Services\Mvc\Exceptions;
 
 /**
  * Exception thrown when model cannot be found.
- * 
+ *
  * Thrown when either the model file or class is missing.
  * Provides module, model name, and location information.
- * 
+ *
  * @package Architect\Services\Mvc\Exceptions
  */
 class ModelNotFoundException extends MvcException
@@ -25,7 +25,7 @@ class ModelNotFoundException extends MvcException
 
     /**
      * Create exception for missing model.
-     * 
+     *
      * @param string $module Module name
      * @param string $model Model name
      * @param bool $isGlobal Whether searched in global modules
@@ -44,7 +44,7 @@ class ModelNotFoundException extends MvcException
 
     /**
      * Get module name.
-     * 
+     *
      * @return string
      */
     public function getModule(): string
@@ -54,7 +54,7 @@ class ModelNotFoundException extends MvcException
 
     /**
      * Get model name.
-     * 
+     *
      * @return string
      */
     public function getModel(): string
@@ -64,7 +64,7 @@ class ModelNotFoundException extends MvcException
 
     /**
      * Check if global module.
-     * 
+     *
      * @return bool
      */
     public function isGlobal(): bool

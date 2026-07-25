@@ -61,7 +61,7 @@ class BundleDiscovery
 
         // Ensure cache directory exists
         $cacheDir = dirname($cachePath);
-        if (!is_dir($cacheDir) && !mkdir($cacheDir, 0755, true)) {
+        if (!is_dir($cacheDir) && !mkdir($cacheDir, 0o755, true)) {
             throw new RuntimeException("Unable to create cache directory: {$cacheDir}");
         }
 

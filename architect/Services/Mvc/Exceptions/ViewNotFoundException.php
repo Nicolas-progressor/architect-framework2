@@ -6,10 +6,10 @@ namespace Architect\Services\Mvc\Exceptions;
 
 /**
  * Exception thrown when view template cannot be found.
- * 
+ *
  * Thrown when the specified template file does not exist
  * in the template directory.
- * 
+ *
  * @package Architect\Services\Mvc\Exceptions
  */
 class ViewNotFoundException extends MvcException
@@ -22,7 +22,7 @@ class ViewNotFoundException extends MvcException
 
     /**
      * Create exception for missing view.
-     * 
+     *
      * @param string $template Template name
      * @param string $templateDir Template directory path
      * @return self
@@ -38,7 +38,7 @@ class ViewNotFoundException extends MvcException
 
     /**
      * Get template name.
-     * 
+     *
      * @return string
      */
     public function getTemplate(): string
@@ -48,7 +48,7 @@ class ViewNotFoundException extends MvcException
 
     /**
      * Get template directory.
-     * 
+     *
      * @return string
      */
     public function getTemplateDir(): string

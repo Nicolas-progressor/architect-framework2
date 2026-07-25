@@ -12,9 +12,9 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * PSR-15 Adapter for CSRF Token Manager.
- * 
+ *
  * Wraps existing CSRFTokenManager into PSR-15 middleware.
- * 
+ *
  * @package Architect\Services\Mvc\Middleware\Adapters
  */
 class CsrfAdapter extends BaseMiddleware
@@ -61,7 +61,7 @@ class CsrfAdapter extends BaseMiddleware
 
     /**
      * Get CSRFTokenManager instance.
-     * 
+     *
      * @return CSRFTokenManager
      */
     protected function getCsrfManager(): CSRFTokenManager
@@ -77,7 +77,7 @@ class CsrfAdapter extends BaseMiddleware
 
     /**
      * Get token from request.
-     * 
+     *
      * @param ServerRequestInterface $request
      * @return string
      */
@@ -106,7 +106,7 @@ class CsrfAdapter extends BaseMiddleware
 
     /**
      * Handle invalid token.
-     * 
+     *
      * @return ResponseInterface
      */
     protected function invalidToken(): ResponseInterface
@@ -119,7 +119,7 @@ class CsrfAdapter extends BaseMiddleware
 
     /**
      * Set form name.
-     * 
+     *
      * @param string $name Form name
      * @return self
      */
@@ -131,7 +131,7 @@ class CsrfAdapter extends BaseMiddleware
 
     /**
      * Set token field name.
-     * 
+     *
      * @param string $field Field name
      * @return self
      */
@@ -143,7 +143,7 @@ class CsrfAdapter extends BaseMiddleware
 
     /**
      * Set CSRFTokenManager instance.
-     * 
+     *
      * @param CSRFTokenManager $manager
      * @return self
      */
@@ -155,7 +155,7 @@ class CsrfAdapter extends BaseMiddleware
 
     /**
      * Get hidden input field HTML.
-     * 
+     *
      * @return string
      */
     public function getTokenField(): string
@@ -165,7 +165,7 @@ class CsrfAdapter extends BaseMiddleware
 
     /**
      * Get meta tag HTML.
-     * 
+     *
      * @return string
      */
     public function getMetaTag(): string

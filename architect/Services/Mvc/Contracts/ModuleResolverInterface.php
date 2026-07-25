@@ -6,17 +6,17 @@ namespace Architect\Services\Mvc\Contracts;
 
 /**
  * Interface for module path resolution.
- * 
+ *
  * Defines the contract for resolving module paths for
  * controllers, models, views, and other resources.
- * 
+ *
  * @package Architect\Services\Mvc\Contracts
  */
 interface ModuleResolverInterface
 {
     /**
      * Resolve module path.
-     * 
+     *
      * @param string $module Module name
      * @param string $type Resource type (controller, model, view)
      * @param bool $isGlobal Whether to resolve global module path
@@ -26,7 +26,7 @@ interface ModuleResolverInterface
 
     /**
      * Check if module exists.
-     * 
+     *
      * @param string $module Module name
      * @param bool $isGlobal Whether to check global modules
      * @return bool
@@ -35,9 +35,9 @@ interface ModuleResolverInterface
 
     /**
      * Check if module is global.
-     * 
+     *
      * Returns true if module exists only in global modules.
-     * 
+     *
      * @param string $module Module name
      * @return bool
      */
@@ -45,7 +45,7 @@ interface ModuleResolverInterface
 
     /**
      * Get controller file path.
-     * 
+     *
      * @param string $module Module name
      * @param string $controller Controller name
      * @param bool $isGlobal Whether to search in global modules
@@ -55,7 +55,7 @@ interface ModuleResolverInterface
 
     /**
      * Get model file path.
-     * 
+     *
      * @param string $module Module name
      * @param string $model Model name
      * @param bool $isGlobal Whether to search in global modules
@@ -65,7 +65,7 @@ interface ModuleResolverInterface
 
     /**
      * Get view directory path.
-     * 
+     *
      * @param string $module Module name
      * @param bool $isGlobal Whether to get global module path
      * @return string View directory path

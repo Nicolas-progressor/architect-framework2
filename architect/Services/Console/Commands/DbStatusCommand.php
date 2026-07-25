@@ -6,9 +6,9 @@ namespace Architect\Console\Commands;
 
 use Architect\Console\BaseCommand;
 use Architect\Console\CommandInterface;
+use Axiom\Migration\MigrationManager;
 use Axiom\Orm\Connection\ConnectionManager;
 use Axiom\Orm\Integrations\Architect\AxiomBootstrap;
-use Axiom\Migration\MigrationManager;
 
 /**
  * Show migration status using Axiom ORM
@@ -47,10 +47,10 @@ class DbStatusCommand extends BaseCommand implements CommandInterface
         try {
             // Create migration manager
             $manager = new MigrationManager($migrationsDir);
-            
+
             // Get status
             $status = $manager->status();
-            
+
             if (empty($status)) {
                 $this->info('No migrations found.');
                 return 0;
@@ -62,19 +62,19 @@ class DbStatusCommand extends BaseCommand implements CommandInterface
 
             $this->line($this->output->header('Migration Status'));
             $this->line();
-            $this->line("  Ran:     " . $this->output->success((string)$ran));
-            $this->line("  Pending: " . $this->output->warning((string)$pending));
+            $this->line('  Ran:     ' . $this->output->success((string) $ran));
+            $this->line('  Pending: ' . $this->output->warning((string) $pending));
             $this->line();
 
             // Show detailed list
             $this->output->line($this->output->info('Migrations:'));
-            
+
             $rows = [];
             foreach ($status as $s) {
                 $statusIcon = $s['ran'] ? $this->output->success('✓') : $this->output->warning('○');
                 $rows[] = [
                     $statusIcon,
-                    $s['filename']
+                    $s['filename'],
                 ];
             }
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Architect\Services\Database;
 
-use Architect\Support\AbstractService;
 use Architect\Core\Contracts\ContainerInterface;
 use Architect\Services\Database\Contracts\QueryLoggerInterface;
+use Architect\Support\AbstractService;
 use InvalidArgumentException;
 
 /**
@@ -82,7 +82,7 @@ class DatabaseManager extends AbstractService
      */
     public function connection(?string $name = null): Database
     {
-        $name = $name ?? $this->getDefaultConnectionName();
+        $name ??= $this->getDefaultConnectionName();
         if (!isset($this->connections[$name])) {
             $config = $this->getConfig($name);
             $this->connections[$name] = new Database(
@@ -215,12 +215,14 @@ class DatabaseManager extends AbstractService
     public function setQueryCallback(callable $callback): void
     {
         // Create a simple logger that wraps the callback
-        $logger = new class($callback) implements QueryLoggerInterface {
+        $logger = new class ($callback) implements QueryLoggerInterface {
             private $callback;
-            public function __construct(callable $callback) {
+            public function __construct(callable $callback)
+            {
                 $this->callback = $callback;
             }
-            public function logQuery(string $sql, float $duration, array $bindings = []): void {
+            public function logQuery(string $sql, float $duration, array $bindings = []): void
+            {
                 ($this->callback)($sql, $duration, $bindings);
             }
         };

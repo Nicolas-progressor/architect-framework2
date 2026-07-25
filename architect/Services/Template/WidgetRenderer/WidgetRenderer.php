@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Architect\Services\Template\WidgetRenderer;
@@ -25,13 +26,13 @@ final class WidgetRenderer implements WidgetRendererInterface
     public function render(string $module, string $controller, string $action = 'create'): string
     {
         $classInfo = $this->resolveClass($module, $controller);
-        
+
         if ($classInfo === null) {
             return '<!-- widget not found: ' . $module . '/' . $controller . ' -->';
         }
-        
+
         $result = $this->executeWidget($classInfo['class'], $action, $module, $classInfo['isGlobal']);
-        
+
         return $result;
     }
 
@@ -53,17 +54,17 @@ final class WidgetRenderer implements WidgetRendererInterface
         if (file_exists($appWidgetFile)) {
             // Namespace is app\{appName}\modules\{module}\widget\{controller}
             // Example: app\home\modules\navbar\widget\navbar
-            $appClass = "app\\" . str_replace('-', '', $appName) . "\\modules\\{$module}\\widget\\{$controller}";
+            $appClass = 'app\\' . str_replace('-', '', $appName) . "\\modules\\{$module}\\widget\\{$controller}";
             if (class_exists($appClass)) {
                 return ['class' => $appClass, 'isGlobal' => false];
             }
             // Try lowercase controller
-            $appClassLower = "app\\" . str_replace('-', '', $appName) . "\\modules\\{$module}\\widget\\" . strtolower($controller);
+            $appClassLower = 'app\\' . str_replace('-', '', $appName) . "\\modules\\{$module}\\widget\\" . strtolower($controller);
             if (class_exists($appClassLower)) {
                 return ['class' => $appClassLower, 'isGlobal' => false];
             }
             // Try with ucfirst
-            $appClassUcfirst = "app\\" . str_replace('-', '', $appName) . "\\modules\\{$module}\\widget\\" . ucfirst(strtolower($controller));
+            $appClassUcfirst = 'app\\' . str_replace('-', '', $appName) . "\\modules\\{$module}\\widget\\" . ucfirst(strtolower($controller));
             if (class_exists($appClassUcfirst)) {
                 return ['class' => $appClassUcfirst, 'isGlobal' => false];
             }

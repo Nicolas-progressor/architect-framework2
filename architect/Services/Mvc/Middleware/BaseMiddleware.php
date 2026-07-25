@@ -9,9 +9,9 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Base Middleware.
- * 
+ *
  * Provides common functionality for middleware.
- * 
+ *
  * @package Architect\Services\Mvc\Middleware
  */
 abstract class BaseMiddleware implements MiddlewareInterface
@@ -27,7 +27,7 @@ abstract class BaseMiddleware implements MiddlewareInterface
 
     /**
      * Set container.
-     * 
+     *
      * @param ContainerInterface $container Container instance
      * @return self
      */
@@ -39,7 +39,7 @@ abstract class BaseMiddleware implements MiddlewareInterface
 
     /**
      * Set actions to apply middleware to.
-     * 
+     *
      * @param array<string> $actions Action names
      * @return self
      */
@@ -51,7 +51,7 @@ abstract class BaseMiddleware implements MiddlewareInterface
 
     /**
      * Set actions to exclude from middleware.
-     * 
+     *
      * @param array<string> $actions Action names
      * @return self
      */
@@ -63,7 +63,7 @@ abstract class BaseMiddleware implements MiddlewareInterface
 
     /**
      * Check if middleware should run for given action.
-     * 
+     *
      * @param string $action Action name
      * @return bool
      */
@@ -85,7 +85,7 @@ abstract class BaseMiddleware implements MiddlewareInterface
 
     /**
      * Get service from container.
-     * 
+     *
      * @template T
      * @param string $id Service ID
      * @return T

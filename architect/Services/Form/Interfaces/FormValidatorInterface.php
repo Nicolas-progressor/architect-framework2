@@ -6,14 +6,14 @@ namespace Architect\Services\Form\Interfaces;
 
 /**
  * Interface FormValidatorInterface
- * 
+ *
  * Интерфейс валидатора форм.
  */
 interface FormValidatorInterface
 {
     /**
      * Валидировать данные
-     * 
+     *
      * @param array $data Данные для валидации
      * @param array $rules Правила валидации
      * @return bool True если валидация прошла успешно
@@ -22,14 +22,14 @@ interface FormValidatorInterface
 
     /**
      * Получить все ошибки
-     * 
+     *
      * @return array<string, array<int, string>>
      */
     public function getErrors(): array;
 
     /**
      * Получить ошибки для конкретного поля
-     * 
+     *
      * @param string $field Имя поля
      * @return array<int, string>
      */
@@ -37,7 +37,7 @@ interface FormValidatorInterface
 
     /**
      * Получить первую ошибку для поля
-     * 
+     *
      * @param string $field Имя поля
      * @return string|null
      */
@@ -45,14 +45,14 @@ interface FormValidatorInterface
 
     /**
      * Проверить, есть ли ошибки
-     * 
+     *
      * @return bool
      */
     public function hasErrors(): bool;
 
     /**
      * Проверить, есть ли ошибки для конкретного поля
-     * 
+     *
      * @param string $field Имя поля
      * @return bool
      */
@@ -60,7 +60,7 @@ interface FormValidatorInterface
 
     /**
      * Зарегистрировать кастомное правило валидации
-     * 
+     *
      * @param string $name Имя правила
      * @param callable $callback Функция валидации
      * @return static
@@ -69,7 +69,7 @@ interface FormValidatorInterface
 
     /**
      * Удалить кастомное правило
-     * 
+     *
      * @param string $name Имя правила
      * @return static
      */
@@ -77,7 +77,7 @@ interface FormValidatorInterface
 
     /**
      * Установить метки полей для сообщений об ошибках
-     * 
+     *
      * @param array $labels Метки полей [field => label]
      * @return static
      */

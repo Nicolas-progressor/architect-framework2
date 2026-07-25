@@ -6,10 +6,10 @@ namespace Architect\Services\Mvc\Context;
 
 /**
  * MVC request context.
- * 
+ *
  * Holds the current request state including module, controller,
  * action, and various flags. Replaces static state in Pattern service.
- * 
+ *
  * @package Architect\Services\Mvc\Context
  */
 class MvcContext
@@ -37,7 +37,7 @@ class MvcContext
 
     /**
      * Check if 404 error.
-     * 
+     *
      * @return bool
      */
     public function is404Error(): bool
@@ -47,7 +47,7 @@ class MvcContext
 
     /**
      * Set 404 error flag.
-     * 
+     *
      * @param bool $value Flag value
      * @return self
      */
@@ -59,7 +59,7 @@ class MvcContext
 
     /**
      * Check if global 404.
-     * 
+     *
      * @return bool
      */
     public function isGlobal404(): bool
@@ -69,9 +69,9 @@ class MvcContext
 
     /**
      * Set global 404 flag.
-     * 
+     *
      * Also sets isGlobalModule to true when value is true.
-     * 
+     *
      * @param bool $value Flag value
      * @return self
      */
@@ -86,7 +86,7 @@ class MvcContext
 
     /**
      * Check if global module.
-     * 
+     *
      * @return bool
      */
     public function isGlobalModule(): bool
@@ -96,7 +96,7 @@ class MvcContext
 
     /**
      * Set global module flag.
-     * 
+     *
      * @param bool $value Flag value
      * @return self
      */
@@ -108,7 +108,7 @@ class MvcContext
 
     /**
      * Get module bootstrap.
-     * 
+     *
      * @return object|null
      */
     public function getModuleBootstrap(): ?object
@@ -118,7 +118,7 @@ class MvcContext
 
     /**
      * Set module bootstrap.
-     * 
+     *
      * @param object|null $bootstrap Bootstrap instance
      * @return self
      */
@@ -130,7 +130,7 @@ class MvcContext
 
     /**
      * Get current module.
-     * 
+     *
      * @return string|null
      */
     public function getModule(): ?string
@@ -140,7 +140,7 @@ class MvcContext
 
     /**
      * Set current module.
-     * 
+     *
      * @param string|null $module Module name
      * @return self
      */
@@ -152,7 +152,7 @@ class MvcContext
 
     /**
      * Get current controller.
-     * 
+     *
      * @return string|null
      */
     public function getController(): ?string
@@ -162,7 +162,7 @@ class MvcContext
 
     /**
      * Set current controller.
-     * 
+     *
      * @param string|null $controller Controller name
      * @return self
      */
@@ -174,7 +174,7 @@ class MvcContext
 
     /**
      * Get current action.
-     * 
+     *
      * @return string
      */
     public function getAction(): string
@@ -184,7 +184,7 @@ class MvcContext
 
     /**
      * Set current action.
-     * 
+     *
      * @param string $action Action name
      * @return self
      */
@@ -196,9 +196,9 @@ class MvcContext
 
     /**
      * Reset context to initial state.
-     * 
+     *
      * Clears all flags and resets module, controller, action.
-     * 
+     *
      * @return self
      */
     public function reset(): self

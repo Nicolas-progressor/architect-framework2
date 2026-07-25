@@ -374,7 +374,7 @@ abstract class BaseCommand implements CommandInterface
             $this->line("  {$marker} {$choice}");
         }
 
-        $answer = (int)$this->ask('Select option', (string)$default);
+        $answer = (int) $this->ask('Select option', (string) $default);
 
         return $choices[$answer] ?? $choices[$default];
     }
@@ -387,7 +387,7 @@ abstract class BaseCommand implements CommandInterface
     protected function withProgress(int $total, callable $callback): void
     {
         for ($i = 0; $i <= $total; $i++) {
-            $percent = $total > 0 ? (int)(($i / $total) * 100) : 100;
+            $percent = $total > 0 ? (int) (($i / $total) * 100) : 100;
             echo "\r" . $this->output->progressBar($i, $total);
             $callback($i);
         }

@@ -73,7 +73,7 @@ class MakeViewCommand extends BaseCommand implements CommandInterface
 
         // Create directory if not exists
         if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0755, true);
+            mkdir($targetDir, 0o755, true);
         }
 
         $filePath = "{$targetDir}/{$viewFile}";
@@ -107,12 +107,12 @@ class MakeViewCommand extends BaseCommand implements CommandInterface
         $title = ucwords(str_replace(['/', '_', '-'], ' ', $name));
 
         $template = <<<HTML
-<div class="container">
-    <h1>{$title}</h1>
+            <div class="container">
+                <h1>{$title}</h1>
 
-    <p>Content goes here.</p>
-</div>
-HTML;
+                <p>Content goes here.</p>
+            </div>
+            HTML;
 
         return $template;
     }

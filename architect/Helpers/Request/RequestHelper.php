@@ -21,7 +21,7 @@ class RequestHelper extends AbstractHelper
     {
         $this->container = $container;
     }
-    
+
     /**
      * Get GET parameter.
      */
@@ -29,7 +29,7 @@ class RequestHelper extends AbstractHelper
     {
         return $_GET[$name] ?? null;
     }
-        
+
     /**
      * Get POST parameter.
      */
@@ -68,7 +68,7 @@ class RequestHelper extends AbstractHelper
         if (!empty($_GET)) {
             $args = array_merge($args, $_GET);
         }
-        
+
         try {
             if ($this->container->has('router')) {
                 $router = $this->container->get('router');
@@ -81,7 +81,7 @@ class RequestHelper extends AbstractHelper
         } catch (\Throwable $e) {
             // Ignore
         }
-        
+
         return $args;
     }
 }

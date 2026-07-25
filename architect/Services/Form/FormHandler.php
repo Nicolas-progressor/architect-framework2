@@ -12,10 +12,10 @@ use Architect\Services\Form\Interfaces\RequestInterface;
 
 /**
  * Class FormHandler
- * 
+ *
  * Основной класс для обработки форм.
  * Координирует работу FormBuilder и FormValidator, обрабатывает отправку формы.
- * 
+ *
  * @package Architect\Services\Form
  */
 class FormHandler
@@ -67,7 +67,7 @@ class FormHandler
 
     /**
      * Конструктор
-     * 
+     *
      * @param CSRFTokenManagerInterface|null $csrf CSRF менеджер
      * @param FormBuilderInterface|null $builder FormBuilder
      * @param FormValidatorInterface|null $validator FormValidator
@@ -87,7 +87,7 @@ class FormHandler
 
     /**
      * Основной метод обработки формы
-     * 
+     *
      * @param string $formName Имя формы
      * @param array $validationRules Правила валидации
      * @param callable|null $callback Функция при успешной валидации
@@ -96,22 +96,22 @@ class FormHandler
     public function handle(string $formName, array $validationRules, ?callable $callback = null): FormResult
     {
         $this->formName = $formName;
-        
+
         // Собираем данные из Request (абстракция вместо $_POST)
         $this->data = $this->request->getPost() ?? [];
-        
+
         // Если есть данные из POST - обрабатываем форму
         if (!empty($this->data)) {
             return $this->process($validationRules, $callback);
         }
-        
+
         // Нет данных - показываем пустую форму
         return FormResult::success($this->data);
     }
 
     /**
      * Обработать данные формы
-     * 
+     *
      * @param array $validationRules Правила валидации
      * @param callable|null $callback Функция при успешной валидации
      * @return FormResult
@@ -120,7 +120,7 @@ class FormHandler
     {
         // Проверяем CSRF токен
         $csrfToken = $this->data['csrf_token'] ?? '';
-        
+
         if (!$this->csrf->validateToken($this->formName, $csrfToken)) {
             $this->errors['csrf_token'] = ['Неверный или истёкший токен безопасности. Пожалуйста, обновите страницу и попробуйте снова.'];
             $this->applyDataToBuilder();
@@ -171,7 +171,7 @@ class FormHandler
 
     /**
      * Проверить, была ли форма отправлена
-     * 
+     *
      * @return bool
      */
     public function isSubmitted(): bool
@@ -181,7 +181,7 @@ class FormHandler
 
     /**
      * Проверить, успешно ли обработана форма
-     * 
+     *
      * @return bool
      */
     public function isSuccess(): bool
@@ -191,7 +191,7 @@ class FormHandler
 
     /**
      * Получить данные формы
-     * 
+     *
      * @return array
      */
     public function getData(): array
@@ -201,7 +201,7 @@ class FormHandler
 
     /**
      * Получить конкретное значение
-     * 
+     *
      * @param string $key Ключ
      * @param mixed $default Значение по умолчанию
      * @return mixed
@@ -213,7 +213,7 @@ class FormHandler
 
     /**
      * Получить ошибки
-     * 
+     *
      * @return array
      */
     public function getErrors(): array
@@ -223,7 +223,7 @@ class FormHandler
 
     /**
      * Получить результат callback
-     * 
+     *
      * @return mixed
      */
     public function getResult(): mixed
@@ -233,7 +233,7 @@ class FormHandler
 
     /**
      * Получить builder для генерации HTML
-     * 
+     *
      * @return FormBuilderInterface
      */
     public function builder(): FormBuilderInterface
@@ -244,7 +244,7 @@ class FormHandler
 
     /**
      * Получить CSRF токен для формы
-     * 
+     *
      * @param string $formName Имя формы
      * @return string
      */
@@ -255,7 +255,7 @@ class FormHandler
 
     /**
      * Получить скрытое поле с CSRF токеном
-     * 
+     *
      * @param string $formName Имя формы
      * @return string
      */
@@ -266,7 +266,7 @@ class FormHandler
 
     /**
      * Установить данные вручную
-     * 
+     *
      * @param array $data
      * @return static
      */
@@ -278,7 +278,7 @@ class FormHandler
 
     /**
      * Установить ошибки вручную
-     * 
+     *
      * @param array $errors
      * @return static
      */
@@ -292,7 +292,7 @@ class FormHandler
 
     /**
      * Быстрая валидация данных
-     * 
+     *
      * @param array $data Данные
      * @param array $rules Правила
      * @return FormResult
@@ -300,17 +300,17 @@ class FormHandler
     public static function validate(array $data, array $rules): FormResult
     {
         $validator = new FormValidator();
-        
+
         if ($validator->validate($data, $rules)) {
             return FormResult::success($data);
         }
-        
+
         return FormResult::validationError($validator->getErrors(), $data);
     }
 
     /**
      * Создать и обработать форму (статический метод)
-     * 
+     *
      * @param string $formName Имя формы
      * @param array $rules Правила валидации
      * @param callable|null $callback Callback

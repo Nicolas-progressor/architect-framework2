@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Architect\Services\I18n;
 
-use Architect\Support\AbstractService;
-use Architect\Services\I18n\Contracts\LanguageInterface;
 use Architect\Services\I18n\Contracts\LanguageDetectorInterface;
+use Architect\Services\I18n\Contracts\LanguageInterface;
 use Architect\Services\I18n\Contracts\TranslationLoaderInterface;
+use Architect\Support\AbstractService;
 
 /**
  * Language service for internationalization.

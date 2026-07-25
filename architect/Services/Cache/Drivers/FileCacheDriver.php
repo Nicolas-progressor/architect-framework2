@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Architect\Services\Cache\Drivers;
 
 use InvalidArgumentException;
-use Psr\SimpleCache\InvalidArgumentException as PsrInvalidArgumentException;
 
 /**
  * File‑based cache driver.
@@ -21,8 +20,8 @@ class FileCacheDriver extends AbstractCacheDriver
     /**
      * File permissions for created directories and files.
      */
-    private int $directoryPermissions = 0755;
-    private int $filePermissions = 0644;
+    private int $directoryPermissions = 0o755;
+    private int $filePermissions = 0o644;
 
     /**
      * @param string $directory Cache directory path
@@ -33,8 +32,8 @@ class FileCacheDriver extends AbstractCacheDriver
      */
     public function __construct(
         string $directory,
-        int $directoryPermissions = 0755,
-        int $filePermissions = 0644
+        int $directoryPermissions = 0o755,
+        int $filePermissions = 0o644
     ) {
         $this->directory = rtrim($directory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         $this->directoryPermissions = $directoryPermissions;

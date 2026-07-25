@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Architect\Console;
 
-use InvalidArgumentException;
-
 /**
  * Console Factory - creates and configures ConsoleKernel instances
  *

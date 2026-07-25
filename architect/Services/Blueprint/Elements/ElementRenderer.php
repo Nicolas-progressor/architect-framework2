@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Architect\Services\Blueprint\Elements;
 
-use Architect\Services\Blueprint\Contracts\ElementRendererInterface;
-use Architect\Services\Blueprint\Contracts\ContextManagerInterface;
 use Architect\Services\Blueprint\Contracts\BlueprintConfigInterface;
+use Architect\Services\Blueprint\Contracts\ContextManagerInterface;
+use Architect\Services\Blueprint\Contracts\ElementRendererInterface;
 
 /**
  * Main element renderer combining MVC and template elements
@@ -18,7 +18,7 @@ final class ElementRenderer implements ElementRendererInterface
     private RoutedElementResolver $routedResolver;
     private ContextManagerInterface $contextManager;
     private BlueprintConfigInterface $config;
-    
+
     private array $elementsConfig = [];
 
     public function __construct(
@@ -33,7 +33,7 @@ final class ElementRenderer implements ElementRendererInterface
         $this->routedResolver = $routedResolver;
         $this->contextManager = $contextManager;
         $this->config = $config;
-        
+
         $this->loadConfiguration();
     }
 
@@ -41,18 +41,18 @@ final class ElementRenderer implements ElementRendererInterface
     {
         // Check MVC element first
         $element = $this->elementsConfig[$name] ?? null;
-        
+
         if ($element) {
             return $this->mvcRenderer->render($element, $data);
         }
-        
+
         // Check routed element
         $routedElement = $this->routedResolver->resolve($name);
-        
+
         if ($routedElement) {
             return $this->mvcRenderer->render($routedElement, $data);
         }
-        
+
         return '';
     }
 
@@ -76,17 +76,16 @@ final class ElementRenderer implements ElementRendererInterface
     {
         $appDir = $this->contextManager->getCurrentAppDir();
         $template = $this->contextManager->getCurrentTemplate();
-        
+
         if (!$appDir) {
             return;
         }
-        
+
         // Load elements config
         $this->elementsConfig = $this->configLoader->loadForTemplate($appDir, $template);
-        
+
         // Load routed elements
         $routedElements = $this->configLoader->loadRoutedElements($appDir, $template);
         $this->routedResolver->setRoutedElements($routedElements);
     }
 }
-    

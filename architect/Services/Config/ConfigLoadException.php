@@ -13,7 +13,7 @@ final class ConfigLoadException extends RuntimeException
 {
     /**
      * Create configuration load exception.
-     * 
+     *
      * @param string $message Error message
      * @param string $configName Configuration name
      * @param string|null $filePath File path that caused the error
@@ -32,7 +32,7 @@ final class ConfigLoadException extends RuntimeException
 
     /**
      * Get the configuration name that failed to load.
-     * 
+     *
      * @return string
      */
     public function getConfigName(): string
@@ -42,7 +42,7 @@ final class ConfigLoadException extends RuntimeException
 
     /**
      * Get the file path that caused the error.
-     * 
+     *
      * @return string|null
      */
     public function getFilePath(): ?string

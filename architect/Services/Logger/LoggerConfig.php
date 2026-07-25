@@ -16,7 +16,7 @@ final class LoggerConfig
         public readonly string $dateFormat = 'Y-m-d H:i:s',
         public readonly string $filenamePattern = '{channel}_{date}.log',
         public readonly bool $includeContext = true,
-        public readonly int $filePermissions = 0755,
+        public readonly int $filePermissions = 0o755,
         public readonly int $maxFileSize = 0, // 0 = no limit
         public readonly int $maxFiles = 0,    // 0 = no limit
     ) {}
@@ -27,8 +27,8 @@ final class LoggerConfig
     public static function fromArray(array $config): self
     {
         $logDir = $config['log_dir'] ?? (
-            defined('APP_DIR') 
-                ? APP_DIR . 'logs/' 
+            defined('APP_DIR')
+                ? APP_DIR . 'logs/'
                 : dirname(__DIR__, 3) . '/app/logs/'
         );
 
@@ -39,7 +39,7 @@ final class LoggerConfig
             dateFormat: $config['date_format'] ?? 'Y-m-d H:i:s',
             filenamePattern: $config['filename_pattern'] ?? '{channel}_{date}.log',
             includeContext: (bool) ($config['include_context'] ?? true),
-            filePermissions: (int) ($config['file_permissions'] ?? 0755),
+            filePermissions: (int) ($config['file_permissions'] ?? 0o755),
             maxFileSize: (int) ($config['max_file_size'] ?? 0),
             maxFiles: (int) ($config['max_files'] ?? 0),
         );
@@ -50,8 +50,8 @@ final class LoggerConfig
      */
     public static function default(): self
     {
-        $logDir = defined('APP_DIR') 
-            ? APP_DIR . 'logs/' 
+        $logDir = defined('APP_DIR')
+            ? APP_DIR . 'logs/'
             : dirname(__DIR__, 3) . '/app/logs/';
 
         return new self(logDir: $logDir);

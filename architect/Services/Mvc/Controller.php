@@ -11,7 +11,7 @@ use Architect\Services\Mvc\Middleware\Contracts\MiddlewareInterface;
 
 /**
  * Base MVC controller.
- * 
+ *
  * Provides common functionality for all controllers including
  * view rendering, model loading, middleware, and response handling.
  */
@@ -49,7 +49,7 @@ class Controller implements ControllerInterface
 
     /**
      * Create controller instance.
-     * 
+     *
      * @param ContainerInterface $container Dependency container
      * @param string|null $module Module name
      * @param bool $isGlobal Whether module is global
@@ -121,7 +121,7 @@ class Controller implements ControllerInterface
 
     /**
      * Set current module.
-     * 
+     *
      * @param string $module Module name
      * @param bool $isGlobal Whether module is global
      */
@@ -140,7 +140,7 @@ class Controller implements ControllerInterface
 
     /**
      * Get view service.
-     * 
+     *
      * @return View
      */
     public function getView(): View
@@ -150,7 +150,7 @@ class Controller implements ControllerInterface
 
     /**
      * Get view template directory.
-     * 
+     *
      * @return string
      */
     public function getViewTemplateDir(): string
@@ -160,7 +160,7 @@ class Controller implements ControllerInterface
 
     /**
      * Load model by name.
-     * 
+     *
      * @param string $name Model name
      * @return object|null Model instance or null
      */
@@ -171,7 +171,7 @@ class Controller implements ControllerInterface
 
     /**
      * Render view template.
-     * 
+     *
      * @param string $template Template name
      * @param array $data Template data
      * @return string Rendered content
@@ -183,7 +183,7 @@ class Controller implements ControllerInterface
 
     /**
      * Display view template.
-     * 
+     *
      * @param string $template Template name
      * @param array $data Template data
      */
@@ -194,7 +194,7 @@ class Controller implements ControllerInterface
 
     /**
      * Set JSON response.
-     * 
+     *
      * @param mixed $data Data to encode
      * @param int $statusCode HTTP status code
      * @param int $options JSON encode options
@@ -208,7 +208,7 @@ class Controller implements ControllerInterface
 
     /**
      * Set HTML content response.
-     * 
+     *
      * @param string $content HTML content
      */
     protected function html(string $content): void
@@ -218,7 +218,7 @@ class Controller implements ControllerInterface
 
     /**
      * Set text response.
-     * 
+     *
      * @param string $text Text content
      */
     protected function text(string $text): void
@@ -231,7 +231,7 @@ class Controller implements ControllerInterface
 
     /**
      * Prepare redirect (without immediate exit).
-     * 
+     *
      * @param string $url Redirect URL
      * @param int $status HTTP status code
      */
@@ -242,7 +242,7 @@ class Controller implements ControllerInterface
 
     /**
      * Get response object.
-     * 
+     *
      * @return ResponseInterface
      */
     public function getResponse(): ResponseInterface
@@ -252,7 +252,7 @@ class Controller implements ControllerInterface
 
     /**
      * Get URL parameter.
-     * 
+     *
      * @param string $name Parameter name
      * @param string $default Default value
      * @return string
@@ -264,7 +264,7 @@ class Controller implements ControllerInterface
 
     /**
      * Get URL segment by index.
-     * 
+     *
      * @param int $index Segment index (1-based)
      * @param string $default Default value
      * @return string
@@ -276,7 +276,7 @@ class Controller implements ControllerInterface
 
     /**
      * Get service from container.
-     * 
+     *
      * @param string $id Service identifier
      * @return mixed
      */
@@ -289,7 +289,7 @@ class Controller implements ControllerInterface
 
     /**
      * Set template by name.
-     * 
+     *
      * @param string $name Template name
      */
     protected function setTemplate(string $name): void
@@ -315,7 +315,7 @@ class Controller implements ControllerInterface
 
     /**
      * Check if template is enabled.
-     * 
+     *
      * @return bool
      */
     protected function hasTemplate(): bool
@@ -327,7 +327,7 @@ class Controller implements ControllerInterface
 
     /**
      * Get middleware configuration.
-     * 
+     *
      * @return array
      */
     public function getMiddleware(): array
@@ -337,7 +337,7 @@ class Controller implements ControllerInterface
 
     /**
      * Register middleware.
-     * 
+     *
      * @param string|class-string<MiddlewareInterface> $middleware Middleware class or alias
      * @param array $options Middleware options (only, except)
      * @return static
@@ -354,7 +354,7 @@ class Controller implements ControllerInterface
 
     /**
      * Register middleware for specific actions only.
-     * 
+     *
      * @param string|class-string<MiddlewareInterface> $middleware Middleware class or alias
      * @param array<string> $actions Action names
      * @return static
@@ -366,7 +366,7 @@ class Controller implements ControllerInterface
 
     /**
      * Register middleware for all actions except specified.
-     * 
+     *
      * @param string|class-string<MiddlewareInterface> $middleware Middleware class or alias
      * @param array<string> $actions Action names to exclude
      * @return static
@@ -378,7 +378,7 @@ class Controller implements ControllerInterface
 
     /**
      * Clear all middleware.
-     * 
+     *
      * @return static
      */
     protected function clearMiddleware(): static

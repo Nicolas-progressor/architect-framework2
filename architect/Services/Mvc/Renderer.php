@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Architect\Services\Mvc;
 
 use Architect\Core\Contracts\ContainerInterface;
-use Architect\Services\Mvc\Contracts\ResponseInterface;
 use Architect\Services\Mvc\Context\MvcContext;
+use Architect\Services\Mvc\Contracts\ResponseInterface;
 
 /**
  * Response Renderer.
- * 
+ *
  * Handles response output on render stage.
  * Supports JSON, HTML, and redirect responses.
- * 
+ *
  * @package Architect\Services\Mvc
  */
 class Renderer
@@ -29,7 +29,7 @@ class Renderer
 
     /**
      * Create renderer instance.
-     * 
+     *
      * @param ContainerInterface $container
      * @param MvcContext $context
      */
@@ -41,7 +41,7 @@ class Renderer
 
     /**
      * Render response.
-     * 
+     *
      * Determines response type and outputs accordingly.
      */
     public function render(): void
@@ -70,7 +70,7 @@ class Renderer
 
     /**
      * Render JSON response.
-     * 
+     *
      * @param ResponseInterface $response
      */
     protected function renderJson(ResponseInterface $response): void
@@ -89,7 +89,7 @@ class Renderer
 
     /**
      * Render HTML response.
-     * 
+     *
      * @param ResponseInterface $response
      */
     protected function renderHtml(ResponseInterface $response): void
@@ -98,7 +98,7 @@ class Renderer
 
         // Check if response has content
         $content = $response->getContent();
-        
+
         if (!empty($content)) {
             $template->setContent($content);
         }
@@ -115,7 +115,7 @@ class Renderer
 
     /**
      * Render redirect response.
-     * 
+     *
      * @param ResponseInterface $response
      */
     protected function renderRedirect(ResponseInterface $response): void
@@ -129,7 +129,7 @@ class Renderer
 
     /**
      * Render text response.
-     * 
+     *
      * @param ResponseInterface $response
      */
     protected function renderText(ResponseInterface $response): void
@@ -148,7 +148,7 @@ class Renderer
 
     /**
      * Get response from container.
-     * 
+     *
      * @return ResponseInterface
      */
     protected function getResponse(): ResponseInterface
@@ -158,7 +158,7 @@ class Renderer
 
     /**
      * Check if response was already sent.
-     * 
+     *
      * @return bool
      */
     public function isResponseSent(): bool

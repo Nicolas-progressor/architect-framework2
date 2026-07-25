@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Validation\Exceptions;
 
-use Exception;
 use Architect\Validation\ValidationError;
+use Exception;
 
 class ValidationException extends Exception
 {
@@ -47,7 +47,7 @@ class ValidationException extends Exception
     public function toArray(): array
     {
         $result = [];
-        
+
         foreach ($this->errors as $attribute => $error) {
             if ($error instanceof ValidationError) {
                 $result[$attribute] = $error->format();
@@ -57,7 +57,7 @@ class ValidationException extends Exception
                 $result[$attribute] = (string) $error;
             }
         }
-        
+
         return $result;
     }
 
@@ -71,17 +71,17 @@ class ValidationException extends Exception
         if (empty($this->errors)) {
             return null;
         }
-        
+
         $firstError = reset($this->errors);
-        
+
         if ($firstError instanceof ValidationError) {
             return $firstError->format();
         }
-        
+
         if (is_array($firstError)) {
             return reset($firstError);
         }
-        
+
         return (string) $firstError;
     }
 }

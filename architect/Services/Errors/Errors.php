@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Architect\Services\Errors;
 
+use Architect\Core\Contracts\ContainerInterface;
+use Architect\Core\EnvironmentManager;
+use Architect\Services\Config\Contracts\ConfigInterface;
 use Architect\Services\Errors\Contracts\ErrorHandlerInterface;
 use Architect\Services\Errors\Contracts\ErrorRendererInterface;
+use Architect\Services\Template\Contracts\TemplateInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
-use Architect\Services\Template\Contracts\TemplateInterface;
-use Architect\Services\Config\Contracts\ConfigInterface;
-use Architect\Core\EnvironmentManager;
-use Architect\Core\Contracts\ContainerInterface;
 
 /**
  * Errors service for handling errors and exceptions.
  * Full context error page with request, route, queries info.
- * 
+ *
  * Implements PSR-3 for logging and uses proper DI.
  */
 class Errors implements ErrorHandlerInterface, ErrorRendererInterface
@@ -113,7 +113,7 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
         }
 
         $errorType = self::ERROR_TYPES[$errno] ?? 'Unknown Error';
-        
+
         $errorInfo = $this->collectErrorInfo(
             message: $errstr,
             file: $errfile,
@@ -168,7 +168,7 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
 
         if ($error !== null && in_array($error['type'], self::FATAL_ERRORS, true)) {
             $errorType = self::ERROR_TYPES[$error['type']] ?? 'Fatal Error';
-            
+
             $errorInfo = $this->collectErrorInfo(
                 message: $error['message'],
                 file: $error['file'],
@@ -195,7 +195,7 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
         ?\Throwable $exception
     ): array {
         $debug = $this->isDebugEnabled();
-        
+
         // Collect basic info
         $info = [
             'type' => $type,
@@ -251,7 +251,7 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
             $type = $item['type'] ?? '';
 
             $output[] = sprintf(
-                "#%d %s%s%s() called at [%s:%d]",
+                '#%d %s%s%s() called at [%s:%d]',
                 $i,
                 $class,
                 $type,
@@ -324,7 +324,7 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
 
         try {
             $router = $this->container->get('router');
-            
+
             return [
                 'path' => $router->path ?? '/',
                 'module' => method_exists($router, 'getModule') ? $router->getModule() : '',
@@ -364,7 +364,7 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
     private function displayErrorPage(array $errorInfo): void
     {
         http_response_code($errorInfo['code']);
-        
+
         $view = new View\FullErrorView(data: $errorInfo);
         $view->render();
     }
@@ -375,7 +375,7 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
     private function displayExceptionPage(array $errorInfo, \Throwable $exception): void
     {
         http_response_code($errorInfo['code']);
-        
+
         $view = new View\FullErrorView(data: $errorInfo, exception: $exception);
         $view->render();
     }
@@ -417,7 +417,7 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
             code: $code,
             exception: null
         );
-        
+
         $this->displayErrorPage($errorInfo);
     }
 
@@ -434,7 +434,7 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
             code: 500,
             exception: $exception
         );
-        
+
         $this->displayExceptionPage($errorInfo, $exception);
     }
 
@@ -444,7 +444,7 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
     public function display404(string $message = 'Page not found'): void
     {
         http_response_code(404);
-        
+
         $view = new View\NotFoundView(message: $message);
         $view->render();
     }
@@ -464,4 +464,3 @@ class Errors implements ErrorHandlerInterface, ErrorRendererInterface
         return $enabled && !$this->environment->isProduction();
     }
 }
-

@@ -36,7 +36,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
 
     /**
      * Конструктор
-     * 
+     *
      * @param SessionInterface|null $session
      */
     public function __construct(?SessionInterface $session = null)
@@ -46,7 +46,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
 
     /**
      * Получить или создать CSRF-токен для формы
-     * 
+     *
      * @param string $formName Имя формы
      * @param int $ttl Время жизни токена в секундах
      * @return string CSRF-токен
@@ -54,7 +54,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
     public function generateToken(string $formName, int $ttl = self::DEFAULT_TTL): string
     {
         $tokens = $this->getTokens();
-        
+
         // Проверяем, есть ли уже валидный токен
         if (isset($tokens[$formName]) && $this->isTokenValid($tokens[$formName])) {
             return $tokens[$formName]['token'];
@@ -77,7 +77,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
 
     /**
      * Проверить CSRF-токен
-     * 
+     *
      * @param string $formName Имя формы
      * @param string $token Токен для проверки
      * @return bool True если токен валиден
@@ -108,7 +108,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
 
     /**
      * Удалить токен для формы
-     * 
+     *
      * @param string $formName Имя формы
      * @return void
      */
@@ -121,7 +121,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
 
     /**
      * Получить HTML-скрытое поле с CSRF-токеном
-     * 
+     *
      * @param string $formName Имя формы
      * @return string HTML-скрытое поле
      */
@@ -133,7 +133,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
 
     /**
      * Получить мета-тег с CSRF-токеном для AJAX
-     * 
+     *
      * @param string $formName Имя формы
      * @return string HTML-мета тег
      */
@@ -145,7 +145,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
 
     /**
      * Очистить все просроченные токены
-     * 
+     *
      * @return int Количество удалённых токенов
      */
     public function cleanExpiredTokens(): int
@@ -167,7 +167,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
 
     /**
      * Проверить, валиден ли токен
-     * 
+     *
      * @param array $tokenData Данные токена
      * @return bool
      */
@@ -178,7 +178,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
 
     /**
      * Сгенерировать случайный токен
-     * 
+     *
      * @return string
      */
     protected function generateRandomToken(): string
@@ -186,13 +186,13 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
         if (function_exists('random_bytes')) {
             return bin2hex(random_bytes(32));
         }
-        
-        return md5(uniqid((string)mt_rand(), true));
+
+        return md5(uniqid((string) mt_rand(), true));
     }
 
     /**
      * Получить все токены из сессии
-     * 
+     *
      * @return array
      */
     protected function getTokens(): array
@@ -202,7 +202,7 @@ class CSRFTokenManager implements CSRFTokenManagerInterface
 
     /**
      * Сохранить токены в сессию
-     * 
+     *
      * @param array $tokens
      * @return void
      */

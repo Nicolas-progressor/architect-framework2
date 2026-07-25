@@ -9,7 +9,7 @@ use Architect\Services\Form\Interfaces\SessionInterface;
 
 /**
  * Class NativeRequest
- * 
+ *
  * Реализация RequestInterface для работы с PHP-суперглобальными.
  */
 class NativeRequest implements RequestInterface
@@ -21,7 +21,7 @@ class NativeRequest implements RequestInterface
 
     /**
      * Конструктор
-     * 
+     *
      * @param SessionInterface|null $session
      */
     public function __construct(?SessionInterface $session = null)
@@ -31,7 +31,7 @@ class NativeRequest implements RequestInterface
 
     /**
      * Получить данные из POST
-     * 
+     *
      * @param string|null $key Ключ
      * @param mixed $default Значение по умолчанию
      * @return mixed
@@ -46,7 +46,7 @@ class NativeRequest implements RequestInterface
 
     /**
      * Получить данные из GET
-     * 
+     *
      * @param string|null $key Ключ
      * @param mixed $default Значение по умолчанию
      * @return mixed
@@ -81,7 +81,7 @@ class NativeRequest implements RequestInterface
 
     /**
      * Получить сессию
-     * 
+     *
      * @return SessionInterface
      */
     public function getSession(): SessionInterface
@@ -94,7 +94,7 @@ class NativeRequest implements RequestInterface
 
     /**
      * Получить все данные запроса
-     * 
+     *
      * @return array
      */
     public function all(): array

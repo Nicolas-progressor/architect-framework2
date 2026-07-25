@@ -19,14 +19,14 @@ class StatementConfigurator
     public function configure(StatementInterface $statement, ContainerInterface $container): void
     {
         // core_preinit: Clear breadcrumbs
-        $statement->on('core_preinit', function($container) {
+        $statement->on('core_preinit', function ($container) {
             if (class_exists('Unit', false)) {
                 \Statics::Breadcrumbs()->clear();
             }
         }, 5);
 
         // core_init: Initialize app and routing
-        $statement->on('core_init', function($container) {
+        $statement->on('core_init', function ($container) {
             $logger = $container->get('logger');
             $logger->logWithChannel('debug', 'Statement: core_init', [], 'system');
 
@@ -37,15 +37,15 @@ class StatementConfigurator
             // Template initialization
             $template = $container->get('template');
             $configLoader = $container->get(TemplateConfigLoaderInterface::class);
-            
+
             $appDir = $apps->getAppDir();
             $logger->logWithChannel('debug', 'Template init', [
                 'appDir' => $appDir,
                 'currentApp' => $apps->getCurrentApp(),
             ], 'template');
-            
+
             $configLoader->setAppDir($appDir);
-            
+
             // Boot template with config
             if (method_exists($template, 'boot')) {
                 $template->boot();
@@ -67,10 +67,10 @@ class StatementConfigurator
         }, 5);
 
         // core_post_load: Handle route-specific template settings
-        $statement->on('core_post_load', function($container) {
+        $statement->on('core_post_load', function ($container) {
             $apps = $container->get('apps');
             $template = $container->get('template');
-            
+
             // Use ConfigLoader instead of direct Config instantiation
             $configLoader = $container->get('config.loader');
             $configTemplate = $configLoader->load('template', $apps->getAppDir());
@@ -97,7 +97,7 @@ class StatementConfigurator
         }, 20);
 
         // render: Render response via Renderer
-        $statement->on('render', function($container) {
+        $statement->on('render', function ($container) {
             $logger = $container->get('logger');
             $logger->logWithChannel('debug', 'Statement: render', [], 'system');
 

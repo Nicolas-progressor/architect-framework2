@@ -2,9 +2,9 @@
 
 /**
  * Auth Check Functions
- * 
+ *
  * Provides authentication check functions for Blueprint templates.
- * 
+ *
  * @package     Architect\BlueprintAuth\Functions
  * @author      Architect Team <team@architect.dev>
  * @license     MIT
@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Architect\BlueprintAuth\Functions;
 
-use Blueprint\Engine\Blueprint;
-use Architect\BlueprintAuth\Contracts\AuthFunctionProviderInterface;
 use Architect\Auth\Helpers\Auth;
+use Architect\BlueprintAuth\Contracts\AuthFunctionProviderInterface;
+use Blueprint\Engine\Blueprint;
 
 /**
  * Authentication check functions.

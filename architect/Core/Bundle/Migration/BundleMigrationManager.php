@@ -22,7 +22,7 @@ class BundleMigrationManager
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleDir = dirname($reflection->getFileName());
-        
+
         // Try Migrations directory
         $migrationsDir = $bundleDir . '/Migrations';
         if (is_dir($migrationsDir)) {
@@ -132,7 +132,7 @@ class BundleMigrationManager
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleNamespace = $reflection->getNamespaceName();
-        
+
         return $bundleNamespace . '\\Migrations';
     }
 
@@ -213,10 +213,10 @@ class BundleMigrationManager
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleDir = dirname($reflection->getFileName());
-        
+
         $migrationDir = $bundleDir . '/Migrations';
         if (!is_dir($migrationDir)) {
-            if (!mkdir($migrationDir, 0755, true)) {
+            if (!mkdir($migrationDir, 0o755, true)) {
                 throw new RuntimeException("Unable to create migration directory: {$migrationDir}");
             }
         }

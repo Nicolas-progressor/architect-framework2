@@ -11,9 +11,9 @@ use Psr\Http\Message\StreamInterface;
 
 /**
  * PSR-17 Response Factory implementation.
- * 
+ *
  * Factory for creating HTTP responses and streams.
- * 
+ *
  * @package Architect\Services\Mvc\Http
  */
 class ResponseFactory implements ResponseFactoryInterface, StreamFactoryInterface
@@ -67,7 +67,7 @@ class ResponseFactory implements ResponseFactoryInterface, StreamFactoryInterfac
 
     /**
      * Create JSON response.
-     * 
+     *
      * @param mixed $data Data to encode
      * @param int $status HTTP status code
      * @param array<string, string|string[]> $headers Additional headers
@@ -87,7 +87,7 @@ class ResponseFactory implements ResponseFactoryInterface, StreamFactoryInterfac
 
     /**
      * Create HTML response.
-     * 
+     *
      * @param string $html HTML content
      * @param int $status HTTP status code
      * @param array<string, string|string[]> $headers Additional headers
@@ -105,7 +105,7 @@ class ResponseFactory implements ResponseFactoryInterface, StreamFactoryInterfac
 
     /**
      * Create redirect response.
-     * 
+     *
      * @param string $url Redirect URL
      * @param int $status HTTP status code
      * @return ResponseInterface
@@ -118,7 +118,7 @@ class ResponseFactory implements ResponseFactoryInterface, StreamFactoryInterfac
 
     /**
      * Create error response.
-     * 
+     *
      * @param int $status HTTP status code
      * @param string $message Error message
      * @return ResponseInterface
@@ -138,7 +138,7 @@ class ResponseFactory implements ResponseFactoryInterface, StreamFactoryInterfac
 
     /**
      * Create 404 Not Found response.
-     * 
+     *
      * @param string $message Error message
      * @return ResponseInterface
      */
@@ -149,7 +149,7 @@ class ResponseFactory implements ResponseFactoryInterface, StreamFactoryInterfac
 
     /**
      * Create 403 Forbidden response.
-     * 
+     *
      * @param string $message Error message
      * @return ResponseInterface
      */
@@ -160,7 +160,7 @@ class ResponseFactory implements ResponseFactoryInterface, StreamFactoryInterfac
 
     /**
      * Create 500 Internal Server Error response.
-     * 
+     *
      * @param string $message Error message
      * @return ResponseInterface
      */

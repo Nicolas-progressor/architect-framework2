@@ -6,10 +6,10 @@ namespace Architect\Services\Database;
 
 use Architect\Services\Database\Contracts\DatabaseInterface;
 use Architect\Services\Database\Contracts\QueryLoggerInterface;
+use InvalidArgumentException;
 use PDO;
 use PDOException;
 use PDOStatement;
-use InvalidArgumentException;
 
 /**
  * Database connection service.

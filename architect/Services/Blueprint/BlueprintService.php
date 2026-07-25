@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Architect\Services\Blueprint;
 
-use Blueprint\Engine\Blueprint;
-use Architect\Core\Container;
 use Architect\Contracts\ServiceInterface;
+use Architect\Core\Container;
 use Architect\Services\Blueprint\Contracts\BlueprintConfigInterface;
 use Architect\Services\Blueprint\Contracts\ContextManagerInterface;
 use Architect\Services\Blueprint\Contracts\ElementRendererInterface;
+use Blueprint\Engine\Blueprint;
 use RuntimeException;
 
 /**
  * Blueprint Service for Architect Framework
- * 
+ *
  * Provides template rendering through Blueprint engine with DI architecture
  */
 final class BlueprintService implements ServiceInterface
@@ -29,7 +29,7 @@ final class BlueprintService implements ServiceInterface
     {
         $this->container = $container;
     }
-    
+
     /**
      * Initialize service with configuration
      */
@@ -39,7 +39,7 @@ final class BlueprintService implements ServiceInterface
         $this->contextManager = $contextManager;
         $this->blueprint = $this->createBlueprint();
     }
-    
+
     /**
      * Set element renderer
      */
@@ -47,7 +47,7 @@ final class BlueprintService implements ServiceInterface
     {
         $this->elementRenderer = $renderer;
     }
-    
+
     public function boot(): void
     {
         // Service is initialized through ServiceProvider
@@ -60,7 +60,7 @@ final class BlueprintService implements ServiceInterface
     {
         return $this->blueprint ?? throw new RuntimeException('Blueprint not initialized');
     }
-    
+
     /**
      * Get configuration
      */
@@ -68,7 +68,7 @@ final class BlueprintService implements ServiceInterface
     {
         return $this->config ?? throw new RuntimeException('Blueprint config not initialized');
     }
-    
+
     /**
      * Get context manager
      */
@@ -76,7 +76,7 @@ final class BlueprintService implements ServiceInterface
     {
         return $this->contextManager ?? throw new RuntimeException('Context manager not initialized');
     }
-    
+
     /**
      * Set application context for template resolution
      */
@@ -84,13 +84,13 @@ final class BlueprintService implements ServiceInterface
     {
         $this->contextManager?->setContext($appDir, $templateName);
         $this->syncPathsToBlueprint();
-        
+
         // Reload element renderer after context change
         if ($this->elementRenderer) {
             $this->elementRenderer->reload();
         }
     }
-            
+
     /**
      * Set module context for view resolution
      */
@@ -99,7 +99,7 @@ final class BlueprintService implements ServiceInterface
         $this->contextManager?->setModuleContext($modulePath);
         $this->syncPathsToBlueprint();
     }
-    
+
     /**
      * Render template
      */
@@ -107,7 +107,7 @@ final class BlueprintService implements ServiceInterface
     {
         return $this->getBlueprint()->render($template, $data);
     }
-    
+
     /**
      * Render string
      */
@@ -115,7 +115,7 @@ final class BlueprintService implements ServiceInterface
     {
         return $this->getBlueprint()->renderString($source, $data);
     }
-    
+
     /**
      * Check if template exists
      */
@@ -123,7 +123,7 @@ final class BlueprintService implements ServiceInterface
     {
         return $this->getBlueprint()->exists($template);
     }
-    
+
     /**
      * Add global variable
      */
@@ -131,7 +131,7 @@ final class BlueprintService implements ServiceInterface
     {
         $this->getBlueprint()->addGlobal($key, $value);
     }
-    
+
     /**
      * Add multiple global variables
      */
@@ -139,7 +139,7 @@ final class BlueprintService implements ServiceInterface
     {
         $this->getBlueprint()->addGlobals($globals);
     }
-    
+
     /**
      * Register filter
      */
@@ -147,7 +147,7 @@ final class BlueprintService implements ServiceInterface
     {
         $this->getBlueprint()->registerFilter($name, $filter);
     }
-    
+
     /**
      * Register function
      */
@@ -155,7 +155,7 @@ final class BlueprintService implements ServiceInterface
     {
         $this->getBlueprint()->registerFunction($name, $function);
     }
-    
+
     /**
      * Clear template cache
      */
@@ -194,12 +194,12 @@ final class BlueprintService implements ServiceInterface
     private function createBlueprint(): Blueprint
     {
         $configArray = $this->config->all();
-        
+
         $blueprint = new Blueprint($configArray, $this->container);
-        
+
         // Set initial paths
         $this->syncPathsToBlueprint();
-        
+
         return $blueprint;
     }
 
@@ -211,14 +211,14 @@ final class BlueprintService implements ServiceInterface
         if (!$this->blueprint || !$this->contextManager) {
             return;
         }
-        
+
         $paths = $this->contextManager->getPaths();
-        
+
         // Clear existing paths
         if (method_exists($this->blueprint, 'setPaths')) {
             $this->blueprint->setPaths([]);
         }
-        
+
         // Add new paths
         foreach ($paths as $path) {
             if (method_exists($this->blueprint, 'addPath')) {

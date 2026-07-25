@@ -9,11 +9,11 @@ use Architect\Auth\Models\User;
 
 /**
  * Auth Helper
- * 
+ *
  * Удобный статический доступ к функциям авторизации.
- * 
+ *
  * Использование:
- * 
+ *
  *   Auth::check()          // Авторизован ли пользователь
  *   Auth::user()           // Получить текущего пользователя
  *   Auth::id()             // Получить ID пользователя
@@ -21,30 +21,30 @@ use Architect\Auth\Models\User;
  *   Auth::role('admin')    // Проверить роль
  *   Auth::login($u, $p)    // Войти
  *   Auth::logout()         // Выйти
- * 
+ *
  * @package Architect\Auth\Helpers
  */
 class Auth
 {
     /**
      * Получить экземпляр AuthManager
-     * 
+     *
      * @return AuthManager
      */
     protected static function getManager(): AuthManager
     {
         static $manager = null;
-        
+
         if ($manager === null) {
             $manager = new AuthManager();
         }
-        
+
         return $manager;
     }
 
     /**
      * Проверить, авторизован ли пользователь
-     * 
+     *
      * @return bool
      */
     public static function check(): bool
@@ -54,7 +54,7 @@ class Auth
 
     /**
      * Получить текущего пользователя
-     * 
+     *
      * @return User|null
      */
     public static function user(): ?User
@@ -64,7 +64,7 @@ class Auth
 
     /**
      * Получить ID текущего пользователя
-     * 
+     *
      * @return int|null
      */
     public static function id(): ?int
@@ -74,7 +74,7 @@ class Auth
 
     /**
      * Проверить, имеет ли пользователь разрешение
-     * 
+     *
      * @param string $permission
      * @return bool
      */
@@ -85,7 +85,7 @@ class Auth
 
     /**
      * Проверить, имеет ли пользователь роль
-     * 
+     *
      * @param string $role
      * @return bool
      */
@@ -96,7 +96,7 @@ class Auth
 
     /**
      * Проверить, является ли админом
-     * 
+     *
      * @return bool
      */
     public static function isAdmin(): bool
@@ -106,7 +106,7 @@ class Auth
 
     /**
      * Войти по username и password
-     * 
+     *
      * @param string $username
      * @param string $password
      * @return bool
@@ -118,7 +118,7 @@ class Auth
 
     /**
      * Войти как пользователь
-     * 
+     *
      * @param User $user
      * @return void
      */
@@ -129,7 +129,7 @@ class Auth
 
     /**
      * Выйти из системы
-     * 
+     *
      * @return void
      */
     public static function logout(): void
@@ -139,7 +139,7 @@ class Auth
 
     /**
      * Зарегистрировать нового пользователя
-     * 
+     *
      * @param string $username
      * @param string $email
      * @param string $password
@@ -153,7 +153,7 @@ class Auth
 
     /**
      * Назначить роль пользователю
-     * 
+     *
      * @param User $user
      * @param string $roleName
      * @return bool
@@ -165,7 +165,7 @@ class Auth
 
     /**
      * Отозвать роль у пользователя
-     * 
+     *
      * @param User $user
      * @param string $roleName
      * @return bool
@@ -177,7 +177,7 @@ class Auth
 
     /**
      * Получить JWT токен
-     * 
+     *
      * @return string|null
      */
     public static function getJWT(): ?string
@@ -187,7 +187,7 @@ class Auth
 
     /**
      * Проверить JWT токен
-     * 
+     *
      * @param string $token
      * @return array|false
      */
@@ -198,7 +198,7 @@ class Auth
 
     /**
      * Получить URL для входа
-     * 
+     *
      * @return string
      */
     public static function loginUrl(): string
@@ -208,7 +208,7 @@ class Auth
 
     /**
      * Получить URL для выхода
-     * 
+     *
      * @return string
      */
     public static function logoutUrl(): string
@@ -218,7 +218,7 @@ class Auth
 
     /**
      * Получить URL для регистрации
-     * 
+     *
      * @return string
      */
     public static function registerUrl(): string
@@ -228,7 +228,7 @@ class Auth
 
     /**
      * Получить URL для редиректа после входа
-     * 
+     *
      * @return string
      */
     public static function redirectAfterLogin(): string
@@ -238,7 +238,7 @@ class Auth
 
     /**
      * Получить URL для редиректа после выхода
-     * 
+     *
      * @return string
      */
     public static function redirectAfterLogout(): string
@@ -248,7 +248,7 @@ class Auth
 
     /**
      * Получить URL для редиректа после регистрации
-     * 
+     *
      * @return string
      */
     public static function redirectAfterRegister(): string
@@ -258,7 +258,7 @@ class Auth
 
     /**
      * Сгенерировать URL входа с редиректом
-     * 
+     *
      * @param string|null $redirect URL для редиректа после входа
      * @return string
      */
@@ -269,7 +269,7 @@ class Auth
 
     /**
      * Сгенерировать URL выхода с редиректом
-     * 
+     *
      * @param string|null $redirect URL для редиректа после выхода
      * @return string
      */
@@ -280,7 +280,7 @@ class Auth
 
     /**
      * Установить URL для редиректа
-     * 
+     *
      * @param string $url
      * @return void
      */
@@ -291,7 +291,7 @@ class Auth
 
     /**
      * Получить URL для редиректа (из GET/POST/SESSION)
-     * 
+     *
      * @param string $defaultUrl URL по умолчанию
      * @return string
      */
@@ -302,7 +302,7 @@ class Auth
 
     /**
      * Получить имя текущего приложения
-     * 
+     *
      * @return string
      */
     public static function getCurrentApp(): string
@@ -312,7 +312,7 @@ class Auth
 
     /**
      * Получить директорию текущего приложения
-     * 
+     *
      * @return string
      */
     public static function getCurrentAppDir(): string
@@ -322,7 +322,7 @@ class Auth
 
     /**
      * Получить настройки ролей для приложения
-     * 
+     *
      * @return array
      */
     public static function getRoles(): array
@@ -332,7 +332,7 @@ class Auth
 
     /**
      * Получить настройки разрешений для приложения
-     * 
+     *
      * @return array
      */
     public static function getPermissions(): array
@@ -342,7 +342,7 @@ class Auth
 
     /**
      * Получить драйвер авторизации
-     * 
+     *
      * @return string
      */
     public static function getDriver(): string
@@ -352,7 +352,7 @@ class Auth
 
     /**
      * Получить время жизни сессии
-     * 
+     *
      * @return int
      */
     public static function getSessionLifetime(): int
@@ -362,7 +362,7 @@ class Auth
 
     /**
      * Получить роль по умолчанию
-     * 
+     *
      * @return string
      */
     public static function getDefaultRole(): string
@@ -372,7 +372,7 @@ class Auth
 
     /**
      * Включена ли JWT авторизация
-     * 
+     *
      * @return bool
      */
     public static function isJwtEnabled(): bool

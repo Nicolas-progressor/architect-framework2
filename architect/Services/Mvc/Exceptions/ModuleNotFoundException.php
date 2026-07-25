@@ -6,10 +6,10 @@ namespace Architect\Services\Mvc\Exceptions;
 
 /**
  * Exception thrown when module cannot be found.
- * 
+ *
  * Thrown when the specified module directory does not exist
  * in either application or global modules.
- * 
+ *
  * @package Architect\Services\Mvc\Exceptions
  */
 class ModuleNotFoundException extends MvcException
@@ -22,7 +22,7 @@ class ModuleNotFoundException extends MvcException
 
     /**
      * Create exception for missing module.
-     * 
+     *
      * @param string $module Module name
      * @param bool $isGlobal Whether searched in global modules
      * @return self
@@ -39,7 +39,7 @@ class ModuleNotFoundException extends MvcException
 
     /**
      * Get module name.
-     * 
+     *
      * @return string
      */
     public function getModule(): string
@@ -49,7 +49,7 @@ class ModuleNotFoundException extends MvcException
 
     /**
      * Check if global module.
-     * 
+     *
      * @return bool
      */
     public function isGlobal(): bool

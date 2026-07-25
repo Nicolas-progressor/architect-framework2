@@ -18,14 +18,14 @@ $client = new HttpClient($driver);
 
 // Create a GET request
 $request = new Request('GET', 'https://httpbin.org/get');
-echo "Sending request to: " . $request->getUri() . "\n";
+echo 'Sending request to: ' . $request->getUri() . "\n";
 
 try {
     $response = $client->sendRequest($request);
-    echo "Status: " . $response->getStatusCode() . "\n";
+    echo 'Status: ' . $response->getStatusCode() . "\n";
     echo "Body:\n" . $response->getBody() . "\n";
 } catch (\Exception $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: ' . $e->getMessage() . "\n";
 }
 
 // Example with POST
@@ -39,8 +39,8 @@ $postRequest = new Request(
 echo "\nSending POST request...\n";
 try {
     $response = $client->sendRequest($postRequest);
-    echo "Status: " . $response->getStatusCode() . "\n";
+    echo 'Status: ' . $response->getStatusCode() . "\n";
     echo "Body:\n" . $response->getBody() . "\n";
 } catch (\Exception $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: ' . $e->getMessage() . "\n";
 }

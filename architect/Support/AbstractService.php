@@ -8,7 +8,7 @@ use Architect\Core\Contracts\ContainerInterface;
 
 /**
  * Base class for services.
- * 
+ *
  * Provides common functionality for all services including
  * container access and boot lifecycle.
  */
@@ -24,8 +24,7 @@ abstract class AbstractService
     /**
      * Boot the service (called after all services are registered).
      */
-    public function boot(): void
-    {}
+    public function boot(): void {}
 
     /**
      * Get a service from the container.

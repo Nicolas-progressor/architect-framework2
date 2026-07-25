@@ -246,7 +246,7 @@ class CommandRegistry
 
         $dir = dirname($this->cachePath);
         if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
+            mkdir($dir, 0o755, true);
         }
 
         $result = file_put_contents(

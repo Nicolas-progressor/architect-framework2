@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Architect\Services\Mvc\Http;
 
+use Architect\Services\Mvc\Contracts\ResponseInterface as MvcResponseInterface;
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Architect\Services\Mvc\Contracts\ResponseInterface as MvcResponseInterface;
 
 /**
  * PSR-7 Response implementation.
- * 
+ *
  * Provides a standard HTTP response that follows PSR-7 specification.
  * Also implements MvcResponseInterface for framework compatibility.
- * 
+ *
  * @package Architect\Services\Mvc\Http
  */
 class Response implements PsrResponseInterface, MvcResponseInterface
@@ -110,7 +110,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Create response instance.
-     * 
+     *
      * @param int $status HTTP status code
      * @param array<string, string|string[]> $headers Response headers
      * @param StreamInterface|null $body Response body
@@ -324,7 +324,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Get response type.
-     * 
+     *
      * @return string Response type (html, json, redirect, text)
      */
     public function getType(): string
@@ -334,7 +334,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Set response type.
-     * 
+     *
      * @param string $type Response type
      * @return self
      */
@@ -350,7 +350,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Get response content as string.
-     * 
+     *
      * @return string
      */
     public function getContent(): string
@@ -360,7 +360,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Create response with content.
-     * 
+     *
      * @param string $content Response content
      * @return self
      */
@@ -375,7 +375,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Set JSON data for response.
-     * 
+     *
      * @param mixed $data Data to encode
      * @param int $options JSON encode options
      * @return self
@@ -395,7 +395,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Get JSON data.
-     * 
+     *
      * @return mixed
      */
     public function getJsonData(): mixed
@@ -405,7 +405,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Send JSON response and exit.
-     * 
+     *
      * @param mixed $data Data to encode
      * @param int $statusCode HTTP status code
      * @param int $options JSON encode options
@@ -420,7 +420,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Create HTML response.
-     * 
+     *
      * @param string $html HTML content
      * @return self
      */
@@ -433,7 +433,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Create redirect response (factory method).
-     * 
+     *
      * @param string $url Redirect URL
      * @param int $status HTTP status code (302 by default)
      * @return self
@@ -447,7 +447,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Create text response.
-     * 
+     *
      * @param string $text Text content
      * @return self
      */
@@ -460,7 +460,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Check if response is redirect.
-     * 
+     *
      * @return bool
      */
     public function isRedirect(): bool
@@ -470,7 +470,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Check if response is JSON.
-     * 
+     *
      * @return bool
      */
     public function isJson(): bool
@@ -480,7 +480,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Check if response is successful.
-     * 
+     *
      * @return bool
      */
     public function isSuccessful(): bool
@@ -490,7 +490,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Check if response is client error.
-     * 
+     *
      * @return bool
      */
     public function isClientError(): bool
@@ -500,7 +500,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Check if response is server error.
-     * 
+     *
      * @return bool
      */
     public function isServerError(): bool
@@ -510,7 +510,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Check if response is informational.
-     * 
+     *
      * @return bool
      */
     public function isInformational(): bool
@@ -522,7 +522,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Set HTTP status code.
-     * 
+     *
      * @param int $code HTTP status code
      * @return self
      */
@@ -533,7 +533,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Set response header.
-     * 
+     *
      * @param string $name Header name
      * @param string $value Header value
      * @return self
@@ -545,7 +545,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Set response content.
-     * 
+     *
      * @param string $content Response body
      * @return self
      */
@@ -556,7 +556,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Redirect to URL (immediate).
-     * 
+     *
      * @param string $url Redirect URL
      * @return self
      */
@@ -569,7 +569,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Prepare redirect (without immediate exit).
-     * 
+     *
      * @param string $url Redirect URL
      * @param int $status HTTP status code
      * @return self
@@ -583,7 +583,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Abort with error code.
-     * 
+     *
      * @param int $code HTTP status code
      * @param string $message Error message
      * @return self
@@ -595,7 +595,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Send response to client.
-     * 
+     *
      * Outputs headers and content.
      */
     public function send(): void
@@ -604,16 +604,16 @@ class Response implements PsrResponseInterface, MvcResponseInterface
         $protocol = $this->getProtocolVersion();
         $status = $this->getStatusCode();
         $reason = $this->getReasonPhrase();
-        
+
         header("HTTP/{$protocol} {$status} {$reason}", true, $status);
-        
+
         // Send headers
         foreach ($this->headers as $name => $values) {
             foreach ($values as $value) {
                 header("{$name}: {$value}", true);
             }
         }
-        
+
         // Send body
         $body = $this->getBody();
         if ($body->isReadable()) {
@@ -626,7 +626,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Set headers from array.
-     * 
+     *
      * @param array<string, string|string[]> $headers Headers to set
      */
     private function setHeaders(array $headers): void
@@ -642,7 +642,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Validate header value.
-     * 
+     *
      * @param mixed $value Header value
      * @return array<string>
      */
@@ -657,7 +657,7 @@ class Response implements PsrResponseInterface, MvcResponseInterface
 
     /**
      * Validate HTTP status code.
-     * 
+     *
      * @param int $status Status code
      * @return int
      */

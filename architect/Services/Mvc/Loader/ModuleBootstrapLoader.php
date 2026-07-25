@@ -11,10 +11,10 @@ use Architect\Services\Mvc\Resolver\ModulePathResolver;
 
 /**
  * Module bootstrap loader implementation.
- * 
+ *
  * Handles module bootstrap discovery, loading, and statement registration.
  * Supports both application and global module bootstraps.
- * 
+ *
  * @package Architect\Services\Mvc\Loader
  */
 class ModuleBootstrapLoader implements ModuleBootstrapLoaderInterface
@@ -36,12 +36,12 @@ class ModuleBootstrapLoader implements ModuleBootstrapLoaderInterface
         'app_load',
         'app_data',
         'app_output',
-        'render'
+        'render',
     ];
 
     /**
      * Create module bootstrap loader instance.
-     * 
+     *
      * @param ContainerInterface $container Dependency container
      * @param ModulePathResolver $pathResolver Module path resolver
      */
@@ -116,7 +116,7 @@ class ModuleBootstrapLoader implements ModuleBootstrapLoaderInterface
 
     /**
      * Set available statement names.
-     * 
+     *
      * @param array $names Statement names
      */
     public function setStatementNames(array $names): void
@@ -126,7 +126,7 @@ class ModuleBootstrapLoader implements ModuleBootstrapLoaderInterface
 
     /**
      * Get available statement names.
-     * 
+     *
      * @return array
      */
     public function getStatementNames(): array
@@ -134,4 +134,3 @@ class ModuleBootstrapLoader implements ModuleBootstrapLoaderInterface
         return $this->statementNames;
     }
 }
-

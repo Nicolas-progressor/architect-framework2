@@ -6,9 +6,9 @@ namespace Architect\Console\Commands;
 
 use Architect\Console\BaseCommand;
 use Architect\Console\CommandInterface;
+use Axiom\Migration\MigrationManager;
 use Axiom\Orm\Connection\ConnectionManager;
 use Axiom\Orm\Integrations\Architect\AxiomBootstrap;
-use Axiom\Migration\MigrationManager;
 
 /**
  * Reset all database migrations using Axiom ORM
@@ -54,11 +54,11 @@ class DbResetCommand extends BaseCommand implements CommandInterface
         try {
             // Create migration manager
             $manager = new MigrationManager($migrationsDir);
-            
+
             // Get status to check if there are migrations to reset
             $status = $manager->status();
             $ranCount = count(array_filter($status, fn($s) => $s['ran']));
-            
+
             if ($ranCount === 0) {
                 $this->info('Nothing to reset.');
                 return 0;
@@ -85,7 +85,7 @@ class DbResetCommand extends BaseCommand implements CommandInterface
             $reset = $manager->reset();
 
             $this->line();
-            
+
             if (empty($reset)) {
                 $this->info('Nothing to reset.');
             } else {

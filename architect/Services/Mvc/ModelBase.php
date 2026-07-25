@@ -8,7 +8,7 @@ use Architect\Core\Contracts\ContainerInterface;
 
 /**
  * Base class for all models.
- * 
+ *
  * Automatically receives container through constructor.
  * Extend this class to create models with container access.
  */
@@ -19,7 +19,7 @@ abstract class ModelBase
 
     /**
      * Create model instance.
-     * 
+     *
      * @param ContainerInterface $container Dependency container
      */
     public function __construct(ContainerInterface $container)
@@ -29,7 +29,7 @@ abstract class ModelBase
 
     /**
      * Get service from container.
-     * 
+     *
      * @param string $id Service identifier
      * @return mixed
      */
@@ -40,7 +40,7 @@ abstract class ModelBase
 
     /**
      * Check if service exists in container.
-     * 
+     *
      * @param string $id Service identifier
      * @return bool
      */

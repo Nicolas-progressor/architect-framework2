@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Architect\Core;
 
 use Architect\Contracts\BundleInterface;
+use Architect\Core\Contracts\BootableInterface;
 use Architect\Core\Contracts\ContainerInterface;
 use Architect\Core\Contracts\FrameworkInterface;
 use Architect\Core\Contracts\StatementInterface;
-use Architect\Core\Contracts\BootableInterface;
 use Architect\Core\Exception\HttpNotFoundException;
 
 /**
@@ -32,7 +32,7 @@ class Framework implements FrameworkInterface
         private StatementInterface $statement
     ) {
         $this->bundleManager = new BundleManager();
-        
+
         $this->container->set('statement', $this->statement);
         $this->container->set('framework', $this);
         $this->container->set('bundle.manager', $this->bundleManager);
@@ -114,7 +114,7 @@ class Framework implements FrameworkInterface
         }
 
         $service = $this->container->get($serviceId);
-        
+
         if ($service instanceof BootableInterface) {
             $service->boot();
         }

@@ -21,7 +21,7 @@ class BundleCommandRegistry
     public function register(BundleInterface $bundle, CommandRegistry $commandRegistry): void
     {
         $commands = $this->discoverCommands($bundle);
-        
+
         foreach ($commands as $commandClass) {
             if (class_exists($commandClass)) {
                 $commandRegistry->register($commandClass);
@@ -39,7 +39,7 @@ class BundleCommandRegistry
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleDir = dirname($reflection->getFileName());
-        
+
         $commands = [];
 
         // Check for Commands directory
@@ -72,7 +72,7 @@ class BundleCommandRegistry
     private function scanDirectoryForCommands(string $directory): array
     {
         $commands = [];
-        
+
         $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($directory, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST
@@ -147,7 +147,7 @@ class BundleCommandRegistry
         }
 
         $reflection = new \ReflectionClass($className);
-        
+
         // Check if class implements CommandInterface
         if ($reflection->implementsInterface('Architect\Services\Console\CommandInterface')) {
             return true;

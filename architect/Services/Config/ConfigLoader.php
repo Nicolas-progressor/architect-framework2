@@ -10,7 +10,7 @@ use Architect\Services\Routing\Contracts\FileSystemInterface;
 
 /**
  * Loads configuration from JSON files.
- * 
+ *
  * Uses ConfigPathResolver for file discovery and returns immutable ConfigRepository.
  */
 final class ConfigLoader implements ConfigLoaderInterface
@@ -45,12 +45,12 @@ final class ConfigLoader implements ConfigLoaderInterface
 
         if ($path === null) {
             $config = new ConfigRepository([]);
-            
+
             // Cache empty configuration
             if ($this->cache !== null) {
                 $this->cache->put($name, $config, $appPath);
             }
-            
+
             return $config;
         }
 
@@ -65,7 +65,7 @@ final class ConfigLoader implements ConfigLoaderInterface
         }
 
         $config = new ConfigRepository($data);
-        
+
         // Store in cache
         if ($this->cache !== null) {
             $this->cache->put($name, $config, $appPath);
@@ -76,9 +76,9 @@ final class ConfigLoader implements ConfigLoaderInterface
 
     /**
      * Load and merge multiple configuration files.
-     * 
+     *
      * Later files override earlier ones (array_replace_recursive).
-     * 
+     *
      * @param array<string> $names Configuration names in merge order
      * @param string|null $appPath Optional application-specific path
      * @return ConfigInterface
@@ -111,7 +111,7 @@ final class ConfigLoader implements ConfigLoaderInterface
         ?string $appPath = null
     ): ConfigInterface {
         $baseConfig = $this->load($name, $appPath);
-        
+
         // Try to load environment-specific config
         $envConfigName = "environment/{$environment}";
         $envPath = $this->pathResolver->resolve($envConfigName, $appPath);
@@ -121,7 +121,7 @@ final class ConfigLoader implements ConfigLoaderInterface
         }
 
         $envData = $this->fs->json($envPath);
-        
+
         if ($envData === null) {
             return $baseConfig;
         }
@@ -143,13 +143,13 @@ final class ConfigLoader implements ConfigLoaderInterface
     public function loadWithAppOverride(string $name, ?string $appPath = null): ConfigInterface
     {
         $globalConfig = $this->load($name, null);
-        
+
         if ($appPath === null) {
             return $globalConfig;
         }
-        
+
         $appConfig = $this->load($name, $appPath);
-        
+
         return new ConfigRepository(
             array_replace_recursive($globalConfig->all(), $appConfig->all())
         );

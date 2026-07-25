@@ -21,7 +21,7 @@ class BundleViewLoader
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleDir = dirname($reflection->getFileName());
-        
+
         $directories = [];
 
         // Check for Resources/views directory
@@ -73,7 +73,7 @@ class BundleViewLoader
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleDir = dirname($reflection->getFileName());
-        
+
         $directories = [];
 
         // Check for Resources/templates directory
@@ -148,7 +148,7 @@ class BundleViewLoader
         $configDir = dirname($configFile);
 
         if (!is_dir($configDir)) {
-            mkdir($configDir, 0755, true);
+            mkdir($configDir, 0o755, true);
         }
 
         $config = [];
@@ -242,7 +242,7 @@ class BundleViewLoader
     private function renderPhpTemplate(string $viewPath, array $data): string
     {
         extract($data, EXTR_SKIP);
-        
+
         ob_start();
         include $viewPath;
         return ob_get_clean();
@@ -276,13 +276,13 @@ class BundleViewLoader
      */
     private function copyDirectory(string $source, string $target): array
     {
-        if (!is_dir($target) && !mkdir($target, 0755, true)) {
+        if (!is_dir($target) && !mkdir($target, 0o755, true)) {
             return [];
         }
 
         $copied = [];
         $dir = opendir($source);
-        
+
         if (!$dir) {
             return [];
         }

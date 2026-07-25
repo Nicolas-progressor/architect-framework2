@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Validation\Http;
 
-use Architect\Validation\Validator;
 use Architect\Validation\Exceptions\ValidationException;
+use Architect\Validation\Validator;
 
 trait RequestValidatorTrait
 {
@@ -20,14 +20,14 @@ trait RequestValidatorTrait
     public function validate(array $rules, array $messages = []): self
     {
         $validator = $this->createValidator($rules, $messages);
-        
+
         if ($validator->fails()) {
             throw new ValidationException($validator->errors());
         }
-        
+
         return $this;
     }
-    
+
     /**
      * Получает валидированные данные
      *
@@ -39,7 +39,7 @@ trait RequestValidatorTrait
         // и возвращать данные, прошедшие валидацию
         return $this->getValidatedData();
     }
-    
+
     /**
      * Создает экземпляр валидатора
      *
@@ -51,17 +51,17 @@ trait RequestValidatorTrait
     {
         // Получаем данные для валидации из запроса
         $data = $this->getValidationData();
-        
+
         // Создаем валидатор через контейнер или напрямую
         if (function_exists('app') && app()->has('validator')) {
             $validator = app('validator');
         } else {
             $validator = new Validator();
         }
-        
+
         return $validator->make($data, $rules, $messages);
     }
-    
+
     /**
      * Получает данные для валидации из запроса
      *
@@ -74,10 +74,10 @@ trait RequestValidatorTrait
         if (method_exists($this, 'all')) {
             return $this->all();
         }
-        
+
         return [];
     }
-    
+
     /**
      * Получает валидированные данные (заглушка)
      *

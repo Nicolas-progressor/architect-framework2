@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Debug Panel View - Interactive debug panel at the bottom of the screen.
  * @var array $data - Data from Debug::getData()
- * 
+ *
  * Структура:
  * - partials/Styles.php   - CSS стили
  * - partials/Bar.php      - Верхняя панель (debug-bar)
@@ -16,7 +16,8 @@ declare(strict_types=1);
 
 // Форматирование памяти
 if (!function_exists('formatMemory')) {
-    function formatMemory(int $bytes): string {
+    function formatMemory(int $bytes): string
+    {
         if ($bytes < 1024) {
             return $bytes . ' B';
         } elseif ($bytes < 1048576) {
@@ -28,7 +29,7 @@ if (!function_exists('formatMemory')) {
 }
 
 $timeMs = round($data['total_time'] * 1000, 1);
-$totalLogs = count($data['logs']) + (isset($data['collector']['total_messages']) ? $data['collector']['total_messages'] : 0) + count($data['system_logs'] ?? []);
+$totalLogs = count($data['logs']) + ($data['collector']['total_messages'] ?? 0) + count($data['system_logs'] ?? []);
 $logIssues = $totalLogs;
 $collector = $data['collector'] ?? null;
 $hasCustomData = $data['has_custom_data'] ?? false;
@@ -225,7 +226,7 @@ $tabFiles = [
     initDebugPanel();
 </script>
 
-<?php 
+<?php
 // Подключение табов
 foreach ($tabFiles as $tabFile) {
     if (file_exists($tabsDir . $tabFile)) {

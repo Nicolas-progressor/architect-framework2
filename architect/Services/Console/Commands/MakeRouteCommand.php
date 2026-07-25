@@ -115,7 +115,7 @@ class MakeRouteCommand extends BaseCommand implements CommandInterface
         // Ensure directory exists
         $routesDir = dirname($routesPath);
         if (!is_dir($routesDir)) {
-            mkdir($routesDir, 0755, true);
+            mkdir($routesDir, 0o755, true);
         }
 
         // Save routes
@@ -132,7 +132,7 @@ class MakeRouteCommand extends BaseCommand implements CommandInterface
         $path = '/' . str_replace('_', '/', $routeName);
         $this->success("Route {$routeName} created successfully!");
         $this->line("  Path: {$path}");
-        $this->line("  Handler: " . ($routeConfig['module'] ?? 'default') . "/" . ($routeConfig['controller'] ?? 'default') . "@" . ($routeConfig['action'] ?? 'index'));
+        $this->line('  Handler: ' . ($routeConfig['module'] ?? 'default') . '/' . ($routeConfig['controller'] ?? 'default') . '@' . ($routeConfig['action'] ?? 'index'));
 
         return 0;
     }

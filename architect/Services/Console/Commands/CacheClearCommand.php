@@ -89,7 +89,7 @@ class CacheClearCommand extends BaseCommand implements CommandInterface
 
             if (is_dir($blueprintDir)) {
                 $this->deleteDirectory($blueprintDir);
-                mkdir($blueprintDir, 0755, true);
+                mkdir($blueprintDir, 0o755, true);
                 $cleared[] = 'Blueprint cache';
             }
         }
@@ -128,7 +128,7 @@ class CacheClearCommand extends BaseCommand implements CommandInterface
         }
 
         if ($this->deleteDirectory($dir)) {
-            mkdir($dir, 0755, true);
+            mkdir($dir, 0o755, true);
             return true;
         }
 

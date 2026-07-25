@@ -54,7 +54,7 @@ final class DefaultFunctions implements FunctionRegistryInterface
                 return $router->route($name, $params);
             }
         }
-        
+
         return '/' . $name;
     }
 
@@ -66,7 +66,7 @@ final class DefaultFunctions implements FunctionRegistryInterface
                 return $config->get($key, $default);
             }
         }
-        
+
         return $default;
     }
 }

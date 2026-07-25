@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Architect\Services\Errors\View;
 
-use Throwable;
-
 /**
  * Base error view with common functionality.
  */
@@ -40,43 +38,43 @@ abstract class ErrorPageView
     protected function getCommonStyles(): string
     {
         return <<<'CSS'
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { 
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-    background: rgba(0,0,0,0.85); 
-    min-height: 100vh;
-    padding: 20px;
-}
-.error-overlay {
-    max-width: 800px;
-    margin: 40px auto;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-.error-header {
-    background: #dc2626;
-    color: white;
-    padding: 20px 25px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.error-header h2 { font-size: 20px; font-weight: 600; }
-.error-body { padding: 25px; }
-.error-message {
-    background: #f9fafb;
-    padding: 20px;
-    border-radius: 8px;
-    font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 14px;
-    color: #1f2937;
-    white-space: pre-wrap;
-    word-break: break-all;
-    border: 1px solid #e5e7eb;
-}
-CSS;
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body { 
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+                background: rgba(0,0,0,0.85); 
+                min-height: 100vh;
+                padding: 20px;
+            }
+            .error-overlay {
+                max-width: 800px;
+                margin: 40px auto;
+                background: #fff;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            }
+            .error-header {
+                background: #dc2626;
+                color: white;
+                padding: 20px 25px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .error-header h2 { font-size: 20px; font-weight: 600; }
+            .error-body { padding: 25px; }
+            .error-message {
+                background: #f9fafb;
+                padding: 20px;
+                border-radius: 8px;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 14px;
+                color: #1f2937;
+                white-space: pre-wrap;
+                word-break: break-all;
+                border: 1px solid #e5e7eb;
+            }
+            CSS;
     }
 
     /**
@@ -93,19 +91,19 @@ CSS;
     protected function renderDocument(string $title, string $content): void
     {
         echo <<<HTML
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>{$title}</title>
-    <style>
-        {$this->getCommonStyles()}
-    </style>
-</head>
-<body>
-    {$content}
-</body>
-</html>
-HTML;
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <title>{$title}</title>
+                <style>
+                    {$this->getCommonStyles()}
+                </style>
+            </head>
+            <body>
+                {$content}
+            </body>
+            </html>
+            HTML;
     }
 }

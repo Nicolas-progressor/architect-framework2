@@ -6,33 +6,31 @@ namespace Architect\Services\Blueprint;
 
 use Architect\Contracts\ServiceProviderInterface;
 use Architect\Core\Contracts\ContainerInterface;
-use Architect\Services\Blueprint\Contracts\BlueprintConfigInterface;
-use Architect\Services\Blueprint\Contracts\ContextManagerInterface;
-use Architect\Services\Blueprint\Contracts\ElementRendererInterface;
-use Architect\Services\Blueprint\Contracts\FunctionRegistryInterface;
-use Architect\Services\Blueprint\Contracts\FilterRegistryInterface;
 use Architect\Services\Blueprint\Config\ConfigLoader;
-use Architect\Services\Blueprint\Config\BlueprintConfig;
 use Architect\Services\Blueprint\Context\ContextManager;
+use Architect\Services\Blueprint\Contracts\BlueprintConfigInterface;
+use Architect\Services\Blueprint\Contracts\ElementRendererInterface;
+use Architect\Services\Blueprint\Contracts\FilterRegistryInterface;
+use Architect\Services\Blueprint\Contracts\FunctionRegistryInterface;
 use Architect\Services\Blueprint\Elements\ElementConfigLoader;
+use Architect\Services\Blueprint\Elements\ElementRenderer;
 use Architect\Services\Blueprint\Elements\MvcElementRenderer;
 use Architect\Services\Blueprint\Elements\RoutedElementResolver;
-use Architect\Services\Blueprint\Elements\ElementRenderer;
-use Architect\Services\Blueprint\Functions\DefaultFunctions;
 use Architect\Services\Blueprint\Filters\DefaultFilters;
+use Architect\Services\Blueprint\Functions\DefaultFunctions;
 
 /**
  * Blueprint Service Provider for Architect Framework
- * 
+ *
  * Registers Blueprint services with DI container following SOLID principles
  */
 final class BlueprintServiceProvider implements ServiceProviderInterface
 {
     private ?ContainerInterface $container = null;
-    
+
     /** @var FunctionRegistryInterface[] */
     private array $functionRegistries = [];
-    
+
     /** @var FilterRegistryInterface[] */
     private array $filterRegistries = [];
 
@@ -45,7 +43,7 @@ final class BlueprintServiceProvider implements ServiceProviderInterface
             $this->container = $container;
         }
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -58,19 +56,19 @@ final class BlueprintServiceProvider implements ServiceProviderInterface
 
         // Register context manager with container
         $this->container->factory('blueprint.context', fn($c) => new ContextManager(null, $c));
-        
+
         // Register config loader
         $this->container->factory('blueprint.config', fn($c) => $this->createConfig($c));
-        
+
         // Register element renderer components
         $this->container->factory('blueprint.element_config_loader', fn($c) => new ElementConfigLoader());
         $this->container->factory('blueprint.mvc_renderer', fn($c) => new MvcElementRenderer($c, $c->get('blueprint.config')));
         $this->container->factory('blueprint.routed_resolver', fn($c) => new RoutedElementResolver($c));
         $this->container->factory('blueprint.elements', fn($c) => $this->createElementRenderer($c));
-        
+
         // Register main service - initialize immediately
         $this->container->factory('blueprint', fn($c) => $this->createBlueprintService($c));
-        
+
         // Register default function/filter registries
         $this->addFunctionRegistry(new DefaultFunctions($this->container));
         $this->addFilterRegistry(new DefaultFilters());
@@ -89,19 +87,19 @@ final class BlueprintServiceProvider implements ServiceProviderInterface
         if (!$this->container->has('blueprint')) {
             return;
         }
-        
+
         $blueprint = $this->container->get('blueprint');
-        
+
         // Register functions and filters
         $this->registerFunctions($blueprint);
         $this->registerFilters($blueprint);
-        
+
         // Setup element extension
         $this->setupElementExtension();
-        
+
         // Setup debug integration
         $this->setupDebugIntegration();
-        
+
         // Note: context is set via statement in ServiceProvider::configureStatements
     }
 
@@ -143,21 +141,21 @@ final class BlueprintServiceProvider implements ServiceProviderInterface
             $container->get('blueprint.config')
         );
     }
-        
+
     /**
      * Create Blueprint service
      */
     private function createBlueprintService(ContainerInterface $container): BlueprintService
     {
         $service = new BlueprintService($container);
-        
+
         $service->initialize(
             $container->get('blueprint.config'),
             $container->get('blueprint.context')
         );
-        
+
         $service->setElementRenderer($container->get('blueprint.elements'));
-        
+
         return $service;
     }
 
@@ -170,7 +168,7 @@ final class BlueprintServiceProvider implements ServiceProviderInterface
             $registry->register(fn(string $name, callable $fn) => $blueprint->registerFunction($name, $fn));
         }
     }
-        
+
     /**
      * Register all filters
      */
@@ -180,7 +178,7 @@ final class BlueprintServiceProvider implements ServiceProviderInterface
             $registry->register(fn(string $name, callable $filter) => $blueprint->registerFilter($name, $filter));
         }
     }
-        
+
     /**
      * Setup element extension
      */
@@ -188,7 +186,7 @@ final class BlueprintServiceProvider implements ServiceProviderInterface
     {
         $elementRenderer = $this->container->get('blueprint.elements');
         $extension = new BlueprintExtension($elementRenderer);
-        
+
         $blueprint = $this->container->get('blueprint');
         $extension->register($blueprint->getBlueprint());
     }
@@ -201,15 +199,15 @@ final class BlueprintServiceProvider implements ServiceProviderInterface
         if (!$this->container->has('debug')) {
             return;
         }
-        
+
         $debug = $this->container->get('debug');
-        
+
         if (method_exists($debug, 'isEnabled') && !$debug->isEnabled()) {
             return;
         }
-        
+
         $blueprintService = $this->container->get('blueprint');
-        
+
         // Get underlying Blueprint instance and init debug data
         try {
             $blueprint = $blueprintService->getBlueprint();

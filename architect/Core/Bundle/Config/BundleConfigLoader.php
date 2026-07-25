@@ -74,7 +74,7 @@ class BundleConfigLoader
     {
         $reflection = new \ReflectionClass($bundle);
         $bundleDir = dirname($reflection->getFileName());
-        
+
         // Try Resources/config/config.json
         $configPath = $bundleDir . '/Resources/config/config.json';
         if (file_exists($configPath)) {

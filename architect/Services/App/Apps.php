@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Architect\Services\App;
 
-use Architect\Services\App\Contracts\AppsServiceInterface;
-use Architect\Services\App\Contracts\AppDescriptor;
-use Architect\Services\App\Contracts\AppBootstrapInterface;
 use Architect\Core\Contracts\ContainerInterface;
 use Architect\Core\Contracts\StatementInterface;
-use Architect\Services\Routing\Contracts\RouterInterface;
+use Architect\Services\App\Contracts\AppBootstrapInterface;
+use Architect\Services\App\Contracts\AppDescriptor;
+use Architect\Services\App\Contracts\AppsServiceInterface;
 use Architect\Services\Config\Contracts\ConfigLoaderInterface;
+use Architect\Services\Routing\Contracts\RouterInterface;
 use Architect\Support\AbstractService;
 use Psr\Log\LoggerInterface;
 
 /**
  * Apps service for managing multiple applications.
- * 
+ *
  * Responsibilities:
  * - Registry of available applications
  * - Current application resolution based on URL
@@ -45,7 +45,7 @@ class Apps extends AbstractService implements AppsServiceInterface
 
     /**
      * Create Apps service.
-     * 
+     *
      * Note: Router is injected lazily via setRouterResolver() to avoid circular dependency.
      */
     public function __construct(
@@ -55,14 +55,14 @@ class Apps extends AbstractService implements AppsServiceInterface
         private readonly ?LoggerInterface $logger = null,
     ) {
         parent::__construct($container);
-        
+
         $this->configLoader = new AppConfigLoader($logger);
         $this->bootstrapLoader = new AppBootstrapLoader($statement, $logger);
     }
 
     /**
      * Set router resolver for lazy loading (breaks circular dependency).
-     * 
+     *
      * @param callable $resolver Function that returns RouterInterface
      */
     public function setRouterResolver(callable $resolver): void
@@ -88,7 +88,7 @@ class Apps extends AbstractService implements AppsServiceInterface
     public function boot(): void
     {
         $appsConfig = $this->configLoaderService->load('apps');
-        
+
         $this->appsBaseDir = $this->resolveAppsBaseDir();
         $this->defaultApp = $appsConfig->get('default', 'home');
         $this->loadApps($appsConfig->get('apps', []));
@@ -110,13 +110,13 @@ class Apps extends AbstractService implements AppsServiceInterface
 
         $fallback = dirname(__DIR__, 3) . '/app/apps/';
         $this->logger?->debug('APP_DIR not defined, using fallback path', ['path' => $fallback]);
-        
+
         return $fallback;
     }
 
     /**
      * Load applications from config.
-     * 
+     *
      * @param array<string, string> $appsConfig
      */
     private function loadApps(array $appsConfig): void
@@ -213,7 +213,7 @@ class Apps extends AbstractService implements AppsServiceInterface
 
     /**
      * Get all registered applications.
-     * 
+     *
      * @return array<string, AppDescriptor>
      */
     public function getApps(): array
@@ -249,13 +249,13 @@ class Apps extends AbstractService implements AppsServiceInterface
 
         $this->currentApp = $appName;
         $this->appDir = $this->apps[$appName]->getPath();
-        
+
         $this->loadCurrentApp();
     }
 
     /**
      * Get current application configuration.
-     * 
+     *
      * @return array<string, mixed>
      */
     public function getAppConfig(): array
@@ -273,7 +273,7 @@ class Apps extends AbstractService implements AppsServiceInterface
 
     /**
      * Get default route for current application.
-     * 
+     *
      * @return array{module: string, controller: string, action: string}
      */
     public function getDefaultRoute(): array

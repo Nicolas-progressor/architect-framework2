@@ -6,10 +6,10 @@ namespace Architect\Services\Mvc\Exceptions;
 
 /**
  * Exception thrown when controller cannot be found.
- * 
+ *
  * Thrown when either the controller file or class is missing.
  * Provides module and controller information for debugging.
- * 
+ *
  * @package Architect\Services\Mvc\Exceptions
  */
 class ControllerNotFoundException extends MvcException
@@ -25,7 +25,7 @@ class ControllerNotFoundException extends MvcException
 
     /**
      * Create exception for missing controller file.
-     * 
+     *
      * @param string $module Module name
      * @param string $controller Controller name
      * @param string|null $file Expected file path
@@ -43,7 +43,7 @@ class ControllerNotFoundException extends MvcException
 
     /**
      * Create exception for missing controller class.
-     * 
+     *
      * @param string $module Module name
      * @param string $controller Controller name
      * @param string $class Expected class name
@@ -61,7 +61,7 @@ class ControllerNotFoundException extends MvcException
 
     /**
      * Get module name.
-     * 
+     *
      * @return string
      */
     public function getModule(): string
@@ -71,7 +71,7 @@ class ControllerNotFoundException extends MvcException
 
     /**
      * Get controller name.
-     * 
+     *
      * @return string
      */
     public function getController(): string
@@ -81,7 +81,7 @@ class ControllerNotFoundException extends MvcException
 
     /**
      * Get expected file path.
-     * 
+     *
      * @return string|null
      */
     public function getExpectedFile(): ?string

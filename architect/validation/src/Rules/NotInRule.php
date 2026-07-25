@@ -20,7 +20,7 @@ class NotInRule extends Rule
     public function passes(string $attribute, $value, array $parameters, Validator $validator): bool
     {
         $this->setParameters($parameters);
-        
+
         if (empty($parameters)) {
             return true;
         }

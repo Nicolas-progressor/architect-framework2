@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Architect\AuthSystem\Console\Commands;
 
+use Architect\AuthSystem\AuthServiceProvider;
 use Architect\Core\Console\Command;
 use Architect\Core\Console\Input\InputInterface;
 use Architect\Core\Console\Output\OutputInterface;
-use Architect\AuthSystem\AuthServiceProvider;
 
 class MakeAuthMigrationCommand extends Command
 {
@@ -38,14 +38,14 @@ class MakeAuthMigrationCommand extends Command
             return self::FAILURE;
         }
 
-        if (!is_dir($migrationsPath) && !mkdir($migrationsPath, 0755, true)) {
+        if (!is_dir($migrationsPath) && !mkdir($migrationsPath, 0o755, true)) {
             $output->writeln("<error>Cannot create migrations directory: {$migrationsPath}</error>");
             return self::FAILURE;
         }
 
         file_put_contents($filePath, $migrationContent);
         $output->writeln("<info>Migration created successfully: {$fileName}</info>");
-        $output->writeln("<comment>Run migration with: php bin/arc db:migrate</comment>");
+        $output->writeln('<comment>Run migration with: php bin/arc db:migrate</comment>');
 
         return self::SUCCESS;
     }
@@ -59,82 +59,82 @@ class MakeAuthMigrationCommand extends Command
         $rolePermissionTable = $tablePrefix . 'role_permission';
 
         return <<<PHP
-<?php
+            <?php
 
-declare(strict_types=1);
+            declare(strict_types=1);
 
-use Axiom\Migration\Migration;
-use Axiom\Migration\Blueprint;
+            use Axiom\Migration\Migration;
+            use Axiom\Migration\Blueprint;
 
-class {$className} extends Migration
-{
-    /**
-     * Run the migration
-     */
-    public function up(): void
-    {
-        // Таблица ролей
-        \$this->create('{$rolesTable}', function (Blueprint \$table) {
-            \$table->id();
-            \$table->string('name')->unique();
-            \$table->string('description')->nullable();
-            \$table->json('permissions')->nullable();
-            \$table->timestamps();
-        });
+            class {$className} extends Migration
+            {
+                /**
+                 * Run the migration
+                 */
+                public function up(): void
+                {
+                    // Таблица ролей
+                    \$this->create('{$rolesTable}', function (Blueprint \$table) {
+                        \$table->id();
+                        \$table->string('name')->unique();
+                        \$table->string('description')->nullable();
+                        \$table->json('permissions')->nullable();
+                        \$table->timestamps();
+                    });
 
-        // Таблица пользователей
-        \$this->create('{$usersTable}', function (Blueprint \$table) {
-            \$table->id();
-            \$table->string('username')->unique();
-            \$table->string('email')->unique();
-            \$table->string('password');
-            \$table->foreignId('role_id')->nullable()->constrained('{$rolesTable}')->nullOnDelete();
-            \$table->timestamps();
-        });
+                    // Таблица пользователей
+                    \$this->create('{$usersTable}', function (Blueprint \$table) {
+                        \$table->id();
+                        \$table->string('username')->unique();
+                        \$table->string('email')->unique();
+                        \$table->string('password');
+                        \$table->foreignId('role_id')->nullable()->constrained('{$rolesTable}')->nullOnDelete();
+                        \$table->timestamps();
+                    });
 
-        // Таблица связей пользователей с OAuth провайдерами
-        \$this->create('{$userOauthTable}', function (Blueprint \$table) {
-            \$table->id();
-            \$table->foreignId('user_id')->constrained('{$usersTable}')->cascadeOnDelete();
-            \$table->string('provider');
-            \$table->string('provider_id');
-            \$table->json('provider_data')->nullable();
-            \$table->timestamps();
-            \$table->unique(['provider', 'provider_id']);
-            \$table->unique(['user_id', 'provider']);
-        });
+                    // Таблица связей пользователей с OAuth провайдерами
+                    \$this->create('{$userOauthTable}', function (Blueprint \$table) {
+                        \$table->id();
+                        \$table->foreignId('user_id')->constrained('{$usersTable}')->cascadeOnDelete();
+                        \$table->string('provider');
+                        \$table->string('provider_id');
+                        \$table->json('provider_data')->nullable();
+                        \$table->timestamps();
+                        \$table->unique(['provider', 'provider_id']);
+                        \$table->unique(['user_id', 'provider']);
+                    });
 
-        // Таблица разрешений (опционально)
-        \$this->create('{$permissionsTable}', function (Blueprint \$table) {
-            \$table->id();
-            \$table->string('name')->unique();
-            \$table->string('description')->nullable();
-            \$table->timestamps();
-        });
+                    // Таблица разрешений (опционально)
+                    \$this->create('{$permissionsTable}', function (Blueprint \$table) {
+                        \$table->id();
+                        \$table->string('name')->unique();
+                        \$table->string('description')->nullable();
+                        \$table->timestamps();
+                    });
 
-        // Связующая таблица роли-разрешения
-        \$this->create('{$rolePermissionTable}', function (Blueprint \$table) {
-            \$table->id();
-            \$table->foreignId('role_id')->constrained('{$rolesTable}')->cascadeOnDelete();
-            \$table->foreignId('permission_id')->constrained('{$permissionsTable}')->cascadeOnDelete();
-            \$table->timestamps();
-            \$table->unique(['role_id', 'permission_id']);
-        });
-    }
+                    // Связующая таблица роли-разрешения
+                    \$this->create('{$rolePermissionTable}', function (Blueprint \$table) {
+                        \$table->id();
+                        \$table->foreignId('role_id')->constrained('{$rolesTable}')->cascadeOnDelete();
+                        \$table->foreignId('permission_id')->constrained('{$permissionsTable}')->cascadeOnDelete();
+                        \$table->timestamps();
+                        \$table->unique(['role_id', 'permission_id']);
+                    });
+                }
 
-    /**
-     * Reverse the migration
-     */
-    public function down(): void
-    {
-        \$this->drop('{$rolePermissionTable}');
-        \$this->drop('{$permissionsTable}');
-        \$this->drop('{$userOauthTable}');
-        \$this->drop('{$usersTable}');
-        \$this->drop('{$rolesTable}');
-    }
-}
-PHP;
+                /**
+                 * Reverse the migration
+                 */
+                public function down(): void
+                {
+                    \$this->drop('{$rolePermissionTable}');
+                    \$this->drop('{$permissionsTable}');
+                    \$this->drop('{$userOauthTable}');
+                    \$this->drop('{$usersTable}');
+                    \$this->drop('{$rolesTable}');
+                }
+            }
+            PHP;
     }
 
     private function getMigrationsPath(): string

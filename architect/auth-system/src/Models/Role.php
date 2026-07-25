@@ -8,9 +8,9 @@ use Architect\Services\Mvc\ModelBase;
 
 /**
  * Role Model
- * 
+ *
  * Модель роли для системы RBAC.
- * 
+ *
  * @package Architect\Auth\Models
  */
 class Role extends ModelBase
@@ -42,13 +42,13 @@ class Role extends ModelBase
 
     /**
      * Конструктор
-     * 
+     *
      * @param int|null $id
      */
     public function __construct(?int $id = null)
     {
         parent::__construct();
-        
+
         if ($id !== null) {
             $this->load($id);
         }
@@ -56,7 +56,7 @@ class Role extends ModelBase
 
     /**
      * Получить имя роли
-     * 
+     *
      * @return string
      */
     public function getName(): string
@@ -66,7 +66,7 @@ class Role extends ModelBase
 
     /**
      * Установить имя роли
-     * 
+     *
      * @param string $name
      * @return self
      */
@@ -78,7 +78,7 @@ class Role extends ModelBase
 
     /**
      * Получить описание
-     * 
+     *
      * @return string|null
      */
     public function getDescription(): ?string
@@ -88,7 +88,7 @@ class Role extends ModelBase
 
     /**
      * Установить описание
-     * 
+     *
      * @param string|null $description
      * @return self
      */
@@ -100,7 +100,7 @@ class Role extends ModelBase
 
     /**
      * Проверить, имеет ли роль разрешение
-     * 
+     *
      * @param string $permissionName
      * @return bool
      */
@@ -112,7 +112,7 @@ class Role extends ModelBase
         }
 
         $permissions = $this->getPermissions();
-        
+
         // Разрешение "*" означает все разрешения
         if (in_array('*', $permissions, true)) {
             return true;
@@ -123,7 +123,7 @@ class Role extends ModelBase
 
     /**
      * Получить все разрешения роли
-     * 
+     *
      * @return array
      */
     public function getPermissions(): array
@@ -134,10 +134,10 @@ class Role extends ModelBase
 
         // Пробуем загрузить из БД
         $this->permissions = [];
-        
+
         // Пробуем через config
         $config = $this->getAuthConfig();
-        
+
         if (isset($config['roles'][$this->name]['permissions'])) {
             $this->permissions = $config['roles'][$this->name]['permissions'];
         }
@@ -147,7 +147,7 @@ class Role extends ModelBase
 
     /**
      * Установить разрешения (кэш)
-     * 
+     *
      * @param array $permissions
      * @return self
      */
@@ -159,14 +159,14 @@ class Role extends ModelBase
 
     /**
      * Найти роль по имени
-     * 
+     *
      * @param string $name
      * @return static|null
      */
     public static function findByName(string $name): ?static
     {
         $instance = new static();
-        
+
         // Пробуем найти в БД
         try {
             $result = $instance->where('name', '=', $name)->first();
@@ -179,7 +179,7 @@ class Role extends ModelBase
 
         // Пробуем загрузить из конфига
         $config = $instance->getAuthConfig();
-        
+
         if (isset($config['roles'][$name])) {
             $instance->name = $name;
             $instance->description = $config['roles'][$name]['description'] ?? null;
@@ -192,7 +192,7 @@ class Role extends ModelBase
 
     /**
      * Получить конфигурацию auth
-     * 
+     *
      * @return array
      */
     protected function getAuthConfig(): array
@@ -212,7 +212,7 @@ class Role extends ModelBase
 
     /**
      * Сохранить роль
-     * 
+     *
      * @return bool
      */
     public function save(): bool
@@ -226,12 +226,12 @@ class Role extends ModelBase
             return $this->update($data);
         }
 
-        return (bool)$this->insert($data);
+        return (bool) $this->insert($data);
     }
 
     /**
      * Удалить роль
-     * 
+     *
      * @return bool
      */
     public function delete(): bool

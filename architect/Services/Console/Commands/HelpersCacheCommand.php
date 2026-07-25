@@ -30,7 +30,7 @@ class HelpersCacheCommand extends BaseCommand implements CommandInterface
 
         // Create cache directory
         if (!is_dir($cacheDir)) {
-            mkdir($cacheDir, 0755, true);
+            mkdir($cacheDir, 0o755, true);
         }
 
         $force = $options['force'] ?? false;

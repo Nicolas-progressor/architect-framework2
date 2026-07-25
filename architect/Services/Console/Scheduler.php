@@ -110,7 +110,7 @@ class Scheduler
             return 0;
         }
 
-        $console = $console ?? new ConsoleKernel();
+        $console ??= new ConsoleKernel();
         $exitCode = 0;
 
         $this->logger->info('Running scheduled tasks', [
@@ -137,7 +137,7 @@ class Scheduler
                 $this->logger->error("Task exception: {$taskName}", [
                     'message' => $e->getMessage(),
                 ]);
-                $console->getOutput()->error("Task failed: " . $e->getMessage());
+                $console->getOutput()->error('Task failed: ' . $e->getMessage());
                 $exitCode = 1;
             }
         }
@@ -145,4 +145,3 @@ class Scheduler
         return $exitCode;
     }
 }
-

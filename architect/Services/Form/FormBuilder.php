@@ -56,7 +56,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Конструктор
-     * 
+     *
      * @param CSRFTokenManagerInterface|null $csrf CSRF менеджер
      */
     public function __construct(?CSRFTokenManagerInterface $csrf = null)
@@ -66,7 +66,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Открыть форму
-     * 
+     *
      * @param string $action URL действия
      * @param string $method Метод HTTP
      * @param array $attributes Дополнительные атрибуты
@@ -83,7 +83,7 @@ class FormBuilder implements FormBuilderInterface
         ], $attributes));
 
         $html = '<form' . $attrs . '>';
-        
+
         // Добавляем CSRF токен для POST форм
         if (strtoupper($method) === 'POST') {
             $html .= $this->csrf->getTokenField($this->formName);
@@ -110,7 +110,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Закрыть форму
-     * 
+     *
      * @return string
      */
     public function close(): string
@@ -122,7 +122,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Текстовое поле
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -136,7 +136,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Поле email
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -150,7 +150,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Поле пароля
-     * 
+     *
      * @param string $name Имя поля
      * @param array $attributes Атрибуты
      * @return string
@@ -162,7 +162,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Скрытое поле
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @return string
@@ -174,7 +174,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Числовое поле
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -188,7 +188,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Поле поиска
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -202,7 +202,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Телефонное поле
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -216,7 +216,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * URL поле
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -230,7 +230,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Текстовая область
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -240,21 +240,21 @@ class FormBuilder implements FormBuilderInterface
     {
         $value = $this->getValue($name, $value);
         $attrs = $this->buildAttributes($attributes);
-        
+
         $rows = $attributes['rows'] ?? 5;
-        
+
         $html = "<textarea name=\"{$this->escape($name)}\"{$attrs}>";
-        $html .= $this->escape((string)$value);
+        $html .= $this->escape((string) $value);
         $html .= '</textarea>';
-        
+
         $html .= $this->renderError($name);
-        
+
         return $html;
     }
 
     /**
      * Выпадающий список
-     * 
+     *
      * @param string $name Имя поля
      * @param array $options Варианты [value => label] или [[value, label, selected]]
      * @param mixed $selected Выбранное значение
@@ -264,43 +264,43 @@ class FormBuilder implements FormBuilderInterface
     public function select(string $name, array $options, mixed $selected = null, array $attributes = []): string
     {
         $selected = $this->getValue($name, $selected);
-        
+
         // Если selected передан как null, используем значение из data
         if ($selected === null && isset($this->data[$name])) {
             $selected = $this->data[$name];
         }
-        
+
         $attrs = $this->buildAttributes($attributes);
-        
+
         $html = "<select name=\"{$this->escape($name)}\"{$attrs}>";
-        
+
         foreach ($options as $key => $option) {
             if (is_array($option)) {
                 $value = $option[0] ?? '';
                 $label = $option[1] ?? $value;
-                $isSelected = isset($option[2]) ? $option[2] : ($value == $selected);
+                $isSelected = $option[2] ?? ($value == $selected);
             } else {
                 $value = $key;
                 $label = $option;
                 $isSelected = ($value == $selected);
             }
-            
+
             $selectedAttr = $isSelected ? ' selected' : '';
-            $html .= "<option value=\"{$this->escape((string)$value)}\"{$selectedAttr}>";
+            $html .= "<option value=\"{$this->escape((string) $value)}\"{$selectedAttr}>";
             $html .= $this->escape($label);
             $html .= '</option>';
         }
-        
+
         $html .= '</select>';
-        
+
         $html .= $this->renderError($name);
-        
+
         return $html;
     }
 
     /**
      * Чекбокс
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение чекбокса
      * @param bool $checked Отмечен ли
@@ -311,27 +311,27 @@ class FormBuilder implements FormBuilderInterface
     public function checkbox(string $name, mixed $value = '1', bool $checked = false, string $label = '', array $attributes = []): string
     {
         $checked = $this->isChecked($name, $value, $checked);
-        
+
         $attrs = $this->buildAttributes($attributes);
         $checkedAttr = $checked ? ' checked' : '';
-        
+
         $html = '<div class="form-check">';
-        $html .= "<input type=\"checkbox\" name=\"{$this->escape($name)}\" value=\"{$this->escape((string)$value)}\"{$attrs}{$checkedAttr}>";
-        
+        $html .= "<input type=\"checkbox\" name=\"{$this->escape($name)}\" value=\"{$this->escape((string) $value)}\"{$attrs}{$checkedAttr}>";
+
         if ($label) {
             $labelFor = $attributes['id'] ?? $name;
             $html .= "<label class=\"form-check-label\" for=\"{$this->escape($labelFor)}\">{$this->escape($label)}</label>";
         }
-        
+
         $html .= $this->renderError($name);
         $html .= '</div>';
-        
+
         return $html;
     }
 
     /**
      * Радиокнопка
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение радио
      * @param bool $checked Отмечена ли
@@ -342,27 +342,27 @@ class FormBuilder implements FormBuilderInterface
     public function radio(string $name, mixed $value = '1', bool $checked = false, string $label = '', array $attributes = []): string
     {
         $checked = $this->isChecked($name, $value, $checked);
-        
+
         $attrs = $this->buildAttributes($attributes);
         $checkedAttr = $checked ? ' checked' : '';
-        
+
         $html = '<div class="form-check">';
-        $html .= "<input type=\"radio\" name=\"{$this->escape($name)}\" value=\"{$this->escape((string)$value)}\"{$attrs}{$checkedAttr}>";
-        
+        $html .= "<input type=\"radio\" name=\"{$this->escape($name)}\" value=\"{$this->escape((string) $value)}\"{$attrs}{$checkedAttr}>";
+
         if ($label) {
             $labelFor = $attributes['id'] ?? $name . '_' . $value;
             $html .= "<label class=\"form-check-label\" for=\"{$this->escape($labelFor)}\">{$this->escape($label)}</label>";
         }
-        
+
         $html .= $this->renderError($name);
         $html .= '</div>';
-        
+
         return $html;
     }
 
     /**
      * Кнопка отправки
-     * 
+     *
      * @param string $label Текст кнопки
      * @param array $attributes Атрибуты
      * @return string
@@ -372,13 +372,13 @@ class FormBuilder implements FormBuilderInterface
         $attrs = $this->buildAttributes(array_merge([
             'type' => 'submit',
         ], $attributes));
-        
+
         return '<button' . $attrs . '>' . $this->escape($label) . '</button>';
     }
 
     /**
      * Кнопка сброса
-     * 
+     *
      * @param string $label Текст кнопки
      * @param array $attributes Атрибуты
      * @return string
@@ -388,13 +388,13 @@ class FormBuilder implements FormBuilderInterface
         $attrs = $this->buildAttributes(array_merge([
             'type' => 'reset',
         ], $attributes));
-        
+
         return '<button' . $attrs . '>' . $this->escape($label) . '</button>';
     }
 
     /**
      * Кнопка-ссылка
-     * 
+     *
      * @param string $label Текст
      * @param string $url URL
      * @param array $attributes Атрибуты
@@ -403,17 +403,17 @@ class FormBuilder implements FormBuilderInterface
     public function button(string $label, string $url = '', array $attributes = []): string
     {
         $attrs = $this->buildAttributes($attributes);
-        
+
         if ($url) {
             return "<a href=\"{$this->escape($url)}\"{$attrs}>{$this->escape($label)}</a>";
         }
-        
+
         return '<button type="button"' . $attrs . '>' . $this->escape($label) . '</button>';
     }
 
     /**
      * Файл
-     * 
+     *
      * @param string $name Имя поля
      * @param array $attributes Атрибуты
      * @return string
@@ -423,16 +423,16 @@ class FormBuilder implements FormBuilderInterface
         $attrs = $this->buildAttributes(array_merge([
             'type' => 'file',
         ], $attributes));
-        
+
         $html = "<input name=\"{$this->escape($name)}\"{$attrs}>";
         $html .= $this->renderError($name);
-        
+
         return $html;
     }
 
     /**
      * Дата
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -446,7 +446,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Время
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -460,7 +460,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Дата и время
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -474,7 +474,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Цвет
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -488,7 +488,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Диапазон
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param array $attributes Атрибуты
@@ -504,7 +504,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Установить данные формы
-     * 
+     *
      * @param array $data Данные
      * @return static
      */
@@ -516,7 +516,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Установить ошибки валидации
-     * 
+     *
      * @param array $errors Ошибки
      * @return static
      */
@@ -528,7 +528,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Получить старое значение (для сохранения при ошибке)
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $default Значение по умолчанию
      * @return mixed
@@ -540,7 +540,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Проверить, отмечен ли чекбокс/радио
-     * 
+     *
      * @param string $name Имя поля
      * @param mixed $value Значение
      * @param bool $default Значение по умолчанию
@@ -558,7 +558,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Отрендерить ошибку для поля
-     * 
+     *
      * @param string $name Имя поля
      * @return string
      */
@@ -569,13 +569,13 @@ class FormBuilder implements FormBuilderInterface
         }
 
         $message = $this->errors[$name][0];
-        
+
         return '<div class="invalid-feedback">' . $this->escape($message) . '</div>';
     }
 
     /**
      * Отрендерить все ошибки
-     * 
+     *
      * @param string $class CSS класс для контейнера
      * @return string
      */
@@ -587,22 +587,22 @@ class FormBuilder implements FormBuilderInterface
 
         $html = '<div class="' . $this->escape($class) . '">';
         $html .= '<ul class="mb-0">';
-        
+
         foreach ($this->errors as $fieldErrors) {
             foreach ($fieldErrors as $error) {
                 $html .= '<li>' . $this->escape($error) . '</li>';
             }
         }
-        
+
         $html .= '</ul>';
         $html .= '</div>';
-        
+
         return $html;
     }
 
     /**
      * Добавить CSS класс ошибки к атрибутам
-     * 
+     *
      * @param array $attributes Атрибуты
      * @param string $field Имя поля
      * @return array
@@ -617,7 +617,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Проверить, есть ли ошибка для поля
-     * 
+     *
      * @param string $field Имя поля
      * @return bool
      */
@@ -630,7 +630,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Создать input элемент
-     * 
+     *
      * @param string $type Тип input
      * @param string $name Имя поля
      * @param mixed $value Значение
@@ -640,42 +640,42 @@ class FormBuilder implements FormBuilderInterface
     protected function input(string $type, string $name, mixed $value, array $attributes): string
     {
         $attributes = $this->addErrorClass($attributes, $name);
-        
+
         $attrs = $this->buildAttributes(array_merge([
             'type' => $type,
             'name' => $name,
             'value' => $value,
         ], $attributes));
-        
+
         $html = "<input{$attrs}>";
         $html .= $this->renderError($name);
-        
+
         return $html;
     }
 
     /**
      * Построить строку атрибутов
-     * 
+     *
      * @param array $attributes Атрибуты
      * @return string
      */
     protected function buildAttributes(array $attributes): string
     {
         $html = '';
-        
+
         foreach ($attributes as $name => $value) {
             // Пропускаем некоторые атрибуты
             if (in_array($name, ['name', 'value', 'type'], true)) {
                 continue;
             }
-            
+
             if ($value === true) {
                 $html .= ' ' . $this->escape($name);
             } elseif ($value !== false && $value !== null) {
-                $html .= ' ' . $this->escape($name) . '="' . $this->escape((string)$value) . '"';
+                $html .= ' ' . $this->escape($name) . '="' . $this->escape((string) $value) . '"';
             }
         }
-        
+
         return $html;
     }
 
@@ -684,7 +684,7 @@ class FormBuilder implements FormBuilderInterface
 
     /**
      * Создать новый экземпляр
-     * 
+     *
      * @return self
      */
     public static function create(): self

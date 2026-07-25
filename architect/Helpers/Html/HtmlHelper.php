@@ -74,7 +74,7 @@ class HtmlHelper extends AbstractHelper
         } catch (\Throwable $e) {
             // Ignore
         }
-        
+
         return false;
     }
 
@@ -88,7 +88,7 @@ class HtmlHelper extends AbstractHelper
         if (!preg_match('#^https?://#', $path)) {
             $path = (defined('ROOT_URL') ? ROOT_URL : '') . ltrim($path, '/');
         }
-        
+
         return '<link rel="stylesheet" href="' . $path . '" media="' . $media . '">';
     }
 
@@ -102,7 +102,7 @@ class HtmlHelper extends AbstractHelper
         if (!preg_match('#^https?://#', $path)) {
             $path = (defined('ROOT_URL') ? ROOT_URL : '') . ltrim($path, '/');
         }
-        
+
         $attrs = $defer ? ' defer' : '';
 
         return '<script src="' . $path . '"' . $attrs . '></script>';
@@ -119,7 +119,7 @@ class HtmlHelper extends AbstractHelper
 
         $alt = $options['alt'] ?? '';
         $class = $options['class'] ?? '';
-        
+
         return '<img src="' . $src . '" alt="' . $alt . '"' . ($class ? ' class="' . $class . '"' : '') . '>';
     }
 
@@ -139,7 +139,7 @@ class HtmlHelper extends AbstractHelper
     public function tag(string $tag, string $content = '', array $options = []): string
     {
         $attrs = $this->buildAttrs($options);
-        
+
         if (in_array($tag, ['img', 'input', 'br', 'hr', 'meta', 'link'], true)) {
             return '<' . $tag . $attrs . '>';
         }
@@ -184,21 +184,21 @@ class HtmlHelper extends AbstractHelper
     private function buildAttrs(array $options, array $exclude = []): string
     {
         $attrs = '';
-        
+
         foreach ($options as $key => $value) {
             if (in_array($key, $exclude, true) || $value === '' || $value === null) {
                 continue;
             }
-            
+
             if (is_bool($value)) {
                 if ($value) {
                     $attrs .= ' ' . $key;
                 }
             } else {
-                $attrs .= ' ' . $key . '="' . htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8') . '"';
+                $attrs .= ' ' . $key . '="' . htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8') . '"';
             }
         }
-        
+
         return $attrs;
     }
 }

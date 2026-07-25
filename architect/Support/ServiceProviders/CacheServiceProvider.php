@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Architect\Support\ServiceProviders;
 
-use Architect\Contracts\ServiceProviderInterface;
 use Architect\Core\Contracts\ContainerInterface;
-use Architect\Support\AbstractServiceProvider;
 use Architect\Services\Cache\CacheManager;
 use Architect\Services\Cache\Config\CacheConfig;
 use Architect\Services\Config\Contracts\ConfigInterface;
+use Architect\Support\AbstractServiceProvider;
 
 /**
  * Cache service provider.
@@ -91,7 +90,7 @@ class CacheServiceProvider extends AbstractServiceProvider
             : dirname(__DIR__, 4) . '/storage/cache');
 
         if (!is_dir($path)) {
-            @mkdir($path, 0755, true);
+            @mkdir($path, 0o755, true);
         }
     }
 }

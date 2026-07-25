@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Services\Template\Renderer;
 
-use Architect\Services\Template\Contracts\TemplateRendererInterface;
 use Architect\Services\Template\Contracts\BlueprintAdapterInterface;
+use Architect\Services\Template\Contracts\TemplateRendererInterface;
 
 /**
  * Renderer for Blueprint templates.
@@ -34,7 +34,7 @@ final class BlueprintRenderer implements TemplateRendererInterface
         $this->adapter->setTemplate($templatePath, $templateName);
 
         // Add callbacks to data
-        $data['element'] = $data['elementCallback'] ?? function() {};
+        $data['element'] = $data['elementCallback'] ?? function () {};
         $data['widget'] = $data['element'];
         $data['asset'] = $this->createAssetCallback();
 
@@ -43,7 +43,7 @@ final class BlueprintRenderer implements TemplateRendererInterface
 
     private function createAssetCallback(): callable
     {
-        return function(string $path): string {
+        return function (string $path): string {
             return '/assets/' . ltrim($path, '/');
         };
     }

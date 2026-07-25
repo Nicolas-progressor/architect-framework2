@@ -6,7 +6,7 @@ namespace Architect\Services\Form\Interfaces;
 
 /**
  * Interface SessionInterface
- * 
+ *
  * Абстракция для работы с сессией.
  * Позволяет тестировать код без реальной сессии.
  */
@@ -14,7 +14,7 @@ interface SessionInterface
 {
     /**
      * Получить значение из сессии
-     * 
+     *
      * @param string $key Ключ
      * @param mixed $default Значение по умолчанию
      * @return mixed
@@ -23,7 +23,7 @@ interface SessionInterface
 
     /**
      * Установить значение в сессию
-     * 
+     *
      * @param string $key Ключ
      * @param mixed $value Значение
      * @return void
@@ -32,7 +32,7 @@ interface SessionInterface
 
     /**
      * Удалить значение из сессии
-     * 
+     *
      * @param string $key Ключ
      * @return void
      */
@@ -40,7 +40,7 @@ interface SessionInterface
 
     /**
      * Проверить наличие ключа
-     * 
+     *
      * @param string $key Ключ
      * @return bool
      */

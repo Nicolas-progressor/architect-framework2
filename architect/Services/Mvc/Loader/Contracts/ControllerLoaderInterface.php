@@ -8,16 +8,16 @@ use Architect\Services\Mvc\Contracts\ControllerInterface;
 
 /**
  * Interface for controller loading.
- * 
+ *
  * Defines the contract for loading and instantiating controllers.
- * 
+ *
  * @package Architect\Services\Mvc\Loader\Contracts
  */
 interface ControllerLoaderInterface
 {
     /**
      * Load controller by module and name.
-     * 
+     *
      * @param string $module Module name
      * @param string $controller Controller name
      * @param bool $isGlobal Whether module is global
@@ -27,7 +27,7 @@ interface ControllerLoaderInterface
 
     /**
      * Check if controller exists.
-     * 
+     *
      * @param string $module Module name
      * @param string $controller Controller name
      * @param bool $isGlobal Whether module is global
@@ -37,7 +37,7 @@ interface ControllerLoaderInterface
 
     /**
      * Get controller file path.
-     * 
+     *
      * @param string $module Module name
      * @param string $controller Controller name
      * @param bool $isGlobal Whether module is global

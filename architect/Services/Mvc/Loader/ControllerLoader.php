@@ -12,10 +12,10 @@ use Architect\Services\Mvc\Resolver\ModulePathResolver;
 
 /**
  * Controller loader implementation.
- * 
+ *
  * Handles controller discovery, loading, and instantiation.
  * Supports both application and global module controllers.
- * 
+ *
  * @package Architect\Services\Mvc\Loader
  */
 class ControllerLoader implements ControllerLoaderInterface
@@ -30,7 +30,7 @@ class ControllerLoader implements ControllerLoaderInterface
 
     /**
      * Create controller loader instance.
-     * 
+     *
      * @param ContainerInterface $container Dependency container
      * @param ModulePathResolver $pathResolver Module path resolver
      */
@@ -107,7 +107,7 @@ class ControllerLoader implements ControllerLoaderInterface
 
     /**
      * Get loaded controller by key.
-     * 
+     *
      * @param string $module Module name
      * @param string $controller Controller name
      * @param bool $isGlobal Whether module is global
