@@ -1,0 +1,10 @@
+{
+    "title": "Architect\\Helpers\\Title\\TitleHelper",
+    "breadcrumbs": "Architect\\Helpers\\Breadcrumbs\\BreadcrumbsHelper",
+    "html": "Architect\\Helpers\\Html\\HtmlHelper",
+    "assets": "Architect\\Helpers\\Assets\\AssetsHelper",
+    "request": "Architect\\Helpers\\Request\\RequestHelper",
+    "db": "Architect\\Helpers\\Db\\DbHelper",
+    "arr": "Architect\\Helpers\\ArrayHelper\\ArrayHelper",
+    "number": "Architect\\Helpers\\NumberHelper\\NumberHelper"
+}

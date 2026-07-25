@@ -1,0 +1,115 @@
+{# Extending Page #}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-bp-dark-100 mb-4">Расширение Blueprint</h1>
+    <p class="text-bp-dark-400">Создание собственных фильтров, функций и расширений</p>
+</div>
+
+<div class="space-y-8">
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Пользовательские фильтры</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">&lt;?php
+
+use Blueprint\Engine\Extension\AbstractExtension;
+use Blueprint\Engine\Extension\FilterInterface;
+
+class MyFilters extends AbstractExtension implements FilterInterface
+{
+    public function getFilters(): array
+    {
+        return [
+            'price' =&gt; [$this, 'formatPrice'],
+            'plural' =&gt; [$this, 'pluralize'],
+        ];
+    }
+
+    public function formatPrice(float $price, string $currency = '₽'): string
+    {
+        return number_format($price, 2, '.', ' ') . ' ' . $currency;
+    }
+}</pre>{% endraw %}
+        </div>
+        <p class="text-bp-dark-400 text-sm mt-4">Использование:</p>
+        <div class="code-block p-4 mt-2">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{{ price|price }}           {# 1 234.56 ₽ #}
+{{ price|price('$') }}     {# 1 234.56 $ #}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Пользовательские функции</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">&lt;?php
+
+use Blueprint\Engine\Extension\AbstractExtension;
+use Blueprint\Engine\Extension\FunctionInterface;
+
+class MyFunctions extends AbstractExtension implements FunctionInterface
+{
+    public function getFunctions(): array
+    {
+        return [
+            'config' =&gt; [$this, 'getConfig'],
+            'asset' =&gt; [$this, 'assetUrl'],
+        ];
+    }
+
+    public function getConfig(string $key, $default = null)
+    {
+        return config($key, $default);
+    }
+}</pre>{% endraw %}
+        </div>
+        <p class="text-bp-dark-400 text-sm mt-4">Использование:</p>
+        <div class="code-block p-4 mt-2">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{{ config('app.name') }}
+{{ asset('css/style.css') }}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Регистрация расширений</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">&lt;?php
+
+$blueprint = new Blueprint([
+    'paths' =&gt; [__DIR__ . '/templates'],
+]);
+
+// Добавление расширений
+$blueprint-&gt;addExtension(new MyFilters());
+$blueprint-&gt;addExtension(new MyFunctions());</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Глобальные переменные</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">$blueprint-&gt;addGlobal('app', [
+    'name' =&gt; 'MyApp',
+    'version' =&gt; '1.0.0',
+    'debug' =&gt; true,
+]);
+
+{# В шаблоне #}
+{{ app.name }}     {# MyApp #}
+{{ app.version }}  {# 1.0.0 #}</pre>{% endraw %}
+        </div>
+    </section>
+</div>
+
+{# Navigation #}
+<div class="flex items-center justify-between pt-8 mt-8 border-t border-bp-dark-700">
+    <a href="/elements" class="flex items-center space-x-2 text-bp-dark-400 hover:text-bp-dark-200 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span>Элементы и виджеты</span>
+    </a>
+    <a href="/api" class="flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors">
+        <span>API</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>

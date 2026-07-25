@@ -1,0 +1,44 @@
+{
+    "name": "axiom/orm",
+    "description": "Universal SQL query constructor for PHP with multi-database support",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "orm",
+        "database",
+        "query-builder",
+        "mysql",
+        "postgresql",
+        "sqlite",
+        "pdo"
+    ],
+    "homepage": "https://github.com/axiom/orm",
+    "autoload": {
+        "psr-4": {
+            "Axiom\\Orm\\": "src/",
+            "Axiom\\Orm\\Integrations\\Architect\\": "src/Integrations/Architect/"
+        },
+        "files": [
+            "src/Orm.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Axiom\\Orm\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "phpstan/phpstan": "^1.10"
+    },
+    "suggest": {
+        "axiom/many-to-many": "Many-to-many relationships support",
+        "axiom/cache": "Query caching support",
+        "axiom/migration": "Database migrations support"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

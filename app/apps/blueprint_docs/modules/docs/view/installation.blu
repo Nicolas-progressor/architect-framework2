@@ -1,0 +1,146 @@
+﻿{# Installation Page #}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-bp-dark-100 mb-4">Установка</h1>
+    <p class="text-bp-dark-400">Настройка Blueprint в вашем проекте</p>
+</div>
+
+<div class="space-y-8">
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Требования</h2>
+        <ul class="list-disc list-inside text-bp-dark-300 space-y-2 ml-4">
+            <li>PHP 8.1 или выше</li>
+            <li>Composer</li>
+            <li>Расширение mbstring</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Установка через Composer</h2>
+        <div class="code-block p-4">
+            <pre class="text-sm text-bp-dark-200">composer require architect/blueprint</pre>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Конфигурация</h2>
+        <p class="text-bp-dark-300 mb-4">Создайте файл <code>app/config/blueprint.json</code>:</p>
+        <div class="code-block p-4">
+            {% raw %}
+            <pre class="text-sm text-bp-dark-200">{
+    "debug": true,
+    "autoescape": true,
+    "cache": "cache/blueprints",
+    "cache_enabled": true,
+    "paths": ["app/template/"],
+    "extensions": [".blu"]
+}</pre>
+            {% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Базовое использование</h2>
+        <div class="code-block p-4">
+            {% raw %}
+            <pre class="text-sm text-bp-dark-200">&lt;?php
+
+use Blueprint\Engine\Blueprint;
+
+$blueprint = new Blueprint([
+    'paths' => [__DIR__ . '/templates'],
+    'cache' => __DIR__ . '/cache',
+    'cache_enabled' => true,
+]);
+
+echo $blueprint->render('page', [
+    'title' => 'Заголовок'
+]);</pre>
+            {% endraw %}
+        </div>
+    </section>
+</div>
+
+<div class="flex items-center justify-between pt-8 mt-8 border-t border-bp-dark-700">
+    <a href="/" class="flex items-center space-x-2 text-bp-dark-400 hover:text-bp-dark-200 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span>Введение</span>
+    </a>
+    <a href="/syntax" class="flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors">
+        <span>Синтаксис</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>
+
+<div class=\"space-y-8\">
+    <section>
+        <h2 class=\"text-xl font-semibold text-bp-dark-100 mb-4\">Требования</h2>
+        <ul class=\"list-disc list-inside text-bp-dark-300 space-y-2 ml-4\">
+            <li>PHP 8.1 или выше</li>
+            <li>Composer</li>
+            <li>Расширение mbstring</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2 class=\"text-xl font-semibold text-bp-dark-100 mb-4\">Установка через Composer</h2>
+        <div class=\"code-block p-4\">
+            <pre class=\"text-sm text-bp-dark-200\">composer require architect/blueprint</pre>
+        </div>
+    </section>
+
+    <section>
+        <h2 class=\"text-xl font-semibold text-bp-dark-100 mb-4\">Конфигурация</h2>
+        <p class=\"text-bp-dark-300 mb-4\">Создайте файл <code>app/config/blueprint.json</code>:</p>
+        <div class=\"code-block p-4\">
+            <pre class=\"text-sm text-bp-dark-200\">{
+    \"debug\": true,
+    \"autoescape\": true,
+    \"cache\": \"cache/blueprints\",
+    \"cache_enabled\": true,
+    \"paths\": [
+        \"app/template/\",
+        \"app/home/template/\"
+    ],
+    \"extensions\": [\".blu\", \".twig\", \".html\"]
+}</pre>
+        </div>
+    </section>
+
+    <section>
+        <h2 class=\"text-xl font-semibold text-bp-dark-100 mb-4\">Базовое использование</h2>
+        <div class=\"code-block p-4\">
+            <pre class=\"text-sm text-bp-dark-200\">&lt;?php
+
+use Blueprint\Engine\Blueprint;
+
+\ = new Blueprint([
+    'paths' => [__DIR__ . '/templates'],
+    'cache' => __DIR__ . '/cache',
+    'cache_enabled' => true,
+]);
+
+echo \->render('page', [
+    'title' => 'Заголовок'
+]);</pre>
+        </div>
+    </section>
+</div>
+
+<div class=\"flex items-center justify-between pt-8 mt-8 border-t border-bp-dark-700\">
+    <a href=\"/\" class=\"flex items-center space-x-2 text-bp-dark-400 hover:text-bp-dark-200 transition-colors\">
+        <svg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 19l-7-7 7-7\"/>
+        </svg>
+        <span>Введение</span>
+    </a>
+    <a href=\"/syntax\" class=\"flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors\">
+        <span>Синтаксис</span>
+        <svg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 5l7 7-7 7\"/>
+        </svg>
+    </a>
+</div>

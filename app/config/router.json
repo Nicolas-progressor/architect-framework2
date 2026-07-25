@@ -1,0 +1,8 @@
+{
+    "default_module": "home",
+    "default_controller": "home",
+    "default_action": "index",
+    "404_module": "_404",
+    "404_controller": "_404",
+    "404_action": "index"
+}

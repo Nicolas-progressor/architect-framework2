@@ -1,0 +1,183 @@
+{% block title %}Entity - Axiom ORM{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">
+        <i class="fas fa-cube text-purple-600 mr-2"></i>Entity
+    </h1>
+    <p class="text-gray-600 mb-8">Работа с сущностями через PHP атрибуты</p>
+    
+    <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Форма создания -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-plus-circle text-green-600 mr-2"></i>Создать сущность
+            </h2>
+            
+            <form id="entity-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Имя</label>
+                    <input type="text" name="name" required placeholder="Иван Иванов" 
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" name="email" required placeholder="ivan@example.com" 
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Статус</label>
+                    <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                        <option value="active">Активный</option>
+                        <option value="inactive">Неактивный</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition">
+                    <i class="fas fa-save mr-2"></i>Создать
+                </button>
+            </form>
+            
+            <div id="entity-result" class="mt-4 hidden">
+                <div id="result-content" class="p-4 rounded-lg"></div>
+            </div>
+        </div>
+        
+        <!-- Пример Entity -->
+        <div class="bg-gray-900 rounded-xl shadow-md p-6">
+            <h2 class="text-xl font-bold text-white mb-4">
+                <i class="fas fa-code text-green-400 mr-2"></i>Пример Entity
+            </h2>
+            <pre class="text-gray-300 text-sm font-mono overflow-x-auto"><code><span class="text-purple-400">use</span> Axiom\Entity\Annotation <span class="text-yellow-400">as</span> ORM;
+
+<span class="text-yellow-400">#[</span><span class="text-green-400">ORM\Entity</span>(<span class="text-blue-400">table</span>: <span class="text-green-400">'users'</span><span class="text-yellow-400">]</span>
+<span class="text-yellow-400">class</span> <span class="text-green-400">User</span>
+{
+    <span class="text-yellow-400">#[</span><span class="text-green-400">ORM\Id</span><span class="text-yellow-400">]</span>
+    <span class="text-yellow-400">#[</span><span class="text-green-400">ORM\Column</span>(<span class="text-blue-400">name</span>: <span class="text-green-400">'id'</span>, <span class="text-blue-400">type</span>: <span class="text-green-400">'integer'</span>]<span class="text-yellow-400">]</span>
+    <span class="text-yellow-400">private</span> ?<span class="text-blue-400">int</span> <span class="text-red-400">$id</span> = <span class="text-blue-400">null</span>;
+
+    <span class="text-yellow-400">#[</span><span class="text-green-400">ORM\Column</span>(<span class="text-blue-400">name</span>: <span class="text-green-400">'name'</span>, <span class="text-blue-400">type</span>: <span class="text-green-400">'string'</span>]<span class="text-yellow-400">]</span>
+    <span class="text-yellow-400">private</span> <span class="text-blue-400">string</span> <span class="text-red-400">$name</span> = <span class="text-green-400">''</span>;
+
+    <span class="text-yellow-400">#[</span><span class="text-green-400">ORM\Column</span>(<span class="text-blue-400">name</span>: <span class="text-green-400">'email'</span>, <span class="text-blue-400">type</span>: <span class="text-green-400">'string'</span>, <span class="text-blue-400">unique</span>: <span class="text-blue-400">true</span>]<span class="text-yellow-400">]</span>
+    <span class="text-yellow-400">private</span> <span class="text-blue-400">string</span> <span class="text-red-400">$email</span> = <span class="text-green-400">''</span>;
+
+    <span class="text-gray-500">// Геттеры и сеттеры...</span>
+    
+    <span class="text-yellow-400">public function</span> <span class="text-blue-400">save</span>(): <span class="text-blue-400">void</span>
+    {
+        <span class="text-gray-500">// Сохранение в БД</span>
+    }
+}</code></pre>
+        </div>
+    </div>
+    
+    <!-- Список сущностей -->
+    <div class="mt-8 bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-list text-indigo-600 mr-2"></i>Список пользователей
+        </h2>
+        
+        {% if users is empty %}
+        <div class="text-center py-8 text-gray-500">
+            <i class="fas fa-inbox text-4xl mb-4"></i>
+            <p>Нет данных. Создайте сущность через форму.</p>
+        </div>
+        {% else %}
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">ID</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Имя</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Email</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Статус</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Создан</th>
+                    </tr>
+                </thead>
+                <tbody id="users-table-body" class="divide-y divide-gray-200">
+                    {% for user in users %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 text-sm">{{ user.id }}</td>
+                        <td class="px-4 py-3 text-sm font-medium">{{ user.name }}</td>
+                        <td class="px-4 py-3 text-sm text-purple-600">{{ user.email }}</td>
+                        <td class="px-4 py-3">
+                            <span class="px-2 py-1 text-xs rounded-full {% if user.status == 'active' %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                                {{ user.status }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3 text-sm text-gray-500">{{ user.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+async function refreshEntityData() {
+    try {
+        const response = await fetch('/entity_data');
+        const data = await response.json();
+        
+        const tbody = document.getElementById('users-table-body');
+        tbody.innerHTML = data.users.map(user => `
+            <tr class="hover:bg-gray-50">
+                <td class="px-4 py-3 text-sm">${user.id}</td>
+                <td class="px-4 py-3 text-sm font-medium">${user.name}</td>
+                <td class="px-4 py-3 text-sm text-purple-600">${user.email}</td>
+                <td class="px-4 py-3">
+                    <span class="px-2 py-1 text-xs rounded-full ${user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                        ${user.status}
+                    </span>
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-500">${user.created_at}</td>
+            </tr>
+        `).join('');
+    } catch (error) {
+        console.error('Error refreshing data:', error);
+    }
+}
+
+document.getElementById('entity-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    const resultDiv = document.getElementById('entity-result');
+    const resultContent = document.getElementById('result-content');
+    
+    resultDiv.classList.remove('hidden');
+    resultContent.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Создание...';
+    resultContent.className = 'p-4 rounded-lg bg-gray-100';
+    
+    try {
+        const response = await fetch('/entity_create?' + new URLSearchParams(formData));
+        const result = await response.json();
+        
+        if (result.success) {
+            resultContent.className = 'p-4 rounded-lg bg-green-100 text-green-800';
+            resultContent.innerHTML = '<i class="fas fa-check-circle mr-2"></i>' + result.message + ' (ID: ' + result.id + ')';
+            form.reset();
+            // Refresh table via AJAX
+            await refreshEntityData();
+            // Hide message after 2 seconds
+            setTimeout(() => {
+                resultDiv.classList.add('hidden');
+            }, 2000);
+        } else {
+            resultContent.className = 'p-4 rounded-lg bg-red-100 text-red-800';
+            resultContent.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>' + result.message;
+        }
+    } catch (error) {
+        resultContent.className = 'p-4 rounded-lg bg-red-100 text-red-800';
+        resultContent.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Ошибка: ' + error.message;
+    }
+});
+</script>
+{% endblock %}

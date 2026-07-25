@@ -1,0 +1,17 @@
+{
+    "name": "axiom/many-to-many",
+    "description": "Many-to-many relationships support for Axiom ORM",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Axiom\\ManyToMany\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "axiom/orm": "^1.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -1,0 +1,153 @@
+{
+    "name": "architect/framework",
+    "description": "Architect RED 2 - PHP фреймворк",
+    "version": "2.0.0",
+    "type": "framework",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "architect/contracts": "*@dev",
+        "psr/http-message": "^1.1",
+        "psr/http-factory": "^1.0",
+        "axiom/orm": "*@dev",
+        "axiom/entity": "*@dev",
+        "axiom/migration": "*@dev",
+        "architect/blueprint": "*@dev",
+        "architect/auth-system": "*@dev",
+        "architect/blueprint-auth": "*@dev",
+        "architect/blueprint-forms": "*@dev",
+        "architect/http-client": "*@dev",
+        "architect/blueprint-helpers": "*@dev",
+        "architect/queue": "*@dev",
+        "psr/container": "^2.0",
+        "psr/http-server-middleware": "^1.0",
+        "psr/http-server-handler": "^1.0",
+        "psr/log": "^1.1",
+        "nyholm/psr7": "^1.8",
+        "php-http/message-factory": "^1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^13.0",
+        "friendsofphp/php-cs-fixer": "^3.65",
+        "phpstan/phpstan": "^2.1"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../repos/architect-contracts",
+            "options": { "symlink": true }
+        },
+        {
+            "type": "path",
+            "url": "../repos/axiom-orm",
+            "options": { "symlink": true }
+        },
+        {
+            "type": "path",
+            "url": "../repos/axiom-orm/modules/entity",
+            "options": { "symlink": true }
+        },
+        {
+            "type": "path",
+            "url": "../repos/axiom-orm/modules/migration",
+            "options": { "symlink": true }
+        },
+        {
+            "type": "path",
+            "url": "../repos/architect-blueprint",
+            "options": { "symlink": true }
+        },
+        {
+            "type": "path",
+            "url": "../repos/architect-blueprint/extensions/blueprint-forms",
+            "options": { "symlink": true }
+        },
+        {
+            "type": "path",
+            "url": "../repos/architect-blueprint/extensions/blueprint-helpers",
+            "options": { "symlink": true }
+        },
+        {
+            "type": "path",
+            "url": "../repos/architect-auth-system",
+            "options": { "symlink": true }
+        },
+        {
+            "type": "path",
+            "url": "../repos/architect-blueprint-auth",
+            "options": { "symlink": true }
+        },
+        {
+            "type": "path",
+            "url": "../repos/architect-http-client",
+            "options": { "symlink": true }
+        },
+        {
+            "type": "path",
+            "url": "../repos/architect-queue",
+            "options": { "symlink": true }
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Architect\\Console\\": "architect/Services/Console/",
+            "Architect\\HttpClient\\": "architect/http-client/src/",
+            "Architect\\": "architect/",
+            "App\\Bundle\\": "src/Bundle/"
+        },
+        "classmap": [
+            "app/apps/",
+            "app/modules/"
+        ],
+        "files": [
+            "architect/Support/Aliases.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin/arc"
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "@php bin/arc cache:clear --all 2>/dev/null || true",
+            "@php architect/Support/ServiceProviders/cache-providers.php",
+            "@php architect/Support/Bundle/cache-bundles.php"
+        ],
+        "post-update-cmd": [
+            "@php bin/arc optimize:autoload 2>/dev/null || true",
+            "@php architect/Support/ServiceProviders/cache-providers.php",
+            "@php architect/Support/Bundle/cache-bundles.php"
+        ],
+        "package:discover": [
+            "@php architect/Support/ServiceProviders/cache-providers.php",
+            "@php architect/Support/Bundle/cache-bundles.php"
+        ]
+    },
+    "keywords": [
+        "framework",
+        "mvc",
+        "console",
+        "cli"
+    ],
+    "authors": [{
+        "name": "Architect Team",
+        "email": "team@architect.dev"
+    }],
+    "extra": {
+        "architect": {
+            "providers": [
+                "Architect\\Queue\\Providers\\QueueServiceProvider",
+                "Architect\\Services\\Performance\\Providers\\PerformanceServiceProvider"
+            ],
+            "bundles": [
+                "App\\Bundle\\UserBundle\\UserBundle"
+            ]
+        }
+    }
+}

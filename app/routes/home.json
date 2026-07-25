@@ -1,0 +1,36 @@
+{
+    "default": "index",
+    
+    "routes": {
+        "sample": {
+            "module": "sample",
+            "controller": "sample",
+            "action": "index"
+        },
+        "sample_home": {
+            "module": "sample",
+            "controller": "sample",
+            "action": "home",
+            "template": "bootstrap",
+            "app": "home"
+        },
+        "sample_global": {
+            "module": "sample",
+            "controller": "sample",
+            "action": "global",
+            "template": "bootstrap"
+        },
+        "test": {
+            "module": "test",
+            "controller": "test",
+            "action": "index"
+        },
+        "test_global": {
+            "module": "test",
+            "controller": "test",
+            "action": "global",
+            "template": "bootstrap",
+            "app": "home"
+        }
+    }
+}

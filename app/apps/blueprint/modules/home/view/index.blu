@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Добро пожаловать в Blueprint App!</h2>
+            <p class="lead">
+                Это демонстрационное приложение, созданное для демонстрации возможностей 
+                шаблонизатора <strong>Blueprint</strong> в Architect Framework.
+            </p>
+            
+            <hr class="my-4">
+            
+            <h3>Что такое Blueprint?</h3>
+            <p>
+                Blueprint — это современная система шаблонизации, вдохновлённая Blade (Laravel) и Twig. 
+                Она предоставляет удобный синтаксис для создания шаблонов с поддержкой:
+            </p>
+            
+            <div class="row g-3 mt-3">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                        <span>Наследования шаблонов</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                        <span>Блоков и секций</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                        <span>Циклов и условий</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                        <span>Фильтров и функций</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                        <span>Макросов</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                        <span>Компонентов (элементов/виджетов)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-info mt-4">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                <strong>Примечание:</strong> Этот шаблон и все представления виджетов созданы с использованием 
+                синтаксиса Blueprint (файлы с расширением <code>.blu</code>).
+            </div>
+        </div>
+    </div>
+</div>

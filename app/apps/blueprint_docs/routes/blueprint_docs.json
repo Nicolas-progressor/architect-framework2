@@ -1,0 +1,71 @@
+{
+    "default": "index",
+
+    "routes": {
+        "/": {
+            "module": "home",
+            "controller": "home",
+            "action": "index"
+        },
+        "index": {
+            "module": "home",
+            "controller": "home",
+            "action": "index"
+        },
+        "installation": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "installation"
+        },
+        "syntax": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "syntax"
+        },
+        "variables": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "variables"
+        },
+        "filters": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "filters"
+        },
+        "functions": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "functions"
+        },
+        "control_structures": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "controlStructures"
+        },
+        "inheritance": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "inheritance"
+        },
+        "elements": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "elements"
+        },
+        "extending": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "extending"
+        },
+        "api": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "api"
+        },
+        "integrations": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "integrations"
+        }
+    }
+}

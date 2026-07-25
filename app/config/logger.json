@@ -1,0 +1,11 @@
+{
+    "log_dir": null,
+    "flush_limit": 10,
+    "min_level": "debug",
+    "date_format": "Y-m-d H:i:s",
+    "filename_pattern": "{channel}_{date}.log",
+    "include_context": true,
+    "file_permissions": 755,
+    "max_file_size": 0,
+    "max_files": 0
+}

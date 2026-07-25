@@ -1,0 +1,36 @@
+<footer class="bg-gray-800 text-gray-300 py-8 mt-12">
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4">
+                    <i class="fas fa-database text-purple-400 mr-2"></i>Axiom ORM
+                </h3>
+                <p class="text-sm text-gray-400">
+                    Современная ORM для PHP 8.1+ с поддержкой Query Builder, Миграций, Entity и Cache.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Навигация</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="{{ Html::href('') }}" class="hover:text-purple-400 transition">Главная</a></li>
+                    <li><a href="{{ Html::href('query') }}" class="hover:text-purple-400 transition">Query Builder</a></li>
+                    <li><a href="{{ Html::href('migrations') }}" class="hover:text-purple-400 transition">Миграции</a></li>
+                    <li><a href="{{ Html::href('entity') }}" class="hover:text-purple-400 transition">Сущности</a></li>
+                    <li><a href="{{ Html::href('cache') }}" class="hover:text-purple-400 transition">Кэш</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Документация</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-purple-400 transition">Getting Started</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition">Query Builder</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition">Миграции</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition">Entity</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-500">
+            <p>&copy; 2024 Axiom ORM. Разработано с <i class="fas fa-heart text-red-500"></i> для Architect Framework.</p>
+        </div>
+    </div>
+</footer>

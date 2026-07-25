@@ -1,0 +1,28 @@
+<nav class="bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+            <a href="{{ html().href('') }}" class="flex items-center gap-2 text-white font-bold text-xl">
+                <i class="fas fa-database"></i>
+                Axiom ORM
+            </a>
+            <div class="hidden md:flex items-center space-x-1">
+                {% for item in menu %}
+                <a href="{{ html().href(item.url) }}" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition duration-200 flex items-center gap-2">
+                    <i class="fas {{ item.icon }}"></i>
+                    {{ item.title }}
+                </a>
+                {% endfor %}
+            </div>
+            <button class="md:hidden text-white p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-purple-700 px-4 pb-4">
+        {% for item in menu %}
+        <a href="{{ html().href(item.url) }}" class="block text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg">
+            <i class="fas {{ item.icon }} w-6"></i> {{ item.title }}
+        </a>
+        {% endfor %}
+    </div>
+</nav>

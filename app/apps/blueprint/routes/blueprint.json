@@ -1,0 +1,37 @@
+{
+    "default": "index",
+
+    "routes": {
+        "/": {
+            "module": "home",
+            "controller": "home",
+            "action": "index"
+        },
+        "index": {
+            "module": "home",
+            "controller": "home",
+            "action": "index"
+        },
+        "features": {
+            "module": "features",
+            "controller": "features",
+            "action": "index"
+        },
+        "docs": {
+            "module": "docs",
+            "controller": "docs",
+            "action": "index"
+        },
+        "contact": {
+            "module": "contact",
+            "controller": "contact",
+            "action": "index"
+        },
+        "contact_send": {
+            "module": "contact",
+            "controller": "contact",
+            "action": "send",
+            "notemplate": true
+        }
+    }
+}

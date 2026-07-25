@@ -1,0 +1,551 @@
+# Аудит системы Architect RED 2 / Architect-Framework
+
+Дата аудита: 25.07.2026
+Рабочая директория: `/home/progressor/work/apps/architect_framework_2`
+
+## 1. Краткое резюме
+
+Проект представляет собой собственный PHP-фреймворк Architect RED 2 версии 2.0.0. Архитектура построена вокруг statement-based MVC жизненного цикла, DI-контейнера, сервис-провайдеров, модульной системы приложений, шаблонизатора Blueprint, ORM Axiom, auth/RBAC, очередей и консольного инструмента `arc`.
+
+Общее состояние: проект функционально богатый и активно развиваемый, но требует стабилизации перед production-использованием. Основные риски находятся в конфигурации окружений, управлении секретами, воспроизводимости зависимостей, покрытии тестами и согласованности документации/реального состояния.
+
+Приоритетные выводы:
+
+1. В production-конфигурации обнаружены небезопасные учетные данные БД `root/root`.
+2. JWT secret в `app/config/auth.json` оставлен как заглушка `change-me-in-production-env`.
+3. `composer validate` показывает, что `composer.lock` не синхронизирован с `composer.json`.
+4. Большинство внутренних пакетов подключены через `*@dev`, что снижает воспроизводимость сборок.
+5. В `tests/` найден только один PHPUnit-тест, покрытие критических подсистем низкое.
+6. В текущей директории не обнаружен Git-репозиторий, поэтому невозможно проверить историю, ветки и незакоммиченные изменения штатным способом.
+7. Bootstrap запускает приложение сразу при подключении `architect/bootstrap.php`, что усложняет изоляцию тестов и повторное использование ядра.
+
+## 2. Проверенные области
+
+В ходе аудита были просмотрены:
+
+- `README.md`
+- `composer.json`
+- `phpunit.xml`
+- `docker-compose.yml`
+- `.env.example`
+- `htdocs/index.php`
+- `architect/bootstrap.php`
+- `architect/Core/Container.php`
+- `architect/Core/Framework.php`
+- `architect/Core/Statement.php`
+- `architect/Core/Debug/DebugPanelRenderer.php`
+- `architect/Support/ServiceProviders/ProviderDiscovery.php`
+- `app/config/database.json`
+- `app/config/auth.json`
+- `app/config/debug.json`
+- `app/config/environment/production.json`
+- `tests/Helpers/TitleTest.php`
+
+Также были выполнены проверки:
+
+- `composer validate --no-check-publish`
+- поиск PHPUnit-тестов в `tests/`
+- поиск потенциальных секретов в `app/config/`
+- поиск маркеров технического долга `TODO/FIXME/HACK/XXX`
+- попытка `git status --short`
+
+## 3. Архитектура и жизненный цикл
+
+### Наблюдения
+
+Публичная точка входа находится в `htdocs/index.php`. Она задает основные константы:
+
+- `ROOT_DIR`
+- `APP_DIR`
+- `ARC_DIR`
+- `ROOT_URL`
+
+и подключает `architect/bootstrap.php`.
+
+Bootstrap выполняет полный запуск приложения:
+
+1. Подключает Composer autoload.
+2. Создает `EnvironmentManager`.
+3. Определяет `APP_ENV` и `APP_DEBUG`.
+4. Создает DI-контейнер.
+5. Интегрирует Axiom ORM при наличии класса `AxiomBootstrap`.
+6. Создает `Statement`.
+7. Регистрирует core service providers.
+8. Условно добавляет Blueprint provider.
+9. Загружает discovered providers из кэша.
+10. Регистрирует и boot-ит bundle-ы.
+11. Boot-ит сервисы.
+12. Конфигурирует statement hooks.
+13. Запускает `$framework->run()`.
+
+Жизненный цикл основан на statement-ах:
+
+- `core_preinit`
+- `core_init`
+- `core_load`
+- `core_post_load`
+- `app_load`
+- `app_data`
+- `app_output`
+- `render`
+
+### Сильные стороны
+
+- Жизненный цикл явно структурирован.
+- Есть единый DI-контейнер.
+- Сервисы регистрируются через провайдеры.
+- Есть механизм provider discovery и bundle discovery.
+- Есть возможность подключать локальные пакеты через Composer path repositories.
+
+### Риски
+
+- `architect/bootstrap.php` одновременно инициализирует систему и сразу запускает приложение. Это затрудняет тестирование bootstrap-слоя и повторное использование ядра в CLI/тестах без побочных эффектов.
+- В `bootstrap.php` есть жесткая настройка `ini_set('error_log', '/tmp/php_errors.log')`, что может быть неудобно или небезопасно для production/контейнеров с разными политиками логирования.
+- Discovered providers загружаются только из кэша через `ProviderDiscovery::loadFromCache()`. Если кэш не создан, providers из `composer.json extra.architect.providers` могут не попасть в приложение на runtime, если отдельный процесс discovery не был выполнен заранее.
+
+### Рекомендации
+
+1. Разделить bootstrap на две фазы:
+   - создание приложения/контейнера;
+   - запуск приложения.
+
+   Например:
+
+   - `bootstrap/app.php` возвращает объект приложения;
+   - `htdocs/index.php` вызывает `$app->run()`.
+
+2. Сделать путь error log конфигурируемым через environment/config.
+3. Для provider discovery добавить понятный fallback: если кэша нет, выполнять discovery или явно документировать обязательный шаг `package:discover`.
+
+## 4. DI-контейнер
+
+### Наблюдения
+
+`architect/Core/Container.php` содержит:
+
+- `set()`
+- `get()`
+- `has()`
+- `factory()`
+- `bind()`
+- `singleton()`
+- `lazy()`
+- `alias()`
+- `afterResolving()`
+- автосборку классов через Reflection.
+
+### Сильные стороны
+
+- Контейнер простой и понятный.
+- Есть lazy services.
+- Есть aliases.
+- Есть after-resolving callbacks.
+- Есть автоматическое разрешение объектных зависимостей.
+
+### Риски
+
+- Метод `get()` вызывает `afterResolving` при каждом получении уже созданного instance. Это может приводить к повторному выполнению callback-ов, если потребители ожидают однократное поведение после первого создания сервиса.
+- `singleton()` технически регистрирует factory, которая затем сохраняет instance через `resolveAndStore()`. Это работает, но название может вводить в заблуждение относительно отличий от `factory()`.
+- Автоматическое разрешение зависимостей работает только по class type-hint и не поддерживает union/intersection types, scalar config injection, named bindings.
+
+### Рекомендации
+
+1. Зафиксировать контракт `afterResolving`: вызывается один раз при создании или каждый раз при получении. Если нужен Laravel-подобный смысл, лучше вызывать один раз.
+2. Добавить тесты на `set/get`, `factory`, `singleton`, `lazy`, `alias`, `afterResolving`, auto-wiring и ошибки разрешения.
+3. Документировать ограничения auto-wiring.
+
+## 5. Конфигурация и окружения
+
+### Наблюдения
+
+Конфигурация хранится в JSON-файлах в `app/config/`:
+
+- `database.json`
+- `auth.json`
+- `debug.json`
+- `queue.json`
+- `cache.json`
+- `environment/*.json`
+- и другие.
+
+`.env.example` содержит пример переменных окружения, включая `APP_KEY`.
+
+### Критичные проблемы
+
+#### 5.1 Production DB credentials
+
+В `app/config/environment/production.json` указано:
+
+```json
+"username": "root",
+"password": "root"
+```
+
+Это недопустимо для production-конфигурации.
+
+Риск: компрометация БД, запуск с root-пользователем, отсутствие принципа минимальных привилегий.
+
+Рекомендация: вынести credentials в переменные окружения и использовать отдельного DB-пользователя с минимальными правами.
+
+#### 5.2 JWT secret-заглушка
+
+В `app/config/auth.json` указано:
+
+```json
+"jwt_secret": "change-me-in-production-env"
+```
+
+Риск: если значение попадет в production, JWT-токены будут подделываемыми.
+
+Рекомендация: читать JWT secret только из environment/secret storage; при production и пустом/дефолтном значении — падать на старте.
+
+#### 5.3 Дублирование источников конфигурации
+
+Есть `.env.example` с переменными `DB_HOST`, `DB_NAME`, `DB_USER`, но также есть JSON-конфиги с credentials. Неочевидно, какой источник является главным.
+
+Рекомендация: определить единый порядок приоритета и описать его в README/INSTALL:
+
+1. runtime env variables;
+2. `.env`;
+3. environment JSON;
+4. base JSON;
+5. defaults.
+
+## 6. Безопасность
+
+### Найденные риски
+
+1. Production БД настроена на `root/root`.
+2. JWT secret оставлен заглушкой.
+3. В `docker-compose.yml` MySQL root password также `root`, а PHP-сервис подключается к БД как root.
+4. `debug.json` включает debug-возможности по умолчанию:
+   - `enabled: true`
+   - `show_session: true`
+   - `show_cookies: true`
+   - `show_queries: true`
+5. Debug panel renderer не показывает debug в production через проверку окружения, но базовый конфиг все равно опасен при ошибке определения окружения.
+
+### Рекомендации
+
+1. В production всегда выключать debug на уровне окружения и иметь fail-safe проверку.
+2. Не хранить production-секреты и реальные пароли в JSON-файлах репозитория.
+3. Для Docker development можно оставить простые пароли, но явно отделить dev compose от production compose.
+4. Добавить startup validation:
+   - запрещать `APP_ENV=production` с дефолтным `jwt_secret`;
+   - запрещать production DB user `root`;
+   - запрещать debug enabled в production.
+5. Добавить `.env` в `.gitignore`, если он еще не исключен, и проверить, что реальные секреты не попадают в репозиторий.
+
+## 7. Зависимости и Composer
+
+### Результат проверки
+
+Команда:
+
+```bash
+composer validate --no-check-publish
+```
+
+Результат: `composer.json` валиден, но есть предупреждения.
+
+Основные предупреждения:
+
+- `composer.lock` не синхронизирован с актуальным `composer.json`.
+- В `composer.json` присутствует поле `version`.
+- Многие зависимости указаны как `*@dev`.
+
+Примеры `*@dev`:
+
+- `axiom/orm`
+- `axiom/entity`
+- `axiom/migration`
+- `architect/blueprint`
+- `architect/auth-system`
+- `architect/blueprint-auth`
+- `architect/blueprint-forms`
+- `architect/http-client`
+- `architect/blueprint-helpers`
+- `architect/queue`
+
+### Риски
+
+- Невоспроизводимые сборки.
+- Разные окружения могут получить разное состояние локальных пакетов.
+- Сложнее проводить релизы и откаты.
+
+### Рекомендации
+
+1. Синхронизировать `composer.lock` с `composer.json`.
+2. Для внутренних пакетов ввести версии или хотя бы веточные constraints вместо `*@dev`.
+3. Зафиксировать релизный процесс: tag, changelog, composer update, тесты.
+4. В CI добавить `composer validate --strict`.
+
+## 8. Тесты и качество
+
+### Наблюдения
+
+В `tests/` найден только один PHPUnit-тест:
+
+- `tests/Helpers/TitleTest.php`
+
+Также в корне есть ручные/интеграционные test-файлы:
+
+- `test_queue.php`
+- `test_queue_simple.php`
+- `test_queue_integration.php`
+- `test_validation.php`
+- `test_validation_simple.php`
+- `test-bootstrap-integration.php`
+- `test-bootstrap-integration2.php`
+- `test-bootstrap-integration3.php`
+- `test-bundle-integration.php`
+
+`phpunit.xml` запускает только директорию `tests`, поэтому корневые test-файлы PHPUnit suite не покрываются.
+
+### Риски
+
+- Критические компоненты почти не покрыты автоматическими тестами.
+- Корневые test-файлы могут устаревать и не выполняться регулярно.
+- Нет очевидного покрытия bootstrap, routing, container, config, auth, queue, database, bundle discovery.
+
+### Рекомендации
+
+Минимальный набор тестов для стабилизации:
+
+1. `ContainerTest`
+   - регистрация instance;
+   - factory;
+   - singleton;
+   - lazy;
+   - alias;
+   - afterResolving;
+   - auto-wiring;
+   - not found exception.
+
+2. `EnvironmentManagerTest`
+   - приоритет APP_ENV;
+   - чтение `.env`;
+   - fallback production;
+   - merge environment config.
+
+3. `StatementTest`
+   - порядок выполнения;
+   - priority;
+   - unknown statement;
+   - debug integration mock.
+
+4. `ProviderDiscoveryTest`
+   - root package providers;
+   - installed package providers;
+   - cache loading;
+   - отсутствие cache file.
+
+5. `Bootstrap/AppFactoryTest`
+   - создание приложения без запуска request lifecycle.
+
+6. `SecurityConfigTest`
+   - production не допускает дефолтный JWT secret;
+   - production не допускает debug enabled;
+   - production не допускает root/root DB.
+
+## 9. Docker и окружение разработки
+
+### Наблюдения
+
+`docker-compose.yml` содержит сервисы:
+
+- `mysql_arc2`
+- `php_arc2`
+- `nginx_arc2`
+- `redis_arc2`
+
+Порты:
+
+- MySQL: `3307:3306`
+- Nginx: `8082:80`
+- Redis: `6380:6379`
+
+PHP-сервис монтирует проект целиком в `/var/www/html`.
+
+README требует запускать PHP через Docker, используя `./docker-php`.
+
+### Риски
+
+- PHP-контейнер запускается с `user: root`.
+- Development credentials простые и дублируются в config.
+- Именованные volumes `arc2_storage` и `arc2_cache` перекрывают директории `storage` и `cache` из рабочей копии. Это может быть нормальным решением, но нужно явно документировать, что локальные файлы в этих папках не видны контейнеру после монтирования volume.
+
+### Рекомендации
+
+1. По возможности запускать PHP-контейнер не от root.
+2. Разделить dev и production docker-compose файлы.
+3. Документировать поведение volumes для `storage` и `cache`.
+4. Добавить healthcheck для PHP/Nginx, если окружение используется в CI.
+
+## 10. Debug-панель
+
+### Наблюдения
+
+`DebugPanelRenderer` пропускает вывод панели для API-запросов и если debug выключен. При этом есть дополнительная проверка, не позволяющая включить debug через config в production:
+
+```php
+$forceEnabled = ($debugConfig['enabled'] ?? false) && !$env->isProduction();
+```
+
+Это хорошая защитная мера.
+
+### Риски
+
+- `app/config/debug.json` по умолчанию включает сбор cookies/session/query данных.
+- Ошибка определения окружения может привести к показу чувствительных данных вне dev-среды.
+
+### Рекомендации
+
+1. Сделать базовый `debug.json` более безопасным, а включение полной панели перенести в `environment/development.json`.
+2. Добавить IP whitelist или отдельный debug token для shared staging окружений.
+3. Добавить тест, что debug panel никогда не выводится при `APP_ENV=production`.
+
+## 11. Provider и Bundle discovery
+
+### Наблюдения
+
+Provider discovery читает:
+
+- root `composer.json`;
+- Composer installed packages;
+- `extra.architect.providers`.
+
+Кэш providers хранится в:
+
+```text
+bootstrap/cache/providers.php
+```
+
+Bootstrap загружает providers из кэша:
+
+```php
+$discoveredProviders = ProviderDiscovery::loadFromCache();
+```
+
+### Риски
+
+- Если кэш не создан, providers из composer extra не будут добавлены при обычном runtime bootstrap.
+- В discovery есть точечная правка namespace для `Architect\Auth\AuthServiceProvider`, что указывает на исторический долг/миграцию namespaces.
+
+### Рекомендации
+
+1. Добавить fallback discovery при отсутствии cache в development/testing.
+2. В production требовать заранее сгенерированный кэш и явно падать с понятным сообщением, если его нет.
+3. Убрать namespace workaround после нормализации пакетов или покрыть его тестом.
+
+## 12. Git и управление изменениями
+
+### Наблюдение
+
+Команда:
+
+```bash
+git status --short
+```
+
+вернула:
+
+```text
+fatal: not a git repository (or any parent up to mount point /)
+```
+
+### Риски
+
+- Невозможно проверить незакоммиченные изменения.
+- Невозможно оценить ветку, историю, релизные теги и изменения относительно main/master.
+- Автоматизация качества через git hooks/CI может быть не подключена к этой рабочей копии.
+
+### Рекомендации
+
+1. Убедиться, что проект ведется в VCS.
+2. Если это экспорт без `.git`, проводить аудит в полноценной рабочей копии репозитория.
+3. Добавить базовые CI-проверки: composer validate, phpunit, PHPStan/Psalm при возможности, PHP CS Fixer/Pint/PHPCS.
+
+## 13. Технический долг
+
+### Наблюдения
+
+В проектном коде найден минимум один явный TODO:
+
+- `architect/auth-system/src/Services/OAuth2/OAuthManager.php` — TODO создать событие `OAuthLoginEvent`.
+
+Много TODO/XXX найдено в `vendor/` и node_modules внутри Blueprint extension; это не относится напрямую к коду проекта.
+
+### Рекомендации
+
+1. Исключить `vendor/` и node_modules из регулярных grep-аудитов.
+2. Завести список технического долга по проектному коду.
+3. TODO в OAuth2 либо реализовать, либо оформить issue/task с ожидаемым контрактом события.
+
+## 14. Документация
+
+### Сильные стороны
+
+- Есть `README.md` с Docker-инструкцией.
+- Есть подробный `system_description.md`.
+- Есть большой `KODA.md` с архитектурными деталями.
+- Есть `INSTALL.md`, `docs/`, `techdocs/`, `plans/`.
+
+### Риски
+
+- README краткий и не отражает всю сложность проекта.
+- Корневые test-файлы и реальный процесс запуска тестов описаны недостаточно явно.
+- Неочевидны production-рекомендации по secret management, provider cache, bundle cache, migrations.
+
+### Рекомендации
+
+1. Расширить README разделами:
+   - quick start;
+   - architecture overview;
+   - running tests;
+   - console commands;
+   - package discovery;
+   - production checklist.
+2. Добавить `SECURITY.md` с правилами секретов, debug, production env.
+3. Добавить `CONTRIBUTING.md` с quality gates.
+
+## 15. Приоритетный план улучшений
+
+### P0 — критично перед production
+
+1. Убрать production credentials `root/root` из `app/config/environment/production.json`.
+2. Убрать дефолтный `jwt_secret` из `app/config/auth.json`; читать из env/secret storage.
+3. Добавить startup validation для production-опасных значений.
+4. Синхронизировать `composer.lock` с `composer.json`.
+5. Убедиться, что `.env` не попадает в репозиторий и не содержит production-секреты.
+
+### P1 — стабилизация разработки
+
+1. Разделить bootstrap creation и run.
+2. Добавить тесты для Container, Statement, EnvironmentManager, ProviderDiscovery.
+3. Перенести корневые test-файлы в `tests/` или оформить как documented smoke scripts.
+4. Настроить CI с Composer validate и PHPUnit.
+5. Уточнить provider discovery fallback/production behavior.
+
+### P2 — качество и поддерживаемость
+
+1. Уменьшить использование `*@dev` в зависимостях.
+2. Добавить статический анализ PHPStan/Psalm.
+3. Добавить code style tool.
+4. Улучшить README и добавить production checklist.
+5. Нормализовать namespaces и убрать compatibility workaround в ProviderDiscovery.
+
+## 16. Итоговая оценка
+
+Architect RED 2 выглядит как амбициозный и достаточно продвинутый framework-монорепозиторий с большим числом подсистем. Архитектурно уже есть важные элементы зрелого фреймворка: DI, providers, lifecycle hooks, bundle/discovery, config layers, debug tooling, console, ORM, auth, queue.
+
+Главная проблема сейчас не в отсутствии возможностей, а в стабилизации и операционной надежности:
+
+- безопасная production-конфигурация;
+- воспроизводимые зависимости;
+- автоматические тесты критического ядра;
+- разделение bootstrap/run;
+- четкий процесс discovery/cache;
+- CI и документация для production.
+
+После устранения P0/P1 пунктов проект будет существенно ближе к безопасному и предсказуемому использованию как фреймворк/платформа.

@@ -1,0 +1,22 @@
+{
+    "name": "axiom/cache",
+    "description": "Query caching support for Axiom ORM",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Axiom\\Cache\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "axiom/orm": "^1.0"
+    },
+    "suggest": {
+        "ext-redis": "For Redis cache driver",
+        "ext-memcached": "For Memcached cache driver",
+        "ext-apcu": "For APCu cache driver"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

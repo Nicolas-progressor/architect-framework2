@@ -1,0 +1,167 @@
+{# Functions Page #}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-bp-dark-100 mb-4">Функции</h1>
+    <p class="text-bp-dark-400">Встроенные функции Blueprint</p>
+</div>
+
+<div class="space-y-8">
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Встроенные функции</h2>
+        <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-bp-dark-700">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-bp-dark-300">Функция</th>
+                        <th class="px-4 py-2 text-left text-bp-dark-300">Описание</th>
+                    </tr>
+                </thead>
+                <tbody class="text-bp-dark-300">
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">range(from, to)</td>
+                        <td class="px-4 py-2">Диапазон чисел</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">cycle(values)</td>
+                        <td class="px-4 py-2">Циклический перебор</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">parent()</td>
+                        <td class="px-4 py-2">Содержимое родительского блока</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">block(name)</td>
+                        <td class="px-4 py-2">Вывод блока по имени</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">dump(var)</td>
+                        <td class="px-4 py-2">Отладочный вывод</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">range()</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% for i in range(1, 10) %}
+    {{ i }}
+{% endfor %}
+
+{# Сокращённая запись #}
+{% for i in 1..10 %}
+    {{ i }}
+{% endfor %}
+
+{# Буквы #}
+{% for letter in 'a'..'z' %}
+    {{ letter }}
+{% endfor %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">cycle()</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% for row in rows %}
+    &lt;tr class="{{ cycle(['odd', 'even'], loop.index0) }}"&gt;
+        &lt;td&gt;{{ row.name }}&lt;/td&gt;
+    &lt;/tr&gt;
+{% endfor %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">parent()</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% extends 'base' %}
+
+{% block title %}
+    Страница - {{ parent() }}
+{% endblock %}
+
+{# Результат: "Страница - Сайт" #}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">block()</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% block sidebar %}
+    &lt;div class="sidebar"&gt;...&lt;/div&gt;
+{% endblock %}
+
+{# Вывод блока в другом месте #}
+{{ block('sidebar') }}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">dump()</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{# Отладка переменной #}
+{{ dump(user) }}
+
+{# Несколько переменных #}
+{{ dump(user, items, config) }}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Проверки (is)</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% if variable is defined %}
+    Переменная существует
+{% endif %}
+
+{% if variable is empty %}
+    Переменная пустая
+{% endif %}
+
+{% if variable is not empty %}
+    Переменная не пустая
+{% endif %}
+
+{% if variable is iterable %}
+    Можно перебрать в цикле
+{% endif %}
+
+{% if variable is null %}
+    Переменная равна null
+{% endif %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Тесты (in)</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% if 'admin' in roles %}
+    Пользователь - администратор
+{% endif %}
+
+{% if status in ['active', 'pending'] %}
+    Статус активен или ожидает
+{% endif %}
+
+{% if 5 in 1..10 %}
+    Число в диапазоне
+{% endif %}</pre>{% endraw %}
+        </div>
+    </section>
+</div>
+
+{# Navigation #}
+<div class="flex items-center justify-between pt-8 mt-8 border-t border-bp-dark-700">
+    <a href="/filters" class="flex items-center space-x-2 text-bp-dark-400 hover:text-bp-dark-200 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span>Фильтры</span>
+    </a>
+    <a href="/control_structures" class="flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors">
+        <span>Управляющие конструкции</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>

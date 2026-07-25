@@ -1,0 +1,46 @@
+{
+    "name": "architect/blueprint-forms",
+    "description": "Blueprint integration with Form system - use Form Builder in Blueprint templates",
+    "type": "architect-package",
+    "license": "MIT",
+    "keywords": [
+        "blueprint",
+        "forms",
+        "templating",
+        "architect",
+        "framework"
+    ],
+    "homepage": "https://github.com/architect/blueprint-forms",
+    "authors": [
+        {
+            "name": "Architect Team",
+            "email": "team@architect.dev"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "architect/blueprint": "*@dev"
+    },
+    "require-dev": {
+        "architect/framework": "*@dev"
+    },
+    "suggest": {
+        "architect/framework": "Required for Form service integration"
+    },
+    "autoload": {
+        "psr-4": {
+            "Architect\\BlueprintForms\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "blueprint": {
+            "extension": "Architect\\BlueprintForms\\Extension"
+        }
+    }
+}

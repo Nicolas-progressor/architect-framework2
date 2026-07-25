@@ -1,0 +1,13 @@
+{
+    "home": {
+        "home": {
+            "index": {
+                "card": {
+                    "module": "card",
+                    "controller": "card",
+                    "action": "create"
+                }
+            }
+        }
+    }
+}

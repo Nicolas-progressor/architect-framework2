@@ -1,0 +1,129 @@
+{# Variables Page #}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-bp-dark-100 mb-4">Переменные</h1>
+    <p class="text-bp-dark-400">Работа с переменными в Blueprint</p>
+</div>
+
+<div class="space-y-8">
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Вывод переменных</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{# Простая переменная #}
+{{ name }}
+
+{# Массив #}
+{{ users.0 }}
+{{ users[0] }}
+
+{# Объект #}
+{{ user.name }}
+{{ user.profile.email }}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Присваивание</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% set name = 'John' %}
+{% set age = 25 %}
+{% set isActive = true %}
+{% set tags = ['php', 'html', 'css'] %}
+{% set user = {name: 'John', age: 25} %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Блочное присваивание</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% set content %}
+    &lt;div class="card"&gt;
+        &lt;h2&gt;{{ title }}&lt;/h2&gt;
+        &lt;p&gt;{{ description }}&lt;/p&gt;
+    &lt;/div&gt;
+{% endset %}
+
+{{ content }}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Операции</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{# Математические #}
+{{ price + 100 }}
+{{ price - 10 }}
+{{ price * 2 }}
+{{ price / 5 }}
+{{ price % 3 }}
+
+{# Конкатенация #}
+{{ 'Hello ' ~ name }}
+{{ name ~ ' ' ~ surname }}
+
+{# Логические #}
+{% if isActive and isAdmin %}
+{% if isActive or isModerator %}
+{% if not isBanned %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Проверка существования</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% if user is defined %}
+    {{ user.name }}
+{% endif %}
+
+{% if user is not defined %}
+    Пользователь не найден
+{% endif %}
+
+{{ user.name|default('Гость') }}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Глобальные переменные</h2>
+        <p class="text-bp-dark-300 mb-4">Доступные глобальные переменные:</p>
+        <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-bp-dark-700">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-bp-dark-300">Переменная</th>
+                        <th class="px-4 py-2 text-left text-bp-dark-300">Описание</th>
+                    </tr>
+                </thead>
+                <tbody class="text-bp-dark-300">
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2"><code class="text-bp-accent-400">_self</code></td>
+                        <td class="px-4 py-2">Имя текущего шаблона</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2"><code class="text-bp-accent-400">_context</code></td>
+                        <td class="px-4 py-2">Контекст текущего шаблона</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2"><code class="text-bp-accent-400">loop</code></td>
+                        <td class="px-4 py-2">Переменные цикла (внутри for)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+{# Navigation #}
+<div class="flex items-center justify-between pt-8 mt-8 border-t border-bp-dark-700">
+    <a href="/syntax" class="flex items-center space-x-2 text-bp-dark-400 hover:text-bp-dark-200 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span>Синтаксис</span>
+    </a>
+    <a href="/filters" class="flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors">
+        <span>Фильтры</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>

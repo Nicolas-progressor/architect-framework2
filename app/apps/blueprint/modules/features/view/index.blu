@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Возможности Blueprint</h2>
+            <p class="lead">
+                Шаблонизатор Blueprint предоставляет широкий набор инструментов для создания 
+                современных и гибких шаблонов.
+            </p>
+            
+            <hr class="my-4">
+            
+            <div class="row g-4">
+                {% for feature in features %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card feature-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="{{ feature.icon }} fs-2 text-primary"></i>
+                                <h5 class="card-title mb-0 ms-3">{{ feature.title }}</h5>
+                            </div>
+                            <p class="card-text">{{ feature.description }}</p>
+                            <div class="bg-dark text-light p-3 rounded mt-3">
+                                <code class="small">{{ feature.code }}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <hr class="my-4">
+            
+            <h3>Попробуйте сами</h3>
+            <p>
+                Все шаблоны в этом приложении созданы с использованием синтаксиса Blueprint. 
+                Вы можете изучить исходный код в папке <code>app/apps/blueprint/</code>.
+            </p>
+            
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                <strong>Примечание:</strong> Blueprint автоматически компилирует шаблоны в PHP код 
+                и кэширует их для максимальной производительности.
+            </div>
+        </div>
+    </div>
+</div>

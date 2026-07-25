@@ -1,0 +1,37 @@
+{
+    "debug": false,
+    "error_reporting": "0",
+    "display_errors": false,
+    "log_errors": true,
+    "database": {
+        "default": "mysql",
+        "connections": {
+            "mysql": {
+                "driver": "mysql",
+                "host": "mysql",
+                "port": 3306,
+                "database": "architect",
+                "username": "root",
+                "password": "root",
+                "charset": "utf8mb4",
+                "collation": "utf8mb4_unicode_ci"
+            },
+            "sqlite": {
+                "driver": "sqlite",
+                "database": "database/production.sqlite"
+            }
+        }
+    },
+    "cache": {
+        "driver": "file",
+        "path": "/tmp/cache/production"
+    },
+    "log": {
+        "level": "error",
+        "path": "/tmp/logs/production"
+    },
+    "session": {
+        "name": "ARCHITECT_SESSION",
+        "lifetime": 7200
+    }
+}

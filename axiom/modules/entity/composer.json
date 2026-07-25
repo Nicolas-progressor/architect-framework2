@@ -1,0 +1,20 @@
+{
+    "name": "axiom/entity",
+    "description": "Entity support with PHP 8+ attributes for Axiom ORM",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Axiom\\Entity\\": "src/"
+        },
+        "files": [
+            "src/Annotation/EntityAnnotations.php"
+        ]
+    },
+    "require": {
+        "php": "^8.1",
+        "axiom/orm": "*@dev"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

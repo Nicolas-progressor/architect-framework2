@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  mysql_arc2:
+    image: mysql:8.0
+    container_name: arc2_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: architect
+      MYSQL_USER: architect
+      MYSQL_PASSWORD: architect
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_arc2_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - arc2_network
+
+  php_arc2:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    container_name: arc2_php
+    restart: unless-stopped
+    user: root
+    volumes:
+      - .:/var/www/html
+      - arc2_storage:/var/www/html/storage
+      - arc2_cache:/var/www/html/cache
+    environment:
+      APP_ENV: development
+      DB_CONNECTION: mysql
+      DB_HOST: mysql_arc2
+      DB_PORT: 3306
+      DB_DATABASE: architect
+      DB_USERNAME: root
+      DB_PASSWORD: root
+    depends_on:
+      mysql_arc2:
+        condition: service_healthy
+    networks:
+      - arc2_network
+
+  nginx_arc2:
+    image: nginx:latest
+    container_name: arc2_nginx
+    restart: unless-stopped
+    ports:
+      - "8082:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php_arc2
+    networks:
+      - arc2_network
+
+  redis_arc2:
+    image: redis:7-alpine
+    container_name: arc2_redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    networks:
+      - arc2_network
+
+volumes:
+  mysql_arc2_data:
+  arc2_storage:
+  arc2_cache:
+
+networks:
+  arc2_network:
+    driver: bridge

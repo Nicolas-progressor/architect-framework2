@@ -1,0 +1,11 @@
+{
+    "default": "index",
+    "routes": {
+        "test": {
+            "module": "home",
+            "controller": "home",
+            "action": "index",
+            "app": "test"
+        }
+    }
+}

@@ -1,0 +1,30 @@
+#!/bin/bash
+# Wrapper to run PHP commands inside Docker container
+# Usage: ./docker-php <php_command> [args...]
+# Example: ./docker-php bin/arc migrate
+
+set -e
+
+CONTAINER_NAME="arc2_php"
+SERVICE_NAME="php_arc2"
+
+# Check if docker-compose is available
+if command -v docker-compose &> /dev/null; then
+    COMPOSE_CMD="docker-compose"
+elif command -v docker &> /dev/null && docker compose version &> /dev/null; then
+    COMPOSE_CMD="docker compose"
+else
+    echo "Error: docker-compose or docker compose not found." >&2
+    exit 1
+fi
+
+# Ensure the container is running
+if [ "$($COMPOSE_CMD ps -q $SERVICE_NAME)" = "" ]; then
+    echo "Starting $SERVICE_NAME container..."
+    $COMPOSE_CMD up -d $SERVICE_NAME
+    # Wait a bit for container to be ready
+    sleep 2
+fi
+
+# Execute PHP command inside container
+$COMPOSE_CMD exec -T $SERVICE_NAME php "$@"

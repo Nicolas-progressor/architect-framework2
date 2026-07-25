@@ -1,0 +1,36 @@
+{
+    "default": "index",
+
+    "routes": {
+        "/": {
+            "module": "home",
+            "controller": "home",
+            "action": "index"
+        },
+        "index": {
+            "module": "home",
+            "controller": "home",
+            "action": "index"
+        },
+        "architecture": {
+            "module": "architecture",
+            "controller": "architecture",
+            "action": "index"
+        },
+        "components": {
+            "module": "components",
+            "controller": "components",
+            "action": "index"
+        },
+        "routing": {
+            "module": "routing",
+            "controller": "routing",
+            "action": "index"
+        },
+        "templates": {
+            "module": "templates",
+            "controller": "templates",
+            "action": "index"
+        }
+    }
+}

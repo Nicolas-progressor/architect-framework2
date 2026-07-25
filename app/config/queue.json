@@ -1,0 +1,71 @@
+{
+    "default": "sync",
+    "connections": {
+        "sync": {
+            "driver": "sync"
+        },
+        "database": {
+            "driver": "database",
+            "table": "queue_jobs",
+            "connection": "default"
+        },
+        "redis": {
+            "driver": "redis",
+            "host": "127.0.0.1",
+            "port": 6379,
+            "password": null,
+            "database": 0,
+            "prefix": "queue:",
+            "timeout": 0.0
+        },
+        "beanstalkd": {
+            "driver": "beanstalkd",
+            "host": "127.0.0.1",
+            "port": 11300,
+            "timeout": 60
+        },
+        "sqs": {
+            "driver": "sqs",
+            "key": "",
+            "secret": "",
+            "region": "us-east-1",
+            "queue": "https://sqs.us-east-1.amazonaws.com/your-account-id/your-queue-name",
+            "prefix": "queue:"
+        },
+        "rabbitmq": {
+            "driver": "rabbitmq",
+            "host": "127.0.0.1",
+            "port": 5672,
+            "vhost": "/",
+            "user": "guest",
+            "password": "guest",
+            "queue": "default",
+            "exchange": "amq.direct"
+        }
+    },
+    "queues": {
+        "default": "default",
+        "high": 3,
+        "low": 1
+    },
+    "retry": {
+        "max_attempts": 3,
+        "delay": 60,
+        "exponential": true
+    },
+    "worker": {
+        "timeout": 60,
+        "sleep": 3,
+        "max_jobs": 100,
+        "memory_limit": 128,
+        "stop_on_empty": false
+    },
+    "failed": {
+        "driver": "database",
+        "connection": "default",
+        "table": "failed_jobs"
+    },
+    "custom_drivers": {
+        "my_custom": "App\\Queue\\Drivers\\MyCustomDriver"
+    }
+}

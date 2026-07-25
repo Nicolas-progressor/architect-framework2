@@ -1,0 +1,45 @@
+<?php
+
+return [
+    'required' => 'The :attribute field is required.',
+    'email' => 'The :attribute must be a valid email address.',
+    'numeric' => 'The :attribute must be a number.',
+    'integer' => 'The :attribute must be an integer.',
+    'string' => 'The :attribute must be a string.',
+    'array' => 'The :attribute must be an array.',
+    'min' => [
+        'numeric' => 'The :attribute must be at least :min.',
+        'string' => 'The :attribute must be at least :min characters.',
+        'array' => 'The :attribute must have at least :min items.',
+    ],
+    'max' => [
+        'numeric' => 'The :attribute may not be greater than :max.',
+        'string' => 'The :attribute may not be greater than :max characters.',
+        'array' => 'The :attribute may not have more than :max items.',
+    ],
+    'size' => [
+        'numeric' => 'The :attribute must be :size.',
+        'string' => 'The :attribute must be :size characters.',
+        'array' => 'The :attribute must contain :size items.',
+    ],
+    'in' => 'The selected :attribute is invalid.',
+    'not_in' => 'The selected :attribute is invalid.',
+    'unique' => 'The :attribute has already been taken.',
+    'exists' => 'The selected :attribute is invalid.',
+    'regex' => 'The :attribute format is invalid.',
+    'date' => 'The :attribute is not a valid date.',
+    'before' => 'The :attribute must be a date before :date.',
+    'after' => 'The :attribute must be a date after :date.',
+    'attributes' => [
+        'name' => 'name',
+        'email' => 'email',
+        'password' => 'password',
+        'password_confirmation' => 'password confirmation',
+        'title' => 'title',
+        'description' => 'description',
+        'content' => 'content',
+        'age' => 'age',
+        'phone' => 'phone',
+        'address' => 'address',
+    ],
+];

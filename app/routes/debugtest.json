@@ -1,0 +1,12 @@
+{
+    "default": "index",
+    
+    "routes": {
+        "debugtest": {
+            "module": "debugtest",
+            "controller": "debugtest",
+            "action": "index",
+            "notemplate": true
+        }
+    }
+}

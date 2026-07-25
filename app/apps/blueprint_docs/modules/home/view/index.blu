@@ -1,0 +1,149 @@
+{# Hero Section #}
+<div class="mb-12">
+    <div class="flex items-center space-x-3 mb-4">
+        <div class="w-12 h-12 bg-gradient-to-br from-bp-accent-500 to-bp-blue-500 rounded-xl flex items-center justify-center">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+            </svg>
+        </div>
+        <div>
+            <h1 class="text-3xl font-bold text-bp-dark-100">{{ page_data.title|replace(' — Шаблонизатор для PHP', '') }}</h1>
+            <span class="text-xs text-bp-dark-500 bg-bp-dark-700 px-2 py-0.5 rounded">v1.0</span>
+        </div>
+    </div>
+    
+    <p class="text-xl text-bp-dark-300 mb-2">{{ page_data.subtitle }}</p>
+    <p class="text-bp-dark-400">{{ page_data.description }}</p>
+</div>
+
+{# Quick Start #}
+<div class="mb-12">
+    <h2 class="text-xl font-semibold text-bp-dark-100 mb-4 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-bp-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        Быстрый старт
+    </h2>
+    
+    <div class="code-block p-4 mb-4">
+        <pre class="text-sm"><code class="text-bp-dark-200"><span class="text-bp-dark-500"># Установка через Composer</span>
+<span class="text-bp-green-400">composer require</span> architect/blueprint</code></pre>
+    </div>
+    
+    <div class="code-block p-4">
+        <pre class="text-sm"><code class="text-bp-dark-200"><span class="text-bp-orange-400">&lt;?php</span>
+
+<span class="text-bp-blue-400">use</span> Blueprint\Engine\Blueprint;
+
+<span class="text-bp-dark-500">// Создание экземпляра</span>
+<span class="text-bp-accent-400">$blueprint</span> = <span class="text-bp-blue-400">new</span> Blueprint([
+    <span class="text-bp-green-400">'paths'</span> => [__DIR__ . <span class="text-bp-green-400">'/templates'</span>],
+    <span class="text-bp-green-400">'cache'</span> => __DIR__ . <span class="text-bp-green-400">'/cache/blueprints'</span>,
+    <span class="text-bp-green-400">'cache_enabled'</span> => <span class="text-bp-orange-400">true</span>,
+]);
+
+<span class="text-bp-dark-500">// Рендеринг шаблона</span>
+<span class="text-bp-blue-400">echo</span> <span class="text-bp-accent-400">$blueprint</span>->render(<span class="text-bp-green-400">'page'</span>, [
+    <span class="text-bp-green-400">'title'</span> => <span class="text-bp-green-400">'Привет, мир!'</span>
+]);</code></pre>
+    </div>
+</div>
+
+{# Features #}
+<div class="mb-12">
+    <h2 class="text-xl font-semibold text-bp-dark-100 mb-6 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-bp-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+        </svg>
+        Возможности
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% for feature in features %}
+        <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg p-5 hover:border-bp-dark-600 transition-colors">
+            <div class="flex items-start space-x-3">
+                <div class="w-10 h-10 bg-bp-dark-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                    {% if feature.icon == 'rocket' %}
+                    <svg class="w-5 h-5 text-bp-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    {% elseif feature.icon == 'layers' %}
+                    <svg class="w-5 h-5 text-bp-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                    </svg>
+                    {% elseif feature.icon == 'filter' %}
+                    <svg class="w-5 h-5 text-bp-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                    </svg>
+                    {% elseif feature.icon == 'puzzle' %}
+                    <svg class="w-5 h-5 text-bp-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/>
+                    </svg>
+                    {% elseif feature.icon == 'shield' %}
+                    <svg class="w-5 h-5 text-bp-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    {% elseif feature.icon == 'plugin' %}
+                    <svg class="w-5 h-5 text-bp-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                    </svg>
+                    {% endif %}
+                </div>
+                <div>
+                    <h3 class="font-medium text-bp-dark-100 mb-1">{{ feature.title }}</h3>
+                    <p class="text-sm text-bp-dark-400">{{ feature.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{# Syntax Example #}
+<div class="mb-12">
+    <h2 class="text-xl font-semibold text-bp-dark-100 mb-4 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-bp-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+        </svg>
+        Пример синтаксиса
+    </h2>
+    
+    <div class="code-block p-4">
+        {% raw %}
+        <pre class="text-sm"><code class="text-bp-dark-200"><span class="text-bp-dark-500">{# Переменные #}</span>
+<span class="text-bp-orange-400">{{</span> <span class="text-bp-dark-200">user.name</span> <span class="text-bp-orange-400">}}</span>              <span class="text-bp-dark-500">{# Вывод с экранированием #}</span>
+<span class="text-bp-orange-400">{!!</span> <span class="text-bp-dark-200">html_content</span> <span class="text-bp-orange-400">!!}</span>        <span class="text-bp-dark-500">{# Вывод без экранирования #}</span>
+
+<span class="text-bp-dark-500">{# Фильтры #}</span>
+<span class="text-bp-orange-400">{{</span> <span class="text-bp-dark-200">name</span><span class="text-bp-accent-400">|</span><span class="text-bp-blue-400">upper</span> <span class="text-bp-orange-400">}}</span>                   <span class="text-bp-dark-500">{# Верхний регистр #}</span>
+<span class="text-bp-orange-400">{{</span> <span class="text-bp-dark-200">text</span><span class="text-bp-accent-400">|</span><span class="text-bp-blue-400">truncate</span>(<span class="text-bp-green-400">100</span>) <span class="text-bp-orange-400">}}</span>       <span class="text-bp-dark-500">{# Обрезка текста #}</span>
+
+<span class="text-bp-dark-500">{# Условия #}</span>
+<span class="text-bp-accent-400">{%</span> <span class="text-bp-blue-400">if</span> <span class="text-bp-dark-200">user.isLoggedIn()</span> <span class="text-bp-accent-400">%}</span>
+    <span class="text-bp-dark-200">Добро пожаловать!</span>
+<span class="text-bp-accent-400">{%</span> <span class="text-bp-blue-400">endif</span> <span class="text-bp-accent-400">%}</span>
+
+<span class="text-bp-dark-500">{# Циклы #}</span>
+<span class="text-bp-accent-400">{%</span> <span class="text-bp-blue-400">for</span> <span class="text-bp-dark-200">item</span> <span class="text-bp-blue-400">in</span> <span class="text-bp-dark-200">items</span> <span class="text-bp-accent-400">%}</span>
+    <span class="text-bp-orange-400">{{</span> <span class="text-bp-dark-200">loop.index</span> <span class="text-bp-orange-400">}}</span>: <span class="text-bp-orange-400">{{</span> <span class="text-bp-dark-200">item.name</span> <span class="text-bp-orange-400">}}</span>
+<span class="text-bp-accent-400">{%</span> <span class="text-bp-blue-400">endfor</span> <span class="text-bp-accent-400">%}</span>
+
+<span class="text-bp-dark-500">{# Наследование #}</span>
+<span class="text-bp-accent-400">{%</span> <span class="text-bp-blue-400">extends</span> <span class="text-bp-green-400">'base'</span> <span class="text-bp-accent-400">%}</span>
+<span class="text-bp-accent-400">{%</span> <span class="text-bp-blue-400">block</span> <span class="text-bp-dark-200">content</span> <span class="text-bp-accent-400">%}</span>
+    <span class="text-bp-dark-200">Содержимое страницы</span>
+<span class="text-bp-accent-400">{%</span> <span class="text-bp-blue-400">endblock</span> <span class="text-bp-accent-400">%}</span></code></pre>
+        {% endraw %}
+    </div>
+</div>
+
+{# Navigation #}
+<div class="flex items-center justify-between pt-8 border-t border-bp-dark-700">
+    <div></div>
+    <a href="/installation" class="flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors">
+        <span>Установка</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>

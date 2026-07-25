@@ -1,0 +1,40 @@
+{#
+    Card Element Template
+    
+    Usage:
+        {% element 'card' with {title: 'Title', body: 'Content'} %}
+        {!! element('card', {title: 'Title', body: 'Content', image: '/img.jpg'}) !!}
+    
+    Parameters:
+        - title: Card title (optional)
+        - body: Card body content (required, can be HTML)
+        - footer: Card footer (optional)
+        - image: Top image URL (optional)
+        - image_alt: Image alt text (optional)
+        - class: Additional card classes
+        - header_class: Header classes
+        - body_class: Body classes
+        - footer_class: Footer classes
+#}
+
+<div class="card {{ class|default('') }}">
+    {% if image|default(null) %}
+        <img src="{{ image }}" class="card-img-top" alt="{{ image_alt|default('') }}">
+    {% endif %}
+    
+    {% if title|default(null) %}
+        <div class="card-header {{ header_class|default('') }}">
+            <h5 class="card-title">{{ title }}</h5>
+        </div>
+    {% endif %}
+    
+    <div class="card-body {{ body_class|default('') }}">
+        {{ body|default('')|raw }}
+    </div>
+    
+    {% if footer|default(null) %}
+        <div class="card-footer {{ footer_class|default('') }}">
+            {{ footer }}
+        </div>
+    {% endif %}
+</div>

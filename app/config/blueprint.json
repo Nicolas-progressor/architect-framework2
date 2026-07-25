@@ -1,0 +1,13 @@
+{
+    "debug": true,
+    "autoescape": true,
+    "cache_enabled": true,
+    "cache": "cache/blueprints",
+    "strict_variables": false,
+    "show_errors": true,
+    "paths": [
+        "app/template"
+    ],
+    "extensions": [".blu", ".html"],
+    "elements_dirs": []
+}

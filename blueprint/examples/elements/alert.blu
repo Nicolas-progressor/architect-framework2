@@ -1,0 +1,28 @@
+{#
+    Alert Element Template
+    
+    Usage:
+        {% element 'alert' with {type: 'success', message: 'Saved!'} %}
+        {!! element('alert', {type: 'danger', title: 'Error', message: 'Failed'}) !!}
+    
+    Parameters:
+        - type: success|danger|warning|info|primary|secondary|light|dark (default: info)
+        - message: Alert message (required)
+        - title: Optional heading
+        - dismissible: Show close button (default: false)
+#}
+
+{% set alert_type = type|default('info') %}
+{% set alert_class = 'alert alert-' ~ alert_type %}
+
+<div class="{{ alert_class }}" role="alert">
+    {% if dismissible|default(false) %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {% endif %}
+    
+    {% if title|default(null) %}
+        <h4 class="alert-heading">{{ title }}</h4>
+    {% endif %}
+    
+    {{ message|default('') }}
+</div>

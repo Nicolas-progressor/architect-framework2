@@ -1,0 +1,45 @@
+{
+    "name": "architect/blueprint-auth",
+    "description": "Blueprint integration with Auth system - use Auth helper in Blueprint templates",
+    "type": "architect-package",
+    "license": "MIT",
+    "keywords": [
+        "blueprint",
+        "auth",
+        "authentication",
+        "templating",
+        "architect",
+        "framework"
+    ],
+    "homepage": "https://github.com/architect/blueprint-auth",
+    "authors": [
+        {
+            "name": "Architect Team",
+            "email": "team@architect.dev"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "architect/blueprint": "*@dev",
+        "architect/auth-system": "*@dev"
+    },
+    "require-dev": {
+        "architect/framework": "*@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Architect\\BlueprintAuth\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "blueprint": {
+            "extension": "Architect\\BlueprintAuth\\Extension"
+        }
+    }
+}

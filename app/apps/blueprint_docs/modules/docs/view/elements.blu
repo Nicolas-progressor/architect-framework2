@@ -1,0 +1,107 @@
+{# Elements Page #}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-bp-dark-100 mb-4">Элементы и виджеты</h1>
+    <p class="text-bp-dark-400">Модульные компоненты для повторного использования</p>
+</div>
+
+<div class="space-y-8">
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Концепция</h2>
+        <p class="text-bp-dark-300 mb-4">Элементы (виджеты) — это независимые MVC-модули, которые можно вставлять в шаблоны.</p>
+        <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-bp-dark-300 mb-2">Структура элемента:</h3>
+            <pre class="text-sm text-bp-dark-200">modules/navbar/
+├── widget/
+│   └── navbar.php      # Контроллер виджета
+├── model/
+│   └── navbar.php      # Модель
+└── view/
+    └── navbar.blu      # Шаблон</pre>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Регистрация элемента</h2>
+        <p class="text-bp-dark-300 mb-4">Файл <code>elements.json</code> в папке шаблона:</p>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{
+    "navbar": {
+        "module": "navbar",
+        "controller": "navbar",
+        "action": "create"
+    },
+    "sidebar": {
+        "module": "sidebar",
+        "controller": "sidebar",
+        "action": "create"
+    }
+}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Использование в шаблоне</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{# Вывод элемента #}
+{!! element('navbar') !!}
+
+{# Сокращённая запись #}
+{{ element('navbar') }}
+
+{# Виджет (алиас) #}
+{{ widget('sidebar') }}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Контроллер виджета</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">&lt;?php
+
+namespace app\home\modules\navbar\widget;
+
+use pattern\controller;
+
+class navbar extends controller
+{
+    public function create_app_data(): void
+    {
+        $model = $this-&gt;getModel('navbar');
+        $this-&gt;ext['menu'] = $model-&gt;getMenu();
+    }
+
+    public function create_app_output(): void
+    {
+        $this-&gt;display('navbar');
+    }
+}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Шаблон виджета</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">&lt;nav class="navbar"&gt;
+    {% for item in menu %}
+        &lt;a href="{{ item.url }}"&gt;{{ item.name }}&lt;/a&gt;
+    {% endfor %}
+&lt;/nav&gt;</pre>{% endraw %}
+        </div>
+    </section>
+</div>
+
+{# Navigation #}
+<div class="flex items-center justify-between pt-8 mt-8 border-t border-bp-dark-700">
+    <a href="/inheritance" class="flex items-center space-x-2 text-bp-dark-400 hover:text-bp-dark-200 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span>Наследование</span>
+    </a>
+    <a href="/extending" class="flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors">
+        <span>Расширение</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>

@@ -1,0 +1,17 @@
+{
+    "name": "axiom/migration",
+    "description": "Database migrations support for Axiom ORM",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Axiom\\Migration\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "axiom/orm": "*@dev"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

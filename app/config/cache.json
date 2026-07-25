@@ -1,0 +1,26 @@
+{
+    "default": "file",
+    "prefix": "arch_cache_",
+    "ttl": 3600,
+    "stores": {
+        "array": {
+            "driver": "array"
+        },
+        "file": {
+            "driver": "file",
+            "path": "storage/cache",
+            "directory_permissions": 755,
+            "file_permissions": 644
+        },
+        "redis": {
+            "driver": "redis",
+            "host": "redis_arc2",
+            "port": 6379,
+            "password": null,
+            "database": 0,
+            "timeout": 0.0,
+            "persistent": false,
+            "persistent_id": null
+        }
+    }
+}

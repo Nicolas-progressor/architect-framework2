@@ -1,0 +1,12 @@
+{
+    "navbar": {
+        "module": "navbar",
+        "controller": "navbar",
+        "action": "create"
+    },
+    "footer": {
+        "module": "footer",
+        "controller": "footer",
+        "action": "index"
+    }
+}

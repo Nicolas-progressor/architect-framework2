@@ -1,0 +1,40 @@
+{
+    "name": "Axiom ORM Test",
+    "description": "Тестовое приложение для ORM Axiom",
+    
+    "default_route": {
+        "module": "home",
+        "controller": "home",
+        "action": "index"
+    },
+    
+    "template": "axiom",
+    
+    "routes": {
+        "home": {
+            "module": "home",
+            "controller": "home",
+            "action": "index"
+        },
+        "query": {
+            "module": "query",
+            "controller": "query",
+            "action": "index"
+        },
+        "migrations": {
+            "module": "migrations",
+            "controller": "migrations",
+            "action": "index"
+        },
+        "entity": {
+            "module": "entity",
+            "controller": "entity",
+            "action": "index"
+        },
+        "cache": {
+            "module": "cache",
+            "controller": "cache",
+            "action": "index"
+        }
+    }
+}

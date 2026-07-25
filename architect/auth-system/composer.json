@@ -1,0 +1,57 @@
+{
+    "name": "architect/auth-system",
+    "description": "Authentication and Authorization system (RBAC) for Architect Framework",
+    "type": "architect-package",
+    "license": "MIT",
+    "keywords": [
+        "auth",
+        "authentication",
+        "authorization",
+        "rbac",
+        "security",
+        "architect",
+        "framework"
+    ],
+    "homepage": "https://github.com/architect/auth-system",
+    "authors": [{
+        "name": "Architect Team",
+        "email": "team@architect.dev"
+    }],
+    "require": {
+        "php": ">=8.2",
+        "architect/framework": "*@dev",
+        "firebase/php-jwt": "^6.0",
+        "psr/container": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Architect\\AuthSystem\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Architect\\AuthSystem\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "architect": {
+            "providers": [
+                "Architect\\AuthSystem\\AuthServiceProvider"
+            ],
+            "middleware": [
+                "Architect\\AuthSystem\\Middleware\\AuthMiddleware",
+                "Architect\\AuthSystem\\Middleware\\GuestMiddleware",
+                "Architect\\AuthSystem\\Middleware\\RoleMiddleware"
+            ]
+        }
+    }
+}

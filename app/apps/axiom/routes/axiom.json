@@ -1,0 +1,99 @@
+{
+    "default": "index",
+    "routes": {
+        "/": {
+            "module": "home",
+            "controller": "home",
+            "action": "index"
+        },
+        "index": {
+            "module": "home",
+            "controller": "home",
+            "action": "index"
+        },
+        "query": {
+            "module": "query",
+            "controller": "query",
+            "action": "index"
+        },
+        "query_run": {
+            "module": "query",
+            "controller": "query",
+            "action": "run",
+            "notemplate": true
+        },
+        "query_data": {
+            "module": "query",
+            "controller": "query",
+            "action": "data",
+            "notemplate": true
+        },
+        "migrations": {
+            "module": "migrations",
+            "controller": "migrations",
+            "action": "index"
+        },
+        "migrations_run": {
+            "module": "migrations",
+            "controller": "migrations",
+            "action": "run",
+            "notemplate": true
+        },
+        "migrations_rollback": {
+            "module": "migrations",
+            "controller": "migrations",
+            "action": "rollback",
+            "notemplate": true
+        },
+        "entity": {
+            "module": "entity",
+            "controller": "entity",
+            "action": "index"
+        },
+        "entity_create": {
+            "module": "entity",
+            "controller": "entity",
+            "action": "create",
+            "notemplate": true
+        },
+        "entity_data": {
+            "module": "entity",
+            "controller": "entity",
+            "action": "data",
+            "notemplate": true
+        },
+        "info": {
+            "module": "info",
+            "controller": "info",
+            "action": "index"
+        },
+        "info_data": {
+            "module": "info",
+            "controller": "info",
+            "action": "data",
+            "notemplate": true
+        },
+        "infoentity": {
+            "module": "infoentity",
+            "controller": "infoentity",
+            "action": "index"
+        },
+        "infoentity_data": {
+            "module": "infoentity",
+            "controller": "infoentity",
+            "action": "data",
+            "notemplate": true
+        },
+        "cache": {
+            "module": "cache",
+            "controller": "cache",
+            "action": "index"
+        },
+        "cache_clear": {
+            "module": "cache",
+            "controller": "cache",
+            "action": "clear",
+            "notemplate": true
+        }
+    }
+}

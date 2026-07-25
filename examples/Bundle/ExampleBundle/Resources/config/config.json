@@ -1,0 +1,43 @@
+{
+    "example": {
+        "name": "Example Bundle",
+        "version": "1.0.0",
+        "enabled": true,
+        "settings": {
+            "debug": false,
+            "cache": true,
+            "cache_ttl": 3600,
+            "max_items": 100
+        },
+        "routes": {
+            "prefix": "/example",
+            "middleware": ["web"],
+            "namespace": "Examples\\Bundle\\ExampleBundle\\Controller"
+        },
+        "views": {
+            "paths": ["Resources/views"],
+            "compiled_path": "var/cache/example",
+            "extensions": [".blu", ".php", ".html"]
+        },
+        "assets": {
+            "public_path": "bundles/example",
+            "versioning": true,
+            "version_strategy": "timestamp"
+        },
+        "database": {
+            "tables": {
+                "examples": "example_items",
+                "categories": "example_categories"
+            },
+            "migrations": {
+                "path": "Migrations",
+                "namespace": "Examples\\Bundle\\ExampleBundle\\Migrations"
+            }
+        },
+        "services": {
+            "auto_register": true,
+            "auto_wire": true,
+            "public_services": ["example.service", "example.repository"]
+        }
+    }
+}

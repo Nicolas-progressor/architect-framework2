@@ -1,0 +1,185 @@
+{# Filters Page #}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-bp-dark-100 mb-4">Фильтры</h1>
+    <p class="text-bp-dark-400">Преобразование данных в шаблонах</p>
+</div>
+
+<div class="space-y-8">
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Строковые фильтры</h2>
+        <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-bp-dark-700">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-bp-dark-300">Фильтр</th>
+                        <th class="px-4 py-2 text-left text-bp-dark-300">Описание</th>
+                    </tr>
+                </thead>
+                <tbody class="text-bp-dark-300">
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">upper</td>
+                        <td class="px-4 py-2">Верхний регистр</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">lower</td>
+                        <td class="px-4 py-2">Нижний регистр</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">capitalize</td>
+                        <td class="px-4 py-2">Первая буква заглавная</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">trim</td>
+                        <td class="px-4 py-2">Удалить пробелы</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">escape / e</td>
+                        <td class="px-4 py-2">Экранирование HTML</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">truncate(n)</td>
+                        <td class="px-4 py-2">Обрезать до n символов</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="code-block p-4 mt-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{{ name|upper }}           {# JOHN #}
+{{ name|lower }}           {# john #}
+{{ text|truncate(50) }}    {# Первые 50 символов... #}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Числовые фильтры</h2>
+        <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-bp-dark-700">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-bp-dark-300">Фильтр</th>
+                        <th class="px-4 py-2 text-left text-bp-dark-300">Описание</th>
+                    </tr>
+                </thead>
+                <tbody class="text-bp-dark-300">
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">number_format</td>
+                        <td class="px-4 py-2">Форматирование числа</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">round</td>
+                        <td class="px-4 py-2">Округление</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">abs</td>
+                        <td class="px-4 py-2">Модуль числа</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">format</td>
+                        <td class="px-4 py-2">Форматирование (sprintf)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="code-block p-4 mt-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{{ price|number_format(2, '.', ' ') }}  {# 1 234.56 #}
+{{ number|round(2) }}                   {# Округление до 2 знаков #}
+{{ number|abs }}                        {# Модуль #}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Фильтры дат</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{{ date|date('d.m.Y') }}           {# 25.12.2024 #}
+{{ date|date('H:i:s') }}           {# 14:30:00 #}
+{{ date|date('d F Y') }}           {# 25 декабря 2024 #}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Фильтры массивов</h2>
+        <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-bp-dark-700">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-bp-dark-300">Фильтр</th>
+                        <th class="px-4 py-2 text-left text-bp-dark-300">Описание</th>
+                    </tr>
+                </thead>
+                <tbody class="text-bp-dark-300">
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">length</td>
+                        <td class="px-4 py-2">Количество элементов</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">first</td>
+                        <td class="px-4 py-2">Первый элемент</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">last</td>
+                        <td class="px-4 py-2">Последний элемент</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">join(', ')</td>
+                        <td class="px-4 py-2">Объединить в строку</td>
+                    </tr>
+                    <tr class="border-b border-bp-dark-700">
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">sort</td>
+                        <td class="px-4 py-2">Сортировка</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 font-mono text-bp-accent-400">reverse</td>
+                        <td class="px-4 py-2">В обратном порядке</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="code-block p-4 mt-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{{ items|length }}           {# 5 #}
+{{ items|first }}            {# Первый элемент #}
+{{ items|join(', ') }}       {# one, two, three #}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Другие фильтры</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{# Значение по умолчанию #}
+{{ name|default('Гость') }}
+
+{# JSON #}
+{{ data|json_encode }}
+{{ data|json_encode(constant('JSON_PRETTY_PRINT')) }}
+
+{# URL #}
+{{ text|url_encode }}
+
+{# Сырой вывод #}
+{{ html|raw }}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Цепочка фильтров</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{{ name|trim|upper|default('ГОСТЬ') }}
+{{ items|sort|first|upper }}</pre>{% endraw %}
+        </div>
+    </section>
+</div>
+
+{# Navigation #}
+<div class="flex items-center justify-between pt-8 mt-8 border-t border-bp-dark-700">
+    <a href="/variables" class="flex items-center space-x-2 text-bp-dark-400 hover:text-bp-dark-200 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span>Переменные</span>
+    </a>
+    <a href="/functions" class="flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors">
+        <span>Функции</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>

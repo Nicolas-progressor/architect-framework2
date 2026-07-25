@@ -1,0 +1,159 @@
+{# Control Structures Page #}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-bp-dark-100 mb-4">Управляющие конструкции</h1>
+    <p class="text-bp-dark-400">Условия, циклы и логика в шаблонах</p>
+</div>
+
+<div class="space-y-8">
+    {# If #}
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Условия (if/elseif/else)</h2>
+
+        <div class="code-block p-4 mb-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% if user.isLoggedIn() %}
+    Добро пожаловать
+{% elseif user.isGuest() %}
+    Пожалуйста, войдите
+{% else %}
+    Ошибка
+{% endif %}</pre>{% endraw %}
+        </div>
+
+        <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg p-4">
+            <h3 class="text-sm font-medium text-bp-dark-300 mb-2">Операторы сравнения:</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                <code class="text-bp-accent-400">==</code><span class="text-bp-dark-400">равно</span>
+                <code class="text-bp-accent-400">!=</code><span class="text-bp-dark-400">не равно</span>
+                <code class="text-bp-accent-400">&gt;</code><span class="text-bp-dark-400">больше</span>
+                <code class="text-bp-accent-400">&lt;</code><span class="text-bp-dark-400">меньше</span>
+                <code class="text-bp-accent-400">&gt;=</code><span class="text-bp-dark-400">больше или равно</span>
+                <code class="text-bp-accent-400">&lt;=</code><span class="text-bp-dark-400">меньше или равно</span>
+                <code class="text-bp-accent-400">and</code><span class="text-bp-dark-400">логическое И</span>
+                <code class="text-bp-accent-400">or</code><span class="text-bp-dark-400">логическое ИЛИ</span>
+            </div>
+        </div>
+    </section>
+
+    {# For #}
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Циклы (for)</h2>
+
+        <div class="space-y-4">
+            <div>
+                <h3 class="text-sm font-medium text-bp-dark-300 mb-2">Простой цикл:</h3>
+                <div class="code-block p-4">
+                    {% raw %}<pre class="text-sm text-bp-dark-200">{% for item in items %}
+    {{ loop.index }}: {{ item.name }}
+{% endfor %}</pre>{% endraw %}
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-medium text-bp-dark-300 mb-2">С ключом:</h3>
+                <div class="code-block p-4">
+                    {% raw %}<pre class="text-sm text-bp-dark-200">{% for key, item in items %}
+    {{ key }}: {{ item }}
+{% endfor %}</pre>{% endraw %}
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-medium text-bp-dark-300 mb-2">Переменные loop:</h3>
+                <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead class="bg-bp-dark-700">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-bp-dark-300">Переменная</th>
+                                <th class="px-4 py-2 text-left text-bp-dark-300">Описание</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-bp-dark-300">
+                            <tr class="border-b border-bp-dark-700">
+                                <td class="px-4 py-2"><code class="text-bp-accent-400">loop.index</code></td>
+                                <td class="px-4 py-2">Текущая итерация (начиная с 1)</td>
+                            </tr>
+                            <tr class="border-b border-bp-dark-700">
+                                <td class="px-4 py-2"><code class="text-bp-accent-400">loop.index0</code></td>
+                                <td class="px-4 py-2">Текущая итерация (начиная с 0)</td>
+                            </tr>
+                            <tr class="border-b border-bp-dark-700">
+                                <td class="px-4 py-2"><code class="text-bp-accent-400">loop.first</code></td>
+                                <td class="px-4 py-2">Первая итерация?</td>
+                            </tr>
+                            <tr class="border-b border-bp-dark-700">
+                                <td class="px-4 py-2"><code class="text-bp-accent-400">loop.last</code></td>
+                                <td class="px-4 py-2">Последняя итерация?</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2"><code class="text-bp-accent-400">loop.length</code></td>
+                                <td class="px-4 py-2">Общее количество элементов</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# For Else #}
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Цикл с else</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% for item in items %}
+    {{ item.name }}
+{% else %}
+    Нет элементов
+{% endfor %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    {# Break Continue #}
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">break и continue</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% for item in items %}
+    {% if loop.index > 10 %}
+        {% break %}
+    {% endif %}
+
+    {% if item.hidden %}
+        {% continue %}
+    {% endif %}
+
+    {{ item.name }}
+{% endfor %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    {# Set #}
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Присваивание (set)</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% set name = 'John' %}
+{% set count = items|length %}
+{% set isActive = true %}
+
+{# Блочная форма #}
+{% set content %}
+    Многострочный
+    контент
+{% endset %}</pre>{% endraw %}
+        </div>
+    </section>
+</div>
+
+{# Navigation #}
+<div class="flex items-center justify-between pt-8 mt-8 border-t border-bp-dark-700">
+    <a href="/functions" class="flex items-center space-x-2 text-bp-dark-400 hover:text-bp-dark-200 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span>Функции</span>
+    </a>
+    <a href="/inheritance" class="flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors">
+        <span>Наследование</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>

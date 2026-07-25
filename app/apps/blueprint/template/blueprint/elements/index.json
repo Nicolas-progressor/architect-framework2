@@ -1,0 +1,13 @@
+{
+    "home": {
+        "home": {
+            "index": {
+                "hero": {
+                    "module": "hero",
+                    "controller": "hero",
+                    "action": "create"
+                }
+            }
+        }
+    }
+}

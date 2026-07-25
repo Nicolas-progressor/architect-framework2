@@ -1,0 +1,62 @@
+{
+  "comments": {
+    "blockComment": ["{#", "#}"]
+  },
+  "brackets": [
+    ["{%", "%}"],
+    ["{{", "}}"],
+    ["{!", "!}"],
+    ["[", "]"],
+    ["(", ")"],
+    ["{", "}"]
+  ],
+  "autoClosingPairs": [
+    {
+      "open": "{%",
+      "close": "%}"
+    },
+    {
+      "open": "{{",
+      "close": "}}"
+    },
+    {
+      "open": "{!",
+      "close": "!}"
+    },
+    {
+      "open": "{#",
+      "close": "#}"
+    },
+    {
+      "open": "[",
+      "close": "]"
+    },
+    {
+      "open": "(",
+      "close": ")"
+    },
+    {
+      "open": "'",
+      "close": "'",
+      "notIn": ["string", "comment"]
+    },
+    {
+      "open": "\"",
+      "close": "\"",
+      "notIn": ["string", "comment"]
+    }
+  ],
+  "surroundingPairs": [
+    ["'", "'"],
+    ["\"", "\""],
+    ["[", "]"],
+    ["(", ")"],
+    ["{", "}"]
+  ],
+  "autoCloseBefore": "%} #} }} !} \n\t",
+  "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
+  "indentationRules": {
+    "increaseIndentPattern": "{%\\s*(?:if|for|block|macro|apply|verbatim|capture|spaceless).*%}",
+    "decreaseIndentPattern": "{%\\s*(?:endif|endfor|endblock|endmacro|endapply|endverbatim|endcapture|endspaceless).*%}"
+  }
+}

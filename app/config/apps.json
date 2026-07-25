@@ -1,0 +1,12 @@
+{
+    "app_routing": true,
+    "apps": {
+        "architect": "architect",
+        "home": "home",
+        "blueprint": "blueprint",
+        "blueprint_docs": "blueprint_docs",
+        "axiom": "axiom",
+        "test": "test"
+    },
+    "default": "axiom"
+}

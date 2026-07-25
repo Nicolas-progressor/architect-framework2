@@ -1,0 +1,120 @@
+{% block title %}Axiom Info (Entity) - Компоненты системы{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">
+        <i class="fas fa-cube text-purple-600 mr-2"></i>Axiom ORM - Entity
+    </h1>
+    <p class="text-gray-600 mb-8">Информация о компонентах системы (через Entity Manager)</p>
+    
+    <div class="grid lg:grid-cols-2 gap-8 mb-8">
+        <!-- Entity Method -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-cube text-purple-600 mr-2"></i>Entity Manager
+            </h2>
+            <p class="text-gray-600 mb-4">
+                Работа с данными через PHP 8 атрибуты и классы-сущности.
+            </p>
+            <div class="bg-gray-900 rounded-lg p-4">
+                <pre class="text-gray-300 text-sm font-mono"><code><span class="text-purple-400">use</span> Axiom\Entity\EntityManager;
+
+<span class="text-purple-400">$rows</span> = <span class="text-green-400">Orm</span>::table(<span class="text-green-400">'axiom_info'</span>)->get();
+
+<span class="text-purple-400">foreach</span> (<span class="text-green-400">$rows</span> <span class="text-yellow-400">as</span> <span class="text-green-400">$row</span>) {
+    <span class="text-green-400">$entity</span> = <span class="text-green-400">EntityManager</span>::<span class="text-blue-400">map</span>(<span class="text-green-400">AxiomInfo</span>::<span class="text-yellow-400">class</span>, <span class="text-green-400">$row</span>);
+    <span class="text-green-400">$title</span> = <span class="text-green-400">$entity</span>-><span class="text-blue-400">getTitle</span>();
+}</code></pre>
+            </div>
+        </div>
+        
+        <!-- Entity Class -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-code text-blue-600 mr-2"></i>AxiomInfo Entity
+            </h2>
+            <p class="text-gray-600 mb-4">
+                Класс сущности с атрибутами для маппинга.
+            </p>
+            <div class="bg-gray-900 rounded-lg p-4">
+                <pre class="text-gray-300 text-sm font-mono overflow-x-auto"><code><span class="text-purple-400">#[</span><span class="text-green-400">ORM\Entity</span>(<span class="text-blue-400">table</span>: <span class="text-green-400">'axiom_info'</span><span class="text-purple-400">]</span>
+<span class="text-yellow-400">class</span> <span class="text-green-400">AxiomInfo</span>
+{
+    <span class="text-purple-400">#[</span><span class="text-green-400">ORM\Id</span><span class="text-purple-400">]</span>
+    <span class="text-purple-400">#[</span><span class="text-green-400">ORM\Column</span>(<span class="text-blue-400">name</span>: <span class="text-green-400">'id'</span>]<span class="text-purple-400">]</span>
+    <span class="text-blue-400">private</span> ?<span class="text-blue-400">int</span> <span class="text-red-400">$id</span>;
+
+    <span class="text-purple-400">#[</span><span class="text-green-400">ORM\Column</span>(<span class="text-blue-400">name</span>: <span class="text-green-400">'title'</span>]<span class="text-purple-400">]</span>
+    <span class="text-blue-400">private</span> <span class="text-blue-400">string</span> <span class="text-red-400">$title</span>;
+    
+    <span class="text-gray-500">// ... геттеры и сеттеры</span>
+}</code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Info by Category (Entity) -->
+    {% if info_by_category %}
+    <div class="space-y-8">
+        {% for category, items in info_by_category %}
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <span class="px-3 py-1 text-sm rounded-full bg-purple-100 text-purple-800 mr-3">
+                    {{ category|upper }}
+                </span>
+                <span class="text-gray-500 text-sm font-normal">({{ items|length }} компонентов)</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                {% for item in items %}
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                    <div class="flex items-start justify-between mb-2">
+                        <h3 class="font-bold text-gray-800">{{ item.title }}</h3>
+                        <span class="text-xs px-2 py-1 bg-purple-100 text-purple-600 rounded">v{{ item.version }}</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">{{ item.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- All Info List (Entity) -->
+    <div class="mt-8 bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-list text-purple-600 mr-2"></i>Все компоненты (Entity)
+        </h2>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-purple-50">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-purple-700">#</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-purple-700">Название</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-purple-700">Версия</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-purple-700">Категория</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-purple-700">Описание</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% for item in info_list %}
+                    <tr class="hover:bg-purple-50">
+                        <td class="px-4 py-3 text-sm text-gray-500">{{ item.sortOrder }}</td>
+                        <td class="px-4 py-3 text-sm font-medium">{{ item.title }}</td>
+                        <td class="px-4 py-3 text-sm">
+                            <span class="px-2 py-1 text-xs bg-purple-100 text-purple-800 rounded">{{ item.version }}</span>
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                            <span class="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded">{{ item.category }}</span>
+                        </td>
+                        <td class="px-4 py-3 text-sm text-gray-600 max-w-md">{{ item.description }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

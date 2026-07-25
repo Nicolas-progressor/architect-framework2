@@ -1,0 +1,162 @@
+{% block title %}Cache - Axiom ORM{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">
+        <i class="fas fa-bolt text-orange-600 mr-2"></i>Cache
+    </h1>
+    <p class="text-gray-600 mb-8">Кэширование запросов с поддержкой различных драйверов</p>
+    
+    <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Управление кэшем -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-cogs text-purple-600 mr-2"></i>Управление
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-info-circle text-orange-600 text-xl"></i>
+                        <div>
+                            <p class="font-medium text-orange-800">Демо режим</p>
+                            <p class="text-sm text-orange-600">Полная функциональность доступна с настроенным драйвером</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="btn-clear" class="w-full bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 transition flex items-center justify-center">
+                    <i class="fas fa-trash mr-2"></i>Очистить кэш
+                </button>
+                
+                <div id="cache-result" class="hidden">
+                    <div id="result-content" class="p-4 rounded-lg"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Статистика -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-chart-pie text-blue-600 mr-2"></i>Статистика
+            </h2>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-blue-50 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold text-blue-600">{{ stats.hits }}</div>
+                    <div class="text-sm text-gray-600">Hits</div>
+                </div>
+                <div class="bg-red-50 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold text-red-600">{{ stats.misses }}</div>
+                    <div class="text-sm text-gray-600">Misses</div>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold text-green-600">{{ stats.driver }}</div>
+                    <div class="text-sm text-gray-600">Драйвер</div>
+                </div>
+                <div class="bg-purple-50 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold text-purple-600">{{ stats.size }}</div>
+                    <div class="text-sm text-gray-600">Размер</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Доступные драйверы -->
+    <div class="mt-8 bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-database text-indigo-600 mr-2"></i>Поддерживаемые драйверы
+        </h2>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                <i class="fas fa-memory text-2xl text-gray-600 mb-2"></i>
+                <div class="font-medium">Array</div>
+                <div class="text-xs text-gray-500">In-memory</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                <i class="fas fa-server text-2xl text-blue-600 mb-2"></i>
+                <div class="font-medium">APCu</div>
+                <div class="text-xs text-gray-500">APC User Cache</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                <i class="fas fa-network-wired text-2xl text-red-600 mb-2"></i>
+                <div class="font-medium">Redis</div>
+                <div class="text-xs text-gray-500">Redis Cache</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                <i class="fas fa-server text-2xl text-green-600 mb-2"></i>
+                <div class="font-medium">Memcached</div>
+                <div class="text-xs text-gray-500">Memcached</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                <i class="fas fa-folder text-2xl text-yellow-600 mb-2"></i>
+                <div class="font-medium">File</div>
+                <div class="text-xs text-gray-500">File System</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Примеры использования -->
+    <div class="mt-8 bg-gray-900 rounded-xl shadow-md p-6">
+        <h2 class="text-xl font-bold text-white mb-4">
+            <i class="fas fa-code text-green-400 mr-2"></i>Примеры использования
+        </h2>
+        
+        <div class="space-y-4">
+            <div class="bg-gray-800 text-gray-300 p-4 rounded-lg text-sm font-mono">
+                <span class="text-purple-400">use</span> Axiom\Orm\Orm;<br><br>
+                <span class="text-gray-500">// Кэширование запроса на 5 минут</span><br>
+                <span class="text-blue-400">$users</span> = Orm::table(<span class="text-green-400">'users'</span>)<br>
+                &nbsp;&nbsp;->where(<span class="text-green-400">'status'</span>, <span class="text-green-400">'active'</span>)<br>
+                &nbsp;&nbsp;-><span class="text-yellow-400">cache</span>(<span class="text-blue-400">300</span>)<br>
+                &nbsp;&nbsp;->get();
+            </div>
+            
+            <div class="bg-gray-800 text-gray-300 p-4 rounded-lg text-sm font-mono">
+                <span class="text-gray-500">// Свой ключ кэша</span><br>
+                <span class="text-blue-400">$users</span> = Orm::table(<span class="text-green-400">'users'</span>)<br>
+                &nbsp;&nbsp;-><span class="text-yellow-400">remember</span>(<span class="text-green-400">'popular_users'</span>, <span class="text-blue-400">600</span>)<br>
+                &nbsp;&nbsp;->get();
+            </div>
+            
+            <div class="bg-gray-800 text-gray-300 p-4 rounded-lg text-sm font-mono">
+                <span class="text-purple-400">use</span> Axiom\Cache\Cache;<br><br>
+                <span class="text-gray-500">// Прямое использование</span><br>
+                Cache::<span class="text-blue-400">set</span>(<span class="text-green-400">'key'</span>, <span class="text-blue-400">$data</span>, <span class="text-blue-400">300</span>);<br>
+                <span class="text-blue-400">$data</span> = Cache::<span class="text-blue-400">get</span>(<span class="text-green-400">'key'</span>);<br>
+                Cache::<span class="text-blue-400">forget</span>(<span class="text-green-400">'key'</span>);
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('btn-clear').addEventListener('click', async () => {
+    if (!confirm('Очистить кэш?')) return;
+    
+    const resultDiv = document.getElementById('cache-result');
+    const resultContent = document.getElementById('result-content');
+    
+    resultDiv.classList.remove('hidden');
+    resultContent.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Очистка...';
+    resultContent.className = 'p-4 rounded-lg bg-gray-100';
+    
+    try {
+        const response = await fetch('/cache_clear');
+        const result = await response.json();
+        
+        if (result.success) {
+            resultContent.className = 'p-4 rounded-lg bg-green-100 text-green-800';
+            resultContent.innerHTML = '<i class="fas fa-check-circle mr-2"></i>' + result.message;
+        } else {
+            resultContent.className = 'p-4 rounded-lg bg-red-100 text-red-800';
+            resultContent.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>' + result.message;
+        }
+    } catch (error) {
+        resultContent.className = 'p-4 rounded-lg bg-red-100 text-red-800';
+        resultContent.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Ошибка: ' + error.message;
+    }
+});
+</script>
+{% endblock %}

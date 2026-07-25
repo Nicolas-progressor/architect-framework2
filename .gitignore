@@ -1,0 +1,46 @@
+# Dependencies
+/vendor/
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+nbproject/
+
+# Environment
+.env
+
+# Cache
+/cache/
+/bootstrap/cache/
+*.cache
+
+# Logs
+*.log
+app/logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+database/*.sqlite
+
+# Test artifacts
+coverage.xml
+.phpunit.result.cache
+.phpstan.cache
+
+# Temporary
+storage/*
+!storage/.gitkeep
+*.tmp
+*.swp
+
+# Build artifacts
+composer.lock
+
+# Manual test files (keep in separate branch or remove)
+test-*.php
+test_*.php
+test-*.php

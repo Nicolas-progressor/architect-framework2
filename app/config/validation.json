@@ -1,0 +1,47 @@
+{
+    "default_language": "ru",
+    "messages": {
+        "required": "Поле :attribute обязательно для заполнения.",
+        "email": "Поле :attribute должно быть корректным email адресом.",
+        "numeric": "Поле :attribute должно быть числом.",
+        "integer": "Поле :attribute должно быть целым числом.",
+        "string": "Поле :attribute должно быть строкой.",
+        "array": "Поле :attribute должно быть массивом.",
+        "min": {
+            "numeric": "Поле :attribute должно быть не меньше :min.",
+            "string": "Поле :attribute должно содержать не меньше :min символов.",
+            "array": "Поле :attribute должно содержать не меньше :min элементов."
+        },
+        "max": {
+            "numeric": "Поле :attribute должно быть не больше :max.",
+            "string": "Поле :attribute должно содержать не больше :max символов.",
+            "array": "Поле :attribute должно содержать не больше :max элементов."
+        },
+        "size": {
+            "numeric": "Поле :attribute должно быть равным :size.",
+            "string": "Поле :attribute должно содержать :size символов.",
+            "array": "Поле :attribute должно содержать :size элементов."
+        },
+        "in": "Поле :attribute должно быть одним из допустимых значений: :values.",
+        "not_in": "Поле :attribute не должно быть одним из запрещенных значений: :values.",
+        "unique": "Поле :attribute уже существует.",
+        "exists": "Выбранное значение для поля :attribute не существует.",
+        "regex": "Поле :attribute имеет неверный формат.",
+        "date": "Поле :attribute должно быть корректной датой.",
+        "before": "Поле :attribute должно быть датой до :date.",
+        "after": "Поле :attribute должно быть датой после :date."
+    },
+    "custom_rules": {},
+    "attributes": {
+        "name": "имя",
+        "email": "email",
+        "password": "пароль",
+        "password_confirmation": "подтверждение пароля",
+        "title": "заголовок",
+        "description": "описание",
+        "content": "содержание",
+        "age": "возраст",
+        "phone": "телефон",
+        "address": "адрес"
+    }
+}

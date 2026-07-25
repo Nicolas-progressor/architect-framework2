@@ -1,0 +1,12 @@
+{
+    "default": "index",
+    
+    "routes": {
+        "testmodule": {
+            "module": "testmodule",
+            "controller": "testmodule",
+            "action": "index",
+            "notemplate": true
+        }
+    }
+}

@@ -1,0 +1,248 @@
+{
+  "name": "Blueprint",
+  "scopeName": "text.html.blueprint",
+  "fileTypes": [".blu", ".blueprint"],
+  "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "patterns": [
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#tag"
+    },
+    {
+      "include": "#variable"
+    },
+    {
+      "include": "#variable-raw"
+    },
+    {
+      "include": "text.html.basic"
+    }
+  ],
+  "repository": {
+    "comment": {
+      "name": "comment.block.blueprint",
+      "begin": "\\{#",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.comment.begin.blueprint"
+        }
+      },
+      "end": "#\\}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.comment.end.blueprint"
+        }
+      }
+    },
+    "tag": {
+      "name": "meta.tag.blueprint",
+      "begin": "(\\{%)(\\s*)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.blueprint"
+        },
+        "2": {
+          "name": "meta.whitespace.blueprint"
+        }
+      },
+      "end": "(\\s*)(%\\})",
+      "endCaptures": {
+        "1": {
+          "name": "meta.whitespace.blueprint"
+        },
+        "2": {
+          "name": "punctuation.definition.tag.end.blueprint"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#tag-keyword"
+        },
+        {
+          "include": "#tag-name"
+        },
+        {
+          "include": "#string"
+        },
+        {
+          "include": "#number"
+        },
+        {
+          "include": "#operator"
+        },
+        {
+          "include": "#variable-name"
+        }
+      ]
+    },
+    "tag-keyword": {
+      "match": "\\b(if|else|elseif|endif|for|endfor|in|endfor|block|endblock|extends|include|with|only|element|macro|endmacro|call|endcall|filter|endfilter|set|endset|verbatim|endverbatim|spaceless|endspaceless|autoescape|endautoescape|do|flush|import|from|as|use)\\b",
+      "name": "keyword.control.blueprint"
+    },
+    "tag-name": {
+      "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\b",
+      "name": "entity.name.tag.blueprint"
+    },
+    "variable": {
+      "name": "meta.variable.blueprint",
+      "begin": "(\\{\\{)(\\s*)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.variable.begin.blueprint"
+        },
+        "2": {
+          "name": "meta.whitespace.blueprint"
+        }
+      },
+      "end": "(\\s*)(\\}\\})",
+      "endCaptures": {
+        "1": {
+          "name": "meta.whitespace.blueprint"
+        },
+        "2": {
+          "name": "punctuation.definition.variable.end.blueprint"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string"
+        },
+        {
+          "include": "#number"
+        },
+        {
+          "include": "#operator"
+        },
+        {
+          "include": "#filter"
+        },
+        {
+          "include": "#function"
+        },
+        {
+          "include": "#variable-name"
+        }
+      ]
+    },
+    "variable-raw": {
+      "name": "meta.variable.raw.blueprint",
+      "begin": "(\\{\\!)(\\s*)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.variable.raw.begin.blueprint"
+        },
+        "2": {
+          "name": "meta.whitespace.blueprint"
+        }
+      },
+      "end": "(\\s*)(\\!\\})",
+      "endCaptures": {
+        "1": {
+          "name": "meta.whitespace.blueprint"
+        },
+        "2": {
+          "name": "punctuation.definition.variable.raw.end.blueprint"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string"
+        },
+        {
+          "include": "#number"
+        },
+        {
+          "include": "#operator"
+        },
+        {
+          "include": "#filter"
+        },
+        {
+          "include": "#function"
+        },
+        {
+          "include": "#variable-name"
+        }
+      ]
+    },
+    "variable-name": {
+      "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z0-9_]*)*)\\b",
+      "name": "variable.other.blueprint"
+    },
+    "filter": {
+      "match": "\\|\\s*([a-zA-Z_][a-zA-Z0-9_]*)",
+      "captures": {
+        "1": {
+          "name": "support.function.filter.blueprint"
+        }
+      }
+    },
+    "function": {
+      "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*(\\()",
+      "captures": {
+        "1": {
+          "name": "support.function.blueprint"
+        },
+        "2": {
+          "name": "punctuation.parenthesis.begin.blueprint"
+        }
+      }
+    },
+    "string": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.blueprint",
+          "begin": "'",
+          "end": "'",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.blueprint"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.blueprint"
+            }
+          },
+          "patterns": [
+            {
+              "match": "\\\\.",
+              "name": "constant.character.escape.blueprint"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.blueprint",
+          "begin": "\"",
+          "end": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.blueprint"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.blueprint"
+            }
+          },
+          "patterns": [
+            {
+              "match": "\\\\.",
+              "name": "constant.character.escape.blueprint"
+            }
+          ]
+        }
+      ]
+    },
+    "number": {
+      "match": "\\b[0-9]+(?:\\.[0-9]+)?\\b",
+      "name": "constant.numeric.blueprint"
+    },
+    "operator": {
+      "match": "(\\b(?:and|or|not|in|is|matches|starts\\s+with|ends\\s+with|contains)\\b)|([=!<>]=?|\\+|-|\\*|\\/|%|\\.|\\?|\\?:|\\?\\:)",
+      "name": "keyword.operator.blueprint"
+    }
+  }
+}

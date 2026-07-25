@@ -1,0 +1,30 @@
+{
+    "default": "mysql",
+    "connections": {
+        "mysql": {
+            "driver": "mysql",
+            "host": "mysql_arc2",
+            "port": 3306,
+            "database": "architect",
+            "username": "root",
+            "password": "root",
+            "charset": "utf8mb4",
+            "collation": "utf8mb4_unicode_ci",
+            "prefix": ""
+        },
+        "pgsql": {
+            "driver": "pgsql",
+            "host": "localhost",
+            "port": 5432,
+            "database": "arcred",
+            "username": "postgres",
+            "password": "",
+            "charset": "utf8",
+            "schema": "public"
+        },
+        "sqlite": {
+            "driver": "sqlite",
+            "database": "database/database.sqlite"
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "thresholds": {
+    "response_time": 2000,
+    "memory_usage": 134217728,
+    "database_queries": 100,
+    "cache_hit_ratio": 0.8
+  },
+  "alerts": {
+    "enabled": true,
+    "channels": ["log", "debug"],
+    "severity_levels": {
+      "info": true,
+      "warning": true,
+      "critical": true
+    }
+  },
+  "monitoring": {
+    "interval": 60,
+    "retention": 3600
+  }
+}

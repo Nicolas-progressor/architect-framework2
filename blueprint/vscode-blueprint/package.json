@@ -1,0 +1,122 @@
+{
+  "name": "vscode-blueprint",
+  "displayName": "Blueprint Template Engine",
+  "description": "Syntax highlighting and snippets for Blueprint templates (.blu)",
+  "version": "1.0.0",
+  "publisher": "architect",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "blueprint",
+    "template",
+    "architect",
+    "php",
+    "templating"
+  ],
+  "activationEvents": [
+    "onLanguage:blueprint"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "blueprint",
+        "aliases": [
+          "Blueprint",
+          "blueprint",
+          "blu"
+        ],
+        "extensions": [
+          ".blu",
+          ".blueprint"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "blueprint",
+        "scopeName": "text.html.blueprint",
+        "path": "./syntaxes/blueprint.tmLanguage.json",
+        "embeddedLanguages": {
+          "text.html": "html",
+          "source.css": "css",
+          "source.js": "javascript",
+          "source.php": "php"
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "blueprint",
+        "path": "./snippets/blueprint.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "blueprint.insertElement",
+        "title": "Blueprint: Insert Element"
+      },
+      {
+        "command": "blueprint.insertVariable",
+        "title": "Blueprint: Insert Variable"
+      },
+      {
+        "command": "blueprint.wrapInBlock",
+        "title": "Blueprint: Wrap in Block"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorLangId == blueprint",
+          "command": "blueprint.wrapInBlock",
+          "group": "blueprint@1"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "blueprint.insertElement",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "editorTextFocus && editorLangId == blueprint"
+      },
+      {
+        "command": "blueprint.insertVariable",
+        "key": "ctrl+shift+v",
+        "mac": "cmd+shift+v",
+        "when": "editorTextFocus && editorLangId == blueprint"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "lint": "eslint src --config eslint.config.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.96.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "typescript": "^5.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/architect/blueprint"
+  },
+  "homepage": "https://github.com/architect/blueprint",
+  "bugs": {
+    "url": "https://github.com/architect/blueprint/issues"
+  }
+}

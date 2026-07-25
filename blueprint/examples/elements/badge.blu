@@ -1,0 +1,21 @@
+{#
+    Badge Element Template
+    
+    Usage:
+        {% element 'badge' with {text: 'New', type: 'success'} %}
+        {!! element('badge', {text: 'Draft', type: 'secondary', pill: true}) !!}
+    
+    Parameters:
+        - text: Badge text (required)
+        - type: primary|secondary|success|danger|warning|info|light|dark (default: primary)
+        - pill: Rounded pill style (default: false)
+#}
+
+{% set badge_type = type|default('primary') %}
+{% set badge_class = 'badge bg-' ~ badge_type %}
+
+{% if pill|default(false) %}
+    {% set badge_class = badge_class ~ ' rounded-pill' %}
+{% endif %}
+
+<span class="{{ badge_class }}">{{ text|default('') }}</span>

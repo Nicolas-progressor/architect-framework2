@@ -1,0 +1,135 @@
+{# Syntax Page #}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-bp-dark-100 mb-4">Синтаксис</h1>
+    <p class="text-bp-dark-400">Основы синтаксиса Blueprint шаблонизатора</p>
+</div>
+
+<div class="space-y-8">
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Теги вывода</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg p-4">
+                <h3 class="text-sm font-medium text-bp-blue-400 mb-2">С экранированием</h3>
+                <div class="code-block p-3">
+                    {% raw %}<pre class="text-sm text-bp-dark-200">{{ variable }}
+{{ user.name }}
+{{ items.0.title }}</pre>{% endraw %}
+                </div>
+            </div>
+            <div class="bg-bp-dark-800 border border-bp-dark-700 rounded-lg p-4">
+                <h3 class="text-sm font-medium text-bp-green-400 mb-2">Без экранирования</h3>
+                <div class="code-block p-3">
+                    {% raw %}<pre class="text-sm text-bp-dark-200">{!! html_content !!}
+{!! raw_html !!}</pre>{% endraw %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Комментарии</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{# Это комментарий - не выводится #}
+
+{#
+  Многострочный
+  комментарий
+#}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Фильтры</h2>
+        <p class="text-bp-dark-300 mb-4">Фильтры применяются через символ <code class="text-bp-accent-400">|</code>:</p>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{{ name|upper }}                    {# Верхний регистр #}
+{{ text|truncate(100) }}            {# Обрезка текста #}
+{{ price|number_format(2) }}         {# Форматирование числа #}
+{{ date|date('d.m.Y') }}           {# Форматирование даты #}
+{{ name|default('Гость') }}       {# Значение по умолчанию #}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Условия</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% if user.isLoggedIn() %}
+    Добро пожаловать!
+{% elseif user.isGuest() %}
+    Пожалуйста, войдите
+{% else %}
+    Ошибка
+{% endif %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Циклы</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% for item in items %}
+    {{ loop.index }}: {{ item.name }}
+{% endfor %}
+
+{% for key, item in items %}
+    {{ key }}: {{ item }}
+{% endfor %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Наследование</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% extends 'base' %}
+
+{% block title %}Страница{% endblock %}
+
+{% block content %}
+    &lt;h1&gt;Контент страницы&lt;/h1&gt;
+{% endblock %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Include</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% include 'header' %}
+{% include 'partials/menu' %}
+{% include 'widget' with {title: 'Заголовок'} %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Присваивание</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% set name = 'John' %}
+{% set count = items|length %}
+{% set isActive = true %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Сырой вывод (raw)</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% raw %}
+    Здесь {{ не_обрабатывается }}
+    И это тоже {{ остается как есть }}
+{% endraw %}</pre>{% endraw %}
+        </div>
+    </section>
+</div>
+
+{# Navigation #}
+<div class="flex items-center justify-between pt-8 mt-8 border-t border-bp-dark-700">
+    <a href="/installation" class="flex items-center space-x-2 text-bp-dark-400 hover:text-bp-dark-200 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span>Установка</span>
+    </a>
+    <a href="/variables" class="flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors">
+        <span>Переменные</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>

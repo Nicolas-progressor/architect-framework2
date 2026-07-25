@@ -1,0 +1,48 @@
+{
+    "defaults": {
+        "system_default": "en",
+        "system_langs": {
+            "0": "ru",
+            "1": "en",
+            "2": "be",
+            "3": "ua",
+            "4": "ky",
+            "5": "ab",
+            "6": "mo",
+            "7": "et",
+            "8": "lv",
+            "9": "eu",
+            "10": "us"
+        }
+    },
+    "routing": {
+        "enable_lang_routing": true
+    },
+    "redirect": {
+        "enabled": true,
+        "rules": {
+            "ru": {
+                "0": "be",
+                "1": "ua",
+                "2": "ky",
+                "3": "ab",
+                "4": "mo",
+                "5": "et",
+                "6": "lv"
+            },
+            "en": {
+                "0": "eu",
+                "1": "us"
+            }
+        }
+    },
+    "cookies": {
+        "setup_cookie": true,
+        "routing_cookie": true,
+        "cookie_lifetime": 0
+    },
+    "all_langs": {
+        "en": "English",
+        "ru": "\u0420\u0443\u0441\u0441\u043a\u0438\u0439"
+    }
+}

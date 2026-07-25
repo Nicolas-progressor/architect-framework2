@@ -1,0 +1,93 @@
+{# Inheritance Page #}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-bp-dark-100 mb-4">Наследование шаблонов</h1>
+    <p class="text-bp-dark-400">Мощный механизм для повторного использования шаблонов</p>
+</div>
+
+<div class="space-y-8">
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Базовый шаблон</h2>
+        <p class="text-bp-dark-300 mb-4">Файл <code>base.blu</code>:</p>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;{% block title %}Сайт{% endblock %}&lt;/title&gt;
+    {% block head %}{% endblock %}
+&lt;/head&gt;
+&lt;body&gt;
+    {% block header %}
+        &lt;header&gt;Шапка сайта&lt;/header&gt;
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}
+        &lt;footer&gt;Подвал сайта&lt;/footer&gt;
+    {% endblock %}
+&lt;/body&gt;
+&lt;/html&gt;</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Дочерний шаблон</h2>
+        <p class="text-bp-dark-300 mb-4">Файл <code>page.blu</code>:</p>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% extends 'base' %}
+
+{% block title %}Страница{% endblock %}
+
+{% block content %}
+    &lt;h1&gt;Контент страницы&lt;/h1&gt;
+    &lt;p&gt;Текст страницы&lt;/p&gt;
+{% endblock %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Добавление к родительскому блоку</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{% extends 'base' %}
+
+{% block title %}
+    {{ parent() }} - Дополнительный текст
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    &lt;link rel="stylesheet" href="custom.css"&gt;
+{% endblock %}</pre>{% endraw %}
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-xl font-semibold text-bp-dark-100 mb-4">Include</h2>
+        <div class="code-block p-4">
+            {% raw %}<pre class="text-sm text-bp-dark-200">{# Простой include #}
+{% include 'header' %}
+
+{# Include с данными #}
+{% include 'card' with {title: 'Заголовок', text: content} %}
+
+{# Include только если файл существует #}
+{% include 'optional' ignore missing %}</pre>{% endraw %}
+        </div>
+    </section>
+</div>
+
+{# Navigation #}
+<div class="flex items-center justify-between pt-8 mt-8 border-t border-bp-dark-700">
+    <a href="/control_structures" class="flex items-center space-x-2 text-bp-dark-400 hover:text-bp-dark-200 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span>Управляющие конструкции</span>
+    </a>
+    <a href="/elements" class="flex items-center space-x-2 px-4 py-2 bg-bp-accent-500 hover:bg-bp-accent-600 text-white rounded-lg transition-colors">
+        <span>Элементы и виджеты</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>

@@ -1,0 +1,17 @@
+{
+    "enabled": true,
+    "log_to_file": true,
+    "log_categories": ["info", "warning", "error"],
+    "show_queries": true,
+    "show_memory": true,
+    "show_time": true,
+    "show_includes": true,
+    "show_session": true,
+    "show_cookies": true,
+    "collect_custom_data": true,
+    "ip_whitelist": [],
+    "max_messages": 1000,
+    "max_data_size": 1048576,
+    "auto_refresh": false,
+    "auto_refresh_interval": 2000
+}

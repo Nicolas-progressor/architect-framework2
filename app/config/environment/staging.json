@@ -1,0 +1,26 @@
+{
+    "debug": false,
+    "error_reporting": "E_ALL & ~E_NOTICE & ~E_DEPRECATED",
+    "display_errors": false,
+    "log_errors": true,
+    "database": {
+        "host": "staging-db.example.com",
+        "name": "arcred_staging",
+        "user": "staging_user",
+        "password": "staging_password",
+        "charset": "utf8mb4"
+    },
+    "cache": {
+        "driver": "redis",
+        "host": "staging-redis.example.com",
+        "port": 6379
+    },
+    "log": {
+        "level": "warning",
+        "path": "/var/log/arcred/staging"
+    },
+    "session": {
+        "name": "ARCHECT_STAGING_SESSION",
+        "lifetime": 7200
+    }
+}

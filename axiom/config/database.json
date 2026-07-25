@@ -1,0 +1,34 @@
+{
+    "default": "mysql",
+    "connections": {
+        "mysql": {
+            "driver": "mysql",
+            "host": "localhost",
+            "port": 3306,
+            "database": "myapp",
+            "username": "root",
+            "password": "",
+            "charset": "utf8mb4",
+            "options": {
+                "ATTR_TIMEOUT": 30
+            }
+        },
+        "pgsql": {
+            "driver": "pgsql",
+            "host": "localhost",
+            "port": 5432,
+            "database": "myapp",
+            "username": "postgres",
+            "password": "",
+            "schema": "public"
+        },
+        "sqlite": {
+            "driver": "sqlite",
+            "database": "database/database.sqlite"
+        }
+    },
+    "options": {
+        "fetch_mode": "PDO::FETCH_ASSOC",
+        "debug": true
+    }
+}

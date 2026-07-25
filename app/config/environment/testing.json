@@ -1,0 +1,25 @@
+{
+    "debug": true,
+    "error_reporting": "E_ALL",
+    "display_errors": true,
+    "log_errors": true,
+    "database": {
+        "host": "localhost",
+        "name": "arcred_test",
+        "user": "root",
+        "password": "",
+        "charset": "utf8mb4"
+    },
+    "cache": {
+        "driver": "file",
+        "path": "/tmp/cache/test"
+    },
+    "log": {
+        "level": "debug",
+        "path": "/tmp/logs/test"
+    },
+    "session": {
+        "name": "ARCHECT_TEST_SESSION",
+        "lifetime": 3600
+    }
+}

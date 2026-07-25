@@ -1,0 +1,44 @@
+{
+    "name": "architect/blueprint-helpers",
+    "description": "Blueprint integration with Helpers system - use Helpers (Title, Breadcrumbs, Html, Assets, Query, Db, Arr, Number) in Blueprint templates",
+    "type": "architect-package",
+    "license": "MIT",
+    "keywords": [
+        "blueprint",
+        "helpers",
+        "templating",
+        "architect",
+        "framework"
+    ],
+    "homepage": "https://github.com/architect/blueprint-helpers",
+    "authors": [{
+        "name": "Architect Team",
+        "email": "team@architect.dev"
+    }],
+    "require": {
+        "php": ">=8.1",
+        "architect/blueprint": "*@dev"
+    },
+    "require-dev": {
+        "architect/framework": "*@dev"
+    },
+    "suggest": {
+        "architect/framework": "Required for Helpers integration"
+    },
+    "autoload": {
+        "psr-4": {
+            "Architect\\BlueprintHelpers\\": "./"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "blueprint": {
+            "extension": "Architect\\BlueprintHelpers\\Extension"
+        }
+    }
+}

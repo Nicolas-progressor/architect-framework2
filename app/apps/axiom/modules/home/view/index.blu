@@ -1,0 +1,75 @@
+{% block title %}Axiom ORM - Тестирование{% endblock %}
+
+{% block head %}
+<style>
+    .hero-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .feature-card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero-gradient text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl font-bold mb-4">
+            <i class="fas fa-database mr-3"></i>Axiom ORM
+        </h1>
+        <p class="text-xl text-purple-100 mb-8">Тестирование ORM в Architect Framework</p>
+        <p class="text-lg text-purple-200 max-w-2xl mx-auto">
+            Демонстрация возможностей Axiom ORM: Query Builder, Миграции, Entity и Cache
+        </p>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+        <i class="fas fa-layer-group text-purple-600 mr-2"></i>Возможности Axiom
+    </h2>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for feature in features %}
+        <p>{{ feature.title }} - {{ feature.link }}</p>
+        {% endfor %}
+    </div>
+    
+    <div class="mt-12 bg-white rounded-xl shadow-md p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-info-circle text-blue-600 mr-2"></i>О Axiom ORM
+        </h2>
+        <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+                <strong>Axiom ORM</strong> — это современная объектно-реляционная система для PHP 8.1+, 
+                разработанная для простой и эффективной работы с базами данных.
+            </p>
+            <p class="mb-4">
+                Основные компоненты Axiom:
+            </p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li><strong>Core</strong> — ядро ORM с Query Builder</li>
+                <li><strong>Migration</strong> — управление миграциями базы данных</li>
+                <li><strong>Entity</strong> — работа с сущностями через PHP атрибуты</li>
+                <li><strong>Cache</strong> — кэширование запросов</li>
+                <li><strong>ManyToMany</strong> — связи многие-ко-многим</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="mt-8 bg-purple-50 rounded-xl border border-purple-200 p-6">
+        <div class="flex items-start gap-4">
+            <div class="bg-purple-100 p-3 rounded-lg">
+                <i class="fas fa-lightbulb text-purple-600 text-xl"></i>
+            </div>
+            <div>
+                <h3 class="font-bold text-purple-800 mb-2">Начните тестирование</h3>
+                <p class="text-purple-700">
+                    Перейдите по ссылкам выше, чтобы протестировать каждый компонент Axiom ORM. 
+                    Вы можете создавать записи, запускать миграции, работать с кэшем и многое другое.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

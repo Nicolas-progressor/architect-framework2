@@ -1,0 +1,15 @@
+{
+    "template": "axiom",
+    "elements": {
+        "navbar": {
+            "module": "navbar",
+            "controller": "navbar",
+            "action": "index"
+        },
+        "footer": {
+            "module": "footer",
+            "controller": "footer",
+            "action": "index"
+        }
+    }
+}

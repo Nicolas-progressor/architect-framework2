@@ -1,0 +1,284 @@
+{
+  "If Statement": {
+    "prefix": "if",
+    "body": [
+      "{% if ${1:condition} %}",
+      "\t$0",
+      "{% endif %}"
+    ],
+    "description": "If statement"
+  },
+  "If-Else Statement": {
+    "prefix": "ifelse",
+    "body": [
+      "{% if ${1:condition} %}",
+      "\t$2",
+      "{% else %}",
+      "\t$0",
+      "{% endif %}"
+    ],
+    "description": "If-else statement"
+  },
+  "If-Elseif-Else Statement": {
+    "prefix": "ifelseif",
+    "body": [
+      "{% if ${1:condition} %}",
+      "\t$2",
+      "{% elseif ${3:condition} %}",
+      "\t$4",
+      "{% else %}",
+      "\t$0",
+      "{% endif %}"
+    ],
+    "description": "If-elseif-else statement"
+  },
+  "For Loop": {
+    "prefix": "for",
+    "body": [
+      "{% for ${1:item} in ${2:items} %}",
+      "\t$0",
+      "{% endfor %}"
+    ],
+    "description": "For loop"
+  },
+  "For Loop with Key": {
+    "prefix": "forkey",
+    "body": [
+      "{% for ${1:key}, ${2:item} in ${3:items} %}",
+      "\t$0",
+      "{% endfor %}"
+    ],
+    "description": "For loop with key"
+  },
+  "Block": {
+    "prefix": "block",
+    "body": [
+      "{% block ${1:name} %}",
+      "\t$0",
+      "{% endblock %}"
+    ],
+    "description": "Block definition"
+  },
+  "Extends": {
+    "prefix": "extends",
+    "body": [
+      "{% extends '${1:template}' %}$0"
+    ],
+    "description": "Template extends"
+  },
+  "Include": {
+    "prefix": "include",
+    "body": [
+      "{% include '${1:template}' %}$0"
+    ],
+    "description": "Include template"
+  },
+  "Include with Data": {
+    "prefix": "includewith",
+    "body": [
+      "{% include '${1:template}' with { ${2:key}: ${3:value} } %}$0"
+    ],
+    "description": "Include template with data"
+  },
+  "Element": {
+    "prefix": "element",
+    "body": [
+      "{% element '${1:name}' %}$0"
+    ],
+    "description": "Render element"
+  },
+  "Element with Data": {
+    "prefix": "elementwith",
+    "body": [
+      "{% element '${1:name}' with { ${2:key}: ${3:value} } %}$0"
+    ],
+    "description": "Render element with data"
+  },
+  "Variable": {
+    "prefix": "var",
+    "body": [
+      "{{ ${1:variable} }}$0"
+    ],
+    "description": "Output variable (escaped)"
+  },
+  "Variable Raw": {
+    "prefix": "varraw",
+    "body": [
+      "{!! ${1:variable} !!}$0"
+    ],
+    "description": "Output variable (raw, no escaping)"
+  },
+  "Comment": {
+    "prefix": "comment",
+    "body": [
+      "{# ${1:comment} #}$0"
+    ],
+    "description": "Comment"
+  },
+  "Comment Block": {
+    "prefix": "commentblock",
+    "body": [
+      "{#",
+      "\t$0",
+      "#}"
+    ],
+    "description": "Block comment"
+  },
+  "Filter": {
+    "prefix": "filter",
+    "body": [
+      "{{ ${1:variable}|${2:filter} }}$0"
+    ],
+    "description": "Variable with filter"
+  },
+  "Filter Chain": {
+    "prefix": "filterchain",
+    "body": [
+      "{{ ${1:variable}|${2:filter1}|${3:filter2} }}$0"
+    ],
+    "description": "Variable with filter chain"
+  },
+  "Macro": {
+    "prefix": "macro",
+    "body": [
+      "{% macro ${1:name}(${2:args}) %}",
+      "\t$0",
+      "{% endmacro %}"
+    ],
+    "description": "Macro definition"
+  },
+  "Set Variable": {
+    "prefix": "set",
+    "body": [
+      "{% set ${1:variable} = ${2:value} %}$0"
+    ],
+    "description": "Set variable"
+  },
+  "Set Block": {
+    "prefix": "setblock",
+    "body": [
+      "{% set ${1:variable} %}",
+      "\t$0",
+      "{% endset %}"
+    ],
+    "description": "Set variable from block"
+  },
+  "Spaceless": {
+    "prefix": "spaceless",
+    "body": [
+      "{% spaceless %}",
+      "\t$0",
+      "{% endspaceless %}"
+    ],
+    "description": "Remove whitespace"
+  },
+  "Autoescape": {
+    "prefix": "autoescape",
+    "body": [
+      "{% autoescape ${1:true} %}",
+      "\t$0",
+      "{% endautoescape %}"
+    ],
+    "description": "Autoescape block"
+  },
+  "Loop Variable": {
+    "prefix": "loop",
+    "body": [
+      "loop.${1:index}"
+    ],
+    "description": "Loop variable (index, index0, first, last, length)"
+  },
+  "Condition in": {
+    "prefix": "in",
+    "body": [
+      "{% if ${1:item} in ${2:array} %}$0"
+    ],
+    "description": "Check if item in array"
+  },
+  "Condition not in": {
+    "prefix": "notin",
+    "body": [
+      "{% if ${1:item} not in ${2:array} %}$0"
+    ],
+    "description": "Check if item not in array"
+  },
+  "Condition defined": {
+    "prefix": "defined",
+    "body": [
+      "{% if ${1:variable} is defined %}$0"
+    ],
+    "description": "Check if variable is defined"
+  },
+  "Condition empty": {
+    "prefix": "empty",
+    "body": [
+      "{% if ${1:variable} is empty %}$0"
+    ],
+    "description": "Check if variable is empty"
+  },
+  "Condition not empty": {
+    "prefix": "notempty",
+    "body": [
+      "{% if ${1:variable} is not empty %}$0"
+    ],
+    "description": "Check if variable is not empty"
+  },
+  "HTML5 Template": {
+    "prefix": "html5",
+    "body": [
+      "<!DOCTYPE html>",
+      "<html lang=\"${1:ru}\">",
+      "<head>",
+      "\t<meta charset=\"UTF-8\">",
+      "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "\t<title>{% block title %}${2:Title}{% endblock %}</title>",
+      "\t{% block head %}{% endblock %}",
+      "</head>",
+      "<body>",
+      "\t{% block content %}{% endblock %}",
+      "\t{% block scripts %}{% endblock %}",
+      "</body>",
+      "</html>"
+    ],
+    "description": "HTML5 template with blocks"
+  },
+  "Bootstrap Card": {
+    "prefix": "bscard",
+    "body": [
+      "<div class=\"card\">",
+      "\t{% if ${1:image} %}",
+      "\t\t<img src=\"{{ ${1:image} }}\" class=\"card-img-top\" alt=\"{{ ${2:alt}|default('') }}\">",
+      "\t{% endif %}",
+      "\t<div class=\"card-body\">",
+      "\t\t<h5 class=\"card-title\">{{ ${3:title} }}</h5>",
+      "\t\t<p class=\"card-text\">{{ ${4:text} }}</p>",
+      "\t\t{% block card_footer %}{% endblock %}",
+      "\t</div>",
+      "</div>"
+    ],
+    "description": "Bootstrap card component"
+  },
+  "Navbar": {
+    "prefix": "navbar",
+    "body": [
+      "<nav class=\"navbar navbar-expand-lg navbar-${1:light} bg-${2:light}\">",
+      "\t<div class=\"container\">",
+      "\t\t<a class=\"navbar-brand\" href=\"/\">{{ ${3:brand}|default('Site') }}</a>",
+      "\t\t<button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\">",
+      "\t\t\t<span class=\"navbar-toggler-icon\"></span>",
+      "\t\t</button>",
+      "\t\t<div class=\"collapse navbar-collapse\" id=\"navbarNav\">",
+      "\t\t\t<ul class=\"navbar-nav\">",
+      "\t\t\t\t{% for item in ${4:menu} %}",
+      "\t\t\t\t\t<li class=\"nav-item\">",
+      "\t\t\t\t\t\t<a class=\"nav-link{% if item.active %} active{% endif %}\" href=\"{{ item.url }}\">{{ item.title }}</a>",
+      "\t\t\t\t\t</li>",
+      "\t\t\t\t{% endfor %}",
+      "\t\t\t</ul>",
+      "\t\t</div>",
+      "\t</div>",
+      "</nav>"
+    ],
+    "description": "Bootstrap navbar"
+  }
+}
