@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>architect.js Tests</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/qunit@2.23.1/qunit.min.css">
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qunit@2.23.1/qunit.min.js"></script>
+
+    <!-- architect.js modules -->
+    <script src="../../../htdocs/assets/architect-js/src/core.js"></script>
+    <script src="../../../htdocs/assets/architect-js/src/state.js"></script>
+    <script src="../../../htdocs/assets/architect-js/src/http.js"></script>
+    <script src="../../../htdocs/assets/architect-js/src/router.js"></script>
+    <script src="../../../htdocs/assets/architect-js/src/component.js"></script>
+    <script src="../../../htdocs/assets/architect-js/src/app.js"></script>
+
+    <script>
+        // ============================================================
+        // Container (core.js)
+        // ============================================================
+        QUnit.module('Container');
+
+        QUnit.test('set and get values', function (assert) {
+            var c = new Architect.Container();
+            c.set('foo', 'bar');
+            assert.strictEqual(c.get('foo'), 'bar');
+        });
+
+        QUnit.test('singleton returns same instance', function (assert) {
+            var c = new Architect.Container();
+            var count = 0;
+            c.singleton('db', function () { count++; return { id: count }; });
+            var a = c.get('db');
+            var b = c.get('db');
+            assert.strictEqual(a, b);
+            assert.strictEqual(count, 1);
+        });
+
+        QUnit.test('factory returns new instance each time', function (assert) {
+            var c = new Architect.Container();
+            var count = 0;
+            c.factory('db', function () { count++; return { id: count }; });
+            var a = c.get('db');
+            var b = c.get('db');
+            assert.notStrictEqual(a, b);
+            assert.strictEqual(count, 2);
+        });
+
+        QUnit.test('has returns correct boolean', function (assert) {
+            var c = new Architect.Container();
+            assert.strictEqual(c.has('foo'), false);
+            c.set('foo', 1);
+            assert.strictEqual(c.has('foo'), true);
+        });
+
+        QUnit.test('remove clears binding', function (assert) {
+            var c = new Architect.Container();
+            c.set('foo', 'bar');
+            c.remove('foo');
+            assert.strictEqual(c.has('foo'), false);
+        });
+
+        QUnit.test('clear removes all bindings', function (assert) {
+            var c = new Architect.Container();
+            c.set('a', 1);
+            c.set('b', 2);
+            c.clear();
+            assert.strictEqual(c.has('a'), false);
+            assert.strictEqual(c.has('b'), false);
+        });
+
+        QUnit.test('throws error for missing binding', function (assert) {
+            var c = new Architect.Container();
+            assert.throws(function () { c.get('missing'); }, /not found/);
+        });
+
+        // ============================================================
+        // EventManager (state.js)
+        // ============================================================
+        QUnit.module('EventManager');
+
+        QUnit.test('on and emit', function (assert) {
+            var e = new Architect.State.EventManager();
+            var result = null;
+            e.on('test', function (p) { result = p; });
+            e.emit('test', 42);
+            assert.strictEqual(result, 42);
+        });
+
+        QUnit.test('once fires only once', function (assert) {
+            var e = new Architect.State.EventManager();
+            var count = 0;
+            e.once('test', function () { count++; });
+            e.emit('test');
+            e.emit('test');
+            assert.strictEqual(count, 1);
+        });
+
+        QUnit.test('off removes listener', function (assert) {
+            var e = new Architect.State.EventManager();
+            var count = 0;
+            var fn = function () { count++; };
+            e.on('test', fn);
+            e.emit('test');
+            assert.strictEqual(count, 1);
+            e.off('test', fn);
+            e.emit('test');
+            assert.strictEqual(count, 1);
+        });
+
+        QUnit.test('off without callback removes all', function (assert) {
+            var e = new Architect.State.EventManager();
+            e.on('test', function () {});
+            e.on('test', function () {});
+            e.off('test');
+            assert.strictEqual(e.hasListeners('test'), false);
+        });
+
+        QUnit.test('priority order', function (assert) {
+            var e = new Architect.State.EventManager();
+            var order = [];
+            e.on('test', function () { order.push('low'); }, -10);
+            e.on('test', function () { order.push('high'); }, 10);
+            e.on('test', function () { order.push('normal'); }, 0);
+            e.emit('test');
+            assert.deepEqual(order, ['high', 'normal', 'low']);
+        });
+
+        QUnit.test('wildcard pattern suffix', function (assert) {
+            var e = new Architect.State.EventManager();
+            var result = [];
+            e.on('user.*', function (p) { result.push(p); });
+            e.emit('user.login', 'login');
+            e.emit('user.logout', 'logout');
+            e.emit('post.created', 'post');
+            assert.deepEqual(result, ['login', 'logout']);
+        });
+
+        QUnit.test('wildcard pattern prefix', function (assert) {
+            var e = new Architect.State.EventManager();
+            var result = [];
+            e.on('*.created', function (p) { result.push(p); });
+            e.emit('user.created', 'user');
+            e.emit('post.created', 'post');
+            e.emit('user.deleted', 'del');
+            assert.deepEqual(result, ['user', 'post']);
+        });
+
+        QUnit.test('wildcard all', function (assert) {
+            var e = new Architect.State.EventManager();
+            var count = 0;
+            e.on('*', function () { count++; });
+            e.emit('a');
+            e.emit('b');
+            e.emit('c');
+            assert.strictEqual(count, 3);
+        });
+
+        QUnit.test('hasListeners', function (assert) {
+            var e = new Architect.State.EventManager();
+            assert.strictEqual(e.hasListeners('x'), false);
+            e.on('x', function () {});
+            assert.strictEqual(e.hasListeners('x'), true);
+        });
+
+        QUnit.test('addFilter and applyFilters', function (assert) {
+            var e = new Architect.State.EventManager();
+            e.addFilter('format', function (v) { return v.toUpperCase(); });
+            var result = e.applyFilters('format', 'hello');
+            assert.strictEqual(result, 'HELLO');
+        });
+
+        QUnit.test('filter chain', function (assert) {
+            var e = new Architect.State.EventManager();
+            e.addFilter('num', function (v) { return v * 2; });
+            e.addFilter('num', function (v) { return v + 1; });
+            assert.strictEqual(e.applyFilters('num', 5), 11);
+        });
+
+        QUnit.test('filter with extra args', function (assert) {
+            var e = new Architect.State.EventManager();
+            e.addFilter('greet', function (msg, name) { return msg + ', ' + name + '!'; });
+            assert.strictEqual(e.applyFilters('greet', 'Hello', 'World'), 'Hello, World!');
+        });
+
+        // ============================================================
+        // Store (state.js)
+        // ============================================================
+        QUnit.module('Store');
+
+        QUnit.test('set and get values', function (assert) {
+            var s = new Architect.State.Store('test', { key: 'val' });
+            assert.strictEqual(s.get('key'), 'val');
+        });
+
+        QUnit.test('set triggers watchers', function (assert) {
+            var s = new Architect.State.Store('test', {});
+            var newVal = null, oldVal = null;
+            s.on('x', function (n, o) { newVal = n; oldVal = o; });
+            s.set('x', 10);
+            assert.strictEqual(newVal, 10);
+            assert.strictEqual(oldVal, undefined);
+        });
+
+        QUnit.test('on returns unsubscribe function', function (assert) {
+            var s = new Architect.State.Store('test', {});
+            var count = 0;
+            var unsub = s.on('x', function () { count++; });
+            s.set('x', 1);
+            assert.strictEqual(count, 1);
+            unsub();
+            s.set('x', 2);
+            assert.strictEqual(count, 1);
+        });
+
+        QUnit.test('patch updates multiple keys', function (assert) {
+            var s = new Architect.State.Store('test', { a: 1, b: 2 });
+            s.patch({ a: 10, b: 20 });
+            assert.strictEqual(s.get('a'), 10);
+            assert.strictEqual(s.get('b'), 20);
+        });
+
+        QUnit.test('get without key returns all data', function (assert) {
+            var s = new Architect.State.Store('test', { a: 1, b: 2 });
+            var all = s.get();
+            assert.deepEqual(all, { a: 1, b: 2 });
+        });
+
+        // ============================================================
+        // HttpClient
+        // ============================================================
+        QUnit.module('HttpClient');
+
+        QUnit.test('configure sets baseUrl', function (assert) {
+            var http = new Architect.Http();
+            http.configure({ baseUrl: '/api/' });
+            assert.strictEqual(http._baseUrl, '/api/');
+        });
+
+        QUnit.test('configure merges headers', function (assert) {
+            var http = new Architect.Http();
+            http.configure({ headers: { 'X-Custom': 'val' } });
+            assert.strictEqual(http._defaults.headers['X-Custom'], 'val');
+            assert.strictEqual(http._defaults.headers['Content-Type'], 'application/json');
+        });
+
+        QUnit.test('buildUrl with params', function (assert) {
+            var http = new Architect.Http();
+            http.configure({ baseUrl: '/api' });
+            var url = http._buildUrl('/users', { page: 1, limit: 10 });
+            assert.strictEqual(url, '/api/users?page=1&limit=10');
+        });
+
+        QUnit.test('buildUrl with absolute url ignores baseUrl', function (assert) {
+            var http = new Architect.Http();
+            http.configure({ baseUrl: '/api/' });
+            var url = http._buildUrl('https://example.com/test', {});
+            assert.strictEqual(url, 'https://example.com/test');
+        });
+
+        // ============================================================
+        // Router
+        // ============================================================
+        QUnit.module('Router');
+
+        QUnit.test('route registration and match', function (assert) {
+            var r = new Architect.Router();
+            r.route('/', 'home');
+            r.route('/users/{id}', 'users.show');
+            var m = r._match('/users/5');
+            assert.ok(m);
+            assert.strictEqual(m.params.id, '5');
+            assert.strictEqual(m.route.name, 'users.show');
+        });
+
+        QUnit.test('resolve generates URL from named route', function (assert) {
+            var r = new Architect.Router();
+            r.route('/users/{id}/edit', 'users.edit');
+            var url = r.resolve('users.edit', { id: 42 });
+            assert.strictEqual(url, '/users/42/edit');
+        });
+
+        QUnit.test('resolve returns null for unknown name', function (assert) {
+            var r = new Architect.Router();
+            assert.strictEqual(r.resolve('nope'), null);
+        });
+
+        QUnit.test('404 for unmatched route', function (assert) {
+            var r = new Architect.Router();
+            r.route('/', 'home');
+            var events = new Architect.State.EventManager();
+            window.Architect.eventBus = events;
+            var error = null;
+            events.on('router.error', function (e) { error = e; });
+            r._handleUrl('/notfound');
+            assert.ok(error);
+            assert.strictEqual(error.code, 404);
+        });
+
+        QUnit.test('guard redirect', function (assert) {
+            var r = new Architect.Router();
+            r.route('/admin', 'admin');
+            r.beforeEach(function (to, from) {
+                if (to.route.name === 'admin') return '/login';
+            });
+            var navigated = null;
+            var orig = r.navigate;
+            r.navigate = function (url) { navigated = url; };
+            r.start = function () {};
+            r._handleUrl('/admin');
+            assert.strictEqual(navigated, '/login');
+        });
+
+        QUnit.test('group adds prefix', function (assert) {
+            var r = new Architect.Router();
+            r.group('/admin', {}, function (r) {
+                r.route('/', 'admin.home');
+                r.route('/users', 'admin.users');
+            });
+            // Access routes directly
+            assert.strictEqual(r._routes.length, 2);
+            assert.strictEqual(r._routes[0].path, '/admin');
+            assert.strictEqual(r._routes[1].path, '/admin/users');
+        });
+
+        QUnit.test('route with no name still matches', function (assert) {
+            var r = new Architect.Router();
+            r.route('/about');
+            var m = r._match('/about');
+            assert.ok(m);
+            assert.strictEqual(m.route.name, '');
+        });
+
+        // ============================================================
+        // Component (basic checks — Custom Elements need DOM)
+        // ============================================================
+        QUnit.module('Component');
+
+        QUnit.test('register stores definition', function (assert) {
+            var def = { template: '<div>test</div>' };
+            Architect.Component.register('test-el', def);
+            var stored = Architect.Component.get('test-el');
+            assert.strictEqual(stored, def);
+        });
+
+        QUnit.test('get returns undefined for unknown', function (assert) {
+            assert.strictEqual(Architect.Component.get('nope'), undefined);
+        });
+
+        QUnit.test('setPrefix updates prefix', function (assert) {
+            Architect.Component.setPrefix('x-');
+            // Default is a-, we can't easily check without customElements
+            var def = { template: '<div>ok</div>' };
+            Architect.Component.register('test-prefix', def);
+            assert.ok(Architect.Component.get('test-prefix'));
+            Architect.Component.setPrefix('a-');
+        });
+
+        // ============================================================
+        // App (integration)
+        // ============================================================
+        QUnit.module('App');
+
+        QUnit.test('boot creates App instance', function (assert) {
+            var app = new Architect.App();
+            assert.ok(app.container);
+            assert.ok(app.eventBus);
+            assert.ok(app.http);
+            assert.ok(app.router);
+            assert.ok(app.component);
+        });
+
+        QUnit.test('store creates and returns store', function (assert) {
+            var app = new Architect.App();
+            var s = app.store('test', { count: 0 });
+            assert.strictEqual(s.get('count'), 0);
+            s.set('count', 5);
+            assert.strictEqual(s.get('count'), 5);
+        });
+
+        QUnit.test('provide registers in DI', function (assert) {
+            var app = new Architect.App();
+            app.provide('api', { get: function () {} });
+            assert.strictEqual(app.container.has('api'), true);
+        });
+
+        QUnit.test('on/emit wiring', function (assert) {
+            var app = new Architect.App();
+            var result = null;
+            app.on('test', function (p) { result = p; });
+            app.emit('test', 99);
+            assert.strictEqual(result, 99);
+        });
+
+        QUnit.test('boot emits app.boot event', function (assert) {
+            var app = new Architect.App();
+            var booted = false;
+            app.on('app.boot', function () { booted = true; });
+            app.boot({ config: {} });
+            assert.ok(booted);
+        });
+
+        QUnit.test('provider register and boot called', function (assert) {
+            var app = new Architect.App();
+            var registers = [], boots = [];
+            var provider = {
+                register: function (a) { registers.push('reg'); },
+                boot: function (a) { boots.push('boot'); },
+            };
+            app.boot({ providers: [provider] });
+            assert.strictEqual(registers.length, 1);
+            assert.strictEqual(boots.length, 1);
+        });
+
+        QUnit.test('configure sets apiBaseUrl', function (assert) {
+            var app = new Architect.App();
+            app.configure({ config: { apiBaseUrl: '/api/' } });
+            assert.strictEqual(app.http._baseUrl, '/api/');
+        });
+
+        console.log('All architect.js tests completed.');
+    </script>
+</body>
+</html>

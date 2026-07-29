@@ -1,0 +1,991 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Variable \$year might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/apps/architect/modules/footer/view/footer.php
+
+		-
+			message: '#^Variable \$menu might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/apps/architect/modules/navbar/view/navbar.php
+
+		-
+			message: '#^Call to static method render\(\) on an unknown class Helper_Title\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/apps/architect/template/bootstrap/template.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: app/apps/architect/template/bootstrap/template.php
+
+		-
+			message: '#^Static method Axiom\\Orm\\Connection\\ConnectionManager\:\:loadConfig\(\) invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/apps/axiom/appbootstrap.php
+
+		-
+			message: '#^Dead catch \- Throwable is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: app/apps/axiom/modules/cache/model/cache.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/apps/axiom/modules/entity/model/entity.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 3
+			path: app/apps/axiom/modules/info/model/info.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/apps/axiom/modules/infoentity/model/infoentity.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between object and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/apps/axiom/modules/infoentity/model/infoentity.php
+
+		-
+			message: '#^Static method Architect\\Helpers\\Facades\\Helper_Request\:\:get\(\) invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/apps/axiom/modules/query/controller.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 5
+			path: app/apps/axiom/modules/query/model/query.php
+
+		-
+			message: '#^Variable \$users on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: app/apps/axiom/modules/query/model/query.php
+
+		-
+			message: '#^Variable \$page_data might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: app/apps/home/modules/about/view/index.php
+
+		-
+			message: '#^Variable \$cards might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/apps/home/modules/card/view/card.php
+
+		-
+			message: '#^Variable \$page_data might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: app/apps/home/modules/contact/view/index.php
+
+		-
+			message: '#^Variable \$year might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/apps/home/modules/footer/view/footer.php
+
+		-
+			message: '#^Variable \$page_data might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: app/apps/home/modules/home/view/index.php
+
+		-
+			message: '#^Variable \$menu might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/apps/home/modules/navbar/view/navbar.php
+
+		-
+			message: '#^Variable \$page_data might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: app/apps/home/modules/services/view/index.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: app/apps/home/template/bootstrap/template.php
+
+		-
+			message: '#^Access to an undefined property app\\modules\\debugtest\\controller\\debugtest\:\:\$extArray\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/modules/debugtest/controller.php
+
+		-
+			message: '#^Call to an undefined static method Architect\\Core\\Container\:\:getInstance\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/modules/pages/modulebootstrap.php
+
+		-
+			message: '#^Method app\\modules\\pages\\modulebootstrap\:\:enableTemplateForSpecificPages\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: app/modules/pages/modulebootstrap.php
+
+		-
+			message: '#^Variable \$content might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/modules/pages/view/index.php
+
+		-
+			message: '#^Variable \$title might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/modules/pages/view/index.php
+
+		-
+			message: '#^Variable \$content might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/modules/pages/view/withtemplate.php
+
+		-
+			message: '#^Variable \$title might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/modules/pages/view/withtemplate.php
+
+		-
+			message: '#^Access to an undefined property app\\modules\\sample\\controller\\sample\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/modules/sample/controller.php
+
+		-
+			message: '#^Access to an undefined property app\\modules\\testmodule\\controller\\testmodule\:\:\$extArray\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/modules/testmodule/controller.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: app/template/bootstrap/template.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Architect\\Helpers\\Core\\Contracts\\HelperInterface\|class\-string\<Architect\\Helpers\\Core\\Contracts\\HelperInterface\> and ''getFacadeClass'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: architect/BlueprintHelpers/Extension.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<Architect\\Helpers\\Core\\Contracts\\HelperInterface\> and ''getAlias'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: architect/BlueprintHelpers/Extension.php
+
+		-
+			message: '#^Call to method register\(\) on an unknown class Architect\\Services\\Console\\CommandRegistry\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Core/Bundle/Command/BundleCommandRegistry.php
+
+		-
+			message: '#^Parameter \$commandRegistry of method Architect\\Core\\Bundle\\Command\\BundleCommandRegistry\:\:register\(\) has invalid type Architect\\Services\\Console\\CommandRegistry\.$#'
+			identifier: class.notFound
+			count: 2
+			path: architect/Core/Bundle/Command/BundleCommandRegistry.php
+
+		-
+			message: '#^Parameter \$commandRegistry of method Architect\\Core\\Bundle\\Command\\BundleCommandRegistry\:\:registerAll\(\) has invalid type Architect\\Services\\Console\\CommandRegistry\.$#'
+			identifier: class.notFound
+			count: 2
+			path: architect/Core/Bundle/Command/BundleCommandRegistry.php
+
+		-
+			message: '#^Call to an undefined method ReflectionType\:\:getName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Core/Container.php
+
+		-
+			message: '#^Call to an undefined method ReflectionType\:\:isBuiltin\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Core/Container.php
+
+		-
+			message: '#^Constant APP_DIR not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: architect/Core/EnvironmentManager.php
+
+		-
+			message: '#^Constructor of class Architect\\Helpers\\Assets\\AssetsHelper has an unused parameter \$container\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: architect/Helpers/Assets/AssetsHelper.php
+
+		-
+			message: '#^Constructor of class Architect\\Helpers\\Breadcrumbs\\BreadcrumbsHelper has an unused parameter \$container\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: architect/Helpers/Breadcrumbs/BreadcrumbsHelper.php
+
+		-
+			message: '#^Call to function class_exists\(\) with ''Helper_Arr''\|''Helper_Assets''\|''Helper_Breadcrumbs''\|''Helper_Db''\|''Helper_Html''\|''Helper_Number''\|''Helper_Request''\|''Helper_Title'' and false will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: architect/Helpers/Core/HelpersServiceProvider.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Blueprint\\Engine\\Blueprint and ''addPath'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: architect/Services/Blueprint/BlueprintService.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Blueprint\\Engine\\Blueprint and ''setPaths'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: architect/Services/Blueprint/BlueprintService.php
+
+		-
+			message: '#^Parameter \#1 \$container of class Architect\\Services\\Blueprint\\BlueprintService constructor expects Architect\\Core\\Container, Architect\\Contracts\\Core\\ContainerInterface given\.$#'
+			identifier: argument.type
+			count: 1
+			path: architect/Services/Blueprint/BlueprintServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$container of class Architect\\Services\\Blueprint\\Config\\ConfigLoader constructor expects Architect\\Core\\Container, Architect\\Contracts\\Core\\ContainerInterface given\.$#'
+			identifier: argument.type
+			count: 1
+			path: architect/Services/Blueprint/BlueprintServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$container of class Architect\\Services\\Blueprint\\Functions\\DefaultFunctions constructor expects Architect\\Core\\Container, Architect\\Contracts\\Core\\ContainerInterface given\.$#'
+			identifier: argument.type
+			count: 1
+			path: architect/Services/Blueprint/BlueprintServiceProvider.php
+
+		-
+			message: '#^Property Architect\\Services\\Blueprint\\Elements\\ElementRenderer\:\:\$config is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Blueprint/Elements/ElementRenderer.php
+
+		-
+			message: '#^Constant APP_DIR not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: architect/Services/Blueprint/Elements/MvcElementRenderer.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Cache\\Contracts\\CacheInterface\:\:setPrefix\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Cache/CacheManager.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Cache\\Config\\CacheConfig\:\:getStores\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Cache/CacheOrchestrator.php
+
+		-
+			message: '#^Call to an undefined static method Axiom\\Cache\\CacheManager\:\:getDriverName\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: architect/Services/Cache/CacheOrchestrator.php
+
+		-
+			message: '#^Instanceof between Blueprint\\Engine\\Blueprint and Blueprint\\Engine\\Blueprint will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: architect/Services/Cache/CacheOrchestrator.php
+
+		-
+			message: '#^Instanceof between Blueprint\\Engine\\Cache\\CacheManager and Blueprint\\Engine\\Cache\\CacheManager will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: architect/Services/Cache/CacheOrchestrator.php
+
+		-
+			message: '#^Property Architect\\Services\\Cache\\CacheOrchestrator\:\:\$blueprintService \(Architect\\Services\\Blueprint\\BlueprintService\|null\) is never assigned Architect\\Services\\Blueprint\\BlueprintService so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: architect/Services/Cache/CacheOrchestrator.php
+
+		-
+			message: '#^Property Architect\\Services\\Cache\\CacheOrchestrator\:\:\$blueprintService is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Cache/CacheOrchestrator.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: architect/Services/Cache/Drivers/AbstractCacheDriver.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Routing\\Contracts\\FileSystemInterface\:\:mkdir\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Config/ConfigCache.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Routing\\Contracts\\FileSystemInterface\:\:put\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Config/ConfigCache.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Routing\\Contracts\\FileSystemInterface\:\:unlink\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Config/ConfigCache.php
+
+		-
+			message: '#^Call to method get\(\) on an unknown class Architect\\Services\\Config\\ConfigCacheInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Config/ConfigLoader.php
+
+		-
+			message: '#^Call to method has\(\) on an unknown class Architect\\Services\\Config\\ConfigCacheInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Config/ConfigLoader.php
+
+		-
+			message: '#^Call to method put\(\) on an unknown class Architect\\Services\\Config\\ConfigCacheInterface\.$#'
+			identifier: class.notFound
+			count: 2
+			path: architect/Services/Config/ConfigLoader.php
+
+		-
+			message: '#^Parameter \$cache of method Architect\\Services\\Config\\ConfigLoader\:\:__construct\(\) has invalid type Architect\\Services\\Config\\ConfigCacheInterface\.$#'
+			identifier: class.notFound
+			count: 2
+			path: architect/Services/Config/ConfigLoader.php
+
+		-
+			message: '#^Property Architect\\Services\\Config\\ConfigLoader\:\:\$cache has unknown class Architect\\Services\\Config\\ConfigCacheInterface as its type\.$#'
+			identifier: class.notFound
+			count: 2
+			path: architect/Services/Config/ConfigLoader.php
+
+		-
+			message: '#^Method Architect\\Console\\Applications\\ApplicationManager\:\:getAllCommands\(\) should return array\<int, Architect\\Console\\Applications\\ConsoleApplication\> but returns list\<Architect\\Console\\CommandInterface\>\.$#'
+			identifier: return.type
+			count: 1
+			path: architect/Services/Console/Applications/ApplicationManager.php
+
+		-
+			message: '#^Static method Axiom\\Orm\\Integrations\\Architect\\AxiomBootstrap\:\:bootstrap\(\) invoked with 0 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: architect/Services/Console/Commands/DbResetCommand.php
+
+		-
+			message: '#^Static method Axiom\\Orm\\Integrations\\Architect\\AxiomBootstrap\:\:bootstrap\(\) invoked with 0 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: architect/Services/Console/Commands/DbRollbackCommand.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: architect/Services/Console/Commands/DbSeedCommand.php
+
+		-
+			message: '#^Static method Axiom\\Orm\\Integrations\\Architect\\AxiomBootstrap\:\:bootstrap\(\) invoked with 0 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: architect/Services/Console/Commands/DbStatusCommand.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Console\\CommandInterface\:\:initialize\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Console/ConsoleKernel.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Console\\CommandInterface\:\:run\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Console/ConsoleKernel.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Console\\CommandInterface\:\:showHelp\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Console/ConsoleKernel.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: architect/Services/Console/ConsoleKernel.php
+
+		-
+			message: '#^Constant APP_DIR not found\.$#'
+			identifier: constant.notFound
+			count: 2
+			path: architect/Services/Debug/Debug.php
+
+		-
+			message: '#^Constant Architect\\Services\\Debug\\Debug\:\:MAX_MESSAGES is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: architect/Services/Debug/Debug.php
+
+		-
+			message: '#^Match arm comparison between 0 and 0 is always true\.$#'
+			identifier: match.alwaysTrue
+			count: 1
+			path: architect/Services/Debug/Debug.php
+
+		-
+			message: '#^Property Architect\\Services\\Debug\\Debug\:\:\$startMemory is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Debug/Debug.php
+
+		-
+			message: '#^Property Architect\\Services\\Debug\\Debug\:\:\$timers is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Debug/Debug.php
+
+		-
+			message: '#^Variable \$data might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: architect/Services/Debug/View/partials/Scripts.php
+
+		-
+			message: '#^Offset 1\|4\|16\|64 on array\{1\: ''Fatal Error'', 2\: ''Warning'', 4\: ''Parse Error'', 8\: ''Notice'', 16\: ''Core Error'', 32\: ''Core Warning'', 64\: ''Compile Error'', 128\: ''Compile Warning'', \.\.\.\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: architect/Services/Errors/Errors.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Throwable\|null and false will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: architect/Services/Errors/View/ExceptionView.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between Throwable\|null and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: architect/Services/Errors/View/ExceptionView.php
+
+		-
+			message: '#^Variable \$prevItems in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: architect/Services/Errors/View/ExceptionView.php
+
+		-
+			message: '#^Property Architect\\Services\\Errors\\View\\FullErrorView\:\:\$exception is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Errors/View/FullErrorView.php
+
+		-
+			message: '#^Property Architect\\Services\\Errors\\View\\NotFoundView\:\:\$message is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Errors/View/NotFoundView.php
+
+		-
+			message: '#^Property Architect\\Services\\FileUpload\\UploadedFile\:\:\$hash is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/FileUpload/UploadedFile.php
+
+		-
+			message: '#^Property Architect\\Services\\FileUpload\\UploadedFile\:\:\$uploadPath is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/FileUpload/UploadedFile.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: architect/Services/FileUpload/UploadedFile.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 3
+			path: architect/Services/Form/Interfaces/FormResult.php
+
+		-
+			message: '#^Dead catch \- JsonException is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: architect/Services/Logger/FileLogWriter.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Mvc\\Contracts\\ResponseInterface\:\:withContent\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: architect/Services/Mvc/Controller.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Mvc\\Contracts\\ResponseInterface\:\:withStatus\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Mvc/Controller.php
+
+		-
+			message: '#^Property Architect\\Services\\Mvc\\Http\\Response\:\:\$jsonOptions is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Mvc/Http/Response.php
+
+		-
+			message: '#^Property Architect\\Services\\Mvc\\Http\\Response\:\:\$type \(string\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: architect/Services/Mvc/Http/Response.php
+
+		-
+			message: '#^Parameter \#3 \$response_code of function header expects int, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: architect/Services/Mvc/Http/ResponseEmitter.php
+
+		-
+			message: '#^Call to an undefined static method Architect\\Services\\Mvc\\Http\\Response\:\:json\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: architect/Services/Mvc/Middleware/Adapters/AuthAdapter.php
+
+		-
+			message: '#^Call to method hasPermission\(\) on an unknown class Architect\\Auth\\AuthManager\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Mvc/Middleware/Adapters/AuthAdapter.php
+
+		-
+			message: '#^Call to method hasRole\(\) on an unknown class Architect\\Auth\\AuthManager\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Mvc/Middleware/Adapters/AuthAdapter.php
+
+		-
+			message: '#^Call to method isLoggedIn\(\) on an unknown class Architect\\Auth\\AuthManager\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Mvc/Middleware/Adapters/AuthAdapter.php
+
+		-
+			message: '#^Instantiated class Architect\\Auth\\AuthManager not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Mvc/Middleware/Adapters/AuthAdapter.php
+
+		-
+			message: '#^Method Architect\\Services\\Mvc\\Middleware\\Adapters\\AuthAdapter\:\:getAuthManager\(\) has invalid return type Architect\\Auth\\AuthManager\.$#'
+			identifier: class.notFound
+			count: 2
+			path: architect/Services/Mvc/Middleware/Adapters/AuthAdapter.php
+
+		-
+			message: '#^Parameter \$authManager of method Architect\\Services\\Mvc\\Middleware\\Adapters\\AuthAdapter\:\:setAuthManager\(\) has invalid type Architect\\Auth\\AuthManager\.$#'
+			identifier: class.notFound
+			count: 2
+			path: architect/Services/Mvc/Middleware/Adapters/AuthAdapter.php
+
+		-
+			message: '#^Property Architect\\Services\\Mvc\\Middleware\\Adapters\\AuthAdapter\:\:\$authManager has unknown class Architect\\Auth\\AuthManager as its type\.$#'
+			identifier: class.notFound
+			count: 2
+			path: architect/Services/Mvc/Middleware/Adapters/AuthAdapter.php
+
+		-
+			message: '#^Static call to instance method Architect\\Services\\Mvc\\Http\\Response\:\:redirect\(\)\.$#'
+			identifier: method.staticCall
+			count: 1
+			path: architect/Services/Mvc/Middleware/Adapters/AuthAdapter.php
+
+		-
+			message: '#^Call to an undefined static method Architect\\Services\\Mvc\\Http\\Response\:\:json\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: architect/Services/Mvc/Middleware/Adapters/CsrfAdapter.php
+
+		-
+			message: '#^Template type T of method Architect\\Services\\Mvc\\Middleware\\BaseMiddleware\:\:get\(\) is not referenced in a parameter\.$#'
+			identifier: method.templateTypeNotInParameter
+			count: 1
+			path: architect/Services/Mvc/Middleware/BaseMiddleware.php
+
+		-
+			message: '#^Call to an undefined method Psr\\Http\\Message\\ResponseFactoryInterface\:\:createStream\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Mvc/Middleware/MiddlewareDispatcher.php
+
+		-
+			message: '#^Property Architect\\Services\\Mvc\\Middleware\\MiddlewareDispatcher\:\:\$container is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Mvc/Middleware/MiddlewareDispatcher.php
+
+		-
+			message: '#^Call to an undefined static method Architect\\Services\\Mvc\\Http\\Response\:\:json\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: architect/Services/Mvc/Middleware/Middlewares/RateLimitMiddleware.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Mvc\\Contracts\\ResponseInterface\:\:hasHeader\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: architect/Services/Mvc/Renderer.php
+
+		-
+			message: '#^Constant APP_DIR not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: architect/Services/Mvc/Resolver/ModulePathResolver.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between Blueprint\\Engine\\Loader and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: architect/Services/Mvc/View.php
+
+		-
+			message: '#^Property Architect\\Services\\Performance\\Alerts\\AlertManager\:\:\$storage is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Performance/Alerts/AlertManager.php
+
+		-
+			message: '#^Call to method output\(\) on an unknown class Architect\\Services\\Performance\\Export\\ExportResult\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Performance/Export/ExportManager.php
+
+		-
+			message: '#^Call to method saveToFile\(\) on an unknown class Architect\\Services\\Performance\\Export\\ExportResult\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Performance/Export/ExportManager.php
+
+		-
+			message: '#^Instantiated class Architect\\Services\\Performance\\Export\\Formats\\CsvExporter not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Performance/Export/ExportManager.php
+
+		-
+			message: '#^Instantiated class Architect\\Services\\Performance\\Export\\Formats\\JsonExporter not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Performance/Export/ExportManager.php
+
+		-
+			message: '#^Method Architect\\Services\\Performance\\Export\\ExportManager\:\:export\(\) has invalid return type Architect\\Services\\Performance\\Export\\ExportResult\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Performance/Export/ExportManager.php
+
+		-
+			message: '#^Property Architect\\Services\\Performance\\Export\\ExportManager\:\:\$config is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Performance/Export/ExportManager.php
+
+		-
+			message: '#^Method Architect\\Services\\Performance\\Export\\ExporterInterface\:\:export\(\) has invalid return type Architect\\Services\\Performance\\Export\\ExportResult\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Performance/Export/ExporterInterface.php
+
+		-
+			message: '#^Property Architect\\Services\\Performance\\PerformanceMonitor\:\:\$config is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Performance/PerformanceMonitor.php
+
+		-
+			message: '#^Property Architect\\Services\\Performance\\PerformanceMonitor\:\:\$container is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Performance/PerformanceMonitor.php
+
+		-
+			message: '#^Property Architect\\Services\\Performance\\PerformanceMonitor\:\:\$metrics is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Performance/PerformanceMonitor.php
+
+		-
+			message: '#^Property Architect\\Services\\Performance\\PerformanceMonitor\:\:\$storage \(Architect\\Services\\Performance\\Contracts\\MetricStorageInterface\|null\) is never assigned Architect\\Services\\Performance\\Contracts\\MetricStorageInterface so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: architect/Services/Performance/PerformanceMonitor.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Performance\\Contracts\\MetricCollectorInterface\:\:recordProfilerMeasurement\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Performance/Profiler.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Contracts\\Core\\ContainerInterface\:\:alias\(\)\.$#'
+			identifier: method.notFound
+			count: 5
+			path: architect/Services/Performance/Providers/PerformanceServiceProvider.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Contracts\\Core\\ContainerInterface\:\:singleton\(\)\.$#'
+			identifier: method.notFound
+			count: 7
+			path: architect/Services/Performance/Providers/PerformanceServiceProvider.php
+
+		-
+			message: '#^Class Architect\\Services\\Performance\\Export\\ExportManager constructor invoked with 0 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: architect/Services/Performance/Providers/PerformanceServiceProvider.php
+
+		-
+			message: '#^Class Architect\\Services\\Performance\\Metrics\\MetricAggregator does not have a constructor and must be instantiated without any parameters\.$#'
+			identifier: new.noConstructor
+			count: 1
+			path: architect/Services/Performance/Providers/PerformanceServiceProvider.php
+
+		-
+			message: '#^Class Architect\\Services\\Performance\\PerformanceMonitor constructor invoked with 4 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: architect/Services/Performance/Providers/PerformanceServiceProvider.php
+
+		-
+			message: '#^Constant APP_DIR not found\.$#'
+			identifier: constant.notFound
+			count: 3
+			path: architect/Services/Routing/ModuleResolver.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Routing\\Contracts\\FileSystemInterface\:\:mkdir\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Routing/RouteCache.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Routing\\Contracts\\FileSystemInterface\:\:mtime\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Routing/RouteCache.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Routing\\Contracts\\FileSystemInterface\:\:put\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Routing/RouteCache.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Services\\Routing\\Contracts\\FileSystemInterface\:\:unlink\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Services/Routing/RouteCache.php
+
+		-
+			message: '#^Call to method get\(\) on an unknown class Architect\\Services\\Routing\\RouteCacheInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Routing/Router.php
+
+		-
+			message: '#^Call to method has\(\) on an unknown class Architect\\Services\\Routing\\RouteCacheInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Routing/Router.php
+
+		-
+			message: '#^Call to method put\(\) on an unknown class Architect\\Services\\Routing\\RouteCacheInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Routing/Router.php
+
+		-
+			message: '#^Constant APP_DIR not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: architect/Services/Routing/Router.php
+
+		-
+			message: '#^Parameter \$cache of method Architect\\Services\\Routing\\Router\:\:__construct\(\) has invalid type Architect\\Services\\Routing\\RouteCacheInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Services/Routing/Router.php
+
+		-
+			message: '#^Property Architect\\Services\\Routing\\Router\:\:\$cache has unknown class Architect\\Services\\Routing\\RouteCacheInterface as its type\.$#'
+			identifier: class.notFound
+			count: 2
+			path: architect/Services/Routing/Router.php
+
+		-
+			message: '#^Property Architect\\Services\\Routing\\Router\:\:\$request is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Routing/Router.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Blueprint\\Engine\\Blueprint and ''setCurrentTemplate'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: architect/Services/Template/Blueprint/BlueprintAdapter.php
+
+		-
+			message: '#^Class Blueprint\\Engine\\Blueprint constructor invoked with 0 parameters, 1\-3 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: architect/Services/Template/Blueprint/BlueprintAdapter.php
+
+		-
+			message: '#^Property Architect\\Services\\Template\\Blueprint\\BlueprintAdapter\:\:\$templatePath is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: architect/Services/Template/Blueprint/BlueprintAdapter.php
+
+		-
+			message: '#^Constant APP_DIR not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: architect/Services/Template/WidgetRenderer/WidgetRenderer.php
+
+		-
+			message: '#^Constant Architect\\Services\\Template\\WidgetRenderer\\WidgetRenderer\:\:WIDGET_DIR is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: architect/Services/Template/WidgetRenderer/WidgetRenderer.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Contracts\\Core\\ContainerInterface\:\:singleton\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/Support/AbstractServiceProvider.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between mixed and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: architect/Support/ServiceProviders/LoggingServiceProvider.php
+
+		-
+			message: '#^Call to static method Breadcrumbs\(\) on an unknown class Statics\.$#'
+			identifier: class.notFound
+			count: 1
+			path: architect/Support/StatementConfigurator.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: architect/bootstrap.php
+
+		-
+			message: '#^Deprecated in PHP 8\.4\: Parameter \#3 \$previous \(Exception\) is implicitly nullable via default value null\.$#'
+			identifier: parameter.implicitlyNullable
+			count: 1
+			path: architect/validation/src/Exceptions/ValidationException.php
+
+		-
+			message: '#^Trait Architect\\Validation\\Http\\RequestValidatorTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: architect/validation/src/Http/RequestValidatorTrait.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Contracts\\Core\\ContainerInterface\:\:alias\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/validation/src/Providers/ValidationServiceProvider.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Contracts\\Core\\ContainerInterface\:\:singleton\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/validation/src/Providers/ValidationServiceProvider.php
+
+		-
+			message: '#^PHPDoc tag @var with type Architect\\Validation\\Rules\\Rule is not subtype of native type Architect\\Validation\\Rules\\AfterRule\|Architect\\Validation\\Rules\\ArrayRule\|Architect\\Validation\\Rules\\BeforeRule\|Architect\\Validation\\Rules\\DateRule\|Architect\\Validation\\Rules\\EmailRule\|Architect\\Validation\\Rules\\ExistsRule\|Architect\\Validation\\Rules\\InRule\|Architect\\Validation\\Rules\\IntegerRule\|Architect\\Validation\\Rules\\MaxRule\|Architect\\Validation\\Rules\\MinRule\|Architect\\Validation\\Rules\\NotInRule\|Architect\\Validation\\Rules\\NumericRule\|Architect\\Validation\\Rules\\RegexRule\|Architect\\Validation\\Rules\\RequiredRule\|Architect\\Validation\\Rules\\SizeRule\|Architect\\Validation\\Rules\\StringRule\|Architect\\Validation\\Rules\\UniqueRule\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: architect/validation/src/Providers/ValidationServiceProvider.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Validation\\Rules\\ValidationRuleInterface\:\:setParameters\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: architect/validation/src/Validator.php
+
+		-
+			message: '#^Call to an undefined method Architect\\Contracts\\Core\\ContainerInterface\:\:singleton\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: src/Bundle/UserBundle/UserBundle.php
+
+		-
+			message: '#^Class App\\Bundle\\UserBundle\\Command\\CreateUserCommand not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Bundle/UserBundle/UserBundle.php
+
+		-
+			message: '#^Class App\\Bundle\\UserBundle\\Command\\ListUsersCommand not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Bundle/UserBundle/UserBundle.php
+
+		-
+			message: '#^Class App\\Bundle\\UserBundle\\Command\\UpdateUserCommand not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Bundle/UserBundle/UserBundle.php
+
+		-
+			message: '#^Instantiated class App\\Bundle\\UserBundle\\Repository\\UserRepository not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Bundle/UserBundle/UserBundle.php
+
+		-
+			message: '#^Instantiated class App\\Bundle\\UserBundle\\ServiceProvider\\UserServiceProvider not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Bundle/UserBundle/UserBundle.php
+
+		-
+			message: '#^Instantiated class App\\Bundle\\UserBundle\\Service\\AuthService not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Bundle/UserBundle/UserBundle.php

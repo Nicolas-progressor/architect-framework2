@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\Database;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Services\Database\Contracts\QueryLoggerInterface;
 use Architect\Support\AbstractService;
 use InvalidArgumentException;

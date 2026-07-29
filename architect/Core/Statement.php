@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Core;
 
-use Architect\Core\Contracts\ContainerInterface;
-use Architect\Core\Contracts\StatementInterface;
+use Architect\Contracts\Core\ContainerInterface;
+use Architect\Contracts\Core\StatementInterface;
 use Architect\Core\Debug\DebugPanelRenderer;
 use Architect\Core\Http\RequestDetector;
 

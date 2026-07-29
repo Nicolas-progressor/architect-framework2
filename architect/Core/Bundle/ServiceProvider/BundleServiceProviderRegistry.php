@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Architect\Core\Bundle\ServiceProvider;
 
 use Architect\Contracts\BundleInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Contracts\ServiceProviderInterface;
-use Architect\Core\Contracts\ContainerInterface;
 
 /**
  * Registers service providers from bundles.

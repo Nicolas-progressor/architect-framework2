@@ -10,6 +10,6 @@ class footer extends ModelBase
 {
     public function getYear(): int
     {
-        return (int)date('Y');
+        return (int) date('Y');
     }
 }

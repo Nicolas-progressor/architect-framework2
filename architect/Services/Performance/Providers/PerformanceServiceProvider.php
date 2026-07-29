@@ -2,8 +2,8 @@
 
 namespace Architect\Services\Performance\Providers;
 
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Contracts\ServiceProviderInterface;
-use Architect\Core\Contracts\ContainerInterface;
 use Architect\Services\Performance\Alerts\AlertManager;
 use Architect\Services\Performance\Contracts\AlertManagerInterface;
 use Architect\Services\Performance\Contracts\MetricAggregatorInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Core;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Core\Exception\ContainerException;
 use Architect\Core\Exception\NotFoundException;
 use ReflectionClass;

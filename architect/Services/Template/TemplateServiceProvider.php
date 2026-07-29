@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Services\Template;
 
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Contracts\ServiceProviderInterface;
-use Architect\Core\Contracts\ContainerInterface;
 use Architect\Services\Template\Blueprint\BlueprintAdapter;
 use Architect\Services\Template\Config\TemplateConfigLoader;
 use Architect\Services\Template\Contracts\BlueprintAdapterInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\Mvc;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Services\Mvc\Contracts\ControllerInterface;
 use Architect\Services\Mvc\Contracts\ResponseInterface;
 use Architect\Services\Mvc\Middleware\Contracts\MiddlewareInterface;

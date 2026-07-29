@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Architect\Core;
 
 use Architect\Contracts\BundleInterface;
-use Architect\Core\Contracts\BootableInterface;
-use Architect\Core\Contracts\ContainerInterface;
-use Architect\Core\Contracts\FrameworkInterface;
-use Architect\Core\Contracts\StatementInterface;
+use Architect\Contracts\Core\BootableInterface;
+use Architect\Contracts\Core\ContainerInterface;
+use Architect\Contracts\Core\FrameworkInterface;
+use Architect\Contracts\Core\StatementInterface;
 use Architect\Core\Exception\HttpNotFoundException;
 
 /**

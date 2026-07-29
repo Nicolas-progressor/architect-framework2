@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Validation\Providers;
 
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Contracts\ServiceProviderInterface;
-use Architect\Core\Contracts\ContainerInterface;
 use Architect\Validation\Rules\AfterRule;
 use Architect\Validation\Rules\ArrayRule;
 use Architect\Validation\Rules\BeforeRule;

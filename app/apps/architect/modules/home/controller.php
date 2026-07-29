@@ -3,10 +3,9 @@
 declare(strict_types=1);
 
 namespace app\architect\modules\home\controller;
-use Architect\Helpers\Facades\Helper_Title;
 
+use Architect\Helpers\Facades\Helper_Title;
 use pattern\controller;
-use Architect\Statics\Statics;
 
 class home extends controller
 {
@@ -14,9 +13,9 @@ class home extends controller
     {
         // Установка заголовка страницы
         Helper_Title::set('Компоненты - Architect Framework');
-        
+
     }
-    
+
     public function index_app_output(): void
     {
         $this->render('index');

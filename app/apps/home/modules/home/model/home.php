@@ -13,14 +13,14 @@ class home extends ModelBase
         return [
             'title' => 'Главная страница',
             'heading' => 'Добро пожаловать',
-            'description' => 'Это приложение на базе Architect Framework'
+            'description' => 'Это приложение на базе Architect Framework',
         ];
     }
-    
+
     public function getBreadcrumbs(): array
     {
         return [
-            ['title' => 'Главная', 'url' => '/']
+            ['title' => 'Главная', 'url' => '/'],
         ];
     }
 }

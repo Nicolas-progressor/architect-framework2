@@ -13,7 +13,7 @@ class footer extends controller
         $model = $this->getModel('footer');
         $this->ext['year'] = $model->getYear();
     }
-    
+
     public function index_app_output(): void
     {
         $this->display('footer');

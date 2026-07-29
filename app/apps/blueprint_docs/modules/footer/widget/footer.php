@@ -12,7 +12,7 @@ class footer extends controller
     {
         $this->ext['year'] = date('Y');
     }
-    
+
     public function index_app_output(): void
     {
         $this->display('footer');

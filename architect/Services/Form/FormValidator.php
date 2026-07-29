@@ -117,7 +117,7 @@ class FormValidator implements FormValidatorInterface
      */
     protected function applyRule(string $field, string $ruleName, ?string $ruleParam, mixed $value): void
     {
-        $method = 'validate' . ucfirst($ruleName);
+        $method = 'validate' . str_replace('_', '', ucwords($ruleName, '_'));
 
         if (method_exists($this, $method)) {
             $result = $this->$method($value, $ruleParam);

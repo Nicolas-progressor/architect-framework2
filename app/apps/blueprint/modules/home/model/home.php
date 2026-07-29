@@ -12,14 +12,14 @@ class home extends ModelBase
     {
         return [
             'title' => 'Blueprint - Современный шаблонизатор',
-            'description' => 'Демонстрация шаблонизатора Blueprint для Architect Framework'
+            'description' => 'Демонстрация шаблонизатора Blueprint для Architect Framework',
         ];
     }
-    
+
     public function getBreadcrumbs(): array
     {
         return [
-            ['title' => 'Главная', 'url' => '/']
+            ['title' => 'Главная', 'url' => '/'],
         ];
     }
 }

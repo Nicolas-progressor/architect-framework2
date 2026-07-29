@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\App;
 
-use Architect\Core\Contracts\StatementInterface;
+use Architect\Contracts\Core\StatementInterface;
 use Architect\Services\App\Contracts\AppBootstrapInterface;
 use Psr\Log\LoggerInterface;
 

@@ -6,7 +6,7 @@ namespace app\modules\pages;
 
 /**
  * Bootstrap для общего модуля pages
- * 
+ *
  * Показывает как управлять шаблоном для общих модулей
  */
 class modulebootstrap
@@ -17,7 +17,7 @@ class modulebootstrap
         // Здесь можно включить его при необходимости
         // Пример: $this->enableTemplateForSpecificPages();
     }
-    
+
     /**
      * Включить шаблон для определённых страниц
      */
@@ -26,7 +26,7 @@ class modulebootstrap
         $container = \Architect\Core\Container::getInstance();
         $router = $container->get('router');
         $template = $container->get('template');
-        
+
         // Для страниц с шаблоном - включаем его
         if ($router->segment(2) === 'withtemplate') {
             $template->loadFromApp('bootstrap');

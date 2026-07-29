@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\Mvc\Resolver;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Services\Mvc\Contracts\ModuleResolverInterface;
 
 /**

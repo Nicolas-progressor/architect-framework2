@@ -3,11 +3,10 @@
 declare(strict_types=1);
 
 namespace app\architect\modules\templates\controller;
-use Architect\Helpers\Facades\Helper_Title;
-use Architect\Helpers\Facades\Helper_Breadcrumbs;
 
+use Architect\Helpers\Facades\Helper_Breadcrumbs;
+use Architect\Helpers\Facades\Helper_Title;
 use pattern\controller;
-use Architect\Statics\Statics;
 
 class templates extends controller
 {
@@ -15,12 +14,12 @@ class templates extends controller
     {
         // Установка заголовка страницы
         Helper_Title::set('Шаблоны - Architect Framework');
-        
+
         // Добавление хлебных крошек
         Helper_Breadcrumbs::add('Главная', '/');
         Helper_Breadcrumbs::add('Шаблоны', '/templates');
     }
-    
+
     public function index_app_output(): void
     {
         $this->render('index');

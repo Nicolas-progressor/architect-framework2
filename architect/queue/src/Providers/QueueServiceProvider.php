@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Queue\Providers;
 
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Contracts\ServiceProviderInterface;
-use Architect\Core\Contracts\ContainerInterface;
 use Architect\Queue\Contracts\FailedJobRepositoryInterface;
 use Architect\Queue\Dispatcher;
 use Architect\Queue\Events\EventDispatcherInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Support\ServiceProviders;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Services\Mvc\Http\ResponseEmitter;
 use Architect\Services\Mvc\Http\ResponseFactory;
 use Architect\Services\Mvc\Middleware\MiddlewareDispatcher;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace app\axiom\modules\infoentity\model;
 
-use Architect\Services\Mvc\ModelBase;
-use Axiom\Orm\Orm;
-use Axiom\Entity\EntityManager;
 use App\Entity\AxiomInfo;
+use Architect\Services\Mvc\ModelBase;
+use Axiom\Entity\EntityManager;
+use Axiom\Orm\Orm;
 
 class infoentity extends ModelBase
 {
@@ -20,7 +20,7 @@ class infoentity extends ModelBase
             $rows = Orm::table('axiom_info')
                 ->orderBy('sort_order', 'ASC')
                 ->get() ?? [];
-            
+
             // Map to entities
             $entities = [];
             foreach ($rows as $row) {
@@ -30,13 +30,13 @@ class infoentity extends ModelBase
                 }
                 $entities[] = $entity;
             }
-            
+
             return $entities;
         } catch (\Exception $e) {
             return [];
         }
     }
-    
+
     /**
      * Get info grouped by category using Entity
      */
@@ -44,7 +44,7 @@ class infoentity extends ModelBase
     {
         try {
             $all = $this->getAllInfo();
-            
+
             $byCategory = [];
             foreach ($all as $entity) {
                 $category = $entity->getCategory() ?? 'other';
@@ -53,7 +53,7 @@ class infoentity extends ModelBase
                 }
                 $byCategory[$category][] = $entity;
             }
-            
+
             return $byCategory;
         } catch (\Exception $e) {
             return [];

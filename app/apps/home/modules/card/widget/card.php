@@ -13,7 +13,7 @@ class card extends controller
         $model = $this->getModel('card');
         $this->ext['cards'] = $model->getCards();
     }
-    
+
     public function create_app_output(): void
     {
         $this->display('card');

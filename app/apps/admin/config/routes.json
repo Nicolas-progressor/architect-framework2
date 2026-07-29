@@ -1,0 +1,31 @@
+{
+    "default": "dashboard",
+
+    "routes": {
+        "/": {
+            "module": "dashboard",
+            "controller": "dashboard",
+            "action": "index"
+        },
+        "users": {
+            "module": "users",
+            "controller": "users",
+            "action": "index"
+        },
+        "users/create": {
+            "module": "users",
+            "controller": "users",
+            "action": "create"
+        },
+        "users/{id}/edit": {
+            "module": "users",
+            "controller": "users",
+            "action": "edit"
+        },
+        "users/{id}/delete": {
+            "module": "users",
+            "controller": "users",
+            "action": "delete"
+        }
+    }
+}

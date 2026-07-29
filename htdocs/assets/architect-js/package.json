@@ -1,0 +1,18 @@
+{
+    "name": "architect-js",
+    "version": "1.0.0",
+    "description": "Lightweight vanilla JS SPA framework — DI container, router, state manager, HTTP client, and web components.",
+    "main": "src/app.js",
+    "keywords": ["spa", "router", "di", "web-components", "vanilla-js", "architect"],
+    "license": "MIT",
+    "author": "Architect Team",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Nicolas-progressor/architect-js"
+    },
+    "files": [
+        "src/",
+        "dist/",
+        "README.md"
+    ]
+}

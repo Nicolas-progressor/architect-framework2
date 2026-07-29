@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\Cache;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Services\Blueprint\BlueprintService;
 use Axiom\Cache\CacheManager as AxiomCacheManager;
 use Blueprint\Engine\Blueprint;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Console;
 
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Contracts\ServiceProviderInterface;
-use Architect\Core\Contracts\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 /**

@@ -10,12 +10,12 @@ use Axiom\Orm\Orm;
 class query extends ModelBase
 {
     private bool $seeded = false;
-    
+
     public function getUsers(): array
     {
         // Проверяем и создаём тестовые данные если нужно
         $this->ensureTestData();
-        
+
         try {
             return Orm::table('axiom_users')
                 ->orderBy('id', 'DESC')
@@ -25,7 +25,7 @@ class query extends ModelBase
             return [];
         }
     }
-    
+
     /**
      * Проверить наличие данных и создать тестовые если таблица пуста
      */
@@ -34,23 +34,23 @@ class query extends ModelBase
         if ($this->seeded) {
             return;
         }
-        
+
         try {
             $count = Orm::table('axiom_users')->count() ?? 0;
-            
+
             if ($count === 0) {
                 $this->seedTestData();
             }
-            
+
             $this->seeded = true;
         } catch (\Throwable $e) {
             // Таблица не существует - ничего не делаем
             // Для отладки можно записать в лог
-            error_log("Axiom Query: " . $e->getMessage());
+            error_log('Axiom Query: ' . $e->getMessage());
             $this->seeded = true;
         }
     }
-    
+
     /**
      * Создать тестовые данные
      */
@@ -68,7 +68,7 @@ class query extends ModelBase
             ['name' => 'Павел Захаров', 'email' => 'pavel@example.com', 'status' => 'active'],
             ['name' => 'Наталья Кузнецова', 'email' => 'natalia@example.com', 'status' => 'active'],
         ];
-        
+
         foreach ($testUsers as $user) {
             try {
                 Orm::table('axiom_users')
@@ -78,29 +78,29 @@ class query extends ModelBase
                         'email' => $user['email'],
                         'status' => $user['status'],
                         'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s')
+                        'updated_at' => date('Y-m-d H:i:s'),
                     ])
                     ->execute();
             } catch (\Throwable $e) {
                 // Пропускаем ошибки - возможно таблица не существует
-                error_log("Axiom Query seed error: " . $e->getMessage());
+                error_log('Axiom Query seed error: ' . $e->getMessage());
             }
         }
     }
-    
+
     public function getStats(): array
     {
         try {
             return [
                 'total' => Orm::table('axiom_users')->count() ?? 0,
                 'active' => Orm::table('axiom_users')->where('status', '=', 'active')->count() ?? 0,
-                'inactive' => Orm::table('axiom_users')->where('status', '=', 'inactive')->count() ?? 0
+                'inactive' => Orm::table('axiom_users')->where('status', '=', 'inactive')->count() ?? 0,
             ];
         } catch (\Exception $e) {
             return ['total' => 0, 'active' => 0, 'inactive' => 0];
         }
     }
-    
+
     public function runQuery(string $type, string $name = '', string $email = ''): array
     {
         try {
@@ -113,11 +113,11 @@ class query extends ModelBase
                             'email' => $email,
                             'status' => 'active',
                             'created_at' => date('Y-m-d H:i:s'),
-                            'updated_at' => date('Y-m-d H:i:s')
+                            'updated_at' => date('Y-m-d H:i:s'),
                         ])
                         ->execute();
                     return ['success' => true, 'message' => "Пользователь создан с ID: $id", 'id' => $id];
-                
+
                 case 'select':
                     $users = Orm::table('axiom_users')
                         ->where('name', 'LIKE', "%{$name}%")
@@ -125,11 +125,11 @@ class query extends ModelBase
                         ->limit(10)
                         ->get();
                     return ['success' => true, 'users' => $users ?? []];
-                
+
                 case 'update':
                     // Используем email или name для поиска
                     $builder = Orm::table('axiom_users');
-                    
+
                     if (!empty($email)) {
                         $builder->where('email', '=', $email);
                     } elseif (!empty($name)) {
@@ -137,20 +137,20 @@ class query extends ModelBase
                     } else {
                         return ['success' => false, 'message' => 'Укажите email или имя для обновления'];
                     }
-                    
+
                     $affected = $builder->update('axiom_users')
                         ->set(['status' => 'inactive'])
                         ->execute();
-                    
+
                     return ['success' => true, 'message' => "Обновлено записей: $affected"];
-                
+
                 case 'delete':
                     $deleted = Orm::table('axiom_users')
                         ->delete()
                         ->where('status', '=', 'inactive')
                         ->execute();
                     return ['success' => true, 'message' => "Удалено записей: $deleted"];
-                
+
                 default:
                     return ['success' => false, 'message' => 'Неизвестный тип операции'];
             }

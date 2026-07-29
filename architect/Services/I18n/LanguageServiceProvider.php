@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Services\I18n;
 
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Contracts\ServiceProviderInterface;
-use Architect\Core\Contracts\ContainerInterface;
 use Architect\Services\I18n\Contracts\LanguageDetectorInterface;
 use Architect\Services\I18n\Contracts\LanguageInterface;
 use Architect\Services\I18n\Contracts\TranslationLoaderInterface;

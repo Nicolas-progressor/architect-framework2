@@ -13,7 +13,7 @@ class hero extends controller
         $model = $this->getModel('hero');
         $this->ext['features'] = $model->getFeatures();
     }
-    
+
     public function create_app_output(): void
     {
         $this->display('hero');

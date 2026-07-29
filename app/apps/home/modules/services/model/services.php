@@ -13,15 +13,15 @@ class services extends ModelBase
         return [
             'title' => 'Услуги',
             'heading' => 'Наши услуги',
-            'description' => 'Мы предлагаем широкий спектр услуг'
+            'description' => 'Мы предлагаем широкий спектр услуг',
         ];
     }
-    
+
     public function getBreadcrumbs(): array
     {
         return [
             ['title' => 'Главная', 'url' => '/'],
-            ['title' => 'Услуги', 'url' => '/services']
+            ['title' => 'Услуги', 'url' => '/services'],
         ];
     }
 }

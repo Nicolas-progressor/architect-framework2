@@ -15,7 +15,7 @@ class navbar extends ModelBase
             ['name' => 'Главная', 'url' => Helper_Html::href(''), 'icon' => 'house-fill'],
             ['name' => 'О нас', 'url' => Helper_Html::href('about'), 'icon' => 'people'],
             ['name' => 'Услуги', 'url' => Helper_Html::href('services'), 'icon' => 'briefcase'],
-            ['name' => 'Контакты', 'url' => Helper_Html::href('contact'), 'icon' => 'envelope']
+            ['name' => 'Контакты', 'url' => Helper_Html::href('contact'), 'icon' => 'envelope'],
         ];
     }
 }

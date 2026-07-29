@@ -16,9 +16,9 @@ class sample extends controller
         // Используем шаблон bootstrap из приложения home
         $template = $this->get('template');
         $template->setTemplateFromApp('home', 'bootstrap');
-        
+
         $this->title = 'Тест - Шаблон из home';
-        
+
         $this->render('home');
     }
 
@@ -27,9 +27,9 @@ class sample extends controller
         // Используем общий шаблон из app/template/
         $template = $this->get('template');
         $template->setTemplate('bootstrap'); // Загрузит из app/template/bootstrap/
-        
+
         $this->title = 'Тест - Общий шаблон';
-        
+
         $this->render('global');
     }
 }

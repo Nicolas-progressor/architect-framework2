@@ -1,3 +1,6 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
     paths:
         - src
@@ -10,4 +13,11 @@ parameters:
         - storage
         - tests
         - app/logs
+        - architect/auth-system
+        - architect/blueprint-forms
+        - architect/blueprint-auth
+        - architect/http-client
+        - architect/queue
+        - architect/Services/Session
+        - architect/Services/Mail
     treatPhpDocTypesAsCertain: false

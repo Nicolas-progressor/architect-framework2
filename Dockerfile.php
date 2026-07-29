@@ -29,13 +29,10 @@ EXPOSE 9000
 RUN mkdir -p /var/www/html/storage /var/www/html/cache /var/www/html/storage/blueprint /var/www/html/storage/cache /var/www/html/storage/logs && \
     chown -R www-data:www-data /var/www/html
 
-# Create entrypoint to fix permissions on Windows Docker
 RUN echo '#!/bin/bash\n\
 mkdir -p /var/www/html/storage /var/www/html/cache /var/www/html/storage/blueprint /var/www/html/storage/cache /var/www/html/storage/logs\n\
-find /var/www/html -type d -exec chmod 755 {} \\;\n\
-find /var/www/html -type f -exec chmod 644 {} \\;\n\
-chown -R www-data:www-data /var/www/html\n\
-# Change PHP-FPM pool to run as root\n\
+find /var/www/html -path /var/www/html/.git -prune -o -path /var/www/html/vendor -prune -o -type d -exec chmod 755 {} +\n\
+find /var/www/html -path /var/www/html/.git -prune -o -path /var/www/html/vendor -prune -o -type f -exec chmod 644 {} +\n\
 sed -i "s/^user = www-data/user = root/" /usr/local/etc/php-fpm.d/www.conf\n\
 sed -i "s/^group = www-data/group = root/" /usr/local/etc/php-fpm.d/www.conf\n\
 exec docker-php-entrypoint php-fpm --allow-to-run-as-root\n' > /entrypoint.sh && chmod +x /entrypoint.sh

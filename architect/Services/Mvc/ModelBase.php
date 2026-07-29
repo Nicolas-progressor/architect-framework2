@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\Mvc;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 
 /**
  * Base class for all models.

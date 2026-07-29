@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\Template\Renderer;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Services\Template\Contracts\TemplateInterface;
 use Architect\Services\Template\Contracts\TemplateRendererInterface;
 

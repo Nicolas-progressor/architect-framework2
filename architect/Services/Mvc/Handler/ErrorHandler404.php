@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\Mvc\Handler;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Services\Mvc\Handler\Contracts\ErrorHandler404Interface;
 use Architect\Services\Mvc\Resolver\ModulePathResolver;
 

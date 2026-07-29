@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Architect\Core\Bundle\Config;
 
 use Architect\Contracts\BundleInterface;
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 
 /**
  * Loads configuration for bundles.

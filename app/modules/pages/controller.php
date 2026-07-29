@@ -17,10 +17,10 @@ class pages extends controller
         // По умолчанию - без шаблона (для общих модулей)
         $this->ext['title'] = 'Страница';
         $this->ext['content'] = 'Простая страница без шаблона';
-        
+
         $this->render('index');
     }
-    
+
     /**
      * Пример с принудительным включением шаблона
      */
@@ -28,10 +28,10 @@ class pages extends controller
     {
         // Включаем шаблон приложения
         $this->setTemplate('bootstrap');
-        
+
         $this->ext['title'] = 'Страница с шаблоном';
         $this->ext['content'] = 'Эта страница использует шаблон приложения';
-        
+
         $this->render('withtemplate');
     }
 }

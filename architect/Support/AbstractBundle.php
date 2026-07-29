@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Architect\Support;
 
 use Architect\Contracts\BundleInterface;
-use Architect\Core\Contracts\ContainerInterface;
-use Architect\Core\Contracts\FrameworkInterface;
+use Architect\Contracts\Core\ContainerInterface;
+use Architect\Contracts\Core\FrameworkInterface;
 
 /**
  * Base bundle class with common functionality.

@@ -13,7 +13,7 @@ class navbar extends controller
         $model = $this->getModel('navbar');
         $this->ext['menu'] = $model->getMenu();
     }
-    
+
     public function create_app_output(): void
     {
         $this->display('navbar');

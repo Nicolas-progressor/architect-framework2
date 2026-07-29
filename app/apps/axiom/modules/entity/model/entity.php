@@ -21,14 +21,14 @@ class entity extends ModelBase
             return [];
         }
     }
-    
+
     public function createUser(string $name, string $email, string $status): array
     {
         try {
             if (empty($name) || empty($email)) {
                 return ['success' => false, 'message' => 'Имя и email обязательны'];
             }
-            
+
             $id = Orm::table('axiom_users')
                 ->insert()
                 ->set([
@@ -36,19 +36,19 @@ class entity extends ModelBase
                     'email' => $email,
                     'status' => $status,
                     'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
+                    'updated_at' => date('Y-m-d H:i:s'),
                 ])
                 ->execute();
-            
+
             return [
                 'success' => true,
                 'message' => 'Пользователь создан',
-                'id' => $id
+                'id' => $id,
             ];
         } catch (\Throwable $e) {
             return [
                 'success' => false,
-                'message' => 'Ошибка: ' . $e->getMessage()
+                'message' => 'Ошибка: ' . $e->getMessage(),
             ];
         }
     }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace app\blueprint\modules\navbar\model;
 
-use Architect\Services\Mvc\ModelBase;
 use Architect\Helpers\Facades\Helper_Html;
+use Architect\Services\Mvc\ModelBase;
 
 class navbar extends ModelBase
 {
@@ -15,7 +15,7 @@ class navbar extends ModelBase
             ['name' => 'Главная', 'url' => Helper_Html::href(''), 'icon' => 'house-fill'],
             ['name' => 'Возможности', 'url' => Helper_Html::href('features'), 'icon' => 'stars'],
             ['name' => 'Документация', 'url' => Helper_Html::href('docs'), 'icon' => 'book'],
-            ['name' => 'Контакты', 'url' => Helper_Html::href('contact'), 'icon' => 'envelope']
+            ['name' => 'Контакты', 'url' => Helper_Html::href('contact'), 'icon' => 'envelope'],
         ];
     }
 }

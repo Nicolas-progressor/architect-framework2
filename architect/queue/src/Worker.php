@@ -63,10 +63,14 @@ class Worker implements WorkerInterface
 
         $this->log('info', "Worker started for queue '{$queue}'");
 
+        $this->installSignalHandlers();
+
         $startTime = time();
         $driver = $this->queueManager->driver($this->options['connection']);
 
         while (!$this->shouldStop) {
+            $this->checkSignals();
+
             if ($this->paused) {
                 sleep(1);
                 continue;
@@ -97,6 +101,7 @@ class Worker implements WorkerInterface
                 }
                 $this->log('debug', 'No jobs available, sleeping.');
                 sleep($this->options['sleep']);
+                $this->checkSignals();
                 continue;
             }
 
@@ -235,6 +240,36 @@ class Worker implements WorkerInterface
     protected function calculateRetryDelay(int $attempts): int
     {
         return (int) min(60 * 60, pow(2, $attempts) * 5);
+    }
+
+    /**
+     * Install signal handlers for graceful shutdown.
+     */
+    protected function installSignalHandlers(): void
+    {
+        if (function_exists('pcntl_signal')) {
+            pcntl_signal(SIGTERM, function () {
+                $this->log('info', 'SIGTERM received, shutting down gracefully.');
+                $this->shouldStop = true;
+            });
+
+            pcntl_signal(SIGINT, function () {
+                $this->log('info', 'SIGINT received, shutting down gracefully.');
+                $this->shouldStop = true;
+            });
+
+            $this->log('debug', 'Signal handlers installed (SIGTERM, SIGINT).');
+        }
+    }
+
+    /**
+     * Check signals (must be called in the main loop).
+     */
+    protected function checkSignals(): void
+    {
+        if (function_exists('pcntl_signal_dispatch')) {
+            pcntl_signal_dispatch();
+        }
     }
 
     /**

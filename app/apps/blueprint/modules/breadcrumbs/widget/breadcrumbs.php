@@ -3,10 +3,9 @@
 declare(strict_types=1);
 
 namespace app\blueprint\modules\breadcrumbs\widget;
+
 use Architect\Helpers\Facades\Helper_Breadcrumbs;
-
 use pattern\controller;
-
 
 class breadcrumbs extends controller
 {
@@ -14,7 +13,7 @@ class breadcrumbs extends controller
     {
         // Получаем крошки после того как контроллер страницы их добавил
         $this->ext['breadcrumbs'] = Helper_Breadcrumbs::all();
-        
+
         $this->display('breadcrumbs');
     }
 }

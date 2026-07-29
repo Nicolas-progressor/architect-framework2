@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\Errors;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Core\EnvironmentManager;
 use Architect\Services\Config\Contracts\ConfigInterface;
 use Architect\Services\Errors\Contracts\ErrorHandlerInterface;

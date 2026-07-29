@@ -1,4 +1,6 @@
-<?php if (empty($breadcrumbs)) return; ?>
+<?php if (empty($breadcrumbs)) {
+    return;
+} ?>
 
 <nav aria-label="breadcrumb" class="mb-3">
     <ol class="breadcrumb">

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Architect\Services\Performance;
 
 use Architect\Core\Container;
+use Architect\Services\Performance\Contracts\MetricStorageInterface;
 use Architect\Services\Performance\Contracts\PerformanceMonitorInterface;
 use Architect\Services\Performance\Metrics\MetricAggregator;
 use Architect\Services\Performance\Metrics\MetricCollector;
-use Architect\Services\Performance\Storage\MetricStorageInterface;
 
 class PerformanceMonitor implements PerformanceMonitorInterface
 {

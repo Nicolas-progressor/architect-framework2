@@ -12,18 +12,18 @@ class contact extends ModelBase
     {
         return [
             'title' => 'Контакты - Blueprint App',
-            'description' => 'Свяжитесь с нами'
+            'description' => 'Свяжитесь с нами',
         ];
     }
-    
+
     public function getBreadcrumbs(): array
     {
         return [
             ['title' => 'Главная', 'url' => '/blueprint/'],
-            ['title' => 'Контакты', 'url' => '/blueprint/contact']
+            ['title' => 'Контакты', 'url' => '/blueprint/contact'],
         ];
     }
-    
+
     public function getContactInfo(): array
     {
         return [
@@ -33,8 +33,8 @@ class contact extends ModelBase
             'social' => [
                 ['icon' => 'bi-github', 'url' => 'https://github.com', 'name' => 'GitHub'],
                 ['icon' => 'bi-twitter', 'url' => 'https://twitter.com', 'name' => 'Twitter'],
-                ['icon' => 'bi-telegram', 'url' => 'https://telegram.org', 'name' => 'Telegram']
-            ]
+                ['icon' => 'bi-telegram', 'url' => 'https://telegram.org', 'name' => 'Telegram'],
+            ],
         ];
     }
 }

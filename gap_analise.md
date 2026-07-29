@@ -1,6 +1,7 @@
-# Анализ недостающих компонентов и план доработок
 
-**Дата анализа:** 25 июля 2026  
+# Анализ недостающих компонентов и план доработок
+**Дата анализа:** 25 июля 2026
+**Обновлено:** 26 июля 2026
 **Проект:** Architect Framework 2.0
 
 ---
@@ -19,303 +20,268 @@
 
 ## 2. Матрица зрелости компонентов
 
-### 2.1 Ядро фреймворка (src/)
+### 2.1 Ядро фреймворка (architect/Core + architect/Services)
 
 | Компонент | Код | Тесты | Документация | Статус |
 |-----------|-----|-------|--------------|--------|
-| Container (DI) | 🟢 | 🔴 | 🔴 | 🟡 |
-| Application | 🟡 | 🔴 | 🔴 | 🟡 |
-| Environment | 🟡 | 🔴 | 🔴 | 🟡 |
-| Statement | 🟡 | 🔴 | 🔴 | 🔴 |
-| Dispatcher | 🟡 | 🔴 | 🔴 | 🟡 |
-| Bundle System | 🟢 | 🟡 | 🔴 | 🟡 |
-| HTTP Request/Response | 🟡 | 🔴 | 🔴 | 🟡 |
-| Router | 🟡 | 🔴 | 🔴 | 🔴 |
-| Session | 🟡 | 🔴 | 🔴 | 🔴 |
-| Cookie | 🟡 | 🔴 | 🔴 | 🔴 |
-| Console | 🟡 | 🔴 | 🔴 | 🟡 |
+| Container (DI) | 🟢 | 🟡 (9 assertions в contracts) | 🟢 (docs + techdocs) | 🟢 |
+| Framework | 🟢 | 🔴 | 🟢 | 🟡 |
+| Statement | 🟢 | 🔴 | 🔴 | 🟡 |
+| Environment | 🟢 | 🔴 | 🟢 | 🟡 |
+| Bundle System | 🟢 | 🟡 | 🟢 (docs/bundles.md) | 🟢 |
+| Config System | 🟢 | 🔴 | 🟢 (docs + techdocs) | 🟡 |
+| Router | 🟢 | 🔴 | 🟢 (docs/routing.md) | 🟡 |
+| Middleware Pipeline | 🟢 | 🔴 | 🟡 | 🟡 |
+| HTTP Request/Response | 🟢 | 🔴 | 🟢 | 🟡 |
+| Session | 🟡 (NativeSession) | 🔴 | 🔴 | 🟡 |
+| Console | 🟢 (20+ commands) | 🔴 | 🟢 (docs/console.md) | 🟡 |
+| MVC (Controller/Model/View) | 🟢 | 🔴 | 🟢 (docs/controllers.md, models.md, views.md) | 🟡 |
+| Template Engine | 🟢 (Blueprint + PHP renderers) | 🔴 | 🟢 | 🟡 |
 
-### 2.2 Бандлы (architect/)
+### 2.2 Сервисы (architect/Services/)
+
+| Сервис | Код | Тесты | Документация | Статус |
+|--------|-----|-------|--------------|--------|
+| Cache (file, array, redis) | 🟢 | 🔴 | 🟢 (docs/caching.md) | 🟡 |
+| Logger (5 каналов) | 🟢 | 🔴 | 🟢 (docs/logging.md) | 🟡 |
+| Errors | 🟢 | 🔴 | 🟢 (docs/errors.md) | 🟡 |
+| Forms + CSRF | 🟢 | 🔴 | 🟢 (docs/forms.md) | 🟡 |
+| Performance Monitor | 🟢 | 🔴 | 🟢 (docs/performance.md) | 🟡 |
+| Debug Toolbar (11 tabs) | 🟢 | 🔴 | 🟢 (docs/debugging.md) | 🟡 |
+| I18n (5 языков) | 🟢 | 🔴 | 🟢 (docs/i18n.md) | 🟡 |
+| Routing (JSON loader) | 🟢 | 🔴 | 🟢 (docs/routing.md) | 🟡 |
+| Database | 🟢 | 🔴 | 🟢 (docs/database.md) | 🟡 |
+| App Management | 🟢 | 🔴 | 🟡 | 🟡 |
+
+### 2.3 Бандлы (architect/)
 
 | Бандл | Код | Тесты | Документация | Статус |
 |-------|-----|-------|--------------|--------|
-| Auth (RBAC) | 🟢 | 🔴 | 🔴 | 🟡 |
-| Blueprint Templates | 🟢 | 🟡 | 🔴 | 🟡 |
-| Blueprint Forms | 🟡 | 🔴 | 🔴 | 🔴 |
-| Blueprint Helpers | 🟡 | 🔴 | 🔴 | 🔴 |
-| Console | 🟡 | 🔴 | 🔴 | 🔴 |
-| HTTP Client | 🟢 | 🔴 | 🔴 | 🟡 |
-| Queue | 🟢 | 🟡 | 🔴 | 🟡 |
-| Validation | 🟢 | 🟡 | 🔴 | 🟡 |
-| ORM Integration | 🟡 | 🔴 | 🔴 | 🔴 |
+| Auth (RBAC + OAuth2 + JWT) | 🟢 | 🟡 (2 tests) | 🟢 (docs/auth.md) | 🟢 |
+| Blueprint Templates | 🟢 | 🟡 (config tests) | 🟢 | 🟢 |
+| Blueprint Forms | 🟢 | 🔴 | 🟢 | 🟡 |
+| Blueprint Helpers | 🟢 | 🔴 | 🟢 (docs/helpers.md) | 🟡 |
+| HTTP Client | 🟢 | 🟡 (config tests) | 🟢 (docs/http-client.md) | 🟡 |
+| Queue (7 drivers) | 🟢 | 🟡 (config tests) | 🟡 | 🟡 |
+| Validation (15 rules) | 🟢 | 🔴 | 🟡 | 🟡 |
 
-### 2.3 Axiom ORM
+### 2.4 Axiom ORM
 
 | Пакет | Код | Тесты | Документация | Статус |
 |-------|-----|-------|--------------|--------|
-| axiom/orm | 🟢 | 🟡 | 🔴 | 🟡 |
-| axiom/entity | 🟢 | 🔴 | 🔴 | 🟡 |
-| axiom/migration | 🟢 | 🔴 | 🔴 | 🟡 |
+| axiom/orm | 🟢 | 🟡 (19 assertions) | 🟢 | 🟢 |
+| axiom/entity | 🟢 | 🟡 (включено в orm) | 🟢 | 🟡 |
+| axiom/migration | 🟢 | 🔴 | 🟡 (docs/migrations.md) | 🟡 |
 
-### 2.4 Инфраструктура
+### 2.5 Инфраструктура
 
 | Компонент | Код | Тесты | Документация | Статус |
 |-----------|-----|-------|--------------|--------|
-| Docker | 🟢 | 🔴 | 🟡 | 🟡 |
-| CI/CD | 🔴 | — | — | 🔴 |
-| Linting | 🔴 | — | — | 🔴 |
-| Static Analysis | 🔴 | — | — | 🔴 |
+| Docker (4 services) | 🟢 | 🔴 | 🟡 (docs/installation.md) | 🟢 |
+| CI/CD (7 repos) | 🟢 | — | — | 🟢 |
+| PHP-CS-Fixer | 🟢 | — | — | 🟢 |
+| PHPStan | 🟢 | — | — | 🟢 |
+| PHPUnit | 🟢 | 🟢 | — | 🟢 |
 
 ---
 
 ## 3. Детальный анализ пробелов
 
-### 3.1 🔴 КРИТИЧЕСКИЕ — Блокируют использование
+### 3.1 ✅ УСТРАНЕНО
 
 #### GAP-01: Нет базовых PHPUnit тестов для ядра
-**Текущее состояние:** 10 ручных test-*.php файлов, не интегрированы в PHPUnit  
-**Влияние:** Невозможно автоматически проверять регрессии  
-**Решение:** Переписать все ручные тесты в PHPUnit, покрыть ядро  
-**Приоритет:** Критический
+**Статус:** ✅ Частично решено
+**Текущее состояние:** 30+ assertions в architect-contracts (9), axiom-orm (19), auth-system (2 теста)
+**Осталось:** Нет тестов для ядра (MVC, Cache, Logger, Router, Console, Form, Errors)
 
 #### GAP-02: Нет CI/CD
-**Текущее состояние:** Отсутствует конфигурация GitHub Actions/GitLab CI  
-**Влияние:** Нет автоматического контроля качества при коммитах  
-**Решение:** Настроить GitHub Actions с lint, test, analysis  
-**Приоритет:** Критический
-
-#### GAP-03: Нет маршрутизатора (Router)
-**Текущее состояние:** Класс `Router` существует, но неполный  
-**Влияние:** Нет URL-маршрутизации — критический для веб-приложения  
-**Решение:** Доработать Router: route groups, middleware, named routes, parameters  
-**Приоритет:** Критический
-
----
-
-### 3.2 🟡 ВАЖНЫЕ — Затрудняют разработку
-
-#### GAP-04: Нет middleware system для HTTP
-**Текущее состояние:** PSR-15 совместимость заявлена, но pipeline не реализован  
-**Влияние:** Нет возможности добавлять промежуточные обработчики (auth, logging, rate limit)  
-**Решение:** Реализовать middleware pipeline в Application  
-**Приоритет:** Высокий
+**Статус:** ✅ Решено
+**Текущее состояние:** GitHub Actions для 7 репозиториев (тесты, CS, PHPStan)
+**Осталось:** CI для root проекта не настроен
 
 #### GAP-05: Нет CSRF защиты
-**Текущее состояние:** Не обнаружена реализация CSRF-токенов  
-**Влияние:** Уязвимость к CSRF атакам  
-**Решение:** Добавить CSRF middleware + токен в формы  
-**Приоритет:** Высокий
+**Статус:** ✅ Решено
+**Текущее состояние:** `CSRFTokenManager` + `CsrfAdapter` middleware + `EscaperTrait`
 
 #### GAP-06: Нет rate limiting
-**Текущее состояние:** Не реализован  
-**Влияние:** Уязвимость к DDoS, брутфорсу  
-**Решение:** Rate limit middleware (in-memory, Redis-based)  
-**Приоритет:** Высокий
-
-#### GAP-07: Нет API documentation (Swagger/OpenAPI)
-**Текущее состояние:** Отсутствует  
-**Влияние:** Сложность интеграции с фронтендом и мобильными клиентами  
-**Решение:** Интеграция с swagger-php, аннотации  
-**Приоритет:** Средний
-
-#### GAP-08: Нет Session handler implementations
-**Текущее состояние:** SessionInterface объявлен, но нет полных драйверов  
-**Влияние:** Сессии не работают в продакшене  
-**Решение:** FileSession, RedisSession, DatabaseSession  
-**Приоритет:** Высокий
-
-#### GAP-09: Нет Event System / Event Dispatcher
-**Текущее состояние:** Dispatcher существует, но Event System не реализован  
-**Влияние:** Нет слабой связанности между компонентами  
-**Решение:** EventManager с подпиской, dispatch, filter hooks  
-**Приоритет:** Средний
+**Статус:** ✅ Решено
+**Текущее состояние:** `RateLimitMiddleware`
 
 #### GAP-10: Нет Cache System
-**Текущее состояние:** Кеш шаблонов есть, но общего кеша нет  
-**Влияние:** Каждый компонент кеширует по-своему  
-**Решение:** CacheManager с драйверами (file, redis, memcached)  
-**Приоритет:** Высокий
+**Статус:** ✅ Решено
+**Текущее состояние:** `CacheManager`, `CacheOrchestrator`, 3 драйвера (Array, File, Redis)
 
 #### GAP-11: Нет Logging System
-**Текущее состояние:** psr/log зависимость есть, но реализации нет  
-**Влияние:** Нет централизованного логирования  
-**Решение:** Logger service с файловым, console, syslog драйверами  
-**Приоритет:** Высокий
+**Статус:** ✅ Решено
+**Текущее состояние:** `Logger`, `ChannelLogger`, `FileLogWriter`, 5 каналов
 
 #### GAP-12: Нет Error/Exception Handler
-**Текущее состояние:** Шаблоны ошибок в htdocs/templates/, но обработчик не реализован  
-**Влияние:** Необработанные ошибки ломают приложение  
-**Решение:** ExceptionHandler, ErrorHandler с логированием и отображением  
-**Приоритет:** Высокий
+**Статус:** ✅ Решено
+**Текущее состояние:** `Errors`, `ErrorView`, `ExceptionView`, `FullErrorView`, `NotFoundView`
 
 #### GAP-13: Нет Config System
-**Текущее состояние:** .env используется, но нет конфиг-системы  
-**Влияние:** Конфигурация размазана по коду  
-**Решение:** ConfigManager с кешем, вложенными конфигами, env-based overrides  
-**Приоритет:** Высокий
+**Статус:** ✅ Решено
+**Текущее состояние:** `ConfigRepository`, `ConfigLoader`, `ConfigCache`, `ConfigPathResolver`
+
+#### GAP-14: Нет PHP-CS-Fixer / PHPStan
+**Статус:** ✅ Решено
+**Текущее состояние:** `.php-cs-fixer.dist.php` + `phpstan.neon` во всех репозиториях
+
+#### GAP-16: Нет国际化 (i18n)
+**Статус:** ✅ Решено
+**Текущее состояние:** `Language`, `LanguageDetector`, `FileTranslationLoader`, 5 языков
+
+#### GAP-21: Нет Scaffold/Code Generator
+**Статус:** ✅ Решено
+**Текущее состояние:** CLI команды: make:app, make:controller, make:model, make:migration, make:module, make:route, make:view
 
 ---
 
-### 3.3 🔵 ЖЕЛАТЕЛЬНЫЕ — Улучшают качество
+### 3.2 ⚠️ ЧАСТИЧНО РЕШЕНО
 
-#### GAP-14: Нет PHP-CS-Fixer / PHPStan
-**Текущее состояние:** Нет статического анализа  
-**Влияние:** Нестандартный стиль кода, скрытые ошибки  
-**Решение:** Добавить php-cs-fixer + phpstan в dev-dependencies и CI  
+#### GAP-03: Router
+**Статус:** ⚠️ Частично решено
+**Текущее состояние:** `Router`, `JsonRouteLoader`, `ModuleResolver`, `RouteCache`, `HttpRequest`
+**Не хватает:** Route groups, middleware в маршрутах, named routes, parameters binding
+
+#### GAP-04: Middleware Pipeline
+**Статус:** ⚠️ Частично решено
+**Текущее состояние:** `MiddlewareStack`, `MiddlewareDispatcher`, `MiddlewareResolver`, `AuthAdapter`, `CsrfAdapter`, `RateLimitMiddleware`
+**Не хватает:** Интеграция middleware в маршруты, глобальные middleware
+
+#### GAP-08: Session handlers
+**Статус:** ⚠️ Частично решено
+**Текущее состояние:** `NativeSession` (Form), `SessionStorage` (Auth), `SessionStorage` (Performance)
+**Не хватает:** Полноценные драйверы: FileSession, RedisSession, DatabaseSession
+
+#### GAP-09: Event System
+**Статус:** ⚠️ Частично решено
+**Текущее состояние:** `AuthEventDispatcher` в auth-system, `SimpleEventDispatcher` в queue
+**Не хватает:** Глобальный EventManager с подпиской
+
+#### GAP-19: Queue Worker daemon mode
+**Статус:** ⚠️ Частично решено
+**Текущее состояние:** `Worker` класс, CLI команда `queue:work`
+**Не хватает:** Daemon mode, supervisord/systemd конфигурация
+
+---
+
+### 3.3 🔴 НЕ РЕШЕНО
+
+#### GAP-07: Нет API документации (Swagger/OpenAPI)
 **Приоритет:** Средний
-
-#### GAP-15: Нет Asset Management (Webpack/Vite)
-**Текущее состояние:** Статические файлы в htdocs/assets/  
-**Влияние:** Нет компиляции, минификации, versioning  
-**Решение:** Интеграция с Vite или Webpack  
-**Приоритет:** Низкий
-
-#### GAP-16: Нет国际化 (i18n)
-**Текущее состояние:** Нет системы перевода  
-**Влияние:** Приложение только на одном языке  
-**Решение:** Translation service с файлами переводов  
-**Приоритет:** Средний
+**Влияние:** Сложность интеграции с фронтендом
+**Решение:** Интеграция с swagger-php, аннотации
 
 #### GAP-17: Нет Mail System
-**Текущее состояние:** Отсутствует  
-**Влияние:** Нет отправки email (регистрация, уведомления)  
-**Решение:** MailManager с SMTP, Sendmail, Queue драйверами  
 **Приоритет:** Средний
+**Влияние:** Нет отправки email (регистрация, уведомления)
+**Решение:** MailManager с SMTP, Sendmail, Queue драйверами
 
 #### GAP-18: Нет File Upload Handler
-**Текущее состояние:** Не реализован  
-**Влияние:** Нет загрузки файлов  
-**Решение:** UploadService с валидацией, storage drivers (local, S3)  
 **Приоритет:** Низкий
-
-#### GAP-19: Нет Queue Worker (daemon mode)
-**Текущее состояние:** Worker класс есть, но daemon не реализован  
-**Влияние:** Очереди не обрабатываются автоматически  
-**Решение:** Queue worker с supervisord/systemd конфигурацией  
-**Приоритет:** Средний
+**Влияние:** Нет загрузки файлов
+**Решение:** UploadService с валидацией, storage drivers (local, S3)
 
 #### GAP-20: Нет ORM Query Builder UI / Admin Panel
-**Текущее состояние:** ORM есть, но нет UI  
-**Влияние:** Нет визуального управления данными  
-**Решение:** Админ-панель (Blueprint + ORM)  
 **Приоритет:** Низкий
-
-#### GAP-21: Нет Scaffold/Code Generator
-**Текущее состояние:** Отсутствует  
-**Влияние:** Ручное создание контроллеров, моделей, миграций  
-**Решение:** CLI команды: make:controller, make:model, make:migration  
-**Приоритет:** Средний
+**Влияние:** Нет визуального управления данными
+**Решение:** Админ-панель (Blueprint + ORM)
 
 ---
 
 ## 4. План доработок
 
-### Фаза 1: Фундамент (1-2 недели)
-**Цель:** Сделать фреймворк рабочим и протестированным
+### Фаза 1: Тестирование (1 неделя)
+**Цель:** Довести тестовое покрытие до 40-50%
 
 | # | Задача | GAP | Приоритет | Оценка |
 |---|--------|-----|-----------|--------|
-| 1.1 | Доработать Router (route groups, middleware, named routes, params) | GAP-03 | Критический | 3 дня |
-| 1.2 | Реализовать Middleware Pipeline | GAP-04 | Высокий | 2 дня |
-| 1.3 | Реализовать Config System (nested config, env overrides) | GAP-13 | Высокий | 2 дня |
-| 1.4 | Реализовать Error/Exception Handler | GAP-12 | Высокий | 1 день |
-| 1.5 | Реализовать Cache System (file, redis) | GAP-10 | Высокий | 2 дня |
-| 1.6 | Реализовать Logger Service (PSR-3) | GAP-11 | Высокий | 1 день |
-| 1.7 | Реализовать Event System | GAP-09 | Средний | 2 дня |
-| **Итого Фаза 1** | | | | **13 дней** |
+| 1.1 | PHPUnit тесты для architect-contracts (расширить) | GAP-01 | Критический | 1 день |
+| 1.2 | PHPUnit тесты для axiom-orm (расширить) | GAP-01 | Критический | 1 день |
+| 1.3 | PHPUnit тесты для architect-queue | GAP-01 | Высокий | 1 день |
+| 1.4 | PHPUnit тесты для architect-http-client | GAP-01 | Высокий | 1 день |
+| 1.5 | PHPUnit тесты для architect-blueprint-auth | GAP-01 | Средний | 0.5 дня |
+| 1.6 | Тесты для ядра (Container, Config, Cache, Logger) | GAP-01 | Критический | 2 дня |
+| 1.7 | Тесты для MVC (Controller, Model, View, Router) | GAP-01 | Критический | 2 дня |
+| 1.8 | Тесты для Console (базовые команды) | GAP-01 | Средний | 1 день |
+| **Итого Фаза 1** | | | | **9.5 дней** |
 
-### Фаза 2: Безопасность и качество (1 неделя)
-**Цель:** Сделать фреймворк безопасным и качественным
-
-| # | Задача | GAP | Приоритет | Оценка |
-|---|--------|-----|-----------|--------|
-| 2.1 | Реализовать CSRF protection | GAP-05 | Высокий | 1 день |
-| 2.2 | Реализовать Rate Limiting | GAP-06 | Высокий | 1 день |
-| 2.3 | Реализовать Session handlers (file, redis, db) | GAP-08 | Высокий | 2 дня |
-| 2.4 | Добавить PHP-CS-Fixer + PHPStan | GAP-14 | Средний | 0.5 дня |
-| 2.5 | Настроить GitHub Actions CI/CD | GAP-02 | Критический | 1 день |
-| 2.6 | Переписать ручные тесты в PHPUnit (ядро) | GAP-01 | Критический | 3 дня |
-| **Итого Фаза 2** | | | | **8.5 дней** |
-
-### Фаза 3: Пример приложения (1-2 недели)
-**Цель:** Показать, как использовать фреймворк
+### Фаза 2: Доработка компонентов (1 неделя)
+**Цель:** Довести Router, Middleware, Session до production-ready
 
 | # | Задача | GAP | Приоритет | Оценка |
 |---|--------|-----|-----------|--------|
-| 3.1 | Создать CRUD приложение (блог) в app/ | GAP-01 | Критический | 5 дней |
-| 3.2 | Создать CLI команды генерации (make:controller, etc) | GAP-21 | Средний | 3 дня |
-| 3.3 | Добавить PHPUnit тесты для приложения | GAP-01 | Критический | 2 дня |
-| **Итого Фаза 3** | | | | **10 дней** |
+| 2.1 | Доработать Router: route groups, named routes, params | GAP-03 | Высокий | 2 дня |
+| 2.2 | Middleware: интеграция в маршруты, глобальные middleware | GAP-04 | Высокий | 2 дня |
+| 2.3 | Session: FileSession, RedisSession, DatabaseSession | GAP-08 | Высокий | 2 дня |
+| 2.4 | Event System: глобальный EventManager | GAP-09 | Средний | 1 день |
+| 2.5 | Queue Worker: daemon mode | GAP-19 | Средний | 1 день |
+| **Итого Фаза 2** | | | | **8 дней** |
 
-### Фаза 4: Расширенные возможности (2 недели)
+### Фаза 3: Расширенные возможности (1 неделя)
 **Цель:** Добавить недостающие компоненты
 
 | # | Задача | GAP | Приоритет | Оценка |
 |---|--------|-----|-----------|--------|
-| 4.1 | Реализовать Mail System (SMTP, Queue) | GAP-17 | Средний | 2 дня |
-| 4.2 | Реализовать File Upload Handler | GAP-18 | Низкий | 1 день |
-| 4.3 | Реализовать Queue Worker daemon | GAP-19 | Средний | 2 дня |
-| 4.4 | Добавить i18n поддержку | GAP-16 | Средний | 2 дня |
-| 4.5 | Интегрировать Swagger/OpenAPI | GAP-07 | Средний | 2 дня |
-| 4.6 | Добавить PHPUnit тесты для бандлов | GAP-01 | Критический | 3 дня |
-| **Итого Фаза 4** | | | | **12 дней** |
+| 3.1 | Mail System (SMTP, Queue) | GAP-17 | Средний | 2 дня |
+| 3.2 | File Upload Handler | GAP-18 | Низкий | 1 день |
+| 3.3 | API документация (Swagger/OpenAPI) | GAP-07 | Средний | 2 дня |
+| 3.4 | CI для root проекта | — | Средний | 0.5 дня |
+| **Итого Фаза 3** | | | | **5.5 дней** |
 
-### Фаза 5: Полировка (1 неделя)
+### Фаза 4: Полировка (3-5 дней)
 **Цель:** Финальная шлифовка
 
 | # | Задача | GAP | Приоритет | Оценка |
 |---|--------|-----|-----------|--------|
-| 5.1 | Добавить Asset Management (Vite) | GAP-15 | Низкий | 2 дня |
-| 5.2 | Создать админ-панель | GAP-20 | Низкий | 3 дня |
-| 5.3 | Финальная документация (API + Guides) | Все | Средний | 2 дня |
-| 5.4 | Очистить мусор (-p/, storage/test.txt, test-*.php) | — | Низкий | 0.5 дня |
-| **Итого Фаза 5** | | | | **7.5 дней** |
+| 4.1 | Asset Management (Vite) | — | Низкий | 2 дня |
+| 4.2 | Админ-панель | GAP-20 | Низкий | 3 дня |
+| 4.3 | Финальная документация (API + Guides) | — | Средний | 1 день |
+| 4.4 | Очистить мусор (storage/test.txt) | — | Низкий | 0.5 дня |
+| **Итого Фаза 4** | | | | **6.5 дней** |
 
 ---
 
 ## 5. Сводка по приоритетам
 
-### Критические (блокируют использование)
-1. **GAP-01** — PHPUnit тесты
-2. **GAP-02** — CI/CD
-3. **GAP-03** — Доработать Router
+### ✅ Устранено (11 GAPs)
+1. **GAP-01** — PHPUnit тесты (частично: 30+ assertions)
+2. **GAP-02** — CI/CD (7 репозиториев с GitHub Actions)
+3. **GAP-05** — CSRF Protection (CSRFTokenManager + CsrfAdapter)
+4. **GAP-06** — Rate Limiting (RateLimitMiddleware)
+5. **GAP-10** — Cache System (3 драйвера)
+6. **GAP-11** — Logger Service (5 каналов)
+7. **GAP-12** — Error Handler (Errors + views)
+8. **GAP-13** — Config System (ConfigRepository + cache)
+9. **GAP-14** — PHP-CS-Fixer + PHPStan
+10. **GAP-16** — i18n (5 языков)
+11. **GAP-21** — Code Generator (make:* команды)
 
-### Высокие (затрудняют разработку)
-4. **GAP-04** — Middleware Pipeline
-5. **GAP-13** — Config System
-6. **GAP-10** — Cache System
-7. **GAP-11** — Logger Service
-8. **GAP-12** — Error Handler
-9. **GAP-05** — CSRF Protection
-10. **GAP-06** — Rate Limiting
-11. **GAP-08** — Session Handlers
+### ⚠️ Частично решено (5 GAPs)
+12. **GAP-03** — Router (есть, но нет groups/named routes)
+13. **GAP-04** — Middleware Pipeline (есть, но нет route integration)
+14. **GAP-08** — Session handlers (NativeSession, но нет драйверов)
+15. **GAP-09** — Event System (локальный, нет глобального)
+16. **GAP-19** — Queue Worker (есть, но нет daemon mode)
 
-### Средние (улучшают качество)
-12. **GAP-09** — Event System
-13. **GAP-07** — API Documentation
-14. **GAP-16** — i18n
-15. **GAP-17** — Mail System
-16. **GAP-19** — Queue Worker
-17. **GAP-21** — Code Generator
-18. **GAP-14** — PHP-CS-Fixer + PHPStan
-
-### Низкие (полировка)
-19. **GAP-15** — Asset Management
-20. **GAP-18** — File Upload
-21. **GAP-20** — Admin Panel
+### 🔴 Не решено (4 GAPs)
+17. **GAP-07** — API Documentation (Swagger/OpenAPI)
+18. **GAP-17** — Mail System
+19. **GAP-18** — File Upload Handler
+20. **GAP-20** — Admin Panel
 
 ---
 
 ## 6. Итоговая оценка
 
-| Метрика | Значение |
-|---------|----------|
-| Всего пробелов | 21 |
-| Критических | 3 |
-| Высоких | 8 |
-| Средних | 7 |
-| Низких | 3 |
-| Общая оценка зрелости | **40%** |
-| Ожидаемый срок доработки | **~6-7 недель** |
+| Метрика | Было (25.07) | Стало (26.07) |
+|---------|-------------|---------------|
+| Всего пробелов | 21 | 20 |
+| Устранено | 0 | 11 |
+| Частично решено | 0 | 5 |
+| Не решено | 21 | 4 |
+| Общая оценка зрелости | **40%** | **~65%** |
+| Ожидаемый срок доработки | **~6-7 недель** | **~3-4 недели** |
 
-**Рекомендация:** Сфокусироваться на Фазах 1-2 (3 недели), чтобы довести ядро до рабочего состояния с тестами и CI/CD. Фазы 3-5 — по мере необходимости.
+**Рекомендация:** Сфокусироваться на Фазе 1 (тесты) — это критический пробел. Фаза 2 (доработка компонентов) — после стабилизации тестов. Фазы 3-4 — по мере необходимости.

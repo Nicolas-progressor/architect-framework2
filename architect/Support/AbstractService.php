@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Support;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 
 /**
  * Base class for services.

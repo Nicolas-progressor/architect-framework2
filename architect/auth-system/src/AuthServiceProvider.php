@@ -20,8 +20,8 @@ use Architect\AuthSystem\Services\ConfigService;
 use Architect\AuthSystem\Services\JwtTokenService;
 use Architect\AuthSystem\Services\OAuth2\OAuthManager;
 use Architect\AuthSystem\Services\SessionStorage;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Contracts\ServiceProviderInterface;
-use Architect\Core\Contracts\ContainerInterface;
 
 class AuthServiceProvider implements ServiceProviderInterface
 {

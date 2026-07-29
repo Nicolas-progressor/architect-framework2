@@ -12,12 +12,12 @@ class Breadcrumbs extends controller
     {
         parent::__construct($container, 'breadcrumbs', true);
     }
-    
+
     public function create_app_data(): void
     {
         // Подготовка данных
     }
-    
+
     public function create_app_output(): void
     {
         $this->display('breadcrumbs');

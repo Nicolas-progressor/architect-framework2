@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\Mvc\Loader;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Services\Mvc\Cache\ComponentCacheTrait;
 use Architect\Services\Mvc\Loader\Contracts\ModuleBootstrapLoaderInterface;
 use Architect\Services\Mvc\Resolver\ModulePathResolver;

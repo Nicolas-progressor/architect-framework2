@@ -13,15 +13,15 @@ class contact extends ModelBase
         return [
             'title' => 'Контакты',
             'heading' => 'Свяжитесь с нами',
-            'description' => 'Мы всегда рады ответить на ваши вопросы'
+            'description' => 'Мы всегда рады ответить на ваши вопросы',
         ];
     }
-    
+
     public function getBreadcrumbs(): array
     {
         return [
             ['title' => 'Главная', 'url' => '/'],
-            ['title' => 'Контакты', 'url' => '/contact']
+            ['title' => 'Контакты', 'url' => '/contact'],
         ];
     }
 }

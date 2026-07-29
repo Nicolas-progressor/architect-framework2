@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Support\ServiceProviders;
 
-use Architect\Core\Contracts\ContainerInterface;
-use Architect\Core\Contracts\StatementInterface;
+use Architect\Contracts\Core\ContainerInterface;
+use Architect\Contracts\Core\StatementInterface;
 use Architect\Services\App\AppBootstrapLoader;
 use Architect\Services\App\AppConfigLoader;
 use Architect\Services\App\Apps;

@@ -22,7 +22,7 @@ class info extends ModelBase
             return [];
         }
     }
-    
+
     /**
      * Get info grouped by category using Query Builder
      */
@@ -32,7 +32,7 @@ class info extends ModelBase
             $all = Orm::table('axiom_info')
                 ->orderBy('sort_order', 'ASC')
                 ->get() ?? [];
-            
+
             $byCategory = [];
             foreach ($all as $item) {
                 $category = $item['category'] ?? 'other';
@@ -41,13 +41,13 @@ class info extends ModelBase
                 }
                 $byCategory[$category][] = $item;
             }
-            
+
             return $byCategory;
         } catch (\Exception $e) {
             return [];
         }
     }
-    
+
     /**
      * Get info by category using Query Builder
      */

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Helpers\Core;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 
 /**
  * Manager for registering and resolving helpers with lazy registration.

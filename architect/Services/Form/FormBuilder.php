@@ -77,14 +77,18 @@ class FormBuilder implements FormBuilderInterface
         $this->formName = $attributes['name'] ?? 'form_' . md5($action);
         $this->formAttributes = $attributes;
 
+        $extraAttrs = array_diff_key($attributes, array_flip(['name']));
         $attrs = $this->buildAttributes(array_merge([
             'action' => $this->escape($action),
             'method' => strtoupper($method),
-        ], $attributes));
+        ], $extraAttrs));
 
-        $html = '<form' . $attrs . '>';
+        $html = '<form';
+        if (isset($attributes['name'])) {
+            $html .= ' name="' . $this->escape($attributes['name']) . '"';
+        }
+        $html .= $attrs . '>';
 
-        // Добавляем CSRF токен для POST форм
         if (strtoupper($method) === 'POST') {
             $html .= $this->csrf->getTokenField($this->formName);
         }
@@ -369,11 +373,9 @@ class FormBuilder implements FormBuilderInterface
      */
     public function submitButton(string $label = 'Отправить', array $attributes = []): string
     {
-        $attrs = $this->buildAttributes(array_merge([
-            'type' => 'submit',
-        ], $attributes));
+        $attrs = $this->buildAttributes($attributes);
 
-        return '<button' . $attrs . '>' . $this->escape($label) . '</button>';
+        return '<button type="submit"' . $attrs . '>' . $this->escape($label) . '</button>';
     }
 
     /**
@@ -385,11 +387,9 @@ class FormBuilder implements FormBuilderInterface
      */
     public function resetButton(string $label = 'Сбросить', array $attributes = []): string
     {
-        $attrs = $this->buildAttributes(array_merge([
-            'type' => 'reset',
-        ], $attributes));
+        $attrs = $this->buildAttributes($attributes);
 
-        return '<button' . $attrs . '>' . $this->escape($label) . '</button>';
+        return '<button type="reset"' . $attrs . '>' . $this->escape($label) . '</button>';
     }
 
     /**
@@ -420,11 +420,9 @@ class FormBuilder implements FormBuilderInterface
      */
     public function fileField(string $name, array $attributes = []): string
     {
-        $attrs = $this->buildAttributes(array_merge([
-            'type' => 'file',
-        ], $attributes));
+        $attrs = $this->buildAttributes($attributes);
 
-        $html = "<input name=\"{$this->escape($name)}\"{$attrs}>";
+        $html = "<input type=\"file\" name=\"{$this->escape($name)}\"{$attrs}>";
         $html .= $this->renderError($name);
 
         return $html;
@@ -641,13 +639,9 @@ class FormBuilder implements FormBuilderInterface
     {
         $attributes = $this->addErrorClass($attributes, $name);
 
-        $attrs = $this->buildAttributes(array_merge([
-            'type' => $type,
-            'name' => $name,
-            'value' => $value,
-        ], $attributes));
+        $attrs = $this->buildAttributes($attributes);
 
-        $html = "<input{$attrs}>";
+        $html = "<input type=\"{$this->escape($type)}\" name=\"{$this->escape($name)}\" value=\"{$this->escape((string) $value)}\"{$attrs}>";
         $html .= $this->renderError($name);
 
         return $html;

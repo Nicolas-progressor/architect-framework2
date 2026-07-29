@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Services\Template\WidgetRenderer;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Services\App\Contracts\AppsServiceInterface;
 use Architect\Services\Template\Contracts\WidgetRendererInterface;
 

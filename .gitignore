@@ -40,11 +40,5 @@ storage/*
 # Build artifacts
 composer.lock
 
-# Manual test files (keep in separate branch or remove)
-test-*.php
-test_*.php
-test-*.php
-
 # CI/CD
 .php-cs-fixer.cache
-.phpstan.cache

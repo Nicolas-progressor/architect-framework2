@@ -3,11 +3,10 @@
 declare(strict_types=1);
 
 namespace app\blueprint\modules\docs\controller;
-use Architect\Helpers\Facades\Helper_Title;
+
 use Architect\Helpers\Facades\Helper_Breadcrumbs;
-
+use Architect\Helpers\Facades\Helper_Title;
 use pattern\controller;
-
 
 class docs extends controller
 {
@@ -17,16 +16,16 @@ class docs extends controller
         $this->ext['page_data'] = $model->getPageData();
         $this->ext['breadcrumbs'] = $model->getBreadcrumbs();
         $this->ext['docs_sections'] = $model->getDocsSections();
-        
+
         foreach ($this->ext['breadcrumbs'] as $crumb) {
             Helper_Breadcrumbs::add($crumb['title'], $crumb['url']);
         }
     }
-    
+
     public function index_app_output(): void
     {
         Helper_Title::set($this->ext['page_data']['title']);
-        
+
         $this->render('index');
     }
 }

@@ -14,7 +14,7 @@ class navbar extends controller
         $this->ext['menu'] = $model->getMenu();
         $this->ext['current_route'] = $this->get('router')->getAction();
     }
-    
+
     public function create_app_output(): void
     {
         $this->display('navbar');

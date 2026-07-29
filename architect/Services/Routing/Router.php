@@ -49,6 +49,15 @@ class Router extends AbstractService implements RouterInterface
     /** @var RouteCacheInterface|null Route cache */
     private ?RouteCacheInterface $cache = null;
 
+    /** @var array<string, array> Named routes map: name => [path, route_data] */
+    private array $namedRoutes = [];
+
+    /** @var RouteGroup[] Active route groups (stack) */
+    private array $groupStack = [];
+
+    /** @var array<int, string> Resolved per-route middleware for current route */
+    private array $routeMiddleware = [];
+
     /** @var array Router configuration */
     private array $defaults = [
         'module' => 'home',
@@ -63,7 +72,7 @@ class Router extends AbstractService implements RouterInterface
      * Create router instance.
      */
     public function __construct(
-        \Architect\Core\Contracts\ContainerInterface $container,
+        \Architect\Contracts\Core\ContainerInterface $container,
         RequestInterface $request,
         RouteLoaderInterface $loader,
         ModuleResolver $moduleResolver,
@@ -180,7 +189,7 @@ class Router extends AbstractService implements RouterInterface
     }
 
     /**
-     * Resolve current route.
+     * Resolve current route (extended with parameter binding + middleware).
      */
     private function resolve(): void
     {
@@ -194,7 +203,13 @@ class Router extends AbstractService implements RouterInterface
 
         if ($route) {
             $this->applyRoute($route, $routeKey);
-        } else {
+
+            if (isset($route['middleware'])) {
+                $this->routeMiddleware = is_array($route['middleware'])
+                    ? $route['middleware']
+                    : [$route['middleware']];
+            }
+        } elseif (!$this->resolveParameterRoutes()) {
             $this->resolveFromUrl();
         }
 
@@ -443,4 +458,287 @@ class Router extends AbstractService implements RouterInterface
         $value = $this->params[$name] ?? $default;
         return is_bool($value) ? ($value ? 'true' : 'false') : (string) $value;
     }
+
+    // === Named Routes ===
+
+    /**
+     * Register a named route.
+     *
+     * @param string $name  Route name (e.g. 'admin.dashboard')
+     * @param string $path  URL path pattern (e.g. 'admin/dashboard', 'users/{id}')
+     * @param array  $route Route definition
+     * @return $this
+     */
+    public function name(string $name, string $path, array $route = []): static
+    {
+        $fullPath = $this->applyGroupPrefix($path);
+
+        $groupMiddleware = $this->getCurrentGroupMiddleware();
+        if (!empty($groupMiddleware) && !isset($route['middleware'])) {
+            $route['middleware'] = $groupMiddleware;
+        }
+
+        $namespace = $this->getCurrentGroupNamespace();
+        if ($namespace !== '' && !isset($route['namespace'])) {
+            $route['namespace'] = $namespace;
+        }
+
+        $this->namedRoutes[$name] = [
+            'path' => $fullPath,
+            'route' => $route,
+        ];
+
+        $this->routes[$fullPath] = array_merge($route, ['_name' => $name]);
+
+        return $this;
+    }
+
+    /**
+     * Generate URL for a named route.
+     *
+     * @param string $name  Route name
+     * @param array  $params Parameters to replace in path placeholders
+     * @return string URL path
+     * @throws \InvalidArgumentException If route name is not registered
+     */
+    public function route(string $name, array $params = []): string
+    {
+        if (!isset($this->namedRoutes[$name])) {
+            throw new \InvalidArgumentException("Route '{$name}' is not registered.");
+        }
+
+        $path = $this->namedRoutes[$name]['path'];
+
+        foreach ($params as $key => $value) {
+            $path = str_replace('{' . $key . '}', (string) $value, $path);
+        }
+
+        return '/' . trim($path, '/');
+    }
+
+    /**
+     * Check if a named route exists.
+     */
+    public function hasNamedRoute(string $name): bool
+    {
+        return isset($this->namedRoutes[$name]);
+    }
+
+    /**
+     * Get all named routes.
+     *
+     * @return array<string, array{path: string, route: array}>
+     */
+    public function getNamedRoutes(): array
+    {
+        return $this->namedRoutes;
+    }
+
+    // === Route Groups ===
+
+    /**
+     * Define a route group with shared prefix, middleware, namespace.
+     *
+     * Usage:
+     *   $router->group('admin', ['middleware' => 'auth'], function (Router $r) {
+     *       $r->name('dashboard', 'dashboard', ['controller' => 'dashboard']);
+     *       $r->name('settings', 'settings', ['controller' => 'settings']);
+     *   });
+     *
+     * @param string   $prefix    Route prefix
+     * @param array    $options   Options: middleware (string|array), namespace (string)
+     * @param callable $callback  Closure receiving this Router
+     * @return $this
+     */
+    public function group(string $prefix, array $options, callable $callback): static
+    {
+        $group = new RouteGroup($prefix, $options);
+
+        $this->groupStack[] = $group;
+
+        $callback($this);
+
+        array_pop($this->groupStack);
+
+        return $this;
+    }
+
+    /**
+     * Get the current group prefix (composed from stack).
+     */
+    private function getCurrentGroupPrefix(): string
+    {
+        $parts = [];
+        foreach ($this->groupStack as $group) {
+            $parts[] = $group->getPrefix();
+        }
+        return implode('/', array_filter($parts));
+    }
+
+    /**
+     * Get the current group middleware (composed from stack).
+     *
+     * @return array<int, string>
+     */
+    private function getCurrentGroupMiddleware(): array
+    {
+        $middleware = [];
+        foreach ($this->groupStack as $group) {
+            $middleware = array_merge($middleware, $group->getMiddleware());
+        }
+        return array_values(array_unique($middleware));
+    }
+
+    /**
+     * Get the current group namespace.
+     */
+    private function getCurrentGroupNamespace(): string
+    {
+        $namespaces = [];
+        foreach ($this->groupStack as $group) {
+            if ($group->getNamespace() !== '') {
+                $namespaces[] = $group->getNamespace();
+            }
+        }
+        return implode('\\', $namespaces);
+    }
+
+    // === Parameter Binding ===
+
+    /**
+     * Match a URL pattern with placeholders like {id}, {slug}.
+     *
+     * @param string $pattern Route pattern (e.g. 'users/{id}', 'posts/{id}/{slug}')
+     * @param string $path    Actual URL path to match
+     * @return array|null Matched parameters or null if no match
+     */
+    public function matchPattern(string $pattern, string $path): ?array
+    {
+        $pattern = trim($pattern, '/');
+        $path = trim($path, '/');
+
+        if ($pattern === $path) {
+            return [];
+        }
+
+        // Extract parameter names from pattern
+        preg_match_all('#\{(\w+)\}#', $pattern, $matches);
+        $paramNames = $matches[1];
+
+        if (empty($paramNames)) {
+            return $pattern === $path ? [] : null;
+        }
+
+        // Build regex: replace {param} with named capture groups
+        $regex = '#^' . preg_replace('#\{(\w+)\}#', '(?P<$1>[^/]+)', $pattern) . '$#';
+
+        if (preg_match($regex, $path, $m)) {
+            $params = [];
+            foreach ($paramNames as $name) {
+                $params[$name] = $m[$name] ?? '';
+            }
+            return $params;
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolve parameter-bound routes during resolution.
+     *
+     * Tries to match the current path against routes with {param} placeholders.
+     */
+    private function resolveParameterRoutes(): bool
+    {
+        $currentPath = $this->isAppRoute()
+            ? implode('/', array_slice($this->segments, 2))
+            : implode('/', $this->segments);
+
+        $currentPath = '/' . $currentPath;
+
+        foreach ($this->routes as $routePath => $route) {
+            if (!str_contains($routePath, '{')) {
+                continue;
+            }
+
+            $params = $this->matchPattern($routePath, $currentPath);
+
+            if ($params !== null) {
+                $this->params = array_merge($this->params, $params);
+                $this->applyRoute($route, $routePath);
+
+                // Apply middleware from route definition
+                if (isset($route['middleware'])) {
+                    $this->routeMiddleware = is_array($route['middleware'])
+                        ? $route['middleware']
+                        : [$route['middleware']];
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // === Per-Route Middleware ===
+
+    /**
+     * Register a route with middleware.
+     *
+     * @param string $path       Route path
+     * @param array  $route      Route definition
+     * @param array  $middleware  Middleware names/classes
+     * @return $this
+     */
+    public function routeMiddleware(string $path, array $route, array $middleware = []): static
+    {
+        $fullPath = $this->applyGroupPrefix($path);
+
+        $groupMiddleware = $this->getCurrentGroupMiddleware();
+        $allMiddleware = array_values(array_unique(array_merge($groupMiddleware, $middleware)));
+
+        $route['middleware'] = $allMiddleware;
+
+        $namespace = $this->getCurrentGroupNamespace();
+        if ($namespace !== '' && !isset($route['namespace'])) {
+            $route['namespace'] = $namespace;
+        }
+
+        $this->routes[$fullPath] = $route;
+
+        if (isset($route['_name'])) {
+            $this->namedRoutes[$route['_name']] = [
+                'path' => $fullPath,
+                'route' => $route,
+            ];
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get middleware for the resolved route.
+     *
+     * @return array<int, string>
+     */
+    public function getRouteMiddleware(): array
+    {
+        return $this->routeMiddleware;
+    }
+
+    /**
+     * Apply group prefix to a path.
+     */
+    private function applyGroupPrefix(string $path): string
+    {
+        $prefix = $this->getCurrentGroupPrefix();
+
+        if ($prefix === '') {
+            return $path;
+        }
+
+        return trim($prefix . '/' . trim($path, '/'), '/');
+    }
+
 }

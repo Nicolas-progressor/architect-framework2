@@ -12,18 +12,18 @@ class docs extends ModelBase
     {
         return [
             'title' => 'Документация Blueprint',
-            'description' => 'Полная документация по синтаксису и возможностям шаблонизатора Blueprint'
+            'description' => 'Полная документация по синтаксису и возможностям шаблонизатора Blueprint',
         ];
     }
-    
+
     public function getBreadcrumbs(): array
     {
         return [
             ['title' => 'Главная', 'url' => '/blueprint/'],
-            ['title' => 'Документация', 'url' => '/blueprint/docs']
+            ['title' => 'Документация', 'url' => '/blueprint/docs'],
         ];
     }
-    
+
     public function getDocsSections(): array
     {
         return [
@@ -33,7 +33,7 @@ class docs extends ModelBase
                 'icon' => 'bi-braces',
                 'description' => 'Доступ к переменным осуществляется через контекст. Поддерживается доступ к вложенным свойствам и массивам.',
                 'example' => "{{ username }}\n{{ user.name }}\n{{ items[0] }}",
-                'result' => 'Выводит значение переменной'
+                'result' => 'Выводит значение переменной',
             ],
             [
                 'id' => 'output',
@@ -41,7 +41,7 @@ class docs extends ModelBase
                 'icon' => 'bi-code-slash',
                 'description' => 'По умолчанию весь вывод экранируется для безопасности. Используйте raw блок для сырого вывода.',
                 'example' => "{{ variable }}\n{% raw %}{{ raw }}{% endraw %}",
-                'result' => 'Экранированный и сырой вывод'
+                'result' => 'Экранированный и сырой вывод',
             ],
             [
                 'id' => 'filters',
@@ -49,7 +49,7 @@ class docs extends ModelBase
                 'icon' => 'bi-funnel',
                 'description' => 'Фильтры применяются через символ | и позволяют трансформировать данные.',
                 'example' => "{{ name|upper }}\n{{ text|trim|truncate(10) }}",
-                'result' => 'JOHN, обрезанный текст'
+                'result' => 'JOHN, обрезанный текст',
             ],
             [
                 'id' => 'conditions',
@@ -57,7 +57,7 @@ class docs extends ModelBase
                 'icon' => 'bi-diagram-3',
                 'description' => 'Полная поддержка if/elseif/else с операторами сравнения и логическими операторами.',
                 'example' => "{% if age >= 18 %}\n  Взрослый\n{% else %}\n  Ребёнок\n{% endif %}",
-                'result' => 'Условный вывод'
+                'result' => 'Условный вывод',
             ],
             [
                 'id' => 'loops',
@@ -65,7 +65,7 @@ class docs extends ModelBase
                 'icon' => 'bi-arrow-repeat',
                 'description' => 'Поддержка for и foreach с дополнительными переменными loop для отслеживания итерации.',
                 'example' => "{% for item in items %}\n  {{ loop.index }}. {{ item.name }}\n{% endfor %}",
-                'result' => '1. Элемент 1\n2. Элемент 2'
+                'result' => '1. Элемент 1\n2. Элемент 2',
             ],
             [
                 'id' => 'inheritance',
@@ -73,7 +73,7 @@ class docs extends ModelBase
                 'icon' => 'bi-layers',
                 'description' => 'Расширяйте базовые шаблоны и переопределяйте блоки. Используйте parent() для вызова родительского контента.',
                 'example' => "{% extends 'base' %}\n{% block content %}{% endblock %}",
-                'result' => 'Иерархия шаблонов'
+                'result' => 'Иерархия шаблонов',
             ],
             [
                 'id' => 'macros',
@@ -81,7 +81,7 @@ class docs extends ModelBase
                 'icon' => 'bi-gear',
                 'description' => 'Создавайте переиспользуемые фрагменты с параметрами по умолчанию.',
                 'example' => "{% macro input(name, type='text') %}\n  <input type=\"{{ type }}\" name=\"{{ name }}\">\n{% endmacro %}",
-                'result' => 'Переиспользуемые компоненты'
+                'result' => 'Переиспользуемые компоненты',
             ],
             [
                 'id' => 'elements',
@@ -89,8 +89,8 @@ class docs extends ModelBase
                 'icon' => 'bi-grid',
                 'description' => 'Подключайте готовые компоненты через элементы и виджеты.',
                 'example' => "{% element 'navbar' %}\n{% widget 'button' %}",
-                'result' => 'Подключение компонентов'
-            ]
+                'result' => 'Подключение компонентов',
+            ],
         ];
     }
 }

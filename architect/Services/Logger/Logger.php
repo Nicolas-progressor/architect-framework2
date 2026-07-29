@@ -57,7 +57,7 @@ class Logger extends AbstractService implements LoggerInterface
      * Create logger instance.
      */
     public function __construct(
-        \Architect\Core\Contracts\ContainerInterface $container,
+        \Architect\Contracts\Core\ContainerInterface $container,
         ?LoggerConfig $config = null,
         ?LogWriterInterface $writer = null
     ) {

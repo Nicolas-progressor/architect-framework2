@@ -13,7 +13,7 @@ class navbar extends ModelBase
     {
         return [
             ['name' => 'Документация', 'url' => Helper_Html::href(''), 'icon' => 'book'],
-            ['name' => 'GitHub', 'url' => 'https://github.com', 'icon' => 'github', 'external' => true]
+            ['name' => 'GitHub', 'url' => 'https://github.com', 'icon' => 'github', 'external' => true],
         ];
     }
 }

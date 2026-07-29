@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Bundle\UserBundle;
 
+use Architect\Contracts\Core\ContainerInterface;
+use Architect\Contracts\Core\FrameworkInterface;
 use Architect\Support\AbstractBundle;
-use Architect\Core\Contracts\ContainerInterface;
-use Architect\Core\Contracts\FrameworkInterface;
 
 /**
  * User management bundle for Architect Framework.
- * 
+ *
  * This bundle provides user management functionality including:
  * - User registration
  * - User authentication
@@ -33,23 +33,23 @@ class UserBundle extends AbstractBundle
     public function register(ContainerInterface $container): void
     {
         // Register services
-        $container->singleton('user.service', function() {
+        $container->singleton('user.service', function () {
             return new Service\UserService();
         });
-        
-        $container->singleton('user.repository', function() {
+
+        $container->singleton('user.repository', function () {
             return new Repository\UserRepository();
         });
-        
-        $container->singleton('user.auth', function() {
+
+        $container->singleton('user.auth', function () {
             return new Service\AuthService();
         });
-        
+
         // Register service provider
-        $container->singleton('user.service_provider', function() {
+        $container->singleton('user.service_provider', function () {
             return new ServiceProvider\UserServiceProvider();
         });
-        
+
         // Register console commands
         $this->registerCommands($container);
     }
@@ -62,13 +62,13 @@ class UserBundle extends AbstractBundle
         // Initialize services
         $userService = $container->get('user.service');
         $userService->initialize();
-        
+
         // Register routes
         $this->registerRoutes($container);
-        
+
         // Register views
         $this->registerViews($container);
-        
+
         // Publish assets if in development mode
         if ($this->isDevelopment($container)) {
             $this->publishAssets($container);
@@ -85,7 +85,7 @@ class UserBundle extends AbstractBundle
             Command\ListUsersCommand::class,
             Command\UpdateUserCommand::class,
         ];
-        
+
         foreach ($commands as $command) {
             if (class_exists($command)) {
                 $container->set('command.' . basename(str_replace('\\', '/', $command)), $command);
@@ -104,31 +104,31 @@ class UserBundle extends AbstractBundle
                 'controller' => 'user',
                 'action' => 'index',
                 'methods' => ['GET'],
-                'name' => 'user.index'
+                'name' => 'user.index',
             ],
             [
                 'path' => '/users/{id}',
                 'controller' => 'user',
                 'action' => 'show',
                 'methods' => ['GET'],
-                'name' => 'user.show'
+                'name' => 'user.show',
             ],
             [
                 'path' => '/users/create',
                 'controller' => 'user',
                 'action' => 'create',
                 'methods' => ['GET', 'POST'],
-                'name' => 'user.create'
+                'name' => 'user.create',
             ],
             [
                 'path' => '/users/{id}/edit',
                 'controller' => 'user',
                 'action' => 'edit',
                 'methods' => ['GET', 'POST'],
-                'name' => 'user.edit'
+                'name' => 'user.edit',
             ],
         ];
-        
+
         // In a real implementation, you would register these routes with the router
         if ($container->has('router')) {
             // $router = $container->get('router');
@@ -145,7 +145,7 @@ class UserBundle extends AbstractBundle
     {
         if ($container->has('template')) {
             $templateService = $container->get('template');
-            
+
             $viewPath = __DIR__ . '/Resources/views';
             if (is_dir($viewPath) && method_exists($templateService, 'addNamespace')) {
                 $templateService->addNamespace('user', $viewPath);
@@ -175,7 +175,7 @@ class UserBundle extends AbstractBundle
             $env = $container->get('environment');
             return $env->getEnvironment() === 'development';
         }
-        
+
         return false;
     }
 

@@ -10,7 +10,7 @@ use Axiom\Migration\MigrationManager;
 class migrations extends ModelBase
 {
     private ?MigrationManager $manager = null;
-    
+
     /**
      * Get migration manager instance (lazy initialization).
      */
@@ -21,17 +21,17 @@ class migrations extends ModelBase
         }
         return $this->manager;
     }
-    
+
     public function getStatus(): array
     {
         return $this->getManager()->status();
     }
-    
+
     public function getPending(): array
     {
         return $this->getManager()->getPendingMigrations();
     }
-    
+
     public function runMigrations(): array
     {
         try {
@@ -39,16 +39,16 @@ class migrations extends ModelBase
             return [
                 'success' => true,
                 'message' => 'Выполнено миграций: ' . count($ran),
-                'migrations' => $ran
+                'migrations' => $ran,
             ];
         } catch (\Throwable $e) {
             return [
                 'success' => false,
-                'message' => 'Ошибка: ' . $e->getMessage()
+                'message' => 'Ошибка: ' . $e->getMessage(),
             ];
         }
     }
-    
+
     public function rollbackMigration(): array
     {
         try {
@@ -56,12 +56,12 @@ class migrations extends ModelBase
             return [
                 'success' => true,
                 'message' => 'Откачено миграций: ' . count($rolledBack),
-                'migrations' => $rolledBack
+                'migrations' => $rolledBack,
             ];
         } catch (\Throwable $e) {
             return [
                 'success' => false,
-                'message' => 'Ошибка: ' . $e->getMessage()
+                'message' => 'Ошибка: ' . $e->getMessage(),
             ];
         }
     }

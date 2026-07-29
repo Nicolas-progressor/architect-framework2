@@ -13,7 +13,7 @@ class sidebar extends controller
         $model = $this->getModel('sidebar');
         $this->ext['sections'] = $model->getSections();
     }
-    
+
     public function create_app_output(): void
     {
         $this->display('sidebar');

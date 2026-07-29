@@ -45,7 +45,7 @@ class Pattern extends AbstractService implements PatternInterface
     /**
      * Create Pattern service.
      *
-     * @param \Architect\Core\Contracts\ContainerInterface $container Dependency container
+     * @param \Architect\Contracts\Core\ContainerInterface $container Dependency container
      * @param MvcContext|null $context MVC context
      * @param ModulePathResolver|null $pathResolver Module path resolver
      * @param ControllerLoader|null $controllerLoader Controller loader
@@ -53,7 +53,7 @@ class Pattern extends AbstractService implements PatternInterface
      * @param ErrorHandler404|null $errorHandler Error handler
      */
     public function __construct(
-        \Architect\Core\Contracts\ContainerInterface $container,
+        \Architect\Contracts\Core\ContainerInterface $container,
         ?MvcContext $context = null,
         ?ModulePathResolver $pathResolver = null,
         ?ControllerLoader $controllerLoader = null,

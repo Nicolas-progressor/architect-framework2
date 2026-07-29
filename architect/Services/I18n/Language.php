@@ -51,13 +51,13 @@ class Language extends AbstractService implements LanguageInterface
     /**
      * Create language service.
      *
-     * @param \Architect\Core\Contracts\ContainerInterface $container
+     * @param \Architect\Contracts\Core\ContainerInterface $container
      * @param LanguageDetectorInterface|null $detector
      * @param TranslationLoaderInterface|null $loader
      * @param LanguageConfig|null $config
      */
     public function __construct(
-        \Architect\Core\Contracts\ContainerInterface $container,
+        \Architect\Contracts\Core\ContainerInterface $container,
         ?LanguageDetectorInterface $detector = null,
         ?TranslationLoaderInterface $loader = null,
         ?LanguageConfig $config = null

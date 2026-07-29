@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Core\Debug;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 
 /**
  * Renders debug panel at the end of the page.

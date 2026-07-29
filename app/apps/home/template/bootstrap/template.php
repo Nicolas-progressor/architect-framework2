@@ -1,5 +1,6 @@
 <?php
 use Architect\Helpers\Facades\Helper_Title;
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">

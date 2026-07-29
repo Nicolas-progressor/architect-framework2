@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\HttpClient\Integration\Architect;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\HttpClient\Contracts\HttpClientInterface;
 use Architect\HttpClient\DriverFactory;
 use Architect\HttpClient\HttpClient;

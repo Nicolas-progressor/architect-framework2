@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architect\Core;
 
+use Architect\Contracts\Core\EnvironmentInterface;
 use Architect\Core\Config\ConfigInterface;
-use Architect\Core\Contracts\EnvironmentInterface;
 use Architect\Core\Environment\DotEnvLoader;
 use Architect\Core\Environment\EnvDetectorInterface;
 

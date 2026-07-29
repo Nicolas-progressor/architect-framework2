@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Support\ServiceProviders;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Services\Config\ConfigLoader;
 use Architect\Services\Config\ConfigPathResolver;
 use Architect\Services\Config\Contracts\ConfigLoaderInterface;

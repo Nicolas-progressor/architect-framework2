@@ -17,7 +17,7 @@ class sidebar extends ModelBase
                 'items' => [
                     ['name' => 'Введение', 'url' => Helper_Html::href(''), 'icon' => 'home'],
                     ['name' => 'Установка', 'url' => Helper_Html::href('installation'), 'icon' => 'download'],
-                ]
+                ],
             ],
             [
                 'title' => 'Основы',
@@ -27,7 +27,7 @@ class sidebar extends ModelBase
                     ['name' => 'Фильтры', 'url' => Helper_Html::href('filters'), 'icon' => 'filter'],
                     ['name' => 'Функции', 'url' => Helper_Html::href('functions'), 'icon' => 'function'],
                     ['name' => 'Управляющие конструкции', 'url' => Helper_Html::href('control_structures'), 'icon' => 'branch'],
-                ]
+                ],
             ],
             [
                 'title' => 'Продвинутое',
@@ -35,15 +35,15 @@ class sidebar extends ModelBase
                     ['name' => 'Наследование', 'url' => Helper_Html::href('inheritance'), 'icon' => 'layers'],
                     ['name' => 'Элементы и виджеты', 'url' => Helper_Html::href('elements'), 'icon' => 'puzzle'],
                     ['name' => 'Расширение', 'url' => Helper_Html::href('extending'), 'icon' => 'plugin'],
-                ]
+                ],
             ],
             [
                 'title' => 'Справочник',
                 'items' => [
                     ['name' => 'API', 'url' => Helper_Html::href('api'), 'icon' => 'book'],
                     ['name' => 'Интеграции', 'url' => Helper_Html::href('integrations'), 'icon' => 'link'],
-                ]
-            ]
+                ],
+            ],
         ];
     }
 }

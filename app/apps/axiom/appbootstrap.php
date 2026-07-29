@@ -22,7 +22,7 @@ class appbootstrap
         if ($dbConfig) {
             $config = [
                 'default' => $dbConfig['default'] ?? 'mysql',
-                'connections' => $dbConfig['connections'] ?? []
+                'connections' => $dbConfig['connections'] ?? [],
             ];
             ConnectionManager::loadConfig($config, $config['default']);
         }

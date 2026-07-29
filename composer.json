@@ -19,6 +19,8 @@
         "psr/http-server-middleware": "^1.0",
         "psr/http-server-handler": "^1.0",
         "psr/log": "^1.1",
+        "psr/simple-cache": "^3.0",
+        "psr/cache": "^3.0",
         "nyholm/psr7": "^1.8"
     },
     "require-dev": {
@@ -26,36 +28,36 @@
         "friendsofphp/php-cs-fixer": "^3.65",
         "phpstan/phpstan": "^2.1"
     },
-    "repositories": [
-        {
+    "repositories": {
+        "0": {
             "type": "vcs",
             "url": "https://github.com/Nicolas-progressor/architect-contracts"
         },
-        {
+        "1": {
             "type": "vcs",
             "url": "https://github.com/Nicolas-progressor/axiom-orm"
         },
-        {
+        "2": {
             "type": "vcs",
             "url": "https://github.com/Nicolas-progressor/architect-blueprint"
         },
-        {
+        "3": {
             "type": "vcs",
             "url": "https://github.com/Nicolas-progressor/architect-http-client"
         },
-        {
+        "4": {
             "type": "vcs",
             "url": "https://github.com/Nicolas-progressor/architect-auth-system"
         },
-        {
+        "5": {
             "type": "vcs",
             "url": "https://github.com/Nicolas-progressor/architect-queue"
         },
-        {
+        "6": {
             "type": "vcs",
             "url": "https://github.com/Nicolas-progressor/architect-blueprint-auth"
         }
-    ],
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
@@ -103,18 +105,22 @@
         "console",
         "cli"
     ],
-    "authors": [{
-        "name": "Architect Team",
-        "email": "team@architect.dev"
-    }],
+    "authors": [
+        {
+            "name": "Architect Team",
+            "email": "team@architect.dev"
+        }
+    ],
     "extra": {
         "architect": {
             "providers": [
                 "Architect\\Queue\\Providers\\QueueServiceProvider",
-                "Architect\\Services\\Performance\\Providers\\PerformanceServiceProvider"
+                "Architect\\Services\\Performance\\Providers\\PerformanceServiceProvider",
+                "Architect\\Services\\Event\\Providers\\EventServiceProvider"
             ],
             "bundles": [
-                "App\\Bundle\\UserBundle\\UserBundle"
+                "App\\Bundle\\UserBundle\\UserBundle",
+                "App\\Bundle\\AdminBundle\\AdminBundle"
             ]
         }
     }

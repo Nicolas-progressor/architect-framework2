@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Architect\Helpers\Db;
 
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 use Architect\Helpers\Core\AbstractHelper;
 use PDO;
 use PDOStatement;

@@ -13,15 +13,15 @@ class about extends ModelBase
         return [
             'title' => 'О нас',
             'heading' => 'О нашей компании',
-            'description' => 'Мы работаем для вас с 2020 года'
+            'description' => 'Мы работаем для вас с 2020 года',
         ];
     }
-    
+
     public function getBreadcrumbs(): array
     {
         return [
             ['title' => 'Главная', 'url' => '/'],
-            ['title' => 'О нас', 'url' => '/about']
+            ['title' => 'О нас', 'url' => '/about'],
         ];
     }
 }
