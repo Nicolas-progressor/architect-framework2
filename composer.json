@@ -1,20 +1,16 @@
 {
     "name": "architect/framework",
     "description": "Architect RED 2 - PHP фреймворк",
-    "version": "2.0.0",
-    "type": "framework",
+    "type": "project",
     "license": "MIT",
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "architect/contracts": "*@dev",
         "psr/http-message": "^1.1",
         "psr/http-factory": "^1.0",
         "axiom/orm": "*@dev",
         "architect/blueprint": "*@dev",
-        "architect/auth-system": "*@dev",
-        "architect/blueprint-auth": "*@dev",
         "architect/http-client": "*@dev",
-        "architect/queue": "*@dev",
         "psr/container": "^2.0",
         "psr/http-server-middleware": "^1.0",
         "psr/http-server-handler": "^1.0",
@@ -28,42 +24,35 @@
         "friendsofphp/php-cs-fixer": "^3.65",
         "phpstan/phpstan": "^2.1"
     },
-    "repositories": {
-        "0": {
-            "type": "vcs",
-            "url": "https://github.com/Nicolas-progressor/architect-contracts"
-        },
-        "1": {
-            "type": "vcs",
-            "url": "https://github.com/Nicolas-progressor/axiom-orm"
-        },
-        "2": {
-            "type": "vcs",
-            "url": "https://github.com/Nicolas-progressor/architect-blueprint"
-        },
-        "3": {
-            "type": "vcs",
-            "url": "https://github.com/Nicolas-progressor/architect-http-client"
-        },
-        "4": {
-            "type": "vcs",
-            "url": "https://github.com/Nicolas-progressor/architect-auth-system"
-        },
-        "5": {
-            "type": "vcs",
-            "url": "https://github.com/Nicolas-progressor/architect-queue"
-        },
-        "6": {
-            "type": "vcs",
-            "url": "https://github.com/Nicolas-progressor/architect-blueprint-auth"
-        }
+    "replace": {
+        "architect/queue": "self.version",
+        "architect/auth-system": "self.version",
+        "architect/blueprint-auth": "self.version",
+        "architect/blueprint-helpers": "self.version",
+        "architect/blueprint-forms": "self.version",
+        "axiom/migration": "self.version",
+        "axiom/many-to-many": "self.version",
+        "axiom/cache": "self.version",
+        "axiom/entity": "self.version"
     },
+    "repositories": [
+        {"type": "path", "url": "./contracts"},
+        {"type": "path", "url": "./axiom"},
+        {"type": "path", "url": "./blueprint"},
+        {"type": "path", "url": "./architect/http-client"}
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Architect\\Console\\": "architect/Services/Console/",
             "Architect\\HttpClient\\": "architect/http-client/src/",
+            "Architect\\Queue\\": "architect/queue/src/",
+            "Architect\\AuthSystem\\": "architect/auth-system/src/",
+            "Architect\\Auth\\": "architect/auth-system/src/",
+            "Architect\\BlueprintAuth\\": "architect/blueprint-auth/src/",
+            "Architect\\BlueprintHelpers\\": "architect/BlueprintHelpers/",
+            "Architect\\BlueprintForms\\": "architect/blueprint-forms/src/",
             "Architect\\": "architect/",
             "App\\Bundle\\": "src/Bundle/"
         },
