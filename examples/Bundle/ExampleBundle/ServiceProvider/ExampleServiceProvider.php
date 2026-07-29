@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Examples\Bundle\ExampleBundle\ServiceProvider;
 
 use Architect\Support\AbstractServiceProvider;
-use Architect\Core\Contracts\ContainerInterface;
+use Architect\Contracts\Core\ContainerInterface;
 
 /**
  * Example service provider for demonstration.

@@ -10,7 +10,7 @@
     },
     "require": {
         "php": "^8.1",
-        "axiom/orm": "^1.0"
+        "axiom/orm": "*@dev"
     },
     "suggest": {
         "ext-redis": "For Redis cache driver",

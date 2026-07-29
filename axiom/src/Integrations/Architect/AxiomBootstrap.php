@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Axiom\Orm\Integrations\Architect;
 
 use Axiom\Orm\Connection\ConnectionManager;
-use Architect\Core\Contracts\ContainerInterface;
-use Architect\Core\Contracts\EnvironmentInterface;
+use Architect\Contracts\Core\ContainerInterface;
+use Architect\Contracts\Core\EnvironmentInterface;
 
 /**
  * Bootstrap Axiom ORM using Architect Environment configuration.

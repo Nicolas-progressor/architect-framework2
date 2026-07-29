@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Examples\Bundle\ExampleBundle;
 
 use Architect\Support\AbstractBundle;
-use Architect\Core\Contracts\ContainerInterface;
-use Architect\Core\Contracts\FrameworkInterface;
+use Architect\Contracts\Core\ContainerInterface;
+use Architect\Contracts\Core\FrameworkInterface;
 
 /**
  * Example bundle for demonstrating bundle system functionality.

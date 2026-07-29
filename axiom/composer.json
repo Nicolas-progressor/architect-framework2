@@ -31,8 +31,8 @@
         "php": "^8.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10.0",
-        "phpstan/phpstan": "^1.10"
+        "phpunit/phpunit": "^13.0",
+        "phpstan/phpstan": "^2.1"
     },
     "suggest": {
         "axiom/many-to-many": "Many-to-many relationships support",
